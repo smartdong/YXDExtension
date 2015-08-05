@@ -7,8 +7,8 @@
 
 #import "UIAlertView+YXDExtension.h"
 
-static DismissBlock _dismissBlock;
-static CancelBlock _cancelBlock;
+static YXDExtensionAlertViewDismissBlock _dismissBlock;
+static YXDExtensionAlertViewCancelBlock _cancelBlock;
 
 @implementation UIAlertView (YXDExtension)
 
@@ -16,8 +16,8 @@ static CancelBlock _cancelBlock;
                                 message:(NSString*)message
                       cancelButtonTitle:(NSString*)cancelButtonTitle
                       otherButtonTitles:(NSArray*)otherButtons
-                              onDismiss:(DismissBlock)dismissed
-                               onCancel:(CancelBlock)cancelled {
+                              onDismiss:(YXDExtensionAlertViewDismissBlock)dismissed
+                               onCancel:(YXDExtensionAlertViewCancelBlock)cancelled {
     
     _cancelBlock = [cancelled copy];
     _dismissBlock = [dismissed copy];

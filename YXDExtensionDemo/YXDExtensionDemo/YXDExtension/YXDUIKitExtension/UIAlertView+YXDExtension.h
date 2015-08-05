@@ -7,8 +7,8 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void (^DismissBlock)(NSInteger buttonIndex);
-typedef void (^CancelBlock)();
+typedef void (^YXDExtensionAlertViewDismissBlock)(NSInteger buttonIndex);
+typedef void (^YXDExtensionAlertViewCancelBlock)();
 
 @interface UIAlertView (YXDExtension)
 
@@ -16,7 +16,7 @@ typedef void (^CancelBlock)();
                                 message:(NSString*)message
                       cancelButtonTitle:(NSString*)cancelButtonTitle
                       otherButtonTitles:(NSArray*)otherButtons
-                              onDismiss:(DismissBlock)dismissed
-                               onCancel:(CancelBlock)cancelled;
+                              onDismiss:(YXDExtensionAlertViewDismissBlock)dismissed
+                               onCancel:(YXDExtensionAlertViewCancelBlock)cancelled;
 
 @end
