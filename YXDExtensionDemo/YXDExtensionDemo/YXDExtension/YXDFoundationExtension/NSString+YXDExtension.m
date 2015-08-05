@@ -10,6 +10,14 @@
 
 @implementation NSString (YXDExtension)
 
+- (NSDate *)dateFromSeconds {
+    return [NSDate dateWithTimeIntervalSince1970:self.doubleValue];
+}
+
+- (NSDate *)dateFromMilliSeconds {
+    return [NSDate dateWithTimeIntervalSince1970:self.doubleValue / 1000];
+}
+
 - (NSString *)rmbString {
     return [NSString stringWithFormat:@"￥%@", [self priceString]];
 }

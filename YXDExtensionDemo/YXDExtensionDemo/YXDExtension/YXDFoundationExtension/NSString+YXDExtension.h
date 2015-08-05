@@ -12,6 +12,9 @@
 //- (BOOL)isEmail;
 //- (BOOL)isPhone;
 
+- (NSDate *)dateFromSeconds;
+- (NSDate *)dateFromMilliSeconds;
+
 - (NSString *)rmbString;
 + (NSString *)rmbStringWithFloat:(float)price;
 
