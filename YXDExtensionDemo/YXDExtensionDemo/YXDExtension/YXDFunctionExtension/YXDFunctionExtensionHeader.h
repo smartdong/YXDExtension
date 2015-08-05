@@ -6,3 +6,4 @@
 //
 
 #import "YXDFileManager.h"
+#import "YXDLockScreenManager.h"

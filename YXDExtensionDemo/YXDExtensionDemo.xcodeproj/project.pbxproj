@@ -14,6 +14,12 @@
 		0B6725501B6E9FC9009272B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B67254F1B6E9FC9009272B4 /* Images.xcassets */; };
 		0B6725531B6E9FC9009272B4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B6725511B6E9FC9009272B4 /* LaunchScreen.xib */; };
 		0B67255F1B6E9FC9009272B4 /* YXDExtensionDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B67255E1B6E9FC9009272B4 /* YXDExtensionDemoTests.m */; };
+		B5D830B61B71E08B0094BE65 /* image_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = B5D830AD1B71E08B0094BE65 /* image_circle.png */; };
+		B5D830B71B71E08B0094BE65 /* image_line.png in Resources */ = {isa = PBXBuildFile; fileRef = B5D830AE1B71E08B0094BE65 /* image_line.png */; };
+		B5D830B81B71E08B0094BE65 /* YXDLockScreenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D830B01B71E08B0094BE65 /* YXDLockScreenManager.m */; };
+		B5D830B91B71E08B0094BE65 /* YXDLockScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D830B21B71E08B0094BE65 /* YXDLockScreenView.m */; };
+		B5D830BA1B71E08B0094BE65 /* YXDLockScreenView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5D830B31B71E08B0094BE65 /* YXDLockScreenView.xib */; };
+		B5D830BB1B71E08B0094BE65 /* YXDTouchIDHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D830B51B71E08B0094BE65 /* YXDTouchIDHelper.m */; };
 		B5DE71821B6F1AFF006F8FF1 /* NSString+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B5DE71811B6F1AFF006F8FF1 /* NSString+YXDExtension.m */; };
 		B5DE71851B6F1DDC006F8FF1 /* NSDate+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B5DE71841B6F1DDC006F8FF1 /* NSDate+YXDExtension.m */; };
 		B5DE71881B6F1DEB006F8FF1 /* NSNumber+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B5DE71871B6F1DEB006F8FF1 /* NSNumber+YXDExtension.m */; };
@@ -62,6 +68,15 @@
 		0B6725581B6E9FC9009272B4 /* YXDExtensionDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YXDExtensionDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B67255D1B6E9FC9009272B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B67255E1B6E9FC9009272B4 /* YXDExtensionDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXDExtensionDemoTests.m; sourceTree = "<group>"; };
+		B5D830AD1B71E08B0094BE65 /* image_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_circle.png; sourceTree = "<group>"; };
+		B5D830AE1B71E08B0094BE65 /* image_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_line.png; sourceTree = "<group>"; };
+		B5D830AF1B71E08B0094BE65 /* YXDLockScreenManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDLockScreenManager.h; sourceTree = "<group>"; };
+		B5D830B01B71E08B0094BE65 /* YXDLockScreenManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDLockScreenManager.m; sourceTree = "<group>"; };
+		B5D830B11B71E08B0094BE65 /* YXDLockScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDLockScreenView.h; sourceTree = "<group>"; };
+		B5D830B21B71E08B0094BE65 /* YXDLockScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDLockScreenView.m; sourceTree = "<group>"; };
+		B5D830B31B71E08B0094BE65 /* YXDLockScreenView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YXDLockScreenView.xib; sourceTree = "<group>"; };
+		B5D830B41B71E08B0094BE65 /* YXDTouchIDHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDTouchIDHelper.h; sourceTree = "<group>"; };
+		B5D830B51B71E08B0094BE65 /* YXDTouchIDHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDTouchIDHelper.m; sourceTree = "<group>"; };
 		B5DE717B1B6F178C006F8FF1 /* YXDFoundationExtensionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDFoundationExtensionHeader.h; sourceTree = "<group>"; };
 		B5DE717C1B6F17A7006F8FF1 /* YXDFunctionExtensionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDFunctionExtensionHeader.h; sourceTree = "<group>"; };
 		B5DE717D1B6F17BE006F8FF1 /* YXDMacroExtensionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDMacroExtensionHeader.h; sourceTree = "<group>"; };
@@ -191,6 +206,30 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		B5D830AB1B71E08B0094BE65 /* YXDLockScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B5D830AC1B71E08B0094BE65 /* images */,
+				B5D830AF1B71E08B0094BE65 /* YXDLockScreenManager.h */,
+				B5D830B01B71E08B0094BE65 /* YXDLockScreenManager.m */,
+				B5D830B11B71E08B0094BE65 /* YXDLockScreenView.h */,
+				B5D830B21B71E08B0094BE65 /* YXDLockScreenView.m */,
+				B5D830B31B71E08B0094BE65 /* YXDLockScreenView.xib */,
+				B5D830B41B71E08B0094BE65 /* YXDTouchIDHelper.h */,
+				B5D830B51B71E08B0094BE65 /* YXDTouchIDHelper.m */,
+			);
+			path = YXDLockScreen;
+			sourceTree = "<group>";
+		};
+		B5D830AC1B71E08B0094BE65 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				B5D830AD1B71E08B0094BE65 /* image_circle.png */,
+				B5D830AE1B71E08B0094BE65 /* image_line.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
 		B5DE71761B6F174A006F8FF1 /* YXDExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -226,6 +265,7 @@
 		B5DE71781B6F174A006F8FF1 /* YXDFunctionExtension */ = {
 			isa = PBXGroup;
 			children = (
+				B5D830AB1B71E08B0094BE65 /* YXDLockScreen */,
 				B5DE71BF1B6F4A1F006F8FF1 /* YXDFileManager */,
 				B5DE717C1B6F17A7006F8FF1 /* YXDFunctionExtensionHeader.h */,
 			);
@@ -370,6 +410,9 @@
 				0B67254E1B6E9FC9009272B4 /* Main.storyboard in Resources */,
 				0B6725531B6E9FC9009272B4 /* LaunchScreen.xib in Resources */,
 				0B6725501B6E9FC9009272B4 /* Images.xcassets in Resources */,
+				B5D830BA1B71E08B0094BE65 /* YXDLockScreenView.xib in Resources */,
+				B5D830B71B71E08B0094BE65 /* image_line.png in Resources */,
+				B5D830B61B71E08B0094BE65 /* image_circle.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,6 +436,7 @@
 				B5DE71941B6F2FF6006F8FF1 /* UIView+YXDExtension.m in Sources */,
 				0B6725481B6E9FC9009272B4 /* AppDelegate.m in Sources */,
 				B5DE71A91B6F30C3006F8FF1 /* UIImageView+YXDExtension.m in Sources */,
+				B5D830BB1B71E08B0094BE65 /* YXDTouchIDHelper.m in Sources */,
 				B5DE71C21B6F4A2F006F8FF1 /* YXDFileManager.m in Sources */,
 				B5DE71BB1B6F3FF4006F8FF1 /* UIAlertView+YXDExtension.m in Sources */,
 				B5DE71A61B6F3076006F8FF1 /* UINavigationItem+YXDExtension.m in Sources */,
@@ -401,6 +445,8 @@
 				B5DE71B21B6F313F006F8FF1 /* UIColor+YXDExtension.m in Sources */,
 				B5DE718B1B6F1DFA006F8FF1 /* NSNull+YXDExtension.m in Sources */,
 				0B6725451B6E9FC9009272B4 /* main.m in Sources */,
+				B5D830B91B71E08B0094BE65 /* YXDLockScreenView.m in Sources */,
+				B5D830B81B71E08B0094BE65 /* YXDLockScreenManager.m in Sources */,
 				B5DE71AC1B6F3113006F8FF1 /* UIImage+YXDExtension.m in Sources */,
 				B5DE71911B6F2907006F8FF1 /* NSDateFormatter+YXDExtension.m in Sources */,
 				B5DE71851B6F1DDC006F8FF1 /* NSDate+YXDExtension.m in Sources */,
