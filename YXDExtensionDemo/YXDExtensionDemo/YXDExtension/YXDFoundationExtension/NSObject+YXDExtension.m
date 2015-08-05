@@ -12,6 +12,9 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
 
 @implementation NSObject (YXDExtension)
 
+-(void)postNotificationName:(NSString *)notificationName userInfo:(NSDictionary *)userInfo {
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil userInfo:userInfo];
+}
 
 #pragma mark - 存取userData部分
 

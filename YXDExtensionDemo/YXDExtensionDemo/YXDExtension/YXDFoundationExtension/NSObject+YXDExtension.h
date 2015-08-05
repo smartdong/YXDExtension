@@ -11,6 +11,8 @@
 
 @property (nonatomic, strong) id userData;
 
+- (void)postNotificationName:(NSString *)notificationName userInfo:(NSDictionary *)userInfo;
+
 //根据数据源对象创建新对象
 + (instancetype)objectWithData:(id)data;
 
