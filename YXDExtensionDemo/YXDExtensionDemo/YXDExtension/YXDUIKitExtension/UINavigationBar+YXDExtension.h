@@ -9,4 +9,10 @@
 
 @interface UINavigationBar (YXDExtension)
 
+- (void) setBarBackgroundColor:(UIColor *)backgroundColor;
+
+- (void) setBarBackgroundAlpha:(CGFloat)alpha;
+
+- (void) resetBarColor;
+
 @end
