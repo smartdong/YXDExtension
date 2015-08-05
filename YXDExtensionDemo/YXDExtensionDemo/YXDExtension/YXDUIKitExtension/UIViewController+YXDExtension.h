@@ -7,6 +7,13 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^YXDExtensionImagePickerBlock)(UIImage *image);
+
 @interface UIViewController (YXDExtension)
+
+/**
+ *  使用相机或相册获取图片
+ */
+- (void) imageByCameraAndPhotosAlbum:(YXDExtensionImagePickerBlock)imageBlock;
 
 @end
