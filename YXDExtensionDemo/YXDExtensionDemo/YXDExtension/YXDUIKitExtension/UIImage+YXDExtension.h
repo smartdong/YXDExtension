@@ -9,7 +9,7 @@
 
 @interface UIImage (YXDExtension)
 
-//+ (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size;
++ (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size;
 
 - (UIImage *)scaleToSize:(CGSize)size;
 
