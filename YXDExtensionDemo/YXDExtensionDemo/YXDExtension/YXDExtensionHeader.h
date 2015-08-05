@@ -6,6 +6,7 @@
 //  Copyright (c) 2015年 YangXudong. All rights reserved.
 //
 
+#import "YXDExtensionConfig.h"
 #import "YXDFoundationExtensionHeader.h"
 #import "YXDUIKitExtensionHeader.h"
 #import "YXDMacroExtensionHeader.h"
