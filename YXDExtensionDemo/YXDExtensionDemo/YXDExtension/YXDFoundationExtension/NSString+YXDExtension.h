@@ -12,6 +12,12 @@
 //- (BOOL)isEmail;
 //- (BOOL)isPhone;
 
+- (NSString *)rmbString;
++ (NSString *)rmbStringWithFloat:(float)price;
+
+- (NSString *)priceString;
++ (NSString *)priceStringWithFloat:(float)price;
+
 - (NSURL *)urlValue;
 - (NSURLRequest *)urlRequestValue;
 - (NSNumber *)numberValue;

@@ -21,7 +21,7 @@
     return [NSString stringWithFormat:@"￥%@", [self priceString]];
 }
 
-+(NSString *)rmbStringWithFloat:(float)price {
++ (NSString *)rmbStringWithFloat:(float)price {
     return [NSString stringWithFormat:@"￥%@", [self priceStringWithFloat:price]];
 }
 
