@@ -16,6 +16,9 @@
 //根据数据源对象创建新对象
 + (instancetype)objectWithData:(id)data;
 
+//属性名称和接口返回值名称的对应关系 @{@"属性名称":@"返回值名称"}   子类如果需要设置，则要覆盖此方法
+- (NSDictionary *)propertyMap;
+
 //获取当前对象的属性列表
 - (NSArray *)propertyList;
 
