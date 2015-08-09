@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B4E24F51B7764000008C4B0 /* UIScrollView+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B4E24F41B7764000008C4B0 /* UIScrollView+YXDExtension.m */; };
 		0B6725451B6E9FC9009272B4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B6725441B6E9FC9009272B4 /* main.m */; };
 		0B6725481B6E9FC9009272B4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B6725471B6E9FC9009272B4 /* AppDelegate.m */; };
 		0B67254B1B6E9FC9009272B4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B67254A1B6E9FC9009272B4 /* ViewController.m */; };
@@ -56,6 +57,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0B4E24F31B7764000008C4B0 /* UIScrollView+YXDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+YXDExtension.h"; sourceTree = "<group>"; };
+		0B4E24F41B7764000008C4B0 /* UIScrollView+YXDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+YXDExtension.m"; sourceTree = "<group>"; };
 		0B67253F1B6E9FC9009272B4 /* YXDExtensionDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YXDExtensionDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B6725431B6E9FC9009272B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B6725441B6E9FC9009272B4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -311,6 +314,8 @@
 				B5DE71961B6F3001006F8FF1 /* UIButton+YXDExtension.m */,
 				B5DE71A71B6F30C3006F8FF1 /* UIImageView+YXDExtension.h */,
 				B5DE71A81B6F30C3006F8FF1 /* UIImageView+YXDExtension.m */,
+				0B4E24F31B7764000008C4B0 /* UIScrollView+YXDExtension.h */,
+				0B4E24F41B7764000008C4B0 /* UIScrollView+YXDExtension.m */,
 				B5DE71981B6F3026006F8FF1 /* UITableView+YXDExtension.h */,
 				B5DE71991B6F3026006F8FF1 /* UITableView+YXDExtension.m */,
 				B5DE719B1B6F3040006F8FF1 /* UIViewController+YXDExtension.h */,
@@ -446,6 +451,7 @@
 				0B67254B1B6E9FC9009272B4 /* ViewController.m in Sources */,
 				B5DE71B51B6F33C1006F8FF1 /* UIWindow+YXDExtension.m in Sources */,
 				B5DE71881B6F1DEB006F8FF1 /* NSNumber+YXDExtension.m in Sources */,
+				0B4E24F51B7764000008C4B0 /* UIScrollView+YXDExtension.m in Sources */,
 				B5DE71941B6F2FF6006F8FF1 /* UIView+YXDExtension.m in Sources */,
 				0B6725481B6E9FC9009272B4 /* AppDelegate.m in Sources */,
 				B5DE71A91B6F30C3006F8FF1 /* UIImageView+YXDExtension.m in Sources */,
