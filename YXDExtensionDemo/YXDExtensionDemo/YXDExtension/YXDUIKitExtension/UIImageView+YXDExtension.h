@@ -11,4 +11,8 @@
 
 - (void)setImageWithName:(NSString *)name;
 
+- (void)setImageWithUrlString:(NSString *)urlString;
+
+- (void)setImageWithUrlString:(NSString *)urlString placeholderImageName:(NSString *)placeholderImageName;
+
 @end
