@@ -11,8 +11,6 @@
 
 + (UIWindow *)appWindow;
 
-+ (UIWindow *)keyWindow;
-
 + (UIViewController *)appRootViewController;
 
 @end

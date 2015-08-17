@@ -13,10 +13,6 @@
     return [[UIApplication sharedApplication].delegate window];
 }
 
-+ (UIWindow *)keyWindow {
-    return [[UIApplication sharedApplication] keyWindow];
-}
-
 + (UIViewController *)appRootViewController {
     return [[self appWindow] rootViewController];
 }
