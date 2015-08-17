@@ -76,6 +76,7 @@
 		B550487F1B81B63E00A78C8D /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B55048411B81B63E00A78C8D /* TPKeyboardAvoidingScrollView.m */; };
 		B55048801B81B63E00A78C8D /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B55048431B81B63E00A78C8D /* TPKeyboardAvoidingTableView.m */; };
 		B55048811B81B63E00A78C8D /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B55048451B81B63E00A78C8D /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
+		B55048851B81BB1100A78C8D /* YXDNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B55048841B81BB1100A78C8D /* YXDNetworkManager.m */; };
 		B5D830B61B71E08B0094BE65 /* image_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = B5D830AD1B71E08B0094BE65 /* image_circle.png */; };
 		B5D830B71B71E08B0094BE65 /* image_line.png in Resources */ = {isa = PBXBuildFile; fileRef = B5D830AE1B71E08B0094BE65 /* image_line.png */; };
 		B5D830B81B71E08B0094BE65 /* YXDLockScreenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D830B01B71E08B0094BE65 /* YXDLockScreenManager.m */; };
@@ -259,6 +260,8 @@
 		B55048431B81B63E00A78C8D /* TPKeyboardAvoidingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingTableView.m; sourceTree = "<group>"; };
 		B55048441B81B63E00A78C8D /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
 		B55048451B81B63E00A78C8D /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
+		B55048831B81BB1100A78C8D /* YXDNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDNetworkManager.h; sourceTree = "<group>"; };
+		B55048841B81BB1100A78C8D /* YXDNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDNetworkManager.m; sourceTree = "<group>"; };
 		B5D830AD1B71E08B0094BE65 /* image_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_circle.png; sourceTree = "<group>"; };
 		B5D830AE1B71E08B0094BE65 /* image_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_line.png; sourceTree = "<group>"; };
 		B5D830AF1B71E08B0094BE65 /* YXDLockScreenManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDLockScreenManager.h; sourceTree = "<group>"; };
@@ -634,6 +637,15 @@
 			path = TPKeyboardAvoiding;
 			sourceTree = "<group>";
 		};
+		B55048821B81BB0300A78C8D /* YXDNetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				B55048831B81BB1100A78C8D /* YXDNetworkManager.h */,
+				B55048841B81BB1100A78C8D /* YXDNetworkManager.m */,
+			);
+			path = YXDNetworkManager;
+			sourceTree = "<group>";
+		};
 		B5D830AB1B71E08B0094BE65 /* YXDLockScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -704,6 +716,7 @@
 		B5DE71781B6F174A006F8FF1 /* YXDFunctionExtension */ = {
 			isa = PBXGroup;
 			children = (
+				B55048821B81BB0300A78C8D /* YXDNetworkManager */,
 				B5D830AB1B71E08B0094BE65 /* YXDLockScreen */,
 				B5DE71BF1B6F4A1F006F8FF1 /* YXDFileManager */,
 				B5DE717C1B6F17A7006F8FF1 /* YXDFunctionExtensionHeader.h */,
@@ -919,6 +932,7 @@
 				B55048571B81B63E00A78C8D /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				B55048801B81B63E00A78C8D /* TPKeyboardAvoidingTableView.m in Sources */,
 				B55048491B81B63E00A78C8D /* AFNetworkReachabilityManager.m in Sources */,
+				B55048851B81BB1100A78C8D /* YXDNetworkManager.m in Sources */,
 				0B6725451B6E9FC9009272B4 /* main.m in Sources */,
 				B550484B1B81B63E00A78C8D /* AFURLConnectionOperation.m in Sources */,
 				B550486E1B81B63E00A78C8D /* SDWebImageCompat.m in Sources */,
