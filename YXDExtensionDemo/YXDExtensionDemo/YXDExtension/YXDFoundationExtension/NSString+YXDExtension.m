@@ -323,4 +323,11 @@ char pinyinFirstLetter(unsigned short hanzi) {
     return [NSString stringWithFormat:@"%c", returnChar];
 }
 
+- (NSString *)toBase64String {
+    return [[self dataUsingEncoding:NSASCIIStringEncoding] base64EncodedStringWithOptions:0];
+}
+- (NSString *)base64StringToOriginString {
+    return [[NSString alloc] initWithData:[[NSData alloc] initWithBase64EncodedString:self options:0] encoding:NSASCIIStringEncoding];
+}
+
 @end

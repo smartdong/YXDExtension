@@ -31,4 +31,7 @@
 
 - (NSString *)firstLetter;
 
+- (NSString *)toBase64String;
+- (NSString *)base64StringToOriginString;
+
 @end
