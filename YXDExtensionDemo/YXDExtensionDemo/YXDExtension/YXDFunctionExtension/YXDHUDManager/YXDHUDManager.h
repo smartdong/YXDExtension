@@ -2,12 +2,23 @@
 //  YXDHUDManager.h
 //  YXDExtensionDemo
 //
-//  Created by zjdd on 15/8/17.
 //  Copyright (c) 2015年 YangXudong. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "SVProgressHUD.h"
 
-@interface YXDHUDManager : NSObject
+@interface YXDHUDManager : SVProgressHUD
+
++ (void)showWithDuration:(CGFloat)duration;
++ (void)showWithDuration:(CGFloat)duration completion:(dispatch_block_t)completion;
+
++ (void)showWithTitle:(NSString *)title duration:(CGFloat)duration;
++ (void)showWithTitle:(NSString *)title duration:(CGFloat)duration completion:(dispatch_block_t)completion;
+
++ (void)showSuccessWithTitle:(NSString *)title duration:(CGFloat)duration;
++ (void)showSuccessWithTitle:(NSString *)title duration:(CGFloat)duration completion:(dispatch_block_t)completion;
+
++ (void)showErrorWithTitle:(NSString *)title duration:(CGFloat)duration;
++ (void)showErrorWithTitle:(NSString *)title duration:(CGFloat)duration completion:(dispatch_block_t)completion;
 
 @end
