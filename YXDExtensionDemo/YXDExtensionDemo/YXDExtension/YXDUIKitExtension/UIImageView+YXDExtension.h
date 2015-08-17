@@ -15,4 +15,6 @@
 
 - (void)setImageWithUrlString:(NSString *)urlString placeholderImageName:(NSString *)placeholderImageName;
 
+- (void)setAnimationWithImageNames:(NSArray *)imageNames duration:(CGFloat)duration;
+
 @end
