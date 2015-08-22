@@ -44,7 +44,7 @@
 }
 
 - (NSURL *)urlValue {
-    return [NSURL URLWithString:self];
+    return [NSURL URLWithString:[self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 
 - (NSURLRequest *)urlRequestValue {
