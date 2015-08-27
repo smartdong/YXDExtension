@@ -9,6 +9,7 @@
 
 #import "UIViewController+YXDExtension.h"
 #import <objc/runtime.h>
+#import "UINavigationItem+YXDExtension.h"
 
 @interface UIViewController()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -19,6 +20,27 @@
 static const void *YXDExtensionImagePickerBlockKey = &YXDExtensionImagePickerBlockKey;
 
 @implementation UIViewController (YXDExtension)
+
+- (void)pushViewControllerHidesBottomBar:(UIViewController *)viewController {
+    viewController.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)setLeftBarItemWithTitle:(NSString *)title target:(id)target action:(SEL)action {
+    [self.navigationItem setLeftBarItemWithTitle:title target:target action:action];
+}
+
+- (void)setLeftBarItemWithImageName:(NSString *)imageName target:(id)target action:(SEL)action {
+    [self.navigationItem setLeftBarItemWithImageName:imageName target:target action:action];
+}
+
+- (void)setRightBarItemWithTitle:(NSString *)title target:(id)target action:(SEL)action {
+    [self.navigationItem setRightBarItemWithTitle:title target:target action:action];
+}
+
+- (void)setRightBarItemWithImageName:(NSString *)imageName target:(id)target action:(SEL)action {
+    [self.navigationItem setRightBarItemWithImageName:imageName target:target action:action];
+}
 
 #pragma mark -
 
