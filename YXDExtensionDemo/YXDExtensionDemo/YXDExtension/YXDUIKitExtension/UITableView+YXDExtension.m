@@ -9,6 +9,10 @@
 
 @implementation UITableView (YXDExtension)
 
+-(void)hideGroupHeaderView {
+    self.tableHeaderView = [UIView new];
+}
+
 -(void)hideFooterView {
     self.tableFooterView = [UIView new];
 }

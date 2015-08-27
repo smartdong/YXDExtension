@@ -9,7 +9,8 @@
 
 @interface UITableView (YXDExtension)
 
-- (void) hideFooterView;
+- (void)hideGroupHeaderView;
+- (void)hideFooterView;
 
 - (void)registerNibCellWithCellClass:(Class)cellClass;
 - (void)registerCellWithCellClass:(Class)cellClass;
