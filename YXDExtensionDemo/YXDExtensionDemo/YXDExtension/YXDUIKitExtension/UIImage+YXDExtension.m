@@ -38,6 +38,8 @@
     if (frames.count) {
         return frames;
     }
+#else
+    NSLog(@"need include <ImageIO/ImageIO.h>");
 #endif
     return nil;
 }
