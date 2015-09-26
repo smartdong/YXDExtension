@@ -9,17 +9,4 @@
 
 @implementation UIScrollView (YXDExtension)
 
-- (void)setTitle:(NSString *)title imageName:(NSString *)imageName forState:(YXDExtensionScrollViewState)state {
-    
-}
-
-- (void)setTitleLableTouchBlock:(dispatch_block_t)block forState:(YXDExtensionScrollViewState)state {
-    
-}
-
-- (void)setState:(YXDExtensionScrollViewState)state {
-    
-}
-
-
 @end
