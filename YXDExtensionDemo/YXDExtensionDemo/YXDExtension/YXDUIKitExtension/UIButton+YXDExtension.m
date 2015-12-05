@@ -12,7 +12,7 @@
 /**
  *  接收到按钮事件后 调用此方法
  */
-- (void) unavailable
+- (void)unavailable
 {
     if (!self.userInteractionEnabled)return;
     
@@ -27,10 +27,7 @@
                                               dispatch_source_cancel(_timer);
                                               dispatch_async(dispatch_get_main_queue(), ^
                                                              {
-                                                                 [self setTitle:YXDExtension_Verify_Button_Title_Available
-                                                                       forState:UIControlStateNormal];
-                                                                 self.userInteractionEnabled = YES;
-                                                                 self.enabled = YES;
+                                                                 [self available];
                                                              });
                                           } else {
                                               int seconds = timeout % 60;
@@ -47,6 +44,13 @@
                                       });
     
     dispatch_resume(_timer);
+}
+
+-(void)available {
+    [self setTitle:YXDExtension_Verify_Button_Title_Available
+          forState:UIControlStateNormal];
+    self.userInteractionEnabled = YES;
+    self.enabled = YES;
 }
 
 @end

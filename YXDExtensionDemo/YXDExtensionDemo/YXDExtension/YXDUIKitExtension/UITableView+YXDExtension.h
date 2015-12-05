@@ -12,6 +12,8 @@
 - (void)hideGroupHeaderView;
 - (void)hideFooterView;
 
+- (void)registerDefaultCell;
+
 - (void)registerNibCellWithCellClass:(Class)cellClass;
 - (void)registerCellWithCellClass:(Class)cellClass;
 

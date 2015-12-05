@@ -10,6 +10,18 @@
 
 @implementation NSString (YXDExtension)
 
+- (BOOL)isEmail {
+    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES%@",emailRegex];
+    return [emailTest evaluateWithObject:self];
+}
+
+- (BOOL)isPhone {
+    NSString *phoneRegex = @"^(0|86|17951)?(13|14|15|17|18)[0-9]{9}$";
+    NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",phoneRegex];
+    return [phoneTest evaluateWithObject:self];
+}
+
 - (NSDate *)dateFromSeconds {
     return [NSDate dateWithTimeIntervalSince1970:self.doubleValue];
 }

@@ -9,6 +9,10 @@
 
 @implementation UICollectionView (YXDExtension)
 
+- (void)registerDefaultCell {
+    [self registerCellWithCellClass:[UICollectionViewCell class]];
+}
+
 - (void)registerNibCellWithCellClass:(Class)cellClass {
     [self registerNib:[UINib nibWithNibName:NSStringFromClass(cellClass) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass(cellClass)];
 }

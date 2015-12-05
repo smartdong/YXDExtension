@@ -10,11 +10,15 @@
 @implementation UITableView (YXDExtension)
 
 -(void)hideGroupHeaderView {
-    self.tableHeaderView = [UIView new];
+    self.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0.1, 0.1)];
 }
 
 -(void)hideFooterView {
     self.tableFooterView = [UIView new];
+}
+
+- (void)registerDefaultCell {
+    [self registerCellWithCellClass:[UITableViewCell class]];
 }
 
 - (void)registerNibCellWithCellClass:(Class)cellClass {

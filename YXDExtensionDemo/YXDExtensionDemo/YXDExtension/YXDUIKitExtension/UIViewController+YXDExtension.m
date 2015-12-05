@@ -49,7 +49,7 @@ static const void *YXDExtensionImagePickerBlockKey = &YXDExtensionImagePickerBlo
  *
  *  @param block 参数为获取的图片/图片名称/图片路径
  */
-- (void) imageByCameraAndPhotosAlbum:(YXDExtensionImagePickerBlock)imageBlock {
+- (void)imageByCameraAndPhotosAlbum:(YXDExtensionImagePickerBlock)imageBlock {
     self.imageBlock = imageBlock;
     
     UIActionSheet *as = nil;
@@ -80,7 +80,7 @@ static const void *YXDExtensionImagePickerBlockKey = &YXDExtensionImagePickerBlo
 
 #pragma mark - Action Sheet Delegate
 
-- (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (actionSheet.tag == ActionSheetTag) {
         NSUInteger sourceType = 0;
         

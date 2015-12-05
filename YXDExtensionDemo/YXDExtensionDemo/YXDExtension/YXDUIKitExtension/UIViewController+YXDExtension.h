@@ -24,6 +24,6 @@ typedef void(^YXDExtensionImagePickerBlock)(UIImage *image);
 /**
  *  使用相机或相册获取图片
  */
-- (void) imageByCameraAndPhotosAlbum:(YXDExtensionImagePickerBlock)imageBlock;
+- (void)imageByCameraAndPhotosAlbum:(YXDExtensionImagePickerBlock)imageBlock;
 
 @end

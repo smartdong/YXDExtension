@@ -147,8 +147,11 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
     
     //属性名称直接对应返回值
     for (NSString *propertyName in propertyList) {
-        if ([self validPropertyName:propertyName data:data]) {
-            [self setValue:[data valueForKey:propertyName] forKey:propertyName];
+        if ([self validPropertyValue:propertyName data:data]) {
+            id value = [data valueForKey:propertyName];
+            if ([value isKindOfClass:[NSString class]] || [value isKindOfClass:[NSNumber class]]) {
+                [self setValue:value forKey:propertyName];
+            }
         }
     }
     
@@ -156,8 +159,8 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
     NSDictionary *propertyMapDictionary = [self propertyMap];
     if (propertyMapDictionary && propertyMapDictionary.count) {
         for (NSString *propertyName in propertyMapDictionary) {
-            if ([self validPropertyName:[propertyMapDictionary valueForKey:propertyName] data:data]) {
-                [self setValue:[data valueForKey:[propertyMapDictionary valueForKey:propertyName]] forKey:propertyName];
+            if ([self validPropertyValue:[propertyMapDictionary valueForKey:propertyName] data:data]) {
+                [self voluationWithPropertyMap:[self propertyMap] data:data propertyName:propertyName];
             }
         }
     }
@@ -166,13 +169,69 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
 }
 
 //判断data的property是否有效
-- (BOOL)validPropertyName:(NSString *)propertyName data:(id)data {
+- (BOOL)validPropertyValue:(id)propertyValue data:(id)data {
+    
+    NSString *propertyName = nil;
+    
+    if ([propertyValue isKindOfClass:[NSString class]]) {
+        propertyName = propertyValue;
+    } else if ([propertyValue isKindOfClass:[NSDictionary class]]) {
+        propertyName = ((NSDictionary *)propertyValue).allKeys.firstObject;
+    } else {
+        return NO;
+    }
+    
+    if (!propertyName || ![propertyName isKindOfClass:[NSString class]]) {
+        return NO;
+    }
+    
     if ([data isKindOfClass:[NSDictionary class]]) {
         return ([data valueForKey:propertyName] && ![data isKindOfClass:[NSNull class]]);
     } else {
         return (![data isKindOfClass:[NSNull class]] && [data respondsToSelector:NSSelectorFromString(propertyName)] && ![[data valueForKey:propertyName] isKindOfClass:[NSNull class]]);
     }
     return NO;
+}
+
+//根据返回值的类型 自动判断是数组还是对象
+- (void)voluationWithPropertyMap:(NSDictionary *)propertyMap data:(id)data propertyName:(NSString *)propertyName {
+    if (!data || !propertyName || !propertyMap.count || [data isKindOfClass:[NSNull class]] || ![propertyName isKindOfClass:[NSString class]]) {
+        return;
+    }
+    
+    NSString *returnPropertyName = nil;
+    
+    id mappingValue = [propertyMap valueForKey:propertyName];
+    
+    if ([mappingValue isKindOfClass:[NSString class]]) {
+        returnPropertyName = mappingValue;
+    } else if ([mappingValue isKindOfClass:[NSDictionary class]]) {
+        returnPropertyName = ((NSDictionary *)mappingValue).allKeys.firstObject;
+    } else {
+        return;
+    }
+    
+    id dataValue = [data valueForKey:returnPropertyName];
+    
+    if (!dataValue) {
+        return;
+    }
+    
+    if ([dataValue isKindOfClass:[NSString class]]) {
+        [self setValue:dataValue forKey:propertyName];
+    } else if ([dataValue isKindOfClass:[NSDictionary class]]) {
+        Class objClass = [propertyMap valueForKey:propertyName];
+        [self setValue:[objClass objectWithData:dataValue] forKey:propertyName];
+    } else if ([dataValue isKindOfClass:[NSArray class]]) {
+        Class objClass = [propertyMap valueForKey:propertyName];
+        NSMutableArray *arr = [NSMutableArray array];
+        for (id subData in dataValue) {
+            [arr addObject:[objClass objectWithData:subData]];
+        }
+        [self setValue:arr forKey:propertyName];
+    } else {
+        [self setValue:dataValue forKey:propertyName];
+    }
 }
 
 - (NSArray *)methodList {

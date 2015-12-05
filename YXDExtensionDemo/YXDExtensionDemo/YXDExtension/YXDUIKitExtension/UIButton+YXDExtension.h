@@ -12,7 +12,7 @@
 #define YXDExtension_Verify_Button_Title_Available       @"获取验证码"
 
 //倒计时的标题
-#define YXDExtension_Verify_Button_Title_Unavailable     @"秒后重新获取"
+#define YXDExtension_Verify_Button_Title_Unavailable     @"秒"
 
 #import <UIKit/UIKit.h>
 
@@ -21,6 +21,8 @@
 /**
  *  接收到按钮事件后 调用此方法
  */
-- (void) unavailable;
+- (void)unavailable;
+
+- (void)available;
 
 @end

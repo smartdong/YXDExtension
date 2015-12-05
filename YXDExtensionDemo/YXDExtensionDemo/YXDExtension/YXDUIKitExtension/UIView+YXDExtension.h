@@ -13,6 +13,7 @@
 @property(nonatomic, assign) CGFloat orginY;
 @property(nonatomic, assign) CGFloat width;
 @property(nonatomic, assign) CGFloat height;
+@property(nonatomic, assign, readonly) CGFloat bottom;
 
 - (void)setBorderColor:(UIColor *)color width:(CGFloat)width;
 - (void)setCornerWidth:(CGFloat)width;

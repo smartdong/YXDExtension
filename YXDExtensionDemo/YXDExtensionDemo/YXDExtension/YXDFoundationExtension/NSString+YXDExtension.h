@@ -9,8 +9,8 @@
 
 @interface NSString (YXDExtension)
 
-//- (BOOL)isEmail;
-//- (BOOL)isPhone;
+- (BOOL)isEmail;
+- (BOOL)isPhone;
 
 - (NSDate *)dateFromSeconds;
 - (NSDate *)dateFromMilliSeconds;

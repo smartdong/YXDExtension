@@ -21,6 +21,15 @@
 #define mUserDefaults       [NSUserDefaults standardUserDefaults]
 #define mNotificationCenter [NSNotificationCenter defaultCenter]
 
+//当前设备的系统版本
+#define mSystemVersion          ([[[UIDevice currentDevice] systemVersion] floatValue])
+//当前app版本
+#define mAppVersion             ([[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"])
+
+//屏幕尺寸
+#define mScreenWidth          ([UIScreen mainScreen].bounds.size.width)
+#define mScreenHeight         ([UIScreen mainScreen].bounds.size.height)
+
 //加载图片
 #define mImageByName(name)        [UIImage imageNamed:name]
 #define mImageByPath(name, ext)   [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:name ofType:ext]]
@@ -69,13 +78,6 @@ UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:msg delega
 cancelButtonTitle:@"确定" \
 otherButtonTitles:nil]; \
 [alert show];
-
-//当前设备的系统版本
-#define mSystemVersion          ([[[UIDevice currentDevice] systemVersion] floatValue])
-
-//屏幕尺寸
-#define mScreenWidth          ([UIScreen mainScreen].bounds.size.width)
-#define mScreenHeight         ([UIScreen mainScreen].bounds.size.height)
 
 //触摸点在视图中的位置
 #define TouchPointInView(view) [((UITouch *)[[[event allTouches] allObjects] firstObject]) locationInView:view]

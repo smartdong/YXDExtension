@@ -15,6 +15,7 @@
 		0B6725501B6E9FC9009272B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B67254F1B6E9FC9009272B4 /* Images.xcassets */; };
 		0B6725531B6E9FC9009272B4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B6725511B6E9FC9009272B4 /* LaunchScreen.xib */; };
 		0B67255F1B6E9FC9009272B4 /* YXDExtensionDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B67255E1B6E9FC9009272B4 /* YXDExtensionDemoTests.m */; };
+		0B6A009E1C12C19D009EF58B /* YXDCommonFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A009D1C12C19D009EF58B /* YXDCommonFunction.m */; };
 		0BC67DAA1BB70455001B8582 /* YXDBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC67DA91BB70455001B8582 /* YXDBaseViewController.m */; };
 		0BC67DAD1BB704D1001B8582 /* YXDBaseScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC67DAC1BB704D1001B8582 /* YXDBaseScrollView.m */; };
 		0BEB8FBA1BB6F8FE0047B656 /* UIViewController+YXDSwizzlingExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BEB8FB91BB6F8FE0047B656 /* UIViewController+YXDSwizzlingExtension.m */; };
@@ -138,6 +139,8 @@
 		0B6725581B6E9FC9009272B4 /* YXDExtensionDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YXDExtensionDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B67255D1B6E9FC9009272B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B67255E1B6E9FC9009272B4 /* YXDExtensionDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXDExtensionDemoTests.m; sourceTree = "<group>"; };
+		0B6A009C1C12C19D009EF58B /* YXDCommonFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDCommonFunction.h; sourceTree = "<group>"; };
+		0B6A009D1C12C19D009EF58B /* YXDCommonFunction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDCommonFunction.m; sourceTree = "<group>"; };
 		0BC67DA71BB70361001B8582 /* YXDBaseClassExtensionHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXDBaseClassExtensionHeader.h; sourceTree = "<group>"; };
 		0BC67DA81BB70455001B8582 /* YXDBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDBaseViewController.h; sourceTree = "<group>"; };
 		0BC67DA91BB70455001B8582 /* YXDBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDBaseViewController.m; sourceTree = "<group>"; };
@@ -415,6 +418,15 @@
 				0B67255D1B6E9FC9009272B4 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0B6A009B1C12C19D009EF58B /* YXDCommonFunction */ = {
+			isa = PBXGroup;
+			children = (
+				0B6A009C1C12C19D009EF58B /* YXDCommonFunction.h */,
+				0B6A009D1C12C19D009EF58B /* YXDCommonFunction.m */,
+			);
+			path = YXDCommonFunction;
 			sourceTree = "<group>";
 		};
 		0BC67DA61BB7034C001B8582 /* YXDBaseClassExtension */ = {
@@ -765,6 +777,7 @@
 		B5DE71781B6F174A006F8FF1 /* YXDFunctionExtension */ = {
 			isa = PBXGroup;
 			children = (
+				0B6A009B1C12C19D009EF58B /* YXDCommonFunction */,
 				B55048821B81BB0300A78C8D /* YXDNetworkManager */,
 				B55048861B81C0C100A78C8D /* YXDHUDManager */,
 				B5D830AB1B71E08B0094BE65 /* YXDLockScreen */,
@@ -982,6 +995,7 @@
 				B55048571B81B63E00A78C8D /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				B55048801B81B63E00A78C8D /* TPKeyboardAvoidingTableView.m in Sources */,
 				B55048491B81B63E00A78C8D /* AFNetworkReachabilityManager.m in Sources */,
+				0B6A009E1C12C19D009EF58B /* YXDCommonFunction.m in Sources */,
 				B55048851B81BB1100A78C8D /* YXDNetworkManager.m in Sources */,
 				0B6725451B6E9FC9009272B4 /* main.m in Sources */,
 				B550484B1B81B63E00A78C8D /* AFURLConnectionOperation.m in Sources */,

@@ -7,7 +7,8 @@
 
 #import "YXDNetworkManager.h"
 #import "YXDHUDManager.h"
-#import "YXDLockScreenManager.h"
-#import "YXDFileManager.h"
+#import "YXDCommonFunction.h"
+//#import "YXDLockScreenManager.h"
+//#import "YXDFileManager.h"
 
 
