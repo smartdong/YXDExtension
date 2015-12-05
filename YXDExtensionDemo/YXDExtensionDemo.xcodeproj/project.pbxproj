@@ -22,6 +22,8 @@
 		B520A8FE1C130C2900CE6701 /* UIDevice+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B520A8FD1C130C2900CE6701 /* UIDevice+YXDExtension.m */; };
 		B520A9011C130C3E00CE6701 /* UITabBar+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B520A9001C130C3E00CE6701 /* UITabBar+YXDExtension.m */; };
 		B520A9041C130F8400CE6701 /* NSData+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B520A9031C130F8400CE6701 /* NSData+YXDExtension.m */; };
+		B520A9071C131BA200CE6701 /* NSArray+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B520A9061C131BA200CE6701 /* NSArray+YXDExtension.m */; };
+		B520A90A1C131BAD00CE6701 /* NSDictionary+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B520A9091C131BAD00CE6701 /* NSDictionary+YXDExtension.m */; };
 		B55047BB1B818C4100A78C8D /* UICollectionView+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B55047BA1B818C4100A78C8D /* UICollectionView+YXDExtension.m */; };
 		B55048461B81B63E00A78C8D /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = B55047BF1B81B63E00A78C8D /* AFHTTPRequestOperation.m */; };
 		B55048471B81B63E00A78C8D /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B55047C11B81B63E00A78C8D /* AFHTTPRequestOperationManager.m */; };
@@ -159,6 +161,10 @@
 		B520A9001C130C3E00CE6701 /* UITabBar+YXDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBar+YXDExtension.m"; sourceTree = "<group>"; };
 		B520A9021C130F8400CE6701 /* NSData+YXDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+YXDExtension.h"; sourceTree = "<group>"; };
 		B520A9031C130F8400CE6701 /* NSData+YXDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+YXDExtension.m"; sourceTree = "<group>"; };
+		B520A9051C131BA200CE6701 /* NSArray+YXDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+YXDExtension.h"; sourceTree = "<group>"; };
+		B520A9061C131BA200CE6701 /* NSArray+YXDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+YXDExtension.m"; sourceTree = "<group>"; };
+		B520A9081C131BAD00CE6701 /* NSDictionary+YXDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+YXDExtension.h"; sourceTree = "<group>"; };
+		B520A9091C131BAD00CE6701 /* NSDictionary+YXDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+YXDExtension.m"; sourceTree = "<group>"; };
 		B55047B91B818C4100A78C8D /* UICollectionView+YXDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+YXDExtension.h"; sourceTree = "<group>"; };
 		B55047BA1B818C4100A78C8D /* UICollectionView+YXDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+YXDExtension.m"; sourceTree = "<group>"; };
 		B55047BE1B81B63E00A78C8D /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -781,6 +787,10 @@
 				B5DE718D1B6F1FD6006F8FF1 /* NSObject+YXDExtension.m */,
 				B520A9021C130F8400CE6701 /* NSData+YXDExtension.h */,
 				B520A9031C130F8400CE6701 /* NSData+YXDExtension.m */,
+				B520A9051C131BA200CE6701 /* NSArray+YXDExtension.h */,
+				B520A9061C131BA200CE6701 /* NSArray+YXDExtension.m */,
+				B520A9081C131BAD00CE6701 /* NSDictionary+YXDExtension.h */,
+				B520A9091C131BAD00CE6701 /* NSDictionary+YXDExtension.m */,
 			);
 			path = YXDFoundationExtension;
 			sourceTree = "<group>";
@@ -1036,6 +1046,7 @@
 				B5DE719D1B6F3040006F8FF1 /* UIViewController+YXDExtension.m in Sources */,
 				B5DE71821B6F1AFF006F8FF1 /* NSString+YXDExtension.m in Sources */,
 				B550486F1B81B63E00A78C8D /* SDWebImageDecoder.m in Sources */,
+				B520A90A1C131BAD00CE6701 /* NSDictionary+YXDExtension.m in Sources */,
 				B550487E1B81B63E00A78C8D /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				B550484A1B81B63E00A78C8D /* AFSecurityPolicy.m in Sources */,
 				B5DE71A01B6F3057006F8FF1 /* UINavigationController+YXDExtension.m in Sources */,
@@ -1044,6 +1055,7 @@
 				0BEB8FBA1BB6F8FE0047B656 /* UIViewController+YXDSwizzlingExtension.m in Sources */,
 				B55048511B81B63E00A78C8D /* UIAlertView+AFNetworking.m in Sources */,
 				B550484C1B81B63E00A78C8D /* AFURLRequestSerialization.m in Sources */,
+				B520A9071C131BA200CE6701 /* NSArray+YXDExtension.m in Sources */,
 				B5DE718E1B6F1FD6006F8FF1 /* NSObject+YXDExtension.m in Sources */,
 				B550487A1B81B63E00A78C8D /* UIView+WebCacheOperation.m in Sources */,
 				B55048521B81B63E00A78C8D /* UIButton+AFNetworking.m in Sources */,

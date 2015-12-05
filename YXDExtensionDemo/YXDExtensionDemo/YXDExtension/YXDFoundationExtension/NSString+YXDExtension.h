@@ -25,13 +25,16 @@
 - (NSURLRequest *)urlRequestValue;
 - (NSNumber *)numberValue;
 
+- (NSString *)urlDecode;
+- (NSString *)urlEncode;
+
+- (NSString *)toBase64String;
+- (NSString *)base64StringToOriginString;
+
 - (NSString *)md5;
 
 + (NSString *)randomStringWithLength:(int)length;
 
 - (NSString *)firstLetter;
-
-- (NSString *)toBase64String;
-- (NSString *)base64StringToOriginString;
 
 @end
