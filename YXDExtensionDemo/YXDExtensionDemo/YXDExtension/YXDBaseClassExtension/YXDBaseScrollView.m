@@ -16,7 +16,6 @@
 @property (nonatomic, assign) YXDBaseScrollViewState state;
 @property (nonatomic, assign) YXDBaseScrollViewState lastState;
 
-
 @end
 
 @implementation YXDBaseScrollView
@@ -31,6 +30,10 @@
     self.state = YXDBaseScrollViewStateLoading;
     
     
+}
+
+-(YXDBaseScrollViewState)currentState {
+    return _state;
 }
 
 #pragma mark -
@@ -102,10 +105,6 @@
     
 }
 
-- (void)setTitleLableAndImageTouchBlock:(dispatch_block_t)block forState:(YXDBaseScrollViewState)state {
-    
-}
-
 #pragma mark - 
 
 - (void)setUpLoadingView {
@@ -118,6 +117,17 @@
 
 - (void)setUpFooterLoadingMethod {
     
+}
+
+#pragma mark - Init 
+
+-(instancetype)init {
+    self = [super init];
+    
+    _state = YXDBaseScrollViewStateUndefined;
+    _lastState = YXDBaseScrollViewStateUndefined;
+    
+    return self;
 }
 
 @end

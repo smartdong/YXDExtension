@@ -8,27 +8,27 @@
 /*--------------------------------开发中常用到的宏定义--------------------------------------*/
 
 //系统目录
-#define kDocuments  [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]
-#define kCaches     [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject]
-#define kLibrary    [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0]
-#define kTemp       [NSString stringWithFormat:@"%@/temp", kCaches]
+#define kDocuments          ((NSString *)[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject])
+#define kCaches             ((NSString *)[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject])
+#define kLibrary            ((NSString *)[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0])
+#define kTemp               ((NSString *)[NSString stringWithFormat:@"%@/temp", kCaches])
 
 //方法简写
 #define mApplication        [UIApplication sharedApplication]
-#define mAppDelegate        (AppDelegate *)[[UIApplication sharedApplication] delegate]
-#define mWindow             [[[UIApplication sharedApplication] windows] firstObject]
+#define mAppDelegate        ((AppDelegate *)[[UIApplication sharedApplication] delegate])
+#define mWindow             ((UIWindow *)[[[UIApplication sharedApplication] windows] firstObject])
 #define mKeyWindow          [[UIApplication sharedApplication] keyWindow]
 #define mUserDefaults       [NSUserDefaults standardUserDefaults]
 #define mNotificationCenter [NSNotificationCenter defaultCenter]
 
 //当前设备的系统版本
-#define mSystemVersion          ([[[UIDevice currentDevice] systemVersion] floatValue])
+#define mSystemVersion      ([[[UIDevice currentDevice] systemVersion] floatValue])
 //当前app版本
-#define mAppVersion             ([[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"])
+#define mAppVersion         ((NSString *)[[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"])
 
 //屏幕尺寸
-#define mScreenWidth          ([UIScreen mainScreen].bounds.size.width)
-#define mScreenHeight         ([UIScreen mainScreen].bounds.size.height)
+#define mScreenWidth        ([UIScreen mainScreen].bounds.size.width)
+#define mScreenHeight       ([UIScreen mainScreen].bounds.size.height)
 
 //加载图片
 #define mImageByName(name)        [UIImage imageNamed:name]
@@ -49,7 +49,7 @@
 #define mCGRectWithNSString(string)                 CGRectFromString(string)
 
 //以tag读取View
-#define mViewByTag(parentView, tag, Class)  (Class *)[parentView viewWithTag:tag]
+#define mViewByTag(parentView, tag, Class)  ((Class *)[parentView viewWithTag:tag])
 //读取Xib文件的类
 #define mViewByNib(Class, owner) [[[NSBundle mainBundle] loadNibNamed:Class owner:owner options:nil] lastObject]
 
@@ -83,7 +83,8 @@ otherButtonTitles:nil]; \
 #define TouchPointInView(view) [((UITouch *)[[[event allTouches] allObjects] firstObject]) locationInView:view]
 
 //weak self
-#define WEAKSELF typeof(self) __weak weakSelf = self;
+#define WEAK_SELF   typeof(self) __weak weakSelf = self;
+#define STRONG_SELF typeof(weakSelf) __strong strongSelf = weakSelf;
 
 /*--------------------------------一些方法简写--------------------------------------*/
 

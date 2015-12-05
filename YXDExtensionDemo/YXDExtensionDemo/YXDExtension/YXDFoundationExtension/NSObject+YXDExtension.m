@@ -145,6 +145,8 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
         return self;
     }
     
+#warning 待完善
+    
     //属性名称直接对应返回值
     for (NSString *propertyName in propertyList) {
         if ([self validPropertyValue:propertyName data:data]) {

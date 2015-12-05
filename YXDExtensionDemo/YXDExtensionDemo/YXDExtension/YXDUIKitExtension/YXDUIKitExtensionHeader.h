@@ -22,3 +22,5 @@
 #import "UIApplication+YXDExtension.h"
 #import "UIImage+YXDExtension.h"
 #import "UIColor+YXDExtension.h"
+#import "UIDevice+YXDExtension.h"
+#import "UITabBar+YXDExtension.h"

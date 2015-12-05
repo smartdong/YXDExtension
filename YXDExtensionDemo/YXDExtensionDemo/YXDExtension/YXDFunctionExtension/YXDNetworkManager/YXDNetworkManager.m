@@ -11,6 +11,8 @@
 
 #define Network_Manager_Instance  ((YXDNetworkManager *)[YXDNetworkManager sharedInstance])
 
+static const CGFloat kNetworkHUDShowDuration = 1.0f;
+
 @interface YXDNetworkManager ()
 
 @property (nonatomic, strong) AFHTTPRequestOperationManager  *requsetManager;
@@ -93,7 +95,7 @@
 
         if ([responseObject isKindOfClass:[NSNull class]] || !responseObject || ![responseObject isKindOfClass:[NSDictionary class]]) {
             if (failure) {
-                failure([NSError errorWithDomain:@"com.jingchen" code:0 userInfo:@{NSLocalizedDescriptionKey : @"服务器返回数据错误"}]);
+                failure([NSError errorWithDomain:@"com.dd" code:0 userInfo:@{NSLocalizedDescriptionKey : @"服务器返回数据错误"}]);
             }
             return;
         }
@@ -117,11 +119,11 @@
             //失败
             
             if (loadingStatus) {
-                [YXDHUDManager showErrorWithTitle:message duration:kHUDShowDuration];
+                [YXDHUDManager showErrorWithTitle:message duration:kNetworkHUDShowDuration];
             }
             
             if (failure) {
-                failure([NSError errorWithDomain:@"com.jingchen" code:result.integerValue userInfo:@{NSLocalizedDescriptionKey : message}]);
+                failure([NSError errorWithDomain:@"com.dd" code:result.integerValue userInfo:@{NSLocalizedDescriptionKey : message}]);
             }
         }
     };
@@ -131,7 +133,7 @@
         NSLog(@"error: %@",error.userInfo);
         
         if (loadingStatus) {
-            [YXDHUDManager showErrorWithTitle:@"网络连接失败" duration:kHUDShowDuration];
+            [YXDHUDManager showErrorWithTitle:@"网络连接失败" duration:kNetworkHUDShowDuration];
         }
         
         if (failure) {

@@ -7,6 +7,7 @@
 //
 
 #import "YXDCommonFunction.h"
+#import "NSObject+YXDExtension.h"
 
 @implementation YXDCommonFunction
 
