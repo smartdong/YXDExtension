@@ -35,6 +35,6 @@
 /**
  *  根据key值设置成已经打开
  */
-+ (void)setOpenedState:(NSString *)key;
++ (void)setOpened:(NSString *)key;
 
 @end
