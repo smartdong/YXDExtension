@@ -6,4 +6,5 @@
 //
 
 #import "YXDSwizzlingExtensionDefine.h"
+#import "NSObject+YXDSwizzlingExtension.h"
 #import "UIViewController+YXDSwizzlingExtension.h"

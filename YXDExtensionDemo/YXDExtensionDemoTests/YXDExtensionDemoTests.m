@@ -2,7 +2,6 @@
 //  YXDExtensionDemoTests.m
 //  YXDExtensionDemoTests
 //
-//  Created by YangXudong on 15/8/3.
 //  Copyright (c) 2015年 YangXudong. All rights reserved.
 //
 
