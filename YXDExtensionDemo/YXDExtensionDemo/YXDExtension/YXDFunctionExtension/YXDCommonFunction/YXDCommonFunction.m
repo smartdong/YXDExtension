@@ -101,7 +101,7 @@
     return ![ud boolForKey:key];
 }
 
-+ (void)isOpened:(NSString *)key {
++ (void)setOpenedState:(NSString *)key {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     [ud setBool:YES forKey:key];
     [ud synchronize];
