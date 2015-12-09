@@ -120,7 +120,7 @@ static NSString * YXDPercentEscapedQueryStringValueFromStringWithEncoding(NSStri
     return  output;
 }
 
--(NSString *)sha1WithSecretKey:(NSString *)secretKey {
+-(NSString *)hmacsha1WithSecretKey:(NSString *)secretKey {
     if (!self.length) {
         return @"";
     }

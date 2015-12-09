@@ -34,7 +34,7 @@
 - (id)objectFromJSONString;
 
 - (NSString *)md5;
-- (NSString *)sha1WithSecretKey:(NSString *)secretKey;
+- (NSString *)hmacsha1WithSecretKey:(NSString *)secretKey;
 
 + (NSString *)randomStringWithLength:(int)length;
 
