@@ -11,4 +11,6 @@
 
 - (id)objectFromJSONData;
 
+- (NSString *)hexString;
+
 @end

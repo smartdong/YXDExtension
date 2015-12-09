@@ -38,6 +38,7 @@
 
 + (NSString *)randomStringWithLength:(int)length;
 
+- (BOOL)isChinese;
 - (NSString *)firstLetter;
 
 @end

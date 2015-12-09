@@ -11,5 +11,6 @@
 
 + (NSDateFormatter *)defaultDateFormatter;
 + (NSDateFormatter *)defaultDatetimeFormatter;
++ (NSDateFormatter *)dateFormatterWithFormat:(NSString *)dateFormat;
 
 @end

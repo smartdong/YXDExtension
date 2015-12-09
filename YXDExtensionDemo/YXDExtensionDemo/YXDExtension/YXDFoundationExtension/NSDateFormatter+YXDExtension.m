@@ -21,4 +21,10 @@
     return formatter;
 }
 
++ (NSDateFormatter *)dateFormatterWithFormat:(NSString *)dateFormat {
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    dateFormatter.dateFormat = dateFormat;
+    return dateFormatter;
+}
+
 @end

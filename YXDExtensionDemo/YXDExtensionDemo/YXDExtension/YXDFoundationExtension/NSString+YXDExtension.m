@@ -139,6 +139,12 @@ static NSString * YXDPercentEscapedQueryStringValueFromStringWithEncoding(NSStri
     return randomString;
 }
 
+- (BOOL)isChinese {
+    NSString *match=@"(^[\u4e00-\u9fa5]+$)";
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF matches %@", match];
+    return [predicate evaluateWithObject:self];
+}
+
 #define HANZI_START 19968
 #define HANZI_COUNT 20902
 static char firstLetterArray[HANZI_COUNT] =
