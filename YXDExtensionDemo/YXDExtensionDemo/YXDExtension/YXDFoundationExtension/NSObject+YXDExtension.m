@@ -28,6 +28,21 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
 
 #pragma mark - 自动赋值部分
 
+//根据数据创建对象数组
++ (NSMutableArray *)objectArrayWithDictionaryArray:(NSArray<NSDictionary *> *)dictionaryArray {
+    if (!dictionaryArray.count) {
+        return nil;
+    }
+    
+    NSMutableArray *arr = [NSMutableArray array];
+    
+    for (NSDictionary *dic in dictionaryArray) {
+        [arr addObject:[self objectWithData:dic]];
+    }
+    
+    return arr;
+}
+
 + (instancetype)objectWithData:(id)data {
     return [[self new] voluationWithData:data];
 }

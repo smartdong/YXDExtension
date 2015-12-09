@@ -13,6 +13,9 @@
 
 - (void)postNotificationName:(NSString *)notificationName userInfo:(NSDictionary *)userInfo;
 
+//根据数据创建对象数组
++ (NSMutableArray *)objectArrayWithDictionaryArray:(NSArray<NSDictionary *> *)dictionaryArray;
+
 //根据数据源对象创建新对象
 + (instancetype)objectWithData:(id)data;
 
