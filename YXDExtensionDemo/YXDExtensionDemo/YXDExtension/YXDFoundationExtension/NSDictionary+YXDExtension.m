@@ -10,6 +10,14 @@
 
 @implementation NSDictionary (YXDExtension)
 
+- (NSData *)jsonData {
+    return [NSJSONSerialization dataWithJSONObject:self options:0 error:nil];
+}
+
+- (NSString *)jsonString {
+    return [[NSString alloc] initWithData:[self jsonData] encoding:NSUTF8StringEncoding];
+}
+
 - (NSString *)sortedKeyValueString {
     if (!self.count) {
         return nil;

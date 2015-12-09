@@ -10,4 +10,7 @@
 
 @interface NSArray (YXDExtension)
 
+- (NSData *)jsonData;
+- (NSString *)jsonString;
+
 @end

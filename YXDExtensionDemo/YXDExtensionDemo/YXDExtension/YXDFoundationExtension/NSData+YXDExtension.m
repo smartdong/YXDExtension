@@ -9,4 +9,8 @@
 
 @implementation NSData (YXDExtension)
 
+- (id)objectFromJSONData {
+    return [NSJSONSerialization JSONObjectWithData:self options:0 error:nil];
+}
+
 @end

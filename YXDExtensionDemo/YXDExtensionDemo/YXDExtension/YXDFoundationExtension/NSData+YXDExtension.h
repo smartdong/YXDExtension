@@ -9,4 +9,6 @@
 
 @interface NSData (YXDExtension)
 
+- (id)objectFromJSONData;
+
 @end

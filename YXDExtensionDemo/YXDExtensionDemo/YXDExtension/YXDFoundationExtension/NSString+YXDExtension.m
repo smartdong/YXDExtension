@@ -7,6 +7,7 @@
 
 #import "NSString+YXDExtension.h"
 #import <CommonCrypto/CommonCrypto.h>
+#import "YXDCommonFunction.h"
 
 @implementation NSString (YXDExtension)
 
@@ -76,10 +77,10 @@
 
 static NSString * const kAFCharactersToBeEscapedInQueryString = @":/?&=;+!@#$()',*";
 
-static NSString * YXDPercentEscapedQueryStringKeyFromStringWithEncoding(NSString *string, NSStringEncoding encoding) {
-    static NSString * const kAFCharactersToLeaveUnescapedInQueryStringPairKey = @"[].";
-    return (__bridge_transfer  NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef)string, (__bridge CFStringRef)kAFCharactersToLeaveUnescapedInQueryStringPairKey, (__bridge CFStringRef)kAFCharactersToBeEscapedInQueryString, CFStringConvertNSStringEncodingToEncoding(encoding));
-}
+//static NSString * YXDPercentEscapedQueryStringKeyFromStringWithEncoding(NSString *string, NSStringEncoding encoding) {
+//    static NSString * const kAFCharactersToLeaveUnescapedInQueryStringPairKey = @"[].";
+//    return (__bridge_transfer  NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef)string, (__bridge CFStringRef)kAFCharactersToLeaveUnescapedInQueryStringPairKey, (__bridge CFStringRef)kAFCharactersToBeEscapedInQueryString, CFStringConvertNSStringEncodingToEncoding(encoding));
+//}
 
 static NSString * YXDPercentEscapedQueryStringValueFromStringWithEncoding(NSString *string, NSStringEncoding encoding) {
     return (__bridge_transfer  NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef)string, NULL, (__bridge CFStringRef)kAFCharactersToBeEscapedInQueryString, CFStringConvertNSStringEncodingToEncoding(encoding));
@@ -103,6 +104,10 @@ static NSString * YXDPercentEscapedQueryStringValueFromStringWithEncoding(NSStri
     return [[NSString alloc] initWithData:[[NSData alloc] initWithBase64EncodedString:self options:0] encoding:NSASCIIStringEncoding];
 }
 
+-(id)objectFromJSONString {
+    return [NSJSONSerialization JSONObjectWithData:[self dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+}
+
 - (NSString *)md5 {
     const char *cStr = [self UTF8String];
     unsigned char digest[16];
@@ -113,6 +118,14 @@ static NSString * YXDPercentEscapedQueryStringValueFromStringWithEncoding(NSStri
     for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
         [output appendFormat:@"%02x", digest[i]];
     return  output;
+}
+
+-(NSString *)sha1WithSecretKey:(NSString *)secretKey {
+    if (!self.length) {
+        return @"";
+    }
+    
+    return [YXDCommonFunction hmacsha1WithPlainText:self secretKey:secretKey];
 }
 
 + (NSString *)randomStringWithLength:(int)length {

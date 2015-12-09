@@ -31,7 +31,10 @@
 - (NSString *)toBase64String;
 - (NSString *)base64StringToOriginString;
 
+- (id)objectFromJSONString;
+
 - (NSString *)md5;
+- (NSString *)sha1WithSecretKey:(NSString *)secretKey;
 
 + (NSString *)randomStringWithLength:(int)length;
 
