@@ -37,4 +37,16 @@
  */
 + (void)setOpened:(NSString *)key;
 
+#pragma mark - 加密
+
+/**
+ *  将文本加密
+ *
+ *  @param plainText 带加密文本
+ *  @param secretKey 加密秘钥
+ *
+ *  @return 加密后的文本
+ */
++ (NSString *)hmacsha1WithPlainText:(NSString *)plainText secretKey:(NSString *)secretKey;
+
 @end

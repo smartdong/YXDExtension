@@ -8,6 +8,7 @@
 
 #import "YXDCommonFunction.h"
 #import "NSObject+YXDExtension.h"
+#import <CommonCrypto/CommonHMAC.h>
 
 @implementation YXDCommonFunction
 
@@ -105,6 +106,32 @@
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     [ud setBool:YES forKey:key];
     [ud synchronize];
+}
+
+#pragma mark - 加密
+
+/**
+ *  将文本加密
+ *
+ *  @param plainText 带加密文本
+ *  @param secretKey 加密秘钥
+ *
+ *  @return 加密后的文本
+ */
++ (NSString *)hmacsha1WithPlainText:(NSString *)plainText secretKey:(NSString *)secretKey {
+    
+    const char *cKey  = [secretKey cStringUsingEncoding:NSASCIIStringEncoding];
+    const char *cData = [plainText cStringUsingEncoding:NSASCIIStringEncoding];
+    
+    unsigned char cHMAC[CC_SHA1_DIGEST_LENGTH];
+    
+    CCHmac(kCCHmacAlgSHA1, cKey, strlen(cKey), cData, strlen(cData), cHMAC);
+    
+    NSData *HMAC = [[NSData alloc] initWithBytes:cHMAC length:sizeof(cHMAC)];
+    
+    NSString *hash = [HMAC base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    
+    return hash;
 }
 
 @end
