@@ -9,4 +9,11 @@
 
 @interface UIDevice (YXDExtension)
 
++ (NSString *)name;
++ (NSString *)model;
++ (NSString *)localizedModel;
++ (NSString *)systemName;
++ (NSString *)systemVersion;
++ (NSString *)deviceModel;
+
 @end
