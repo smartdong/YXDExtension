@@ -7,6 +7,7 @@
 
 #import "NSObject+YXDExtension.h"
 #import <objc/message.h>
+#import "NSString+YXDExtension.h"
 
 static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDataKey;
 
@@ -111,6 +112,23 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
             propertyValue = @([value doubleValue]);
         }
     } else if (propertyClass == [NSArray class]) {
+        
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+        
+        if (!arrayObjectClass && [self respondsToSelector:@selector(propertyMap)]) {
+            NSDictionary *propertyMapDictionary = [self performSelector:@selector(propertyMap)];
+            NSDictionary *propertyDic = [propertyMapDictionary valueForKey:propertyName];
+            if (propertyDic && [propertyDic isKindOfClass:[NSDictionary class]] && propertyDic.count) {
+                id clazz = propertyDic.allValues.firstObject;
+                if ([clazz respondsToSelector:@selector(isSubclassOfClass:)]) {
+                    arrayObjectClass = clazz;
+                }
+            }
+        }
+        
+#pragma clang diagnostic pop
+        
         if ([value isKindOfClass:[NSArray class]] && arrayObjectClass) {
             NSMutableArray *arr = [NSMutableArray arrayWithCapacity:((NSArray *)value).count];
             for (id val in value) {
@@ -195,7 +213,25 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
         id value = [self valueForKey:valueKey];
         
         if (value && ![value isKindOfClass:[NSNull class]]) {
-            [propertyValues setObject:value forKey:valueKey];
+            if ([value isKindOfClass:[NSString class]] || [value isKindOfClass:[NSNumber class]]) {
+                [propertyValues setObject:value forKey:valueKey];
+            } else if ([value isKindOfClass:[NSArray class]]) {
+                NSMutableArray *arr = [NSMutableArray array];
+                for (id obj in value) {
+                    NSDictionary *pvs = [obj propertyValues];
+                    if (pvs.count) {
+                        [arr addObject:pvs];
+                    }
+                }
+                if (arr.count) {
+                    [propertyValues setObject:arr forKey:valueKey];
+                }
+            } else {
+                NSDictionary *pvs = [value propertyValues];
+                if (pvs.count) {
+                    [propertyValues setObject:pvs forKey:valueKey];
+                }
+            }
         }
     }
     
@@ -222,7 +258,25 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
             value = [NSNull null];
         }
         
-        [propertyValues setObject:value forKey:valueKey];
+        if ([value isKindOfClass:[NSString class]] || [value isKindOfClass:[NSNumber class]] || [value isKindOfClass:[NSNull class]]) {
+            [propertyValues setObject:value forKey:valueKey];
+        } else if ([value isKindOfClass:[NSArray class]]) {
+            NSMutableArray *arr = [NSMutableArray array];
+            for (id obj in value) {
+                NSDictionary *pvs = [obj allPropertyValues];
+                if (pvs.count) {
+                    [arr addObject:pvs];
+                }
+            }
+            if (arr.count) {
+                [propertyValues setObject:arr forKey:valueKey];
+            }
+        } else {
+            NSDictionary *pvs = [value allPropertyValues];
+            if (pvs.count) {
+                [propertyValues setObject:pvs forKey:valueKey];
+            }
+        }
     }
     
     return propertyValues;
@@ -265,6 +319,48 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
     
     return nil;
 }
+
+
+- (NSString *)jsonString {
+    return self.propertyValues.jsonString;
+}
+
++ (instancetype)objectWithJSONString:(NSString *)jsonString {
+    return [self objectWithData:[jsonString objectFromJSONString]];
+}
+
++ (NSString *)jsonStringFromObjectArray:(NSArray *)objectArray {
+    NSMutableArray *arr = [NSMutableArray array];
+    for (id obj in objectArray) {
+        NSDictionary *pvs = [obj propertyValues];
+        if (pvs.count) {
+            [arr addObject:pvs];
+        }
+    }
+    if (arr.count) {
+        return arr.jsonString;
+    }
+    return nil;
+}
+
++ (NSArray *)objectArrayFromJSONString:(NSString *)jsonString {
+    NSArray *arr = [jsonString objectFromJSONString];
+    if (!arr.count) {
+        return nil;
+    }
+    NSMutableArray *objectArray = [NSMutableArray array];
+    for (NSDictionary *pvs in arr) {
+        if (pvs.count) {
+            [objectArray addObject:[self objectWithData:pvs]];
+        }
+    }
+    if (objectArray.count) {
+        return objectArray;
+    }
+    return nil;
+}
+
+#pragma mark -
 
 - (Class)classOfPropertyNamed:(NSString *)propertyName {
     //待加入缓存

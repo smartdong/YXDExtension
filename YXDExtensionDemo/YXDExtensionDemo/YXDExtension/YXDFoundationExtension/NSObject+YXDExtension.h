@@ -37,4 +37,17 @@
 //获取当前对象的实例变量列表
 - (NSArray *)ivarList;
 
+
+//将对象转化成 dictionary 然后再转化成 json
+- (NSString *)jsonString;
+
+//通过 jsonstring 转化成对象
++ (instancetype)objectWithJSONString:(NSString *)jsonString;
+
+//将对象数组转化为 jsonstring
++ (NSString *)jsonStringFromObjectArray:(NSArray *)objectArray;
+
+//将 jsonstring 转化为对象数组
++ (NSArray *)objectArrayFromJSONString:(NSString *)jsonString;
+
 @end

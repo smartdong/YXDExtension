@@ -27,7 +27,10 @@
     ClassB *clsB = [ClassB new];
     clsB.name = @"clsB";
     
-    TestClass *testClass = [TestClass objectWithData:@{
+    ClassB *clsB2 = [ClassB new];
+    clsB2.name = @"clsB2";
+    
+    TestClass *testClass1 = [TestClass objectWithData:@{
                                                        @"name" : @"test",
                                                        @"tureAge" : @"18" ,
                                                        @"classA" : @{
@@ -36,9 +39,23 @@
                                                                        @"name" : @"cls2B"
                                                                        },
                                                                },
-                                                       @"classB" : @[clsB]
+                                                       @"classB" : @[clsB,clsB2]
                                                        }];
-    NSLog(@"test class : %@",testClass);
+    NSLog(@"testClass1 : %@",testClass1);
+    
+    NSLog(@"testClass1 json : %@",testClass1.jsonString);
+    
+    TestClass *testClass2 = [TestClass objectWithJSONString:testClass1.jsonString];
+    
+    NSLog(@"testClass2 json : %@",testClass2.jsonString);
+    
+    NSArray *arr1 = @[testClass1,testClass2];
+    
+    NSString *arrJSON = [TestClass jsonStringFromObjectArray:arr1];
+    NSLog(@"arrJSON : %@",arrJSON);
+    
+    NSArray *arr2 = [TestClass objectArrayFromJSONString:arrJSON];
+    NSLog(@"arr2 : %@",[[arr2 description] stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"]);
 }
 
 @end
