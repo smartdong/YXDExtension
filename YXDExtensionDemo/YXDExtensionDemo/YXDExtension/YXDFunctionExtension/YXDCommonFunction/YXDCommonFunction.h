@@ -10,8 +10,6 @@
 
 @interface YXDCommonFunction : NSObject
 
-+ (NSMutableArray *)objectArrayWithDictionaryArray:(NSArray *)dictionaryArray objectClass:(Class)objectClass;
-
 #pragma mark -
 #pragma mark local data method
 

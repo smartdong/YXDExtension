@@ -12,20 +12,6 @@
 
 @implementation YXDCommonFunction
 
-+(NSMutableArray *)objectArrayWithDictionaryArray:(NSArray *)dictionaryArray objectClass:(Class)objectClass {
-    if (!dictionaryArray.count || !objectClass) {
-        return nil;
-    }
-    
-    NSMutableArray *arr = [NSMutableArray array];
-    
-    for (NSDictionary *dic in dictionaryArray) {
-        [arr addObject:[objectClass objectWithData:dic]];
-    }
-    
-    return arr;
-}
-
 #pragma mark -
 #pragma mark local data method
 
