@@ -28,8 +28,14 @@
 //获取当前对象的非空属性列表以及属性值
 - (NSDictionary *)propertyValues;
 
+//获取当前对象的非空属性列表以及属性值 其中如果在对象的 propertyMap 中某属性对应不同的 key 则使用 map 中的 key 代替此属性
+- (NSDictionary *)propertyValuesUseMapPropertyKey;
+
 //获取当前对象的所有属性列表以及属性值 (如果属性值不存在则为NSNull对象)
 - (NSDictionary *)allPropertyValues;
+
+//获取当前对象的所有属性列表以及属性值 (如果属性值不存在则为NSNull对象) 其中如果在对象的 propertyMap 中某属性对应不同的 key 则使用 map 中的 key 代替此属性
+- (NSDictionary *)allPropertyValuesUseMapPropertyKey;
 
 //获取当前对象的方法列表
 - (NSArray *)methodList;

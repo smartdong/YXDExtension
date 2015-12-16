@@ -201,48 +201,22 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
 }
 
 - (NSDictionary *)propertyValues {
-    NSArray *propertyList = [self propertyList];
-    
-    if (!propertyList || !propertyList.count) {
-        return nil;
-    }
-    
-    NSMutableDictionary *propertyValues = [NSMutableDictionary dictionaryWithCapacity:propertyList.count];
-    
-    for (NSString *valueKey in propertyList) {
-        id value = [self valueForKey:valueKey];
-        
-        if (value && ![value isKindOfClass:[NSNull class]]) {
-            if ([value isKindOfClass:[NSString class]] || [value isKindOfClass:[NSNumber class]]) {
-                [propertyValues setObject:value forKey:valueKey];
-            } else if ([value isKindOfClass:[NSArray class]]) {
-                NSMutableArray *arr = [NSMutableArray array];
-                for (id obj in value) {
-                    NSDictionary *pvs = [obj propertyValues];
-                    if (pvs.count) {
-                        [arr addObject:pvs];
-                    }
-                }
-                if (arr.count) {
-                    [propertyValues setObject:arr forKey:valueKey];
-                }
-            } else {
-                NSDictionary *pvs = [value propertyValues];
-                if (pvs.count) {
-                    [propertyValues setObject:pvs forKey:valueKey];
-                }
-            }
-        }
-    }
-    
-    if (propertyValues.count) {
-        return propertyValues;
-    }
-    
-    return nil;
+    return [self propertyValuesWithNeedNullValue:NO useMapPropertyKey:NO];
+}
+
+- (NSDictionary *)propertyValuesUseMapPropertyKey {
+    return [self propertyValuesWithNeedNullValue:NO useMapPropertyKey:YES];
 }
 
 - (NSDictionary *)allPropertyValues {
+    return [self propertyValuesWithNeedNullValue:YES useMapPropertyKey:NO];
+}
+
+- (NSDictionary *)allPropertyValuesUseMapPropertyKey {
+    return [self propertyValuesWithNeedNullValue:YES useMapPropertyKey:YES];
+}
+
+- (NSDictionary *)propertyValuesWithNeedNullValue:(BOOL)needNullValue useMapPropertyKey:(BOOL)useMapPropertyKey {
     NSArray *propertyList = [self propertyList];
     
     if (!propertyList || !propertyList.count) {
@@ -259,27 +233,99 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
         }
         
         if ([value isKindOfClass:[NSString class]] || [value isKindOfClass:[NSNumber class]] || [value isKindOfClass:[NSNull class]]) {
-            [propertyValues setObject:value forKey:valueKey];
+            if (needNullValue || ![value isKindOfClass:[NSNull class]]) {
+                [propertyValues setObject:value forKey:valueKey];
+            }
         } else if ([value isKindOfClass:[NSArray class]]) {
             NSMutableArray *arr = [NSMutableArray array];
             for (id obj in value) {
-                NSDictionary *pvs = [obj allPropertyValues];
+                NSDictionary *pvs = nil;
+                
+                if (needNullValue && useMapPropertyKey) {
+                    pvs = [obj allPropertyValuesUseMapPropertyKey];
+                } else if (needNullValue) {
+                    pvs = [obj allPropertyValues];
+                } else if (useMapPropertyKey) {
+                    pvs = [obj propertyValuesUseMapPropertyKey];
+                } else {
+                    pvs = [obj propertyValues];
+                }
+                
                 if (pvs.count) {
                     [arr addObject:pvs];
+                } else if (needNullValue) {
+                    [arr addObject:[NSDictionary dictionary]];
                 }
             }
-            if (arr.count) {
+            if (needNullValue || arr.count) {
                 [propertyValues setObject:arr forKey:valueKey];
             }
         } else {
-            NSDictionary *pvs = [value allPropertyValues];
+            NSDictionary *pvs = nil;
+            
+            if (needNullValue && useMapPropertyKey) {
+                pvs = [value allPropertyValuesUseMapPropertyKey];
+            } else if (needNullValue) {
+                pvs = [value allPropertyValues];
+            } else if (useMapPropertyKey) {
+                pvs = [value propertyValuesUseMapPropertyKey];
+            } else {
+                pvs = [value propertyValues];
+            }
+            
             if (pvs.count) {
                 [propertyValues setObject:pvs forKey:valueKey];
+            } else if (needNullValue) {
+                [propertyValues setObject:[NSNull null] forKey:valueKey];
             }
         }
     }
     
-    return propertyValues;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    
+    if (useMapPropertyKey && [self respondsToSelector:@selector(propertyMap)]) {
+        NSDictionary *propertyMapDictionary = [self performSelector:@selector(propertyMap)];
+        if (propertyMapDictionary && [propertyMapDictionary isKindOfClass:[NSDictionary class]] && propertyMapDictionary.count) {
+            for (NSString *key in propertyMapDictionary.allKeys) {
+                if (![key isKindOfClass:[NSString class]] || !key.length) {
+                    continue;
+                }
+                
+                NSString *mapPropertyKey = nil;
+                
+                id value = [propertyMapDictionary valueForKey:key];
+                
+                if ([value isKindOfClass:[NSString class]]) {
+                    mapPropertyKey = value;
+                } else if ([value isKindOfClass:[NSDictionary class]]) {
+                    NSString *firstKey = ((NSDictionary *)value).allKeys.firstObject;
+                    if ([firstKey isKindOfClass:[NSString class]]) {
+                        mapPropertyKey = firstKey;
+                    }
+                }
+                
+                if (!mapPropertyKey.length) {
+                    continue;
+                }
+                
+                id propertyValue = [propertyValues objectForKey:key];
+                
+                if (propertyValue) {
+                    [propertyValues setObject:propertyValue forKey:mapPropertyKey];
+                    [propertyValues removeObjectForKey:key];
+                }
+            }
+        }
+    }
+    
+#pragma clang diagnostic pop
+    
+    if (propertyValues.count || needNullValue) {
+        return propertyValues;
+    }
+    
+    return nil;
 }
 
 - (NSArray *)methodList {
@@ -322,7 +368,7 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
 
 
 - (NSString *)jsonString {
-    return self.propertyValues.jsonString;
+    return self.propertyValuesUseMapPropertyKey.jsonString;
 }
 
 + (instancetype)objectWithJSONString:(NSString *)jsonString {
@@ -332,7 +378,7 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
 + (NSString *)jsonStringFromObjectArray:(NSArray *)objectArray {
     NSMutableArray *arr = [NSMutableArray array];
     for (id obj in objectArray) {
-        NSDictionary *pvs = [obj propertyValues];
+        NSDictionary *pvs = [obj propertyValuesUseMapPropertyKey];
         if (pvs.count) {
             [arr addObject:pvs];
         }
