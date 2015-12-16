@@ -145,8 +145,7 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
 
 #pragma mark -
 
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
+- (instancetype)initWithCoder:(NSCoder *)coder {
     if (self = [self init]) {
         NSArray *propertyList = [self propertyList];
         
