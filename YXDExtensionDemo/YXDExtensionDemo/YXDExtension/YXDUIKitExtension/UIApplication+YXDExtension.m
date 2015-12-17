@@ -6,15 +6,7 @@
 //
 
 #import "UIApplication+YXDExtension.h"
-#import <objc/message.h>
-
-static const void *YXDExtensionUIApplicationSharedMemoryCacheMapKey = &YXDExtensionUIApplicationSharedMemoryCacheMapKey;
-
-@interface UIApplication ()
-
-@property (nonatomic, strong) NSMutableDictionary *sharedMemoryCacheMap;
-
-@end
+#import "YXDCache.h"
 
 @implementation UIApplication (YXDExtension)
 
@@ -31,42 +23,19 @@ static const void *YXDExtensionUIApplicationSharedMemoryCacheMapKey = &YXDExtens
 }
 
 + (NSCache *)sharedMemoryCache {
-    return [self sharedMemoryCacheForKey:@"YXDExtensionUIApplicationSharedMemoryCacheDefaultKey"];
+    return [YXDCache sharedMemoryCache];
 }
 
 + (NSCache *)sharedMemoryCacheForKey:(NSString *)key {
-    NSMutableDictionary *sharedMemoryCacheMap = [UIApplication sharedApplication].sharedMemoryCacheMap;
-    if (!sharedMemoryCacheMap) {
-        sharedMemoryCacheMap = [NSMutableDictionary dictionary];
-        [UIApplication sharedApplication].sharedMemoryCacheMap = sharedMemoryCacheMap;
-    }
-    
-    NSCache *cache = [sharedMemoryCacheMap objectForKey:key];
-    if (!cache) {
-        cache = [NSCache new];
-        [sharedMemoryCacheMap setObject:cache forKey:key];
-    }
-    return cache;
+    return [YXDCache sharedMemoryCacheForKey:key];
 }
 
 + (void)removeMemoryCacheForKey:(NSString *)key {
-    NSMutableDictionary *sharedMemoryCacheMap = [UIApplication sharedApplication].sharedMemoryCacheMap;
-    [sharedMemoryCacheMap removeObjectForKey:key];
+    [YXDCache removeMemoryCacheForKey:key];
 }
 
 + (void)removeAllMemoryCache {
-    NSMutableDictionary *sharedMemoryCacheMap = [UIApplication sharedApplication].sharedMemoryCacheMap;
-    [sharedMemoryCacheMap removeAllObjects];
-}
-
-#pragma mark - Shit
-
-- (void)setSharedMemoryCacheMap:(NSMutableDictionary *)sharedMemoryCacheMap {
-    objc_setAssociatedObject(self, YXDExtensionUIApplicationSharedMemoryCacheMapKey, sharedMemoryCacheMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (NSMutableDictionary *)sharedMemoryCacheMap {
-    return objc_getAssociatedObject(self, YXDExtensionUIApplicationSharedMemoryCacheMapKey);
+    [YXDCache removeAllMemoryCache];
 }
 
 @end
