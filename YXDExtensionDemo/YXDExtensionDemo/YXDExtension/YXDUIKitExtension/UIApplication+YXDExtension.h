@@ -14,4 +14,10 @@
 
 + (void)callPhone:(NSString *)phone;
 
++ (NSCache *)sharedMemoryCache;
++ (NSCache *)sharedMemoryCacheForKey:(NSString *)key;
+
++ (void)removeMemoryCacheForKey:(NSString *)key;
++ (void)removeAllMemoryCache;
+
 @end

@@ -6,6 +6,15 @@
 //
 
 #import "UIApplication+YXDExtension.h"
+#import <objc/message.h>
+
+static const void *YXDExtensionUIApplicationSharedMemoryCacheMapKey = &YXDExtensionUIApplicationSharedMemoryCacheMapKey;
+
+@interface UIApplication ()
+
+@property (nonatomic, strong) NSMutableDictionary *sharedMemoryCacheMap;
+
+@end
 
 @implementation UIApplication (YXDExtension)
 
@@ -19,6 +28,45 @@
 
 + (void)callPhone:(NSString *)phone {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phone]]];
+}
+
++ (NSCache *)sharedMemoryCache {
+    return [self sharedMemoryCacheForKey:@"YXDExtensionUIApplicationSharedMemoryCacheDefaultKey"];
+}
+
++ (NSCache *)sharedMemoryCacheForKey:(NSString *)key {
+    NSMutableDictionary *sharedMemoryCacheMap = [UIApplication sharedApplication].sharedMemoryCacheMap;
+    if (!sharedMemoryCacheMap) {
+        sharedMemoryCacheMap = [NSMutableDictionary dictionary];
+        [UIApplication sharedApplication].sharedMemoryCacheMap = sharedMemoryCacheMap;
+    }
+    
+    NSCache *cache = [sharedMemoryCacheMap objectForKey:key];
+    if (!cache) {
+        cache = [NSCache new];
+        [sharedMemoryCacheMap setObject:cache forKey:key];
+    }
+    return cache;
+}
+
++ (void)removeMemoryCacheForKey:(NSString *)key {
+    NSMutableDictionary *sharedMemoryCacheMap = [UIApplication sharedApplication].sharedMemoryCacheMap;
+    [sharedMemoryCacheMap removeObjectForKey:key];
+}
+
++ (void)removeAllMemoryCache {
+    NSMutableDictionary *sharedMemoryCacheMap = [UIApplication sharedApplication].sharedMemoryCacheMap;
+    [sharedMemoryCacheMap removeAllObjects];
+}
+
+#pragma mark - Shit
+
+- (void)setSharedMemoryCacheMap:(NSMutableDictionary *)sharedMemoryCacheMap {
+    objc_setAssociatedObject(self, YXDExtensionUIApplicationSharedMemoryCacheMapKey, sharedMemoryCacheMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSMutableDictionary *)sharedMemoryCacheMap {
+    return objc_getAssociatedObject(self, YXDExtensionUIApplicationSharedMemoryCacheMapKey);
 }
 
 @end
