@@ -48,6 +48,7 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
     return [[self new] voluationWithData:data];
 }
 
+#warning 4.此处需优化 考虑方式：快速枚举、多线程
 - (instancetype)voluationWithData:(id)data {
     NSArray *propertyList = [self propertyList];
     
@@ -176,7 +177,7 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
 #pragma mark -
 
 - (NSArray *)propertyList {
-    //待加入缓存
+#warning 2.此处需优化 考虑方式：缓存、过滤不需要的系统属性
     
     unsigned int count;
     
@@ -215,6 +216,7 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
     return [self propertyValuesWithNeedNullValue:YES useMapPropertyKey:YES];
 }
 
+#warning 3.此处需优化 考虑方式：快速枚举、多线程
 - (NSDictionary *)propertyValuesWithNeedNullValue:(BOOL)needNullValue useMapPropertyKey:(BOOL)useMapPropertyKey {
     NSArray *propertyList = [self propertyList];
     
@@ -408,7 +410,7 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
 #pragma mark -
 
 - (Class)classOfPropertyNamed:(NSString *)propertyName {
-    //待加入缓存
+#warning 1.此处需优化 考虑方式：缓存
     
     Class propertyClass = nil;
     objc_property_t property = class_getProperty([self class], [propertyName UTF8String]);
