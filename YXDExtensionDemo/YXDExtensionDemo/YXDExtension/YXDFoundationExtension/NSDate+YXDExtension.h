@@ -11,6 +11,7 @@
 
 - (NSString *)dateString;
 - (NSString *)dateTimeString;
+- (NSString *)dateTimeStringWithoutSeconds;
 
 - (NSString *)stringWithDateFormat:(NSString *)format;
 

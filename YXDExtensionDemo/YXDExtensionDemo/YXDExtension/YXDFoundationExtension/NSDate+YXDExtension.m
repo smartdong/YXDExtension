@@ -21,6 +21,12 @@
     return [formatter stringFromDate:self];
 }
 
+-(NSString *)dateTimeStringWithoutSeconds {
+    NSDateFormatter *formatter = [NSDateFormatter new];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    return [formatter stringFromDate:self];
+}
+
 - (NSString *)stringWithDateFormat:(NSString *)format {
     NSDateFormatter *formatter = [NSDateFormatter new];
     [formatter setDateFormat:format];
