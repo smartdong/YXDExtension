@@ -12,12 +12,12 @@ static YXDExtensionAlertViewCancelBlock _cancelBlock;
 
 @implementation UIAlertView (YXDExtension)
 
-+ (UIAlertView*) showAlertViewWithTitle:(NSString*)title
-                                message:(NSString*)message
-                      cancelButtonTitle:(NSString*)cancelButtonTitle
-                      otherButtonTitles:(NSArray*)otherButtons
++ (UIAlertView *)showAlertViewWithTitle:(NSString *)title
+                                message:(NSString *)message
+                      cancelButtonTitle:(NSString *)cancelButtonTitle
+                      otherButtonTitles:(NSArray<NSString *> *)otherButtons
                               onDismiss:(YXDExtensionAlertViewDismissBlock)dismissed
-                               onCancel:(YXDExtensionAlertViewCancelBlock)cancelled {
+                               onCancel:(YXDExtensionAlertViewCancelBlock)cancelled{
     
     _cancelBlock = [cancelled copy];
     _dismissBlock = [dismissed copy];
@@ -28,8 +28,9 @@ static YXDExtensionAlertViewCancelBlock _cancelBlock;
                                           cancelButtonTitle:cancelButtonTitle
                                           otherButtonTitles:nil];
     
-    for(NSString *buttonTitle in otherButtons)
+    for(NSString *buttonTitle in otherButtons) {
         [alert addButtonWithTitle:buttonTitle];
+    }
     
     [alert show];
     return alert;
