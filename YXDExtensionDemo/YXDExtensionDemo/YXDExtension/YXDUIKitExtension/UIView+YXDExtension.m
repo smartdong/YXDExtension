@@ -49,10 +49,6 @@
     return self.frame.size.height;
 }
 
--(CGFloat)bottom {
-    return self.orginY + self.height;
-}
-
 - (void)setBorderColor:(UIColor *)color width:(CGFloat)width {
     self.layer.borderColor = color.CGColor;
     self.layer.borderWidth = width;
