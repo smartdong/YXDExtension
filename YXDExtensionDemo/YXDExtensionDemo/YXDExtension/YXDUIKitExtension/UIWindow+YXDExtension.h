@@ -9,8 +9,7 @@
 
 @interface UIWindow (YXDExtension)
 
-+ (UIWindow *)appWindow;
-
-+ (UIViewController *)appRootViewController;
++ (UIWindow *)window;
++ (UIViewController *)rootViewController;
 
 @end

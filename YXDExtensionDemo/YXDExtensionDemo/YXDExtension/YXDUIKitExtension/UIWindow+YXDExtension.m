@@ -9,12 +9,12 @@
 
 @implementation UIWindow (YXDExtension)
 
-+ (UIWindow *)appWindow {
++ (UIWindow *)window {
     return [[UIApplication sharedApplication].delegate window];
 }
 
-+ (UIViewController *)appRootViewController {
-    return [[self appWindow] rootViewController];
++ (UIViewController *)rootViewController {
+    return [[self window] rootViewController];
 }
 
 @end
