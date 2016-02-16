@@ -112,7 +112,7 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
         if ([value isKindOfClass:[NSString class]] || [value isKindOfClass:[NSNumber class]]) {
             propertyValue = @([value doubleValue]);
         }
-    } else if (propertyClass == [NSArray class]) {
+    } else if ((propertyClass == [NSArray class]) || (propertyClass == [NSMutableArray class])) {
         
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
@@ -133,9 +133,40 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
         if ([value isKindOfClass:[NSArray class]] && arrayObjectClass) {
             NSMutableArray *arr = [NSMutableArray arrayWithCapacity:((NSArray *)value).count];
             for (id val in value) {
-                [arr addObject:[arrayObjectClass objectWithData:val]];
+                if ([val isKindOfClass:[NSNull class]]) {
+                    continue;
+                }
+                
+                if ([arrayObjectClass isSubclassOfClass:[NSString class]] && [val isKindOfClass:[NSString class]]) {
+                    [arr addObject:val];
+                } else if ([arrayObjectClass isSubclassOfClass:[NSNumber class]] && ([val isKindOfClass:[NSString class]] || [val isKindOfClass:[NSNumber class]])) {
+                    [arr addObject:@([val doubleValue])];
+                } else if ([arrayObjectClass isSubclassOfClass:[NSDictionary class]] && [val isKindOfClass:[NSDictionary class]]) {
+                    if ([arrayObjectClass isSubclassOfClass:[NSMutableDictionary class]] && ![val isKindOfClass:[NSMutableDictionary class]]) {
+                        [arr addObject:[NSMutableDictionary dictionaryWithDictionary:val]];
+                    } else {
+                        [arr addObject:val];
+                    }
+                } else if ([arrayObjectClass isSubclassOfClass:[NSArray class]]) {
+                    //这个就不支持了 数组里面套数组有病啊
+                } else {
+                    [arr addObject:[arrayObjectClass objectWithData:val]];
+                }
             }
-            propertyValue = arr;
+            
+            if (arr.count) {
+                propertyValue = arr;
+            }
+        }
+    } else if (propertyClass == [NSDictionary class]) {
+        if ([value isKindOfClass:[NSDictionary class]]) {
+            propertyValue = value;
+        }
+    } else if (propertyClass == [NSMutableDictionary class]) {
+        if ([value isKindOfClass:[NSMutableDictionary class]]) {
+            propertyValue = value;
+        } else if ([value isKindOfClass:[NSDictionary class]]) {
+            propertyValue = [NSMutableDictionary dictionaryWithDictionary:value];
         }
     } else {
         propertyValue = [propertyClass objectWithData:value];
@@ -240,27 +271,46 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
         } else if ([value isKindOfClass:[NSArray class]]) {
             NSMutableArray *arr = [NSMutableArray array];
             for (id obj in value) {
-                NSDictionary *pvs = nil;
-                
-                if (needNullValue && useMapPropertyKey) {
-                    pvs = [obj allPropertyValuesUseMapPropertyKey];
-                } else if (needNullValue) {
-                    pvs = [obj allPropertyValues];
-                } else if (useMapPropertyKey) {
-                    pvs = [obj propertyValuesUseMapPropertyKey];
-                } else {
-                    pvs = [obj propertyValues];
+                if ([obj isKindOfClass:[NSNull class]]) {
+                    if (needNullValue) {
+                        [arr addObject:[NSNull null]];
+                    }
+                    continue;
                 }
                 
-                if (pvs.count) {
-                    [arr addObject:pvs];
-                } else if (needNullValue) {
-                    [arr addObject:[NSDictionary dictionary]];
+                if ([obj isKindOfClass:[NSString class]]) {
+                    [arr addObject:obj];
+                } else if ([obj isKindOfClass:[NSNumber class]]) {
+                    [arr addObject:obj];
+                } else if ([obj isKindOfClass:[NSDictionary class]]) {
+                    [arr addObject:obj];
+                } else if ([obj isKindOfClass:[NSArray class]]) {
+                    //不支持 理由同上
+                } else {
+                    NSDictionary *pvs = nil;
+                    
+                    if (needNullValue && useMapPropertyKey) {
+                        pvs = [obj allPropertyValuesUseMapPropertyKey];
+                    } else if (needNullValue) {
+                        pvs = [obj allPropertyValues];
+                    } else if (useMapPropertyKey) {
+                        pvs = [obj propertyValuesUseMapPropertyKey];
+                    } else {
+                        pvs = [obj propertyValues];
+                    }
+                    
+                    if (pvs.count) {
+                        [arr addObject:pvs];
+                    } else if (needNullValue) {
+                        [arr addObject:[NSDictionary dictionary]];
+                    }
                 }
             }
             if (needNullValue || arr.count) {
                 [propertyValues setObject:arr forKey:valueKey];
             }
+        } else if ([value isKindOfClass:[NSDictionary class]]) {
+            [propertyValues setObject:value forKey:valueKey];
         } else {
             NSDictionary *pvs = nil;
             

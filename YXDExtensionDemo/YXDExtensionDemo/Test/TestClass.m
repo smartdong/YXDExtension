@@ -14,7 +14,10 @@
 -(NSDictionary *)propertyMap {
     return @{
              @"arrayClassB" : @{@"classB" : [ClassB class]} ,
-             @"age" : @"tureAge" ,
+             @"arrayC"      : @{@"classC" : [NSDictionary class]} ,
+             @"arrayD"      : @{@"classD" : [NSString class]} ,
+             @"age"         : @"tureAge" ,
+             @"data"        : @"returnData",
              };
 }
 

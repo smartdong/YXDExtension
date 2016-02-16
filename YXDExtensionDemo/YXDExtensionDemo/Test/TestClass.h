@@ -21,4 +21,10 @@
 
 @property (nonatomic, strong) NSArray<ClassB *> *arrayClassB;
 
+@property (nonatomic, strong) NSArray<NSDictionary *> *arrayC;
+
+@property (nonatomic, strong) NSArray<NSString *> *arrayD;
+
+@property (nonatomic, strong) NSMutableDictionary *data;
+
 @end
