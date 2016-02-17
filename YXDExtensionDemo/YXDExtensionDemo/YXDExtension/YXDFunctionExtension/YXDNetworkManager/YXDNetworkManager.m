@@ -9,13 +9,13 @@
 #import "AFNetworking.h"
 #import "YXDHUDManager.h"
 
-#define Network_Manager_Instance  ((YXDNetworkManager *)[YXDNetworkManager sharedInstance])
+@implementation YXDNetworkImageObject
+
+@end
 
 static const CGFloat kNetworkHUDShowDuration = 1.0f;
 
 @interface YXDNetworkManager ()
-
-@property (nonatomic, strong) AFHTTPRequestOperationManager  *requsetManager;
 
 @end
 
@@ -31,71 +31,81 @@ static const CGFloat kNetworkHUDShowDuration = 1.0f;
  *  @param loadingStatus    是否显示加载提示  nil则不提示
  *  @param method           网络请求方法
  */
-+ (void)loadDataFromServerWithParams:(NSDictionary *)params
-                    interfaceAddress:(NSString *)interfaceAddress
-                             success:(void (^)(NSDictionary *data, NSString *msg))success
-                             failure:(void (^)(NSError *error))failure
-                       loadingStatus:(NSString *)loadingStatus
-                              method:(NetworkManagerHttpMethod)method {
-    [self loadDataFromServerWithParams:params
-                       imagesDataArray:nil
-                      interfaceAddress:interfaceAddress
-                               success:success
-                               failure:failure
-                         loadingStatus:loadingStatus
-                                method:method];
+- (void)sendRequestWithParams:(NSDictionary *)params
+             interfaceAddress:(NSString *)interfaceAddress
+                      success:(void (^)(NSDictionary *, NSString *))success
+                      failure:(void (^)(NSError *))failure
+                loadingStatus:(NSString *)loadingStatus
+                       method:(NetworkManagerHttpMethod)method {
+    [self sendRequestWithParams:params
+                imagesDataArray:nil
+               interfaceAddress:interfaceAddress
+                        success:success
+                        failure:failure
+                  loadingStatus:loadingStatus
+                         method:method];
 }
 
 /**
  *  根据相应接口获取数据
  *
  *  @param params           数据字典
- *  @param imagesDataArray  图片数据数组     paramName:参数名  imageName:图片名  imageData:图片数据
+ *  @param imagesDataArray  图片数据
  *  @param interfaceAddress 接口地址
  *  @param success          成功处理方法
  *  @param failure          失败处理方法
  *  @param loadingStatus    是否显示加载提示  nil则不提示
  *  @param method           网络请求方法
  */
-+ (void)loadDataFromServerWithParams:(NSDictionary *)params
-                     imagesDataArray:(NSArray *)imagesDataArray
-                    interfaceAddress:(NSString *)interfaceAddress
-                             success:(void (^)(NSDictionary *data, NSString *msg))success
-                             failure:(void (^)(NSError *error))failure
-                       loadingStatus:(NSString *)loadingStatus
-                              method:(NetworkManagerHttpMethod)method {
+- (void)sendRequestWithParams:(NSDictionary *)params
+              imagesDataArray:(NSArray<YXDNetworkImageObject *> *)imagesDataArray
+             interfaceAddress:(NSString *)interfaceAddress
+                      success:(void (^)(NSDictionary *, NSString *))success
+                      failure:(void (^)(NSError *))failure
+                loadingStatus:(NSString *)loadingStatus
+                       method:(NetworkManagerHttpMethod)method {
     
     if (loadingStatus) {
         [YXDHUDManager showWithStatus:loadingStatus];
     }
     
-    NSLog(@"\n接口地址: %@ \n发送数据: %@",interfaceAddress,params);
+    NSMutableDictionary *sendParams = nil;
     
-    void (^constructingBodyBlock)(id<AFMultipartFormData> formData) = ^(id<AFMultipartFormData> formData){
-        for (NSDictionary *imageDic in imagesDataArray) {
-            
-            NSLog(@"\n图片数据: %@",imageDic);
-            
-            NSString *paramName = [imageDic objectForKey:Define_Image_Dictionary_paramName];
-            NSString *imageName = [imageDic objectForKey:Define_Image_Dictionary_imageName];
-            UIImage *image      = [imageDic objectForKey:Define_Image_Dictionary_imageData];
-            
-            if (image) {
-                [formData appendPartWithFileData:[image isKindOfClass:[UIImage class]]?UIImageJPEGRepresentation(image,0.1):[NSData data]
-                                            name:paramName
-                                        fileName:imageName
-                                        mimeType:@"image/png"];
+    if (params.count || self.commonParams.count) {
+        sendParams = [NSMutableDictionary dictionaryWithDictionary:params];
+        [sendParams addEntriesFromDictionary:self.commonParams];
+    }
+    
+    [self.commonHeaders enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL * _Nonnull stop) {
+        //key 或者 value 如果不是字符串 后果自负
+        [self.requsetManager.requestSerializer setValue:value forHTTPHeaderField:key];
+    }];
+
+    void (^constructingBodyBlock)(id<AFMultipartFormData> formData) = imagesDataArray.count?^(id<AFMultipartFormData> formData){
+        for (YXDNetworkImageObject *imageObject in imagesDataArray) {
+            if ([imageObject isKindOfClass:[YXDNetworkImageObject class]] && imageObject.imageData && imageObject.paramName.length) {
+                [formData appendPartWithFileData:[imageObject.imageData isKindOfClass:[UIImage class]]?UIImageJPEGRepresentation(imageObject.imageData,(imageObject.quality>0)?imageObject.quality:0.1):[NSData data]
+                                            name:imageObject.paramName
+                                        fileName:imageObject.imageName?:@""
+                                        mimeType:[NSString stringWithFormat:@"image/%@",imageObject.imageType.length?imageObject.imageType:@"png"]];
             }
         }
-    };
+    }:nil;
     
     void (^successBlock)(AFHTTPRequestOperation *operation, id responseObject) = ^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        NSLog(@"\n返回数据: %@",responseObject);
+        NSLog(@"\n接口地址: %@ \n发送数据: %@ \n返回数据: %@",interfaceAddress,sendParams,responseObject);
 
         if ([responseObject isKindOfClass:[NSNull class]] || !responseObject || ![responseObject isKindOfClass:[NSDictionary class]]) {
             if (failure) {
-                failure([NSError errorWithDomain:@"com.dd" code:0 userInfo:@{NSLocalizedDescriptionKey : @"服务器返回数据错误"}]);
+                
+                NSString *message = @"服务器返回数据错误";
+                
+                if (loadingStatus) {
+                    [YXDHUDManager showErrorWithTitle:message duration:kNetworkHUDShowDuration];
+                }
+                
+                failure([NSError errorWithDomain:@"com.dd" code:500 userInfo:@{NSLocalizedDescriptionKey : message}]);
             }
             return;
         }
@@ -130,57 +140,59 @@ static const CGFloat kNetworkHUDShowDuration = 1.0f;
     
     void (^failureBlock)(AFHTTPRequestOperation *operation, NSError *error) = ^(AFHTTPRequestOperation *operation, NSError *error) {
         
-        NSLog(@"error: %@",error.userInfo);
+        NSLog(@"\n接口地址: %@ \n发送数据: %@ \nError: %@",interfaceAddress,sendParams,error.userInfo);
+        
+        NSString *message = @"网络连接失败";
         
         if (loadingStatus) {
-            [YXDHUDManager showErrorWithTitle:@"网络连接失败" duration:kNetworkHUDShowDuration];
+            [YXDHUDManager showErrorWithTitle:message duration:kNetworkHUDShowDuration];
         }
         
         if (failure) {
-            failure(error);
+            failure(error); //[NSError errorWithDomain:@"com.dd" code:result.integerValue userInfo:@{NSLocalizedDescriptionKey : message}]
         }
     };
     
     switch (method) {
         case GET:
         {
-            [Network_Manager_Instance.requsetManager GET:interfaceAddress
-                                              parameters:params
-                                                 success:successBlock
-                                                 failure:failureBlock];
+            [self.requsetManager GET:interfaceAddress
+                          parameters:sendParams
+                             success:successBlock
+                             failure:failureBlock];
         }
             break;
         case POST:
         {
-            [Network_Manager_Instance.requsetManager POST:interfaceAddress
-                                               parameters:params
-                                constructingBodyWithBlock:constructingBodyBlock
-                                                  success:successBlock
-                                                  failure:failureBlock];
+            [self.requsetManager POST:interfaceAddress
+                           parameters:sendParams
+            constructingBodyWithBlock:constructingBodyBlock
+                              success:successBlock
+                              failure:failureBlock];
         }
             break;
         case PUT:
         {
-            [Network_Manager_Instance.requsetManager PUT:interfaceAddress
-                                              parameters:params
-                                                 success:successBlock
-                                                 failure:failureBlock];
+            [self.requsetManager PUT:interfaceAddress
+                          parameters:sendParams
+                             success:successBlock
+                             failure:failureBlock];
         }
             break;
         case DELETE:
         {
-            [Network_Manager_Instance.requsetManager DELETE:interfaceAddress
-                                                 parameters:params
-                                                    success:successBlock
-                                                    failure:failureBlock];
+            [self.requsetManager DELETE:interfaceAddress
+                             parameters:sendParams
+                                success:successBlock
+                                failure:failureBlock];
         }
             break;
         case PATCH:
         {
-            [Network_Manager_Instance.requsetManager PATCH:interfaceAddress
-                                                parameters:params
-                                                   success:successBlock
-                                                   failure:failureBlock];
+            [self.requsetManager PATCH:interfaceAddress
+                            parameters:sendParams
+                               success:successBlock
+                               failure:failureBlock];
         }
             break;
             
@@ -189,9 +201,9 @@ static const CGFloat kNetworkHUDShowDuration = 1.0f;
     }
 }
 
-#pragma mark - Init
+#pragma mark - New
 
-+(instancetype)sharedInstance {
++ (instancetype)sharedInstance {
     static YXDNetworkManager *networkManager = nil;
     
     static dispatch_once_t onceToken;
@@ -200,6 +212,10 @@ static const CGFloat kNetworkHUDShowDuration = 1.0f;
     });
     
     return networkManager;
+}
+
++ (instancetype)newManager {
+    return [[YXDNetworkManager new] commonInit];
 }
 
 - (instancetype) commonInit {
