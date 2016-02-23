@@ -8,10 +8,7 @@
 #import "YXDNetworkManager.h"
 #import "AFNetworking.h"
 #import "YXDHUDManager.h"
-
-@implementation YXDNetworkImageObject
-
-@end
+#import "YXDNetworkImageObject.h"
 
 static const CGFloat kNetworkHUDShowDuration = 1.0f;
 
@@ -218,7 +215,7 @@ static const CGFloat kNetworkHUDShowDuration = 1.0f;
     return [[YXDNetworkManager new] commonInit];
 }
 
-- (instancetype) commonInit {
+- (instancetype)commonInit {
     self.requsetManager = [AFHTTPRequestOperationManager new];
     self.requsetManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"text/json",@"application/json",@"text/plain",@"text/javascript",nil];
     self.requsetManager.requestSerializer.timeoutInterval = 15; //设置超时
