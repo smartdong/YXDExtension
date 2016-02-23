@@ -7,16 +7,19 @@
 
 #import "UIImage+YXDExtension.h"
 
+@implementation UIGifImageData
+@end
+
 #if __has_include(<ImageIO/ImageIO.h>)
 #import <ImageIO/ImageIO.h>
 #endif
 
 @implementation UIImage (YXDExtension)
 
-+(NSArray *)imagesByGifData:(NSData *)gifData {
++ (UIGifImageData *)gifImageDataByData:(NSData *)data {
 #if __has_include(<ImageIO/ImageIO.h>)
     NSMutableArray *frames = [[NSMutableArray alloc] init];
-    CGImageSourceRef src = CGImageSourceCreateWithData((CFDataRef)gifData, NULL);
+    CGImageSourceRef src = CGImageSourceCreateWithData((CFDataRef)data, NULL);
     CGFloat animationTime = 0.f;
     if (src) {
         size_t l = CGImageSourceGetCount(src);
@@ -36,7 +39,10 @@
     }
     
     if (frames.count) {
-        return frames;
+        UIGifImageData *imageData = [UIGifImageData new];
+        imageData.images = frames;
+        imageData.duration = animationTime;
+        return imageData;
     }
 #else
     NSLog(@"need include <ImageIO/ImageIO.h>");

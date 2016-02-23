@@ -7,10 +7,15 @@
 
 #import <UIKit/UIKit.h>
 
+@interface UIGifImageData : NSObject
+@property (nonatomic, strong) NSArray<UIImage *> *images;
+@property (nonatomic, assign) CGFloat duration;
+@end
+
 @interface UIImage (YXDExtension)
 
 //将GIF图片转化为图片数组 但是调用此方法需要引入系统库 ImageIO
-+ (NSArray *)imagesByGifData:(NSData *)gifData;
++ (UIGifImageData *)gifImageDataByData:(NSData *)data;
 
 + (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size;
 
