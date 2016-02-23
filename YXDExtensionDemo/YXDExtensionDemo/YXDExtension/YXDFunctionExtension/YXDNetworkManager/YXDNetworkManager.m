@@ -74,8 +74,9 @@ static const CGFloat kNetworkHUDShowDuration = 1.0f;
     }
     
     [self.commonHeaders enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL * _Nonnull stop) {
-        //key 或者 value 如果不是字符串 后果自负
-        [self.requsetManager.requestSerializer setValue:value forHTTPHeaderField:key];
+        if ([key isKindOfClass:[NSString class]] && [value isKindOfClass:[NSString class]]) {
+            [self.requsetManager.requestSerializer setValue:value forHTTPHeaderField:key];
+        }
     }];
 
     void (^constructingBodyBlock)(id<AFMultipartFormData> formData) = imagesDataArray.count?^(id<AFMultipartFormData> formData){
