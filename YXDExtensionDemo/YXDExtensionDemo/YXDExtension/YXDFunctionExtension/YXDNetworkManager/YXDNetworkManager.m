@@ -10,13 +10,16 @@
 #import "YXDHUDManager.h"
 #import "YXDNetworkImageObject.h"
 
-static const CGFloat kNetworkHUDShowDuration = 1.0f;
+static NSString *kNetworkErrorDomain            = @"com.dd";
+static const CGFloat kNetworkHUDShowDuration    = 1.0f;
 
 @interface YXDNetworkManager ()
 
 @end
 
 @implementation YXDNetworkManager
+
+#pragma mark - Request
 
 /**
  *  根据相应接口获取数据
@@ -103,17 +106,17 @@ static const CGFloat kNetworkHUDShowDuration = 1.0f;
                     [YXDHUDManager showErrorWithTitle:message duration:kNetworkHUDShowDuration];
                 }
                 
-                failure([NSError errorWithDomain:@"com.dd" code:500 userInfo:@{NSLocalizedDescriptionKey : message}]);
+                failure([NSError errorWithDomain:kNetworkErrorDomain code:500 userInfo:@{NSLocalizedDescriptionKey : message}]);
             }
             return;
         }
         
         NSDictionary *dic_returnDic = (NSDictionary *)responseObject;
         
-        NSNumber *result            = [dic_returnDic objectForKey:@"ret"];
-        NSString *message           = [dic_returnDic objectForKey:@"message"];
+        NSNumber *result            = [dic_returnDic objectForKey:@"ret"]       ? : @(500);
+        NSString *message           = [dic_returnDic objectForKey:@"message"]   ? : @"";
         
-        if (result && [result intValue] == 0) {
+        if ([result intValue] == 0) {
             //成功
             
             if (loadingStatus) {
@@ -131,7 +134,7 @@ static const CGFloat kNetworkHUDShowDuration = 1.0f;
             }
             
             if (failure) {
-                failure([NSError errorWithDomain:@"com.dd" code:result.integerValue userInfo:@{NSLocalizedDescriptionKey : message}]);
+                failure([NSError errorWithDomain:kNetworkErrorDomain code:result.integerValue userInfo:@{NSLocalizedDescriptionKey : message}]);
             }
         }
     };
@@ -147,7 +150,7 @@ static const CGFloat kNetworkHUDShowDuration = 1.0f;
         }
         
         if (failure) {
-            failure(error); //[NSError errorWithDomain:@"com.dd" code:result.integerValue userInfo:@{NSLocalizedDescriptionKey : message}]
+            failure([NSError errorWithDomain:kNetworkErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey : message}]);
         }
     };
     

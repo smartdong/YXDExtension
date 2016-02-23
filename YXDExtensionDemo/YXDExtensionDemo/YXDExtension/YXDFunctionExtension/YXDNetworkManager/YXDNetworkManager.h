@@ -27,6 +27,8 @@ typedef NS_ENUM(NSInteger, NetworkManagerHttpMethod) {
 @property (nonatomic, strong) NSMutableDictionary *commonParams;
 @property (nonatomic, strong) NSMutableDictionary *commonHeaders;
 
+#pragma mark - Request
+
 /**
  *  根据相应接口获取数据
  *
