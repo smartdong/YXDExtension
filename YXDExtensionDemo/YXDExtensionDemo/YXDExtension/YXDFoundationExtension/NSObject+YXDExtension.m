@@ -48,7 +48,14 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
     return [[self new] voluationWithData:data];
 }
 
-#warning 4.此处需优化 考虑方式：快速枚举、多线程
+#warning 目前效率还是太差,优化方案考虑如下: \
+1.缓存 \
+2.一些对象可以声明成 __unsafe_unretained \
+3.使用高效的数组遍历方法 \
+4.优化遍历方案，减少遍历次数 \
+5.使用内联函数 \
+
+#warning 4.此处需优化 考虑方式：快速枚举
 - (instancetype)voluationWithData:(id)data {
     NSArray *propertyList = [self propertyList];
     
@@ -247,7 +254,7 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
     return [self propertyValuesWithNeedNullValue:YES useMapPropertyKey:YES];
 }
 
-#warning 3.此处需优化 考虑方式：快速枚举、多线程
+#warning 3.此处需优化 考虑方式：快速枚举
 - (NSDictionary *)propertyValuesWithNeedNullValue:(BOOL)needNullValue useMapPropertyKey:(BOOL)useMapPropertyKey {
     NSArray *propertyList = [self propertyList];
     
