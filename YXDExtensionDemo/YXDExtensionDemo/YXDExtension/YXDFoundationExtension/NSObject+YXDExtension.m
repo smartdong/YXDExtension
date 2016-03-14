@@ -68,20 +68,13 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
         [self voluationWithPropertyName:propertyName value:[data valueForKey:propertyName] arrayObjectClass:nil];
     }
     
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wundeclared-selector"
-    
+
     //属性名称对应不同的返回值
-    if (![self respondsToSelector:@selector(propertyMap)]) {
+    NSDictionary *propertyMapDictionary = [self getPropertyMapDictionary];
+    
+    if (!propertyMapDictionary) {
         return self;
     }
-    
-    NSDictionary *propertyMapDictionary = [self performSelector:@selector(propertyMap)];
-    if (!propertyMapDictionary || ![propertyMapDictionary isKindOfClass:[NSDictionary class]] || !propertyMapDictionary.count) {
-        return self;
-    }
-    
-#pragma clang diagnostic pop
     
     for (NSString *propertyName in propertyMapDictionary.allKeys) {
         id propertyValue = [propertyMapDictionary valueForKey:propertyName];
@@ -121,11 +114,9 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
         }
     } else if ((propertyClass == [NSArray class]) || (propertyClass == [NSMutableArray class])) {
         
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wundeclared-selector"
+        NSDictionary *propertyMapDictionary = [self getPropertyMapDictionary];
         
-        if (!arrayObjectClass && [self respondsToSelector:@selector(propertyMap)]) {
-            NSDictionary *propertyMapDictionary = [self performSelector:@selector(propertyMap)];
+        if (!arrayObjectClass && propertyMapDictionary) {
             NSDictionary *propertyDic = [propertyMapDictionary valueForKey:propertyName];
             if (propertyDic && [propertyDic isKindOfClass:[NSDictionary class]] && propertyDic.count) {
                 id clazz = propertyDic.allValues.firstObject;
@@ -135,9 +126,7 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
             }
         }
         
-#pragma clang diagnostic pop
-        
-        if ([value isKindOfClass:[NSArray class]] && arrayObjectClass) {
+        if (arrayObjectClass && [value isKindOfClass:[NSArray class]]) {
             NSMutableArray *arr = [NSMutableArray arrayWithCapacity:((NSArray *)value).count];
             for (id val in value) {
                 if ([val isKindOfClass:[NSNull class]]) {
@@ -339,45 +328,39 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
         }
     }
     
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wundeclared-selector"
+    NSDictionary *propertyMapDictionary = [self getPropertyMapDictionary];
     
-    if (useMapPropertyKey && [self respondsToSelector:@selector(propertyMap)]) {
-        NSDictionary *propertyMapDictionary = [self performSelector:@selector(propertyMap)];
-        if (propertyMapDictionary && [propertyMapDictionary isKindOfClass:[NSDictionary class]] && propertyMapDictionary.count) {
-            for (NSString *key in propertyMapDictionary.allKeys) {
-                if (![key isKindOfClass:[NSString class]] || !key.length) {
-                    continue;
+    if (useMapPropertyKey && propertyMapDictionary) {
+        for (NSString *key in propertyMapDictionary.allKeys) {
+            if (![key isKindOfClass:[NSString class]] || !key.length) {
+                continue;
+            }
+            
+            NSString *mapPropertyKey = nil;
+            
+            id value = [propertyMapDictionary valueForKey:key];
+            
+            if ([value isKindOfClass:[NSString class]]) {
+                mapPropertyKey = value;
+            } else if ([value isKindOfClass:[NSDictionary class]]) {
+                NSString *firstKey = ((NSDictionary *)value).allKeys.firstObject;
+                if ([firstKey isKindOfClass:[NSString class]]) {
+                    mapPropertyKey = firstKey;
                 }
-                
-                NSString *mapPropertyKey = nil;
-                
-                id value = [propertyMapDictionary valueForKey:key];
-                
-                if ([value isKindOfClass:[NSString class]]) {
-                    mapPropertyKey = value;
-                } else if ([value isKindOfClass:[NSDictionary class]]) {
-                    NSString *firstKey = ((NSDictionary *)value).allKeys.firstObject;
-                    if ([firstKey isKindOfClass:[NSString class]]) {
-                        mapPropertyKey = firstKey;
-                    }
-                }
-                
-                if (!mapPropertyKey.length) {
-                    continue;
-                }
-                
-                id propertyValue = [propertyValues objectForKey:key];
-                
-                if (propertyValue) {
-                    [propertyValues setObject:propertyValue forKey:mapPropertyKey];
-                    [propertyValues removeObjectForKey:key];
-                }
+            }
+            
+            if (!mapPropertyKey.length) {
+                continue;
+            }
+            
+            id propertyValue = [propertyValues objectForKey:key];
+            
+            if (propertyValue) {
+                [propertyValues setObject:propertyValue forKey:mapPropertyKey];
+                [propertyValues removeObjectForKey:key];
             }
         }
     }
-    
-#pragma clang diagnostic pop
     
     if (propertyValues.count || needNullValue) {
         return propertyValues;
@@ -465,6 +448,24 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
 }
 
 #pragma mark -
+
+// 获取 propertyMap
+- (NSDictionary *)getPropertyMapDictionary {
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    
+    if ([self respondsToSelector:@selector(propertyMap)]) {
+        NSDictionary *map = [self performSelector:@selector(propertyMap)];
+        if (map && [map isKindOfClass:[NSDictionary class]] && map.count) {
+            return map;
+        }
+    }
+    
+#pragma clang diagnostic pop
+    
+    return nil;
+}
 
 - (Class)classOfPropertyNamed:(NSString *)propertyName {
 #warning 1.此处需优化 考虑方式：缓存
