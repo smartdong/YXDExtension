@@ -30,27 +30,30 @@
     ClassB *clsB2 = [ClassB new];
     clsB2.name = @"clsB2";
     
-    TestClass *testClass1 = [TestClass objectWithData:@{
-                                                       @"name" : @"test",
-                                                       @"tureAge" : @"18" ,
-                                                       @"classA" : @{
-                                                               @"name" : @"clsA" ,
-                                                               @"classB" : @{
-                                                                       @"name" : @"cls2B"
-                                                                       },
-                                                               },
-                                                       @"classB" : @[clsB,clsB2],
-                                                       @"classC" : @[@{@"key1":@{@"v1":@"v2"}},@{@"key2":@"value2"}],
-                                                       @"classD" : @[@"1",@"2"],
-                                                       @"returnData" : @{@"hehe":@"haha",@"hengheng":@{@"a":@"b"}}
-                                                       }];
-    NSLog(@"testClass1 : %@",testClass1);
+    [YXDCommonFunction printTimeCost:^{
+        TestClass *testClass1 = [TestClass objectWithData:@{
+                                                            @"name" : @"test",
+                                                            @"tureAge" : @"18" ,
+                                                            @"classA" : @{
+                                                                    @"name" : @"clsA" ,
+                                                                    @"classB" : @{
+                                                                            @"name" : @"cls2B"
+                                                                            },
+                                                                    },
+                                                            @"classB" : @[clsB,clsB2],
+                                                            @"classC" : @[@{@"key1":@{@"v1":@"v2"}},@{@"key2":@"value2"}],
+                                                            @"classD" : @[@"1",@"2"],
+                                                            @"returnData" : @{@"hehe":@"haha",@"hengheng":@{@"a":@"b"}}
+                                                            }];
+        NSLog(@"testClass1 : %@",testClass1);
+        
+        NSLog(@"testClass1 json : %@",testClass1.jsonString);
+        
+        TestClass *testClass2 = [TestClass objectWithJSONString:testClass1.jsonString];
+        
+        NSLog(@"testClass2 json : %@",testClass2.jsonString);
+    }];
     
-    NSLog(@"testClass1 json : %@",testClass1.jsonString);
-    
-    TestClass *testClass2 = [TestClass objectWithJSONString:testClass1.jsonString];
-    
-    NSLog(@"testClass2 json : %@",testClass2.jsonString);
 
 //    NSArray *arr1 = @[testClass1,testClass2];
 //    
@@ -60,30 +63,28 @@
 //    NSArray *arr2 = [TestClass objectArrayFromJSONString:arrJSON];
 //    NSLog(@"arr2 : %@",[[arr2 description] stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"]);
     
-    
-//    NSTimeInterval begin = [[NSDate date] timeIntervalSince1970];
-//    
-//    for (int i = 0; i < 10000; i++) {
-//        TestClass *testClass1 = [TestClass objectWithData:@{
-//                                                            @"name" : @"test",
-//                                                            @"tureAge" : @"18" ,
-//                                                            @"classA" : @{
-//                                                                    @"name" : @"clsA" ,
-//                                                                    @"classB" : @{
-//                                                                            @"name" : @"cls2B"
-//                                                                            },
-//                                                                    },
-//                                                            @"classB" : @[clsB,clsB2]
-//                                                            }];
-//        
-//        TestClass *testClass2 = [TestClass objectWithJSONString:testClass1.jsonString];
-//        NSString *arrJSON = [TestClass jsonStringFromObjectArray:@[testClass1,testClass2]];
-//        NSArray *arr = [TestClass objectArrayFromJSONString:arrJSON];
-//    }
-//    
-//    NSTimeInterval end = [[NSDate date] timeIntervalSince1970];
-//    
-//    NSLog(@"cost time : %lf",(end - begin));
+//    [YXDCommonFunction printTimeCost:^{
+//        for (int i = 0; i < 10000; i++) {
+//            TestClass *testClass1 = [TestClass objectWithData:@{
+//                                                                @"name" : @"test",
+//                                                                @"tureAge" : @"18" ,
+//                                                                @"classA" : @{
+//                                                                        @"name" : @"clsA" ,
+//                                                                        @"classB" : @{
+//                                                                                @"name" : @"cls2B"
+//                                                                                },
+//                                                                        },
+//                                                                @"classB" : @[clsB,clsB2],
+//                                                                @"classC" : @[@{@"key1":@{@"v1":@"v2"}},@{@"key2":@"value2"}],
+//                                                                @"classD" : @[@"1",@"2"],
+//                                                                @"returnData" : @{@"hehe":@"haha",@"hengheng":@{@"a":@"b"}}
+//                                                                }];
+//            
+//            TestClass *testClass2 = [TestClass objectWithJSONString:testClass1.jsonString];
+//            NSString *arrJSON = [TestClass jsonStringFromObjectArray:@[testClass1,testClass2]];
+//            NSArray *arr = [TestClass objectArrayFromJSONString:arrJSON];
+//        }
+//    }];
 }
 
 @end

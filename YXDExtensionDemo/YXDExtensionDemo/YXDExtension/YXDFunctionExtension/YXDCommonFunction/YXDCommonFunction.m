@@ -12,8 +12,18 @@
 
 @implementation YXDCommonFunction
 
-#pragma mark -
-#pragma mark local data method
+#pragma mark - Print Time Cost
+
++ (void)printTimeCost:(dispatch_block_t)doSth {
+    CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
+    if (doSth) {
+        doSth();
+    }
+    CFAbsoluteTime end = CFAbsoluteTimeGetCurrent();
+    NSLog(@"Time Cost: %0.3f", end - start);
+}
+
+#pragma mark - Local data method
 
 + (void) setLocalData:(id)data key:(NSString *)key{
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];

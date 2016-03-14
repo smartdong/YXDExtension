@@ -10,8 +10,11 @@
 
 @interface YXDCommonFunction : NSObject
 
-#pragma mark -
-#pragma mark local data method
+#pragma mark - Print Time Cost
+
++ (void)printTimeCost:(dispatch_block_t)doSth;
+
+#pragma mark - Local Data Method
 
 + (void) setLocalData:(id)data key:(NSString *)key;
 + (id) getLocalData:(NSString *)key;
