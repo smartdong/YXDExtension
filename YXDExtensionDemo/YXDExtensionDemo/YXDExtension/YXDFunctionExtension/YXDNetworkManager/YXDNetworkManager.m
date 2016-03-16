@@ -202,6 +202,21 @@ static const CGFloat kNetworkHUDShowDuration    = 1.0f;
     }
 }
 
+#pragma mark - Return Data Handle
+
+//先备用
+//- (void)handleSuccessWithOperation:(AFHTTPRequestOperation *)operation responseObject:(id)responseObject defaultHandleBlock:(dispatch_block_t)defaultHandleBlock {
+//    if (defaultHandleBlock) {
+//        defaultHandleBlock();
+//    }
+//}
+//
+//- (void)handleFailureWithOperation:(AFHTTPRequestOperation *)operation error:(NSError *)error defaultHandleBlock:(dispatch_block_t)defaultHandleBlock {
+//    if (defaultHandleBlock) {
+//        defaultHandleBlock();
+//    }
+//}
+
 #pragma mark - New
 
 + (instancetype)sharedInstance {
