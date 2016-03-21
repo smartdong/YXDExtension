@@ -6,6 +6,7 @@
 //
 
 #import "YXDNetworkManager.h"
+#import "YXDNetworkResult.h"
 #import "YXDHUDManager.h"
 #import "YXDCommonFunction.h"
 #import "YXDActionView.h"
