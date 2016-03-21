@@ -9,9 +9,9 @@
 #import "AFNetworking.h"
 #import "YXDHUDManager.h"
 #import "YXDNetworkImageObject.h"
+#import "YXDNetworkResult.h"
 
-static NSString *kNetworkErrorDomain            = @"com.dd";
-static const CGFloat kNetworkHUDShowDuration    = 1.0f;
+static const CGFloat kNetworkHUDShowDuration = 1.0f;
 
 @interface YXDNetworkManager ()
 
@@ -27,13 +27,13 @@ static const CGFloat kNetworkHUDShowDuration    = 1.0f;
  *  @param params           数据字典
  *  @param interfaceAddress 接口地址
  *  @param success          成功处理方法
- *  @param failure          失败处理方法
+ *  @param failure          网络失败处理方法
  *  @param loadingStatus    是否显示加载提示  nil则不提示
  *  @param method           网络请求方法
  */
 - (void)sendRequestWithParams:(NSDictionary *)params
              interfaceAddress:(NSString *)interfaceAddress
-                      success:(void (^)(NSDictionary *, NSString *))success
+                      success:(void (^)(YXDNetworkResult *))success
                       failure:(void (^)(NSError *))failure
                 loadingStatus:(NSString *)loadingStatus
                        method:(NetworkManagerHttpMethod)method {
@@ -53,14 +53,14 @@ static const CGFloat kNetworkHUDShowDuration    = 1.0f;
  *  @param imagesDataArray  图片数据
  *  @param interfaceAddress 接口地址
  *  @param success          成功处理方法
- *  @param failure          失败处理方法
+ *  @param failure          网络失败处理方法
  *  @param loadingStatus    是否显示加载提示  nil则不提示
  *  @param method           网络请求方法
  */
 - (void)sendRequestWithParams:(NSDictionary *)params
               imagesDataArray:(NSArray<YXDNetworkImageObject *> *)imagesDataArray
              interfaceAddress:(NSString *)interfaceAddress
-                      success:(void (^)(NSDictionary *, NSString *))success
+                      success:(void (^)(YXDNetworkResult *))success
                       failure:(void (^)(NSError *))failure
                 loadingStatus:(NSString *)loadingStatus
                        method:(NetworkManagerHttpMethod)method {
@@ -68,6 +68,8 @@ static const CGFloat kNetworkHUDShowDuration    = 1.0f;
     if (loadingStatus) {
         [YXDHUDManager showWithStatus:loadingStatus];
     }
+    
+    [self willSendRequest];
     
     NSMutableDictionary *sendParams = nil;
     
@@ -96,46 +98,28 @@ static const CGFloat kNetworkHUDShowDuration    = 1.0f;
     void (^successBlock)(AFHTTPRequestOperation *operation, id responseObject) = ^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSLog(@"\n接口地址: %@ \n发送数据: %@ \n返回数据: %@",interfaceAddress,sendParams,responseObject);
-
-        if ([responseObject isKindOfClass:[NSNull class]] || !responseObject || ![responseObject isKindOfClass:[NSDictionary class]]) {
-            if (failure) {
-                
-                NSString *message = @"服务器返回数据错误";
-                
-                if (loadingStatus) {
-                    [YXDHUDManager showErrorWithTitle:message duration:kNetworkHUDShowDuration];
-                }
-                
-                failure([NSError errorWithDomain:kNetworkErrorDomain code:500 userInfo:@{NSLocalizedDescriptionKey : message}]);
-            }
-            return;
-        }
         
-        NSDictionary *dic_returnDic = (NSDictionary *)responseObject;
+        YXDNetworkResult *result = [YXDNetworkResult resultWithDictionary:responseObject];
         
-        NSNumber *result            = [dic_returnDic objectForKey:@"ret"]       ? : @(500);
-        NSString *message           = [dic_returnDic objectForKey:@"message"]   ? : @"";
+        result.allHeaderFields = operation.response.allHeaderFields;
         
-        if ([result intValue] == 0) {
-            //成功
-            
+        if (result.code == YXDNetworkErrorCodeSuccess) {
             if (loadingStatus) {
                 [YXDHUDManager dismiss];
             }
             
-            if (success) {
-                success(dic_returnDic,message);
-            }
+            [self handleSuccessWithOperation:operation result:result];
+            
         } else {
-            //失败
-            
             if (loadingStatus) {
-                [YXDHUDManager showErrorWithTitle:message duration:kNetworkHUDShowDuration];
+                [YXDHUDManager showErrorWithTitle:result.message duration:kNetworkHUDShowDuration];
             }
             
-            if (failure) {
-                failure([NSError errorWithDomain:kNetworkErrorDomain code:result.integerValue userInfo:@{NSLocalizedDescriptionKey : message}]);
-            }
+            [self handleFailureWithOperation:operation result:result];
+        }
+        
+        if (success) {
+            success(result);
         }
     };
     
@@ -150,7 +134,7 @@ static const CGFloat kNetworkHUDShowDuration    = 1.0f;
         }
         
         if (failure) {
-            failure([NSError errorWithDomain:kNetworkErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey : message}]);
+            failure([NSError errorWithDomain:kNetworkErrorDomain code:YXDNetworkErrorCodeLostNetwork userInfo:@{NSLocalizedDescriptionKey : message}]);
         }
     };
     
@@ -204,18 +188,17 @@ static const CGFloat kNetworkHUDShowDuration    = 1.0f;
 
 #pragma mark - Return Data Handle
 
-//先备用
-//- (void)handleSuccessWithOperation:(AFHTTPRequestOperation *)operation responseObject:(id)responseObject defaultHandleBlock:(dispatch_block_t)defaultHandleBlock {
-//    if (defaultHandleBlock) {
-//        defaultHandleBlock();
-//    }
-//}
-//
-//- (void)handleFailureWithOperation:(AFHTTPRequestOperation *)operation error:(NSError *)error defaultHandleBlock:(dispatch_block_t)defaultHandleBlock {
-//    if (defaultHandleBlock) {
-//        defaultHandleBlock();
-//    }
-//}
+- (void)willSendRequest {
+    
+}
+
+- (void)handleSuccessWithOperation:(AFHTTPRequestOperation *)operation result:(YXDNetworkResult *)result {
+    
+}
+
+- (void)handleFailureWithOperation:(AFHTTPRequestOperation *)operation result:(YXDNetworkResult *)result {
+    
+}
 
 #pragma mark - New
 

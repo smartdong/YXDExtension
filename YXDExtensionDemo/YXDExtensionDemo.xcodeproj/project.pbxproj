@@ -97,6 +97,7 @@
 		B55048811B81B63E00A78C8D /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B55048451B81B63E00A78C8D /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
 		B55048851B81BB1100A78C8D /* YXDNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B55048841B81BB1100A78C8D /* YXDNetworkManager.m */; };
 		B55048891B81C0D900A78C8D /* YXDHUDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B55048881B81C0D900A78C8D /* YXDHUDManager.m */; };
+		B555C8811C9FC45800FB37C9 /* YXDNetworkResult.m in Sources */ = {isa = PBXBuildFile; fileRef = B555C8801C9FC45800FB37C9 /* YXDNetworkResult.m */; };
 		B5D830B61B71E08B0094BE65 /* image_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = B5D830AD1B71E08B0094BE65 /* image_circle.png */; };
 		B5D830B71B71E08B0094BE65 /* image_line.png in Resources */ = {isa = PBXBuildFile; fileRef = B5D830AE1B71E08B0094BE65 /* image_line.png */; };
 		B5D830B81B71E08B0094BE65 /* YXDLockScreenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D830B01B71E08B0094BE65 /* YXDLockScreenManager.m */; };
@@ -325,6 +326,8 @@
 		B55048841B81BB1100A78C8D /* YXDNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDNetworkManager.m; sourceTree = "<group>"; };
 		B55048871B81C0D900A78C8D /* YXDHUDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDHUDManager.h; sourceTree = "<group>"; };
 		B55048881B81C0D900A78C8D /* YXDHUDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDHUDManager.m; sourceTree = "<group>"; };
+		B555C87F1C9FC45800FB37C9 /* YXDNetworkResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDNetworkResult.h; sourceTree = "<group>"; };
+		B555C8801C9FC45800FB37C9 /* YXDNetworkResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDNetworkResult.m; sourceTree = "<group>"; };
 		B5D830AD1B71E08B0094BE65 /* image_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_circle.png; sourceTree = "<group>"; };
 		B5D830AE1B71E08B0094BE65 /* image_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_line.png; sourceTree = "<group>"; };
 		B5D830AF1B71E08B0094BE65 /* YXDLockScreenManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDLockScreenManager.h; sourceTree = "<group>"; };
@@ -793,6 +796,8 @@
 			children = (
 				B55048831B81BB1100A78C8D /* YXDNetworkManager.h */,
 				B55048841B81BB1100A78C8D /* YXDNetworkManager.m */,
+				B555C87F1C9FC45800FB37C9 /* YXDNetworkResult.h */,
+				B555C8801C9FC45800FB37C9 /* YXDNetworkResult.m */,
 				B533A3021C7C08AD00BEA4A6 /* YXDNetworkImageObject.h */,
 				B533A3031C7C08AD00BEA4A6 /* YXDNetworkImageObject.m */,
 			);
@@ -1068,6 +1073,7 @@
 			files = (
 				B55048751B81B63E00A78C8D /* UIImage+GIF.m in Sources */,
 				B550484F1B81B63E00A78C8D /* AFNetworkActivityIndicatorManager.m in Sources */,
+				B555C8811C9FC45800FB37C9 /* YXDNetworkResult.m in Sources */,
 				0B67254B1B6E9FC9009272B4 /* ViewController.m in Sources */,
 				B5DE71B51B6F33C1006F8FF1 /* UIWindow+YXDExtension.m in Sources */,
 				B55048631B81B63E00A78C8D /* MJRefreshGifHeader.m in Sources */,
