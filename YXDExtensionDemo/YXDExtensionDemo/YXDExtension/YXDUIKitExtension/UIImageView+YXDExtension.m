@@ -16,11 +16,11 @@
 }
 
 - (void)setImageWithUrlString:(NSString *)urlString {
-    [self sd_setImageWithURL:urlString.urlValue];
+    [self sd_setImageWithURL:urlString.url];
 }
 
 - (void)setImageWithUrlString:(NSString *)urlString placeholderImageName:(NSString *)placeholderImageName {
-    [self sd_setImageWithURL:urlString.urlValue placeholderImage:[UIImage imageNamed:placeholderImageName]];
+    [self sd_setImageWithURL:urlString.url placeholderImage:[UIImage imageNamed:placeholderImageName]];
 }
 
 - (void)setAnimationWithImageNames:(NSArray *)imageNames duration:(CGFloat)duration {
