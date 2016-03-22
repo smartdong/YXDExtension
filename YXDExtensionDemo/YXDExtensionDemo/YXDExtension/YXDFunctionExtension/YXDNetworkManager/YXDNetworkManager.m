@@ -11,6 +11,7 @@
 #import "YXDNetworkImageObject.h"
 #import "YXDNetworkResult.h"
 
+NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
 
 @interface YXDNetworkManager ()
 
@@ -19,6 +20,28 @@
 @implementation YXDNetworkManager
 
 #pragma mark - Request
+
+/**
+ *  根据相应接口获取数据
+ *
+ *  @param params           数据字典
+ *  @param interfaceAddress 接口地址
+ *  @param success          成功处理方法
+ *  @param loadingStatus    是否显示加载提示  nil则不提示
+ *  @param method           网络请求方法
+ */
+- (void)sendRequestWithParams:(NSDictionary *)params
+             interfaceAddress:(NSString *)interfaceAddress
+                      success:(void (^)(YXDNetworkResult *result))success
+                loadingStatus:(NSString *)loadingStatus
+                       method:(NetworkManagerHttpMethod)method {
+    [self sendRequestWithParams:params
+               interfaceAddress:interfaceAddress
+                        success:success
+                        failure:nil
+                  loadingStatus:loadingStatus
+                         method:method];
+}
 
 /**
  *  根据相应接口获取数据
