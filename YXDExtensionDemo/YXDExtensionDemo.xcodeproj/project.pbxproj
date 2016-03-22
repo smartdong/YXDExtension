@@ -98,6 +98,10 @@
 		B55048851B81BB1100A78C8D /* YXDNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B55048841B81BB1100A78C8D /* YXDNetworkManager.m */; };
 		B55048891B81C0D900A78C8D /* YXDHUDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B55048881B81C0D900A78C8D /* YXDHUDManager.m */; };
 		B555C8811C9FC45800FB37C9 /* YXDNetworkResult.m in Sources */ = {isa = PBXBuildFile; fileRef = B555C8801C9FC45800FB37C9 /* YXDNetworkResult.m */; };
+		B555C88A1CA1343800FB37C9 /* easyjs-inject.js in Resources */ = {isa = PBXBuildFile; fileRef = B555C8831CA1343800FB37C9 /* easyjs-inject.js */; };
+		B555C88B1CA1343800FB37C9 /* EasyJSDataFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = B555C8851CA1343800FB37C9 /* EasyJSDataFunction.m */; };
+		B555C88C1CA1343800FB37C9 /* EasyJSWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = B555C8871CA1343800FB37C9 /* EasyJSWebView.m */; };
+		B555C88D1CA1343800FB37C9 /* EasyJSWebViewProxyDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B555C8891CA1343800FB37C9 /* EasyJSWebViewProxyDelegate.m */; };
 		B5D830B61B71E08B0094BE65 /* image_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = B5D830AD1B71E08B0094BE65 /* image_circle.png */; };
 		B5D830B71B71E08B0094BE65 /* image_line.png in Resources */ = {isa = PBXBuildFile; fileRef = B5D830AE1B71E08B0094BE65 /* image_line.png */; };
 		B5D830B81B71E08B0094BE65 /* YXDLockScreenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D830B01B71E08B0094BE65 /* YXDLockScreenManager.m */; };
@@ -328,6 +332,13 @@
 		B55048881B81C0D900A78C8D /* YXDHUDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDHUDManager.m; sourceTree = "<group>"; };
 		B555C87F1C9FC45800FB37C9 /* YXDNetworkResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDNetworkResult.h; sourceTree = "<group>"; };
 		B555C8801C9FC45800FB37C9 /* YXDNetworkResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDNetworkResult.m; sourceTree = "<group>"; };
+		B555C8831CA1343800FB37C9 /* easyjs-inject.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "easyjs-inject.js"; sourceTree = "<group>"; };
+		B555C8841CA1343800FB37C9 /* EasyJSDataFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyJSDataFunction.h; sourceTree = "<group>"; };
+		B555C8851CA1343800FB37C9 /* EasyJSDataFunction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyJSDataFunction.m; sourceTree = "<group>"; };
+		B555C8861CA1343800FB37C9 /* EasyJSWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyJSWebView.h; sourceTree = "<group>"; };
+		B555C8871CA1343800FB37C9 /* EasyJSWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyJSWebView.m; sourceTree = "<group>"; };
+		B555C8881CA1343800FB37C9 /* EasyJSWebViewProxyDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyJSWebViewProxyDelegate.h; sourceTree = "<group>"; };
+		B555C8891CA1343800FB37C9 /* EasyJSWebViewProxyDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyJSWebViewProxyDelegate.m; sourceTree = "<group>"; };
 		B5D830AD1B71E08B0094BE65 /* image_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_circle.png; sourceTree = "<group>"; };
 		B5D830AE1B71E08B0094BE65 /* image_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_line.png; sourceTree = "<group>"; };
 		B5D830AF1B71E08B0094BE65 /* YXDLockScreenManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDLockScreenManager.h; sourceTree = "<group>"; };
@@ -559,6 +570,7 @@
 		B55047BC1B81B63E00A78C8D /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				B555C8821CA1343800FB37C9 /* EasyJSWebView */,
 				B55047BD1B81B63E00A78C8D /* AFNetworking */,
 				B55047E41B81B63E00A78C8D /* FDTemplateLayoutCell */,
 				B55047E71B81B63E00A78C8D /* MJRefresh */,
@@ -813,6 +825,20 @@
 			path = YXDHUDManager;
 			sourceTree = "<group>";
 		};
+		B555C8821CA1343800FB37C9 /* EasyJSWebView */ = {
+			isa = PBXGroup;
+			children = (
+				B555C8831CA1343800FB37C9 /* easyjs-inject.js */,
+				B555C8841CA1343800FB37C9 /* EasyJSDataFunction.h */,
+				B555C8851CA1343800FB37C9 /* EasyJSDataFunction.m */,
+				B555C8861CA1343800FB37C9 /* EasyJSWebView.h */,
+				B555C8871CA1343800FB37C9 /* EasyJSWebView.m */,
+				B555C8881CA1343800FB37C9 /* EasyJSWebViewProxyDelegate.h */,
+				B555C8891CA1343800FB37C9 /* EasyJSWebViewProxyDelegate.m */,
+			);
+			path = EasyJSWebView;
+			sourceTree = "<group>";
+		};
 		B5D830AB1B71E08B0094BE65 /* YXDLockScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -1049,6 +1075,7 @@
 				0B67254E1B6E9FC9009272B4 /* Main.storyboard in Resources */,
 				0B6725531B6E9FC9009272B4 /* LaunchScreen.xib in Resources */,
 				B55048661B81B63E00A78C8D /* MJRefresh.bundle in Resources */,
+				B555C88A1CA1343800FB37C9 /* easyjs-inject.js in Resources */,
 				B550487C1B81B63E00A78C8D /* SVProgressHUD.bundle in Resources */,
 				0B6725501B6E9FC9009272B4 /* Images.xcassets in Resources */,
 				B5D830BA1B71E08B0094BE65 /* YXDLockScreenView.xib in Resources */,
@@ -1117,8 +1144,10 @@
 				B55048561B81B63E00A78C8D /* UIWebView+AFNetworking.m in Sources */,
 				B55048551B81B63E00A78C8D /* UIRefreshControl+AFNetworking.m in Sources */,
 				B55048571B81B63E00A78C8D /* UITableView+FDTemplateLayoutCell.m in Sources */,
+				B555C88D1CA1343800FB37C9 /* EasyJSWebViewProxyDelegate.m in Sources */,
 				B55048801B81B63E00A78C8D /* TPKeyboardAvoidingTableView.m in Sources */,
 				B55048491B81B63E00A78C8D /* AFNetworkReachabilityManager.m in Sources */,
+				B555C88C1CA1343800FB37C9 /* EasyJSWebView.m in Sources */,
 				0B6A009E1C12C19D009EF58B /* YXDCommonFunction.m in Sources */,
 				B55048851B81BB1100A78C8D /* YXDNetworkManager.m in Sources */,
 				B549BCBD1C15709A0092F3B2 /* ClassA.m in Sources */,
@@ -1133,6 +1162,7 @@
 				B55048721B81B63E00A78C8D /* SDWebImageManager.m in Sources */,
 				B550487B1B81B63E00A78C8D /* SVIndefiniteAnimatedView.m in Sources */,
 				B5DE71AC1B6F3113006F8FF1 /* UIImage+YXDExtension.m in Sources */,
+				B555C88B1CA1343800FB37C9 /* EasyJSDataFunction.m in Sources */,
 				0BC67DAD1BB704D1001B8582 /* YXDBaseScrollView.m in Sources */,
 				B55048541B81B63E00A78C8D /* UIProgressView+AFNetworking.m in Sources */,
 				B55048581B81B63E00A78C8D /* MJRefreshAutoFooter.m in Sources */,
