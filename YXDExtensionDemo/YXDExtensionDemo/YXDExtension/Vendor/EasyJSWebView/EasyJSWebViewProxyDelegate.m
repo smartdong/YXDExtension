@@ -137,7 +137,7 @@ return EasyJS.call(obj, method, Array.prototype.slice.call(arguments));\
     
     Class cls = object_getClass(interface);
     
-//    while (cls && (cls != [UIViewController class])) {
+    while (cls && (cls != [UIViewController class])) {
     
         unsigned int mc = 0;
         Method *mlist = class_copyMethodList(cls, &mc);
@@ -150,12 +150,12 @@ return EasyJS.call(obj, method, Array.prototype.slice.call(arguments));\
         
         free(mlist);
         
-//        if (cls == NSClassFromString(@"BaseWebViewController")) {
-//            break;
-//        }
-//        
-//        cls = [cls superclass];
-//    }
+        if (cls == NSClassFromString(@"YXDBaseWebViewController")) {
+            break;
+        }
+        
+        cls = [cls superclass];
+    }
     
     return arr;
 }

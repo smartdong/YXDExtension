@@ -102,6 +102,7 @@
 		B555C88B1CA1343800FB37C9 /* EasyJSDataFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = B555C8851CA1343800FB37C9 /* EasyJSDataFunction.m */; };
 		B555C88C1CA1343800FB37C9 /* EasyJSWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = B555C8871CA1343800FB37C9 /* EasyJSWebView.m */; };
 		B555C88D1CA1343800FB37C9 /* EasyJSWebViewProxyDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B555C8891CA1343800FB37C9 /* EasyJSWebViewProxyDelegate.m */; };
+		B555C8901CA13C6300FB37C9 /* YXDBaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B555C88F1CA13C6300FB37C9 /* YXDBaseWebViewController.m */; };
 		B5D830B61B71E08B0094BE65 /* image_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = B5D830AD1B71E08B0094BE65 /* image_circle.png */; };
 		B5D830B71B71E08B0094BE65 /* image_line.png in Resources */ = {isa = PBXBuildFile; fileRef = B5D830AE1B71E08B0094BE65 /* image_line.png */; };
 		B5D830B81B71E08B0094BE65 /* YXDLockScreenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D830B01B71E08B0094BE65 /* YXDLockScreenManager.m */; };
@@ -339,6 +340,8 @@
 		B555C8871CA1343800FB37C9 /* EasyJSWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyJSWebView.m; sourceTree = "<group>"; };
 		B555C8881CA1343800FB37C9 /* EasyJSWebViewProxyDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyJSWebViewProxyDelegate.h; sourceTree = "<group>"; };
 		B555C8891CA1343800FB37C9 /* EasyJSWebViewProxyDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyJSWebViewProxyDelegate.m; sourceTree = "<group>"; };
+		B555C88E1CA13C6300FB37C9 /* YXDBaseWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDBaseWebViewController.h; sourceTree = "<group>"; };
+		B555C88F1CA13C6300FB37C9 /* YXDBaseWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDBaseWebViewController.m; sourceTree = "<group>"; };
 		B5D830AD1B71E08B0094BE65 /* image_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_circle.png; sourceTree = "<group>"; };
 		B5D830AE1B71E08B0094BE65 /* image_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_line.png; sourceTree = "<group>"; };
 		B5D830AF1B71E08B0094BE65 /* YXDLockScreenManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDLockScreenManager.h; sourceTree = "<group>"; };
@@ -497,6 +500,8 @@
 				B549BCC81C15B7350092F3B2 /* YXDBaseObject.m */,
 				0BC67DA81BB70455001B8582 /* YXDBaseViewController.h */,
 				0BC67DA91BB70455001B8582 /* YXDBaseViewController.m */,
+				B555C88E1CA13C6300FB37C9 /* YXDBaseWebViewController.h */,
+				B555C88F1CA13C6300FB37C9 /* YXDBaseWebViewController.m */,
 				0BC67DAB1BB704D1001B8582 /* YXDBaseScrollView.h */,
 				0BC67DAC1BB704D1001B8582 /* YXDBaseScrollView.m */,
 			);
@@ -1200,6 +1205,7 @@
 				B5DE719A1B6F3026006F8FF1 /* UITableView+YXDExtension.m in Sources */,
 				B55048791B81B63E00A78C8D /* UIImageView+WebCache.m in Sources */,
 				B549BCC01C1570A30092F3B2 /* ClassB.m in Sources */,
+				B555C8901CA13C6300FB37C9 /* YXDBaseWebViewController.m in Sources */,
 				B5DE71AF1B6F3129006F8FF1 /* UIApplication+YXDExtension.m in Sources */,
 				B550485F1B81B63E00A78C8D /* MJRefreshAutoStateFooter.m in Sources */,
 				B55048781B81B63E00A78C8D /* UIImageView+HighlightedWebCache.m in Sources */,
