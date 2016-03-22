@@ -21,8 +21,9 @@
 - (NSString *)priceString;
 + (NSString *)priceStringWithFloat:(float)price;
 
-- (NSURL *)urlValue;
-- (NSURLRequest *)urlRequestValue;
+- (NSURL *)url;
+- (NSURLRequest *)urlRequest;
+
 - (NSNumber *)numberValue;
 
 - (NSString *)urlDecode;

@@ -56,12 +56,12 @@
     return [[NSString stringWithFormat:@"%.2f",price] priceString];
 }
 
-- (NSURL *)urlValue {
+- (NSURL *)url {
     return [NSURL URLWithString:[self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 
-- (NSURLRequest *)urlRequestValue {
-    return [NSURLRequest requestWithURL:[self urlValue]];
+- (NSURLRequest *)urlRequest {
+    return [NSURLRequest requestWithURL:self.url];
 }
 
 - (NSNumber *)numberValue {
