@@ -6,7 +6,7 @@
 //
 
 #import "YXDExtensionConfig.h"
-#import "YXDBaseClassExtensionHeader.h"
+//#import "YXDBaseClassExtensionHeader.h"  //直接继承即可
 #import "YXDFoundationExtensionHeader.h"
 #import "YXDFunctionExtensionHeader.h"
 #import "YXDMacroExtensionHeader.h"
