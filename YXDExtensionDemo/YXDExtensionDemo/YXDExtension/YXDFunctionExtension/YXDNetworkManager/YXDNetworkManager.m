@@ -186,6 +186,13 @@ static const CGFloat kNetworkHUDShowDuration = 1.0f;
     }
 }
 
+/**
+ *  取消所有请求
+ */
+- (void)cancelAllRequest {
+    [self.requsetManager.operationQueue cancelAllOperations];
+}
+
 #pragma mark - Return Data Handle
 
 - (void)willSendRequest {

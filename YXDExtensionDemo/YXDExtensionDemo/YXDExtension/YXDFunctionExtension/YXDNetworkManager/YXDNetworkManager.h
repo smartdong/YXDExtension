@@ -67,6 +67,11 @@ typedef NS_ENUM(NSInteger, NetworkManagerHttpMethod) {
                 loadingStatus:(NSString *)loadingStatus
                        method:(NetworkManagerHttpMethod)method;
 
+/**
+ *  取消所有请求
+ */
+- (void)cancelAllRequest;
+
 #pragma mark - Return Data Handle
 
 - (void)willSendRequest;
