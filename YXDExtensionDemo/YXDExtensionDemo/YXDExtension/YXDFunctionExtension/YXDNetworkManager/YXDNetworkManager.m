@@ -11,7 +11,6 @@
 #import "YXDNetworkImageObject.h"
 #import "YXDNetworkResult.h"
 
-static const CGFloat kNetworkHUDShowDuration = 1.0f;
 
 @interface YXDNetworkManager ()
 
@@ -112,7 +111,7 @@ static const CGFloat kNetworkHUDShowDuration = 1.0f;
             
         } else {
             if (loadingStatus) {
-                [YXDHUDManager showErrorWithTitle:result.message duration:kNetworkHUDShowDuration];
+                [YXDHUDManager showErrorAndAutoDismissWithTitle:result.message];
             }
             
             [self handleFailureWithOperation:operation result:result];
@@ -130,7 +129,7 @@ static const CGFloat kNetworkHUDShowDuration = 1.0f;
         NSString *message = @"网络连接失败";
         
         if (loadingStatus) {
-            [YXDHUDManager showErrorWithTitle:message duration:kNetworkHUDShowDuration];
+            [YXDHUDManager showErrorAndAutoDismissWithTitle:message];
         }
         
         if (failure) {
