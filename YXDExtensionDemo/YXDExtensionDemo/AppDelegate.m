@@ -13,6 +13,7 @@
 
 @implementation AppDelegate
 
+//$(SRCROOT)/$(PROJECT_NAME)/YXDExtension/YXDExtensionHeader.h
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
