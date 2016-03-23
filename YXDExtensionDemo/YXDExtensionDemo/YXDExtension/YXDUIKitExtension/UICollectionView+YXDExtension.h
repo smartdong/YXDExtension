@@ -17,4 +17,7 @@
 - (void)registerNibHeaderFooterWithClass:(Class)aClass isHeader:(BOOL)isHeader;
 - (void)registerHeaderFooterWithClass:(Class)aClass isHeader:(BOOL)isHeader;
 
+- (UICollectionViewCell *)dequeueReusableCellWithDefaultIdentifierForIndexPath:(NSIndexPath *)indexPath;
+- (UICollectionViewCell *)dequeueReusableCellWithCellClass:(Class)cellClass forIndexPath:(NSIndexPath *)indexPath;
+
 @end

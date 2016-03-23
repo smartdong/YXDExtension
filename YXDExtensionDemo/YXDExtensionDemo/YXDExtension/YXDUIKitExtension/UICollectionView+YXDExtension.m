@@ -29,4 +29,12 @@
     [self registerClass:aClass forSupplementaryViewOfKind:isHeader?UICollectionElementKindSectionHeader:UICollectionElementKindSectionFooter withReuseIdentifier:NSStringFromClass(aClass)];
 }
 
+- (UICollectionViewCell *)dequeueReusableCellWithDefaultIdentifierForIndexPath:(NSIndexPath *)indexPath {
+    return [self dequeueReusableCellWithCellClass:[UICollectionViewCell class] forIndexPath:indexPath];
+}
+
+- (UICollectionViewCell *)dequeueReusableCellWithCellClass:(Class)cellClass forIndexPath:(NSIndexPath *)indexPath {
+    return [self dequeueReusableCellWithReuseIdentifier:NSStringFromClass(cellClass) forIndexPath:indexPath];
+}
+
 @end

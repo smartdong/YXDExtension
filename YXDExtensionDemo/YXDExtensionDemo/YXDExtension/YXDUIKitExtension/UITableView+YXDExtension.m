@@ -37,4 +37,20 @@
     [self registerClass:aClass forHeaderFooterViewReuseIdentifier:NSStringFromClass(aClass)];
 }
 
+- (UITableViewCell *)dequeueReusableCellWithDefaultIdentifier {
+    return [self dequeueReusableCellWithCellClass:[UITableViewCell class]];
+}
+
+- (UITableViewCell *)dequeueReusableCellWithDefaultIdentifierForIndexPath:(NSIndexPath *)indexPath {
+    return [self dequeueReusableCellWithCellClass:[UITableViewCell class] forIndexPath:indexPath];
+}
+
+- (UITableViewCell *)dequeueReusableCellWithCellClass:(Class)cellClass {
+    return [self dequeueReusableCellWithIdentifier:NSStringFromClass(cellClass)];
+}
+
+- (UITableViewCell *)dequeueReusableCellWithCellClass:(Class)cellClass forIndexPath:(NSIndexPath *)indexPath {
+    return [self dequeueReusableCellWithIdentifier:NSStringFromClass(cellClass) forIndexPath:indexPath];
+}
+
 @end
