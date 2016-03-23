@@ -5,7 +5,6 @@
 //  Copyright (c) 2015年 YangXudong. All rights reserved.
 //
 
-#import "YXDExtensionConfig.h"
 //#import "YXDBaseClassExtensionHeader.h"  //直接继承即可
 #import "YXDFoundationExtensionHeader.h"
 #import "YXDFunctionExtensionHeader.h"

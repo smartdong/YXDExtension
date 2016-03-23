@@ -5,6 +5,7 @@
 //  Copyright (c) 2015年 YangXudong. All rights reserved.
 //
 
+#import "YXDLoadStatusView.h"
 #import "YXDNetworkManager.h"
 #import "YXDNetworkResult.h"
 #import "YXDHUDManager.h"

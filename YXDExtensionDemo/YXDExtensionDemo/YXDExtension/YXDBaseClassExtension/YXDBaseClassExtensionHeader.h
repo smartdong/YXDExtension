@@ -8,4 +8,3 @@
 #import "YXDBaseObject.h"
 #import "YXDBaseViewController.h"
 #import "YXDBaseWebViewController.h"
-#import "YXDBaseScrollView.h"
