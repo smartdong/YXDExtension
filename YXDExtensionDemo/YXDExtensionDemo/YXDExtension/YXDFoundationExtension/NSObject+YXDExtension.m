@@ -243,6 +243,11 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
     return [self propertyValuesWithNeedNullValue:YES useMapPropertyKey:YES];
 }
 
+- (id)valueForUndefinedKey:(NSString *)key {
+    NSLog(@"valueForUndefinedKey : %@",key);
+    return nil;
+}
+
 #warning 3.此处需优化 考虑方式：快速枚举
 - (NSDictionary *)propertyValuesWithNeedNullValue:(BOOL)needNullValue useMapPropertyKey:(BOOL)useMapPropertyKey {
     NSArray *propertyList = [self propertyList];
