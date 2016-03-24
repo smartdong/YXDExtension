@@ -10,15 +10,15 @@
 @implementation NSDateFormatter (YXDExtension)
 
 + (NSDateFormatter *)defaultDateFormatter {
-    NSDateFormatter *formatter = [NSDateFormatter new];
-    [formatter setDateFormat:@"yyyy-MM-dd"];
-    return formatter;
+    return [self dateFormatterWithFormat:@"yyyy-MM-dd"];
 }
 
 + (NSDateFormatter *)defaultDatetimeFormatter {
-    NSDateFormatter *formatter = [NSDateFormatter new];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    return formatter;
+    return [self dateFormatterWithFormat:@"yyyy-MM-dd HH:mm:ss"];
+}
+
++ (NSDateFormatter *)defaultDatetimeWithoutSecondsFormatter {
+    return [self dateFormatterWithFormat:@"yyyy-MM-dd HH:mm"];
 }
 
 + (NSDateFormatter *)dateFormatterWithFormat:(NSString *)dateFormat {
