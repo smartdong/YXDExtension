@@ -243,11 +243,6 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
     return [self propertyValuesWithNeedNullValue:YES useMapPropertyKey:YES];
 }
 
-- (id)valueForUndefinedKey:(NSString *)key {
-    NSLog(@"%@ -> valueForUndefinedKey : %@",self,key);
-    return nil;
-}
-
 #warning 3.此处需优化 考虑方式：快速枚举
 - (NSDictionary *)propertyValuesWithNeedNullValue:(BOOL)needNullValue useMapPropertyKey:(BOOL)useMapPropertyKey {
     NSArray *propertyList = [self propertyList];
@@ -457,6 +452,12 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
 }
 
 #pragma mark -
+
+//防止意外崩溃 但是这样做就无法在其他类里面再对这种情况进行处理 考虑到极少需要处理这种情况 所以我觉得无所谓 :)
+- (id)valueForUndefinedKey:(NSString *)key {
+    NSLog(@"%@ -> valueForUndefinedKey : %@",self,key);
+    return nil;
+}
 
 // 获取 propertyMap
 - (NSDictionary *)getPropertyMapDictionary {
