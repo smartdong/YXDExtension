@@ -9,6 +9,23 @@
 #import <objc/message.h>
 #import "NSString+YXDExtension.h"
 
+typedef NS_ENUM(NSInteger, YXDObjectPropertyType) {
+    YXDObjectPropertyTypeString,
+    YXDObjectPropertyTypeNumber,
+    YXDObjectPropertyTypeArray,
+    YXDObjectPropertyTypeDictionary,
+    YXDObjectPropertyTypeClass,
+    YXDObjectPropertyTypeBlock,
+    YXDObjectPropertyTypeObject,
+    YXDObjectPropertyTypeSEL,
+    YXDObjectPropertyTypeInt,
+    YXDObjectPropertyTypeFloat,
+    YXDObjectPropertyTypeDouble,
+    YXDObjectPropertyTypeBool,
+    //YXDObjectPropertyType,
+    //YXDObjectPropertyType,
+};
+
 static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDataKey;
 
 @implementation NSObject (YXDExtension)
@@ -477,6 +494,7 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
     return nil;
 }
 
+#warning 待替换为 YXDObjectPropertyTypeString
 - (Class)classOfPropertyNamed:(NSString *)propertyName {
 #warning 1.此处需优化 考虑方式：缓存
     
