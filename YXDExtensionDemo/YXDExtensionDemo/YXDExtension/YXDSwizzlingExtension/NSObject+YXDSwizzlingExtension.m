@@ -12,12 +12,13 @@
 
 @implementation NSObject (YXDSwizzlingExtension)
 
-+ (void)load {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        swizzling_exchangeMethod([NSObject class], @selector(description), @selector(swizzling_description));
-    });
-}
+//黑魔法不能乱用 改写description方法容易造成循环调用
+//+ (void)load {
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        swizzling_exchangeMethod([NSObject class], @selector(description), @selector(swizzling_description));
+//    });
+//}
 
 - (NSString *)swizzling_description{
     return [NSString stringWithFormat:@"%@ %@",[self swizzling_description],[self allPropertyValues]];

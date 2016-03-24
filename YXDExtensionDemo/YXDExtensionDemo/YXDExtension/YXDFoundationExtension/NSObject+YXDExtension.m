@@ -244,7 +244,7 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
 }
 
 - (id)valueForUndefinedKey:(NSString *)key {
-    NSLog(@"valueForUndefinedKey : %@",key);
+    NSLog(@"%@ -> valueForUndefinedKey : %@",self,key);
     return nil;
 }
 
@@ -450,6 +450,10 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
         return objectArray;
     }
     return nil;
+}
+
+- (NSString *)descriptionWithPropertyValues {
+    return [NSString stringWithFormat:@"%@ %@",[self description],[self allPropertyValues]];
 }
 
 #pragma mark -

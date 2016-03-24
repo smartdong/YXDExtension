@@ -45,7 +45,7 @@
                                                             @"classD" : @[@"1",@"2"],
                                                             @"returnData" : @{@"hehe":@"haha",@"hengheng":@{@"a":@"b"}}
                                                             }];
-        NSLog(@"testClass1 : %@",testClass1);
+        NSLog(@"testClass1 : %@",[testClass1 descriptionWithPropertyValues]);
         
         NSLog(@"testClass1 json : %@",testClass1.jsonString);
         

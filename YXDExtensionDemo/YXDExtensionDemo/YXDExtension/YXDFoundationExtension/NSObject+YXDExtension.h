@@ -56,4 +56,8 @@
 //将 jsonstring 转化为对象数组
 + (NSArray *)objectArrayFromJSONString:(NSString *)jsonString;
 
+
+//description 方法 并打印出所有的属性值
+- (NSString *)descriptionWithPropertyValues;
+
 @end
