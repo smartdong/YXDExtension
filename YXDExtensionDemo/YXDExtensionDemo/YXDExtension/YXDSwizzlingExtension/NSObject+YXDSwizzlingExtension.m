@@ -21,7 +21,7 @@
 //}
 
 - (NSString *)swizzling_description{
-    return [NSString stringWithFormat:@"%@ %@",[self swizzling_description],[self allPropertyValues]];
+    return [NSString stringWithFormat:@"%@ \n%@",[self swizzling_description],[self allPropertyValues]];
 }
 
 @end

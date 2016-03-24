@@ -453,7 +453,7 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
 }
 
 - (NSString *)descriptionWithPropertyValues {
-    return [NSString stringWithFormat:@"%@ %@",[self description],[self allPropertyValues]];
+    return [NSString stringWithFormat:@"%@ \n%@",[self description],[self allPropertyValues]];
 }
 
 #pragma mark -
