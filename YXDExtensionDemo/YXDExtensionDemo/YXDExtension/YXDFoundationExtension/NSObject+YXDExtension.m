@@ -18,12 +18,9 @@ typedef NS_ENUM(NSInteger, YXDObjectPropertyType) {
     YXDObjectPropertyTypeBlock,
     YXDObjectPropertyTypeObject,
     YXDObjectPropertyTypeSEL,
-    YXDObjectPropertyTypeInt,
+    YXDObjectPropertyTypeInteger,
     YXDObjectPropertyTypeFloat,
-    YXDObjectPropertyTypeDouble,
     YXDObjectPropertyTypeBool,
-    //YXDObjectPropertyType,
-    //YXDObjectPropertyType,
 };
 
 static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDataKey;
