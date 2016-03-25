@@ -7,10 +7,12 @@
 //
 
 #import "YXDBaseObject.h"
-#import <CoreGraphics/CGBase.h>
+#import <UIKit/UIKit.h>
 
 @class ClassA;
 @class ClassB;
+
+typedef void(^TestClassBlock)(NSString *string, NSError *error);
 
 @interface TestClass : YXDBaseObject
 
@@ -50,5 +52,9 @@
 @property (nonatomic, assign) int                    propertyInt;
 @property (nonatomic, assign) double                 propertyDouble;
 @property (nonatomic, assign) Boolean                propertyBoolean;
+@property (nonatomic, strong) UIViewController      *propertyViewController;
+@property (nonatomic, strong) NSDate                *propertyDate;
+@property (nonatomic, strong) TestClassBlock         propertyBlockWithArgs;
+@property (nonatomic, assign) CGSize                 propertySize;
 
 @end
