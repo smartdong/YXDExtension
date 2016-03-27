@@ -183,7 +183,7 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
         propertyValue = [propertyClass objectWithData:value];
     }
     
-    if (propertyClass) {
+    if (propertyClass && [propertyValue isKindOfClass:propertyClass]) {
         [self setValue:propertyValue forKey:propertyName];
     }
 }
@@ -501,6 +501,9 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
     Class propertyClass = nil;
     objc_property_t property = class_getProperty([self class], [propertyName UTF8String]);
     NSString *propertyAttributes = [NSString stringWithCString:property_getAttributes(property) encoding:NSUTF8StringEncoding];
+    
+    NSLog(@"propertyName : %@ , attributes : %@",propertyName,propertyAttributes);
+    
     NSArray *splitPropertyAttributes = [propertyAttributes componentsSeparatedByString:@","];
     if (splitPropertyAttributes.count > 0) {
         NSString *encodeType = splitPropertyAttributes[0];
