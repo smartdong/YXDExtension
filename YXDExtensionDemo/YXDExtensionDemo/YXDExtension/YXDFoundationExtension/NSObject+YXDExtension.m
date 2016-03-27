@@ -179,11 +179,13 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
         } else if ([value isKindOfClass:[NSDictionary class]]) {
             propertyValue = [NSMutableDictionary dictionaryWithDictionary:value];
         }
-    } else {
+    } else if (propertyClass) {
         propertyValue = [propertyClass objectWithData:value];
     }
     
-    [self setValue:propertyValue forKey:propertyName];
+    if (propertyClass) {
+        [self setValue:propertyValue forKey:propertyName];
+    }
 }
 
 #pragma mark -
@@ -503,6 +505,9 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
     if (splitPropertyAttributes.count > 0) {
         NSString *encodeType = splitPropertyAttributes[0];
         NSArray *splitEncodeType = [encodeType componentsSeparatedByString:@"\""];
+        if (splitEncodeType.count < 2) {
+            return nil;
+        }
         NSString *className = splitEncodeType[1];
         propertyClass = NSClassFromString(className);
     }
