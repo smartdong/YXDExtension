@@ -10,6 +10,7 @@
 #import "NSString+YXDExtension.h"
 
 typedef NS_ENUM(NSInteger, YXDObjectPropertyType) {
+    YXDObjectPropertyTypeUnknown,
     YXDObjectPropertyTypeString,
     YXDObjectPropertyTypeNumber,
     YXDObjectPropertyTypeArray,
