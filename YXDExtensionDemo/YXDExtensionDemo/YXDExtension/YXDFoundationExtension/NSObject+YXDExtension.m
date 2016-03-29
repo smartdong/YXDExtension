@@ -181,12 +181,12 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
             propertyValue = [NSMutableDictionary dictionaryWithDictionary:value];
         }
     } else if (propertyClass) {
-        propertyValue = [propertyClass objectWithData:value];
+//        propertyValue = [propertyClass objectWithData:value];
     }
     
-    if (propertyClass && [propertyValue isKindOfClass:propertyClass]) {
-        [self setValue:propertyValue forKey:propertyName];
-    }
+//    if (propertyClass && [propertyValue isKindOfClass:propertyClass]) {
+//        [self setValue:propertyValue forKey:propertyName];
+//    }
 }
 
 #pragma mark -
