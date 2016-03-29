@@ -72,6 +72,7 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
 
 #warning 4.此处需优化 考虑方式：快速枚举
 - (instancetype)voluationWithData:(id)data {
+    
     NSArray *propertyList = [self propertyList];
     
     if (!propertyList || !propertyList.count || !data || [data isKindOfClass:[NSNull class]]) {
@@ -222,6 +223,10 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
 
 - (NSArray *)propertyList {
 #warning 2.此处需优化 考虑方式：缓存、过滤不需要的系统属性
+    
+    if ([self class] == [NSObject class]) {
+        return nil;
+    }
     
     unsigned int count;
     
