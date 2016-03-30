@@ -12,19 +12,19 @@
 //https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html
 //https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtPropertyIntrospection.html
 
-typedef NS_ENUM(NSInteger, YXDObjectPropertyType) {
-    YXDObjectPropertyTypeUnknown,
-    YXDObjectPropertyTypeString,
-    YXDObjectPropertyTypeNumber,
-    YXDObjectPropertyTypeArray,
-    YXDObjectPropertyTypeDictionary,
-    YXDObjectPropertyTypeClass,
-    YXDObjectPropertyTypeBlock,
-    YXDObjectPropertyTypeObject,
-    YXDObjectPropertyTypeSEL,
-    YXDObjectPropertyTypeInteger,
-    YXDObjectPropertyTypeFloat,
-    YXDObjectPropertyTypeBool,
+typedef NS_ENUM(NSInteger, YXDEncodingType) {
+    YXDEncodingTypeUnknown,
+    YXDEncodingTypeString,
+    YXDEncodingTypeNumber,
+    YXDEncodingTypeArray,
+    YXDEncodingTypeDictionary,
+    YXDEncodingTypeClass,
+    YXDEncodingTypeBlock,
+    YXDEncodingTypeObject,
+    YXDEncodingTypeSEL,
+    YXDEncodingTypeInteger,
+    YXDEncodingTypeFloat,
+    YXDEncodingTypeBool,
 };
 
 static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDataKey;
