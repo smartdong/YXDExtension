@@ -9,6 +9,9 @@
 #import <objc/message.h>
 #import "NSString+YXDExtension.h"
 
+//https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html
+//https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtPropertyIntrospection.html
+
 typedef NS_ENUM(NSInteger, YXDObjectPropertyType) {
     YXDObjectPropertyTypeUnknown,
     YXDObjectPropertyTypeString,
