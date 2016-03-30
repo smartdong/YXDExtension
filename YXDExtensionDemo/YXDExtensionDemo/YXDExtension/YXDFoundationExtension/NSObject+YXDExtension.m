@@ -82,6 +82,10 @@ YXDEncodingType YXDGetEncodingType(const char *typeEncoding) {
     //    }
     return YXDEncodingTypeUnknown;
 }
+
+YXDPropertyType YXDGetPropertyType(const char *typeEncoding) {
+    return YXDPropertyTypeUnknown;
+}
 static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDataKey;
 
 @implementation NSObject (YXDExtension)
