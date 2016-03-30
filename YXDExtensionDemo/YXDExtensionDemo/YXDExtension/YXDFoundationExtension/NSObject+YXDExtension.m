@@ -27,6 +27,17 @@ typedef NS_ENUM(NSInteger, YXDEncodingType) {
     YXDEncodingTypeBool,
 };
 
+typedef NS_ENUM(NSInteger, YXDPropertyType) {
+    YXDPropertyTypeUnknown      = 1 << 1,
+    YXDPropertyTypeReadonly     = 1 << 2,
+    YXDPropertyTypeCopy         = 1 << 3,
+    YXDPropertyTypeRetain       = 1 << 4,
+    YXDPropertyTypeNonatomic    = 1 << 5,
+    YXDPropertyTypeCustomGetter = 1 << 6,
+    YXDPropertyTypeCustomSetter = 1 << 7,
+    YXDPropertyTypeDynamic      = 1 << 8,
+    YXDPropertyTypeWeak         = 1 << 9,
+};
 static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDataKey;
 
 @implementation NSObject (YXDExtension)
