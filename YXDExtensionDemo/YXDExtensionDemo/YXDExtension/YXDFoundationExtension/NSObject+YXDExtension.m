@@ -38,6 +38,50 @@ typedef NS_ENUM(NSInteger, YXDPropertyType) {
     YXDPropertyTypeDynamic      = 1 << 8,
     YXDPropertyTypeWeak         = 1 << 9,
 };
+
+YXDEncodingType YXDGetEncodingType(const char *typeEncoding) {
+    char *type = (char *)typeEncoding;
+    if (!type) return YXDEncodingTypeUnknown;
+    size_t len = strlen(type);
+    if (len == 0) return YXDEncodingTypeUnknown;
+    //
+    //
+    //    len = strlen(type);
+    //    if (len == 0) return YXDEncodingTypeUnknown;
+    //
+    //    switch (*type) {
+    //        case 'v': return YXDEncodingTypeVoid;
+    //        case 'B': return YXDEncodingTypeBool;
+    //        case 'c': return YXDEncodingTypeInt8;
+    //        case 'C': return YXDEncodingTypeUInt8;
+    //        case 's': return YXDEncodingTypeInt16;
+    //        case 'S': return YXDEncodingTypeUInt16;
+    //        case 'i': return YXDEncodingTypeInt32;
+    //        case 'I': return YXDEncodingTypeUInt32;
+    //        case 'l': return YXDEncodingTypeInt32;
+    //        case 'L': return YXDEncodingTypeUInt32;
+    //        case 'q': return YXDEncodingTypeInt64;
+    //        case 'Q': return YXDEncodingTypeUInt64;
+    //        case 'f': return YXDEncodingTypeFloat;
+    //        case 'd': return YXDEncodingTypeDouble;
+    //        case 'D': return YXDEncodingTypeLongDouble;
+    //        case '#': return YXDEncodingTypeClass;
+    //        case ':': return YXDEncodingTypeSEL;
+    //        case '*': return YXDEncodingTypeCString;
+    //        case '^': return YXDEncodingTypePointer;
+    //        case '[': return YXDEncodingTypeCArray;
+    //        case '(': return YXDEncodingTypeUnion;
+    //        case '{': return YXDEncodingTypeStruct;
+    //        case '@': {
+    //            if (len == 2 && *(type + 1) == '?')
+    //                return YXDEncodingTypeBlock;
+    //            else
+    //                return YXDEncodingTypeObject;
+    //        }
+    //        default: return YXDEncodingTypeUnknown;
+    //    }
+    return YXDEncodingTypeUnknown;
+}
 static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDataKey;
 
 @implementation NSObject (YXDExtension)
