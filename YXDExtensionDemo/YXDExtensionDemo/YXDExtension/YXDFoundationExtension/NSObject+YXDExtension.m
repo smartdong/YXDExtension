@@ -561,7 +561,7 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
     return nil;
 }
 
-#warning 待替换为 YXDObjectPropertyType
+#warning 待替换为 YXDEncodingType
 - (Class)classOfPropertyNamed:(NSString *)propertyName {
 #warning 1.此处需优化 考虑方式：缓存
     
