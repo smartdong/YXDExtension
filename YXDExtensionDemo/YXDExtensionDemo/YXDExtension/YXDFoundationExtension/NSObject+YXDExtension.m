@@ -283,7 +283,7 @@ YXDEncodingType YXDGetEncodingType(const char *typeEncoding) {
 }
 
 + (instancetype)classInfoWithClass:(Class)cls {
-    if (!cls) return nil;
+    if (!cls || (cls == [NSObject class])) return nil;
     static CFMutableDictionaryRef classCache;
     static dispatch_once_t onceToken;
     static dispatch_semaphore_t lock;
