@@ -139,6 +139,95 @@ static force_inline Class YXDGetClassWithEncodingType(YXDEncodingType encodingTy
     return nil;
 }
 
+//根据对象的属性和类型赋值
+static force_inline void YXDSetPropertyValue(NSObject *object, NSString *setter, YXDEncodingType encodingType, id value) {
+    
+    if (!object || !setter || !value || [value isKindOfClass:[NSNull class]] || (encodingType == YXDEncodingTypeUnknown)) {
+        return;
+    }
+    
+    switch (encodingType) {
+        case YXDEncodingTypeString:
+        {
+            
+        }
+            break;
+        case YXDEncodingTypeMutableString:
+        {
+            
+        }
+            break;
+        case YXDEncodingTypeArray:
+        {
+            
+        }
+            break;
+        case YXDEncodingTypeMutableArray:
+        {
+            
+        }
+            break;
+        case YXDEncodingTypeDictionary:
+        {
+            
+        }
+            break;
+        case YXDEncodingTypeMutableDictionary:
+        {
+            
+        }
+            break;
+        case YXDEncodingTypeNumber:
+        {
+            
+        }
+            break;
+        case YXDEncodingTypeDate:
+        {
+            
+        }
+            break;
+        case YXDEncodingTypeObject:
+        {
+            
+        }
+            break;
+        case YXDEncodingTypeInt32:
+        {
+            
+        }
+            break;
+        case YXDEncodingTypeUInt32:
+        {
+            
+        }
+            break;
+        case YXDEncodingTypeFloat:
+        {
+            
+        }
+            break;
+        case YXDEncodingTypeDouble:
+        {
+            
+        }
+            break;
+        case YXDEncodingTypeBool:
+        {
+            
+        }
+            break;
+        case YXDEncodingTypeBoolean:
+        {
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
 //propertyString                T@"NSString",&,N,V_propertyString
 //propertyNumber                T@"NSNumber",&,N,V_propertyNumber
 //propertyArray                 T@"NSArray",&,N,V_propertyArray
