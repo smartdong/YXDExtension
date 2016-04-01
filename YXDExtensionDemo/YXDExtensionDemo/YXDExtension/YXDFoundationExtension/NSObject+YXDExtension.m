@@ -13,18 +13,43 @@
 //https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtPropertyIntrospection.html
 
 typedef NS_ENUM(NSInteger, YXDEncodingType) {
+    
     YXDEncodingTypeUnknown,
+    
+    //下面这些支持自动赋值
     YXDEncodingTypeString,
-    YXDEncodingTypeNumber,
+    YXDEncodingTypeMutableString,
     YXDEncodingTypeArray,
+    YXDEncodingTypeMutableArray,
     YXDEncodingTypeDictionary,
-    YXDEncodingTypeClass,
-    YXDEncodingTypeBlock,
+    YXDEncodingTypeMutableDictionary,
+    YXDEncodingTypeNumber,
+    YXDEncodingTypeDate,
     YXDEncodingTypeObject,
-    YXDEncodingTypeSEL,
-    YXDEncodingTypeInteger,
+    YXDEncodingTypeInt32,
+    YXDEncodingTypeUInt32,
     YXDEncodingTypeFloat,
+    YXDEncodingTypeDouble,
     YXDEncodingTypeBool,
+    YXDEncodingTypeBoolean,
+    
+    //下面这些不支持自动赋值
+    YXDEncodingTypeVoid,
+    YXDEncodingTypeInt8 = YXDEncodingTypeBool,
+    YXDEncodingTypeUInt8 = YXDEncodingTypeBoolean,
+    YXDEncodingTypeInt16,
+    YXDEncodingTypeUInt16,
+    YXDEncodingTypeInt64,
+    YXDEncodingTypeUInt64,
+    YXDEncodingTypeLongDouble,
+    YXDEncodingTypeClass,
+    YXDEncodingTypeSEL,
+    YXDEncodingTypeCString,
+    YXDEncodingTypePointer,
+    YXDEncodingTypeCArray,
+    YXDEncodingTypeUnion,
+    YXDEncodingTypeStruct,
+    YXDEncodingTypeBlock,
 };
 
 typedef NS_ENUM(NSInteger, YXDPropertyType) {
