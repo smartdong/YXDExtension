@@ -123,22 +123,6 @@ YXDEncodingType YXDGetEncodingType(const char *typeEncoding) {
     return YXDEncodingTypeUnknown;
 }
 
-static force_inline Class YXDGetClassWithEncodingType(YXDEncodingType encodingType) {
-    switch (encodingType) {
-        case YXDEncodingTypeString              : return [NSString class];
-        case YXDEncodingTypeMutableString       : return [NSMutableString class];
-        case YXDEncodingTypeArray               : return [NSArray class];
-        case YXDEncodingTypeMutableArray        : return [NSMutableArray class];
-        case YXDEncodingTypeDictionary          : return [NSDictionary class];
-        case YXDEncodingTypeMutableDictionary   : return [NSMutableDictionary class];
-        case YXDEncodingTypeNumber              : return [NSNumber class];
-        case YXDEncodingTypeDate                : return [NSDate class];
-        case YXDEncodingTypeObject              : return [NSObject class];
-        default                                 : return nil;
-    }
-    return nil;
-}
-
 //根据对象的属性和类型赋值
 static force_inline void YXDSetPropertyValue(NSObject *object, NSString *setter, YXDEncodingType encodingType, id value) {
     
@@ -516,7 +500,7 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
     YXDClassInfo *classInfo = [YXDClassInfo classInfoWithClass:[self class]];
     YXDPropertyInfo *propertyInfo = classInfo.propertyInfos[propertyName];
     
-    Class propertyClass = YXDGetClassWithEncodingType(propertyInfo.encodingType);
+    Class propertyClass = nil;
     
     if (!propertyClass) {
         return;
