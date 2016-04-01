@@ -64,6 +64,64 @@ typedef NS_ENUM(NSInteger, YXDPropertyType) {
     YXDPropertyTypeDynamic      = 4 << 3,
 };
 
+YXDEncodingType YXDGetEncodingType(const char *typeEncoding) {
+    char *type = (char *)typeEncoding;
+    if (!type) {
+        return YXDEncodingTypeUnknown;
+    }
+    
+    size_t len = strlen(type);
+    if (len == 0) {
+        return YXDEncodingTypeUnknown;
+    }
+
+    switch (*type) {
+        case 'v': return YXDEncodingTypeVoid;
+        case 'B': return YXDEncodingTypeBool;
+        case 'c': return YXDEncodingTypeBool;
+        case 'C': return YXDEncodingTypeBoolean;
+        case 's': return YXDEncodingTypeInt16;
+        case 'S': return YXDEncodingTypeUInt16;
+        case 'i': return YXDEncodingTypeInt32;
+        case 'I': return YXDEncodingTypeUInt32;
+        case 'l': return YXDEncodingTypeInt32;
+        case 'L': return YXDEncodingTypeUInt32;
+        case 'q': return YXDEncodingTypeInt64;
+        case 'Q': return YXDEncodingTypeUInt64;
+        case 'f': return YXDEncodingTypeFloat;
+        case 'd': return YXDEncodingTypeDouble;
+        case 'D': return YXDEncodingTypeLongDouble;
+        case '#': return YXDEncodingTypeClass;
+        case ':': return YXDEncodingTypeSEL;
+        case '*': return YXDEncodingTypeCString;
+        case '^': return YXDEncodingTypePointer;
+        case '[': return YXDEncodingTypeCArray;
+        case '(': return YXDEncodingTypeUnion;
+        case '{': return YXDEncodingTypeStruct;
+        case '@': {
+            if (len == 2 && *(type + 1) == '?') {
+                return YXDEncodingTypeBlock;
+            } else {
+                //TODO: 对各种类型判断
+                
+//                YXDEncodingTypeString,
+//                YXDEncodingTypeMutableString,
+//                YXDEncodingTypeArray,
+//                YXDEncodingTypeMutableArray,
+//                YXDEncodingTypeDictionary,
+//                YXDEncodingTypeMutableDictionary,
+//                YXDEncodingTypeNumber,
+//                YXDEncodingTypeDate,
+                
+                return YXDEncodingTypeObject;
+            }
+        }
+        default: return YXDEncodingTypeUnknown;
+    }
+    
+    return YXDEncodingTypeUnknown;
+}
+
 //propertyString                T@"NSString",&,N,V_propertyString
 //propertyNumber                T@"NSNumber",&,N,V_propertyNumber
 //propertyArray                 T@"NSArray",&,N,V_propertyArray
@@ -86,53 +144,174 @@ typedef NS_ENUM(NSInteger, YXDPropertyType) {
 //propertyBlockWithArgs         T@?,C,N,V_propertyBlockWithArgs
 //propertySize                  T{CGSize=ff},N,V_propertySize
 
-YXDEncodingType YXDGetEncodingType(const char *typeEncoding) {
-    char *type = (char *)typeEncoding;
-    if (!type) return YXDEncodingTypeUnknown;
-    size_t len = strlen(type);
-    if (len == 0) return YXDEncodingTypeUnknown;
-    //
-    //
-    //    len = strlen(type);
-    //    if (len == 0) return YXDEncodingTypeUnknown;
-    //
-    //    switch (*type) {
-    //        case 'v': return YXDEncodingTypeVoid;
-    //        case 'B': return YXDEncodingTypeBool;
-    //        case 'c': return YXDEncodingTypeInt8;
-    //        case 'C': return YXDEncodingTypeUInt8;
-    //        case 's': return YXDEncodingTypeInt16;
-    //        case 'S': return YXDEncodingTypeUInt16;
-    //        case 'i': return YXDEncodingTypeInt32;
-    //        case 'I': return YXDEncodingTypeUInt32;
-    //        case 'l': return YXDEncodingTypeInt32;
-    //        case 'L': return YXDEncodingTypeUInt32;
-    //        case 'q': return YXDEncodingTypeInt64;
-    //        case 'Q': return YXDEncodingTypeUInt64;
-    //        case 'f': return YXDEncodingTypeFloat;
-    //        case 'd': return YXDEncodingTypeDouble;
-    //        case 'D': return YXDEncodingTypeLongDouble;
-    //        case '#': return YXDEncodingTypeClass;
-    //        case ':': return YXDEncodingTypeSEL;
-    //        case '*': return YXDEncodingTypeCString;
-    //        case '^': return YXDEncodingTypePointer;
-    //        case '[': return YXDEncodingTypeCArray;
-    //        case '(': return YXDEncodingTypeUnion;
-    //        case '{': return YXDEncodingTypeStruct;
-    //        case '@': {
-    //            if (len == 2 && *(type + 1) == '?')
-    //                return YXDEncodingTypeBlock;
-    //            else
-    //                return YXDEncodingTypeObject;
-    //        }
-    //        default: return YXDEncodingTypeUnknown;
-    //    }
-    return YXDEncodingTypeUnknown;
+@interface YXDPropertyInfo : NSObject
+
+@property (nonatomic, assign, readonly) objc_property_t property;
+@property (nonatomic, strong, readonly) NSString *name;
+@property (nonatomic, strong, readonly) NSString *getter;
+@property (nonatomic, strong, readonly) NSString *setter;
+@property (nonatomic, assign, readonly) YXDEncodingType encodingType;
+@property (nonatomic, assign, readonly) YXDPropertyType propertyType;
+
+- (instancetype)initWithProperty:(objc_property_t)property;
+
+@end
+
+@implementation YXDPropertyInfo
+
+- (instancetype)initWithProperty:(objc_property_t)property {
+    if (!property) return nil;
+    self = [self init];
+    _property = property;
+//    const char *name = property_getName(property);
+//    if (name) {
+//        _name = [NSString stringWithUTF8String:name];
+//    }
+//    
+//    _propertyType = YXDPropertyTypeUnknown;
+//    
+//    unsigned int attrCount;
+//    objc_property_attribute_t *attrs = property_copyAttributeList(property, &attrCount);
+//    for (unsigned int i = 0; i < attrCount; i++) {
+//        switch (attrs[i].name[0]) {
+//            case 'T': { // Type encoding
+//                if (attrs[i].value) {
+//
+//                    _encodingType = YXDEncodingGetType(attrs[i].value);
+    
+//                    if (type & YYEncodingTypeObject) {
+//                        size_t len = strlen(attrs[i].value);
+//                        if (len > 3) {
+//                            char name[len - 2];
+//                            name[len - 3] = '\0';
+//                            memcpy(name, attrs[i].value + 2, len - 3);
+//                            _cls = objc_getClass(name);
+//                        }
+//                    }
+//                }
+//            } break;
+//            case 'R': {
+//                _propertyType |= YXDPropertyTypeReadonly;
+//            } break;
+//            case 'C': {
+//                _propertyType |= YXDPropertyTypeCopy;
+//            } break;
+//            case '&': {
+//                _propertyType |= YXDPropertyTypeRetain;
+//            } break;
+//            case 'N': {
+//                _propertyType |= YXDPropertyTypeNonatomic;
+//            } break;
+//            case 'D': {
+//                _propertyType |= YXDPropertyTypeDynamic;
+//            } break;
+//            case 'W': {
+//                _propertyType |= YXDPropertyTypeWeak;
+//            } break;
+//            case 'G': {
+//                _propertyType |= YXDPropertyTypeCustomGetter;
+//                if (attrs[i].value) {
+//                    _getter = [NSString stringWithUTF8String:attrs[i].value];
+//                }
+//            } break;
+//            case 'S': {
+//                _propertyType |= YXDPropertyTypeCustomSetter;
+//                if (attrs[i].value) {
+//                    _setter = [NSString stringWithUTF8String:attrs[i].value];
+//                }
+//            } break;
+//            default: break;
+//        }
+//    }
+//    if (attrs) {
+//        free(attrs);
+//        attrs = NULL;
+//    }
+//    
+//    if (_name.length) {
+//        if (!_getter) {
+//            _getter = _name;
+//        }
+//        if (!_setter) {
+//            _setter = [NSString stringWithFormat:@"set%@%@:", [_name substringToIndex:1].uppercaseString, [_name substringFromIndex:1]];
+//        }
+//    }
+    return self;
 }
 
-YXDPropertyType YXDGetPropertyType(const char *typeEncoding) {
-    return YXDPropertyTypeUnknown;
+@end
+
+@interface YXDClassInfo : NSObject
+
+@property (nonatomic, assign, readonly) Class cls;
+@property (nonatomic, strong, readonly) NSString *name;
+@property (nonatomic, strong, readonly) NSDictionary<NSString *,YXDPropertyInfo *> *propertyInfos;
+
++ (instancetype)classInfoWithClass:(Class)cls;
++ (instancetype)classInfoWithClassName:(NSString *)className;
+
+@end
+
+@implementation YXDClassInfo
+
+- (instancetype)initWithClass:(Class)cls {
+    if (!cls) return nil;
+    self = [super init];
+    _cls = cls;
+    _name = NSStringFromClass(cls);
+    [self initInfos];
+    
+    return self;
 }
+
+- (void)initInfos {
+    _propertyInfos = nil;
+    
+    unsigned int propertyCount = 0;
+    objc_property_t *properties = class_copyPropertyList(self.cls, &propertyCount);
+    if (properties) {
+        NSMutableDictionary *propertyInfos = [NSMutableDictionary new];
+        _propertyInfos = propertyInfos;
+        for (unsigned int i = 0; i < propertyCount; i++) {
+            YXDPropertyInfo *info = [[YXDPropertyInfo alloc] initWithProperty:properties[i]];
+            if (info.name) {
+                propertyInfos[info.name] = info;
+            }
+        }
+        free(properties);
+    }
+}
+
++ (instancetype)classInfoWithClass:(Class)cls {
+    if (!cls) return nil;
+    static CFMutableDictionaryRef classCache;
+    static dispatch_once_t onceToken;
+    static dispatch_semaphore_t lock;
+    dispatch_once(&onceToken, ^{
+        classCache = CFDictionaryCreateMutable(CFAllocatorGetDefault(), 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+        lock = dispatch_semaphore_create(1);
+    });
+    dispatch_semaphore_wait(lock, DISPATCH_TIME_FOREVER);
+    YXDClassInfo *info = CFDictionaryGetValue(classCache, (__bridge const void *)(cls));
+
+    dispatch_semaphore_signal(lock);
+    if (!info) {
+        info = [[YXDClassInfo alloc] initWithClass:cls];
+        if (info) {
+            dispatch_semaphore_wait(lock, DISPATCH_TIME_FOREVER);
+            CFDictionarySetValue(classCache, (__bridge const void *)(cls), (__bridge const void *)(info));
+            dispatch_semaphore_signal(lock);
+        }
+    }
+    return info;
+}
+
++ (instancetype)classInfoWithClassName:(NSString *)className {
+    return [self classInfoWithClass:NSClassFromString(className)];
+}
+
+@end
+
 static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDataKey;
 
 @implementation NSObject (YXDExtension)
