@@ -378,7 +378,9 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
 #warning 4.此处需优化 考虑方式：快速枚举
 - (instancetype)voluationWithData:(id)data {
     
-    NSArray *propertyList = [self propertyList];
+    YXDClassInfo *classInfo = [YXDClassInfo classInfoWithClass:[self class]];
+    
+    NSArray *propertyList = classInfo.propertyInfos.allKeys;
     
     if (!propertyList || !propertyList.count || !data || [data isKindOfClass:[NSNull class]]) {
         return self;
@@ -389,7 +391,6 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
         [self voluationWithPropertyName:propertyName value:[data valueForKey:propertyName] arrayObjectClass:nil];
     }
     
-
     //属性名称对应不同的返回值
     NSDictionary *propertyMapDictionary = [self getPropertyMapDictionary];
     
@@ -423,7 +424,14 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
     
     id propertyValue = nil;
     
-    Class propertyClass = [self classOfPropertyNamed:propertyName];
+    YXDClassInfo *classInfo = [YXDClassInfo classInfoWithClass:[self class]];
+    YXDPropertyInfo *propertyInfo = classInfo.propertyInfos[propertyName];
+    
+    Class propertyClass = YXDGetClassWithEncodingType(propertyInfo.encodingType);
+    
+    if (!propertyClass) {
+        return;
+    }
     
     if (propertyClass == [NSString class]) {
         if ([value isKindOfClass:[NSString class]]) {
@@ -572,7 +580,10 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
 
 #warning 3.此处需优化 考虑方式：快速枚举
 - (NSDictionary *)propertyValuesWithNeedNullValue:(BOOL)needNullValue useMapPropertyKey:(BOOL)useMapPropertyKey {
-    NSArray *propertyList = [self propertyList];
+    
+    YXDClassInfo *classInfo = [YXDClassInfo classInfoWithClass:[self class]];
+    
+    NSArray *propertyList = classInfo.propertyInfos.allKeys;
     
     if (!propertyList || !propertyList.count) {
         return nil;
