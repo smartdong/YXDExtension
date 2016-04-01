@@ -9,6 +9,8 @@
 #import <objc/message.h>
 #import "NSString+YXDExtension.h"
 
+#define force_inline __inline__ __attribute__((always_inline))
+
 //https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html
 //https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtPropertyIntrospection.html
 
