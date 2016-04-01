@@ -804,27 +804,4 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
     return nil;
 }
 
-#warning 待替换为 YXDEncodingType
-- (Class)classOfPropertyNamed:(NSString *)propertyName {
-#warning 1.此处需优化 考虑方式：缓存
-    
-    Class propertyClass = nil;
-    objc_property_t property = class_getProperty([self class], [propertyName UTF8String]);
-    NSString *propertyAttributes = [NSString stringWithCString:property_getAttributes(property) encoding:NSUTF8StringEncoding];
-    
-    NSLog(@"propertyName : %@ , attributes : %@",propertyName,propertyAttributes);
-    
-    NSArray *splitPropertyAttributes = [propertyAttributes componentsSeparatedByString:@","];
-    if (splitPropertyAttributes.count > 0) {
-        NSString *encodeType = splitPropertyAttributes[0];
-        NSArray *splitEncodeType = [encodeType componentsSeparatedByString:@"\""];
-        if (splitEncodeType.count < 2) {
-            return nil;
-        }
-        NSString *className = splitEncodeType[1];
-        propertyClass = NSClassFromString(className);
-    }
-    return propertyClass;
-}
-
 @end
