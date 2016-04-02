@@ -124,7 +124,7 @@ YXDEncodingType YXDGetEncodingType(const char *typeEncoding) {
 }
 
 //根据对象的属性和类型赋值
-static force_inline void YXDSetPropertyValue(NSObject *object, NSString *setter, YXDEncodingType encodingType, id value) {
+static force_inline void YXDSetPropertyValue(NSObject *object, NSString *setter, YXDEncodingType encodingType, id value, Class arrayObjectClass) {
     
     if (!object || !setter || !value || [value isKindOfClass:[NSNull class]] || (encodingType == YXDEncodingTypeUnknown)) {
         return;
