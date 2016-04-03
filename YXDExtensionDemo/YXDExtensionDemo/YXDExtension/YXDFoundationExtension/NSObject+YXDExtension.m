@@ -747,18 +747,7 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
                 continue;
             }
             
-            NSString *mapPropertyKey = nil;
-            
-            id value = [propertyMapDictionary valueForKey:key];
-            
-            if ([value isKindOfClass:[NSString class]]) {
-                mapPropertyKey = value;
-            } else if ([value isKindOfClass:[NSDictionary class]]) {
-                NSString *firstKey = ((NSDictionary *)value).allKeys.firstObject;
-                if ([firstKey isKindOfClass:[NSString class]]) {
-                    mapPropertyKey = firstKey;
-                }
-            }
+            NSString *mapPropertyKey = [self getMapKeyWithPropertyName:key];
             
             if (!mapPropertyKey.length) {
                 continue;
@@ -886,6 +875,29 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
 #pragma clang diagnostic pop
     
     return nil;
+}
+
+// 如果有 propertyMap 则根据属性值获取实际返回的对应值
+- (NSString *)getMapKeyWithPropertyName:(NSString *)propertyName {
+    NSDictionary *propertyMapDictionary = [self getPropertyMapDictionary];
+    if (!propertyName.length || !propertyMapDictionary) {
+        return nil;
+    }
+    
+    NSString *mapKey = nil;
+    
+    id value = [propertyMapDictionary valueForKey:propertyName];
+    
+    if ([value isKindOfClass:[NSString class]] && ((NSString *)value).length) {
+        mapKey = value;
+    } else if ([value isKindOfClass:[NSDictionary class]]) {
+        NSString *firstKey = ((NSDictionary *)value).allKeys.firstObject;
+        if ([firstKey isKindOfClass:[NSString class]] && firstKey.length) {
+            mapKey = firstKey;
+        }
+    }
+    
+    return mapKey;
 }
 
 @end
