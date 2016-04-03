@@ -336,9 +336,12 @@ static force_inline void YXDSetPropertyValue(NSObject *object, NSString *setter,
 @property (nonatomic, assign, readonly) Class cls;
 @property (nonatomic, strong, readonly) NSString *name;
 @property (nonatomic, strong, readonly) NSDictionary<NSString *,YXDPropertyInfo *> *propertyInfos;
+@property (nonatomic, strong, readonly) NSDictionary<NSString *, id> *propertyMap;
 
 + (instancetype)classInfoWithClass:(Class)cls;
 + (instancetype)classInfoWithClassName:(NSString *)className;
+
+- (NSString *)mapKeyWithPropertyName:(NSString *)propertyName;
 
 @end
 
@@ -370,6 +373,8 @@ static force_inline void YXDSetPropertyValue(NSObject *object, NSString *setter,
         }
         free(properties);
     }
+    
+    _propertyMap = [self getPropertyMapDictionary];
 }
 
 + (instancetype)classInfoWithClass:(Class)cls {
@@ -398,6 +403,48 @@ static force_inline void YXDSetPropertyValue(NSObject *object, NSString *setter,
 
 + (instancetype)classInfoWithClassName:(NSString *)className {
     return [self classInfoWithClass:NSClassFromString(className)];
+}
+
+#pragma mark - 
+
+// 获取 propertyMap
+- (NSDictionary *)getPropertyMapDictionary {
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    
+    if ([self respondsToSelector:@selector(propertyMap)]) {
+        NSDictionary *map = [self performSelector:@selector(propertyMap)];
+        if (map && [map isKindOfClass:[NSDictionary class]] && map.count) {
+            return map;
+        }
+    }
+    
+#pragma clang diagnostic pop
+    
+    return nil;
+}
+
+// 如果有 propertyMap 则根据属性值获取实际返回的对应值
+- (NSString *)mapKeyWithPropertyName:(NSString *)propertyName {
+    if (!propertyName.length || !_propertyMap) {
+        return nil;
+    }
+    
+    NSString *mapKey = nil;
+    
+    id value = [_propertyMap valueForKey:propertyName];
+    
+    if ([value isKindOfClass:[NSString class]] && ((NSString *)value).length) {
+        mapKey = value;
+    } else if ([value isKindOfClass:[NSDictionary class]]) {
+        NSString *firstKey = ((NSDictionary *)value).allKeys.firstObject;
+        if ([firstKey isKindOfClass:[NSString class]] && firstKey.length) {
+            mapKey = firstKey;
+        }
+    }
+    
+    return mapKey;
 }
 
 @end
@@ -465,7 +512,7 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
     }
     
     //属性名称对应不同的返回值
-    NSDictionary *propertyMapDictionary = [self getPropertyMapDictionary];
+    NSDictionary *propertyMapDictionary = classInfo.propertyMap;
     
     if (!propertyMapDictionary) {
         return self;
@@ -516,7 +563,7 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
         }
     } else if ((propertyClass == [NSArray class]) || (propertyClass == [NSMutableArray class])) {
         
-        NSDictionary *propertyMapDictionary = [self getPropertyMapDictionary];
+        NSDictionary *propertyMapDictionary = classInfo.propertyMap;
         
         if (!arrayObjectClass && propertyMapDictionary) {
             NSDictionary *propertyDic = [propertyMapDictionary valueForKey:propertyName];
@@ -739,7 +786,7 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
         }
     }
     
-    NSDictionary *propertyMapDictionary = [self getPropertyMapDictionary];
+    NSDictionary *propertyMapDictionary = classInfo.propertyMap;
     
     if (useMapPropertyKey && propertyMapDictionary) {
         for (NSString *key in propertyMapDictionary.allKeys) {
@@ -747,7 +794,7 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
                 continue;
             }
             
-            NSString *mapPropertyKey = [self getMapKeyWithPropertyName:key];
+            NSString *mapPropertyKey = [classInfo mapKeyWithPropertyName:key];
             
             if (!mapPropertyKey.length) {
                 continue;
@@ -857,47 +904,6 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
 - (id)valueForUndefinedKey:(NSString *)key {
     NSLog(@"%@ -> valueForUndefinedKey : %@",self,key);
     return nil;
-}
-
-// 获取 propertyMap
-- (NSDictionary *)getPropertyMapDictionary {
-    
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wundeclared-selector"
-    
-    if ([self respondsToSelector:@selector(propertyMap)]) {
-        NSDictionary *map = [self performSelector:@selector(propertyMap)];
-        if (map && [map isKindOfClass:[NSDictionary class]] && map.count) {
-            return map;
-        }
-    }
-    
-#pragma clang diagnostic pop
-    
-    return nil;
-}
-
-// 如果有 propertyMap 则根据属性值获取实际返回的对应值
-- (NSString *)getMapKeyWithPropertyName:(NSString *)propertyName {
-    NSDictionary *propertyMapDictionary = [self getPropertyMapDictionary];
-    if (!propertyName.length || !propertyMapDictionary) {
-        return nil;
-    }
-    
-    NSString *mapKey = nil;
-    
-    id value = [propertyMapDictionary valueForKey:propertyName];
-    
-    if ([value isKindOfClass:[NSString class]] && ((NSString *)value).length) {
-        mapKey = value;
-    } else if ([value isKindOfClass:[NSDictionary class]]) {
-        NSString *firstKey = ((NSDictionary *)value).allKeys.firstObject;
-        if ([firstKey isKindOfClass:[NSString class]] && firstKey.length) {
-            mapKey = firstKey;
-        }
-    }
-    
-    return mapKey;
 }
 
 @end
