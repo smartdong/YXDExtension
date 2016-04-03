@@ -898,8 +898,6 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
     return [NSString stringWithFormat:@"%@ \n%@",[self description],[self allPropertyValues]];
 }
 
-#pragma mark -
-
 //防止意外崩溃 但是这样做就无法在其他类里面再对这种情况进行处理 考虑到极少需要处理这种情况 所以我觉得无所谓 :)
 - (id)valueForUndefinedKey:(NSString *)key {
     NSLog(@"%@ -> valueForUndefinedKey : %@",self,key);
