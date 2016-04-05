@@ -491,21 +491,7 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
 
 @implementation NSObject (YXDExtension)
 
-- (void)postNotificationName:(NSString *)notificationName userInfo:(NSDictionary *)userInfo {
-    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil userInfo:userInfo];
-}
-
-#pragma mark - 存取部分
-
-- (void)setUserData:(id)userData {
-    objc_setAssociatedObject(self, YXDExtensionNSObjectUserDataKey, userData, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (id)userData {
-    return objc_getAssociatedObject(self, YXDExtensionNSObjectUserDataKey);
-}
-
-#pragma mark - 自动赋值部分
+#pragma mark - 新建对象 & 对象赋值
 
 //根据数据创建对象数组
 + (NSMutableArray *)objectArrayWithDictionaryArray:(NSArray<NSDictionary *> *)dictionaryArray {
@@ -659,37 +645,13 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
 //    }
 }
 
-#pragma mark -
 
-- (instancetype)initWithCoder:(NSCoder *)coder {
-    if (self = [self init]) {
-        NSArray *propertyList = [self propertyList];
-        
-        if (!propertyList || !propertyList.count) {
-            return self;
-        }
-        
-        for (NSString *valueKey in propertyList) {
-            [self setValue:[coder decodeObjectForKey:valueKey] forKey:valueKey];
-        }
-    }
     
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)coder {
-    NSArray *propertyList = [self propertyList];
     
-    if (!propertyList || !propertyList.count) {
-        return;
-    }
-    
-    for (NSString *valueKey in propertyList) {
-        [coder encodeObject:[self valueForKey:valueKey] forKey:valueKey];
     }
 }
 
-#pragma mark -
+#pragma mark - 各种列表
 
 - (NSArray *)propertyList {
     
@@ -889,6 +851,7 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
     return nil;
 }
 
+#pragma mark - JSON 互转
 
 - (NSString *)jsonString {
     return self.propertyValuesUseMapPropertyKey.jsonString;
@@ -929,14 +892,64 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
     return nil;
 }
 
+#pragma mark - Description
+
 - (NSString *)descriptionWithPropertyValues {
     return [NSString stringWithFormat:@"%@ \n%@",[self description],[self allPropertyValues]];
 }
+
+#pragma mark - Others
+
+- (void)postNotificationName:(NSString *)notificationName userInfo:(NSDictionary *)userInfo {
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil userInfo:userInfo];
+}
+
+#pragma mark - 异常处理
 
 //防止意外崩溃 但是这样做就无法在其他类里面再对这种情况进行处理 考虑到极少需要处理这种情况 所以我觉得无所谓 :)
 - (id)valueForUndefinedKey:(NSString *)key {
     NSLog(@"%@ -> valueForUndefinedKey : %@",self,key);
     return nil;
+}
+
+#pragma mark - NSCoder
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    if (self = [self init]) {
+        NSArray *propertyList = [self propertyList];
+        
+        if (!propertyList || !propertyList.count) {
+            return self;
+        }
+        
+        for (NSString *valueKey in propertyList) {
+            [self setValue:[coder decodeObjectForKey:valueKey] forKey:valueKey];
+        }
+    }
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+    NSArray *propertyList = [self propertyList];
+    
+    if (!propertyList || !propertyList.count) {
+        return;
+    }
+    
+    for (NSString *valueKey in propertyList) {
+        [coder encodeObject:[self valueForKey:valueKey] forKey:valueKey];
+    }
+}
+
+#pragma mark - 存取部分
+
+- (void)setUserData:(id)userData {
+    objc_setAssociatedObject(self, YXDExtensionNSObjectUserDataKey, userData, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (id)userData {
+    return objc_getAssociatedObject(self, YXDExtensionNSObjectUserDataKey);
 }
 
 @end
