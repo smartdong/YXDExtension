@@ -883,7 +883,10 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
     NSMutableArray *objectArray = [NSMutableArray array];
     for (NSDictionary *pvs in arr) {
         if (pvs.count) {
-            [objectArray addObject:[self objectWithData:pvs]];
+            id obj = [self objectWithData:pvs];
+            if (obj) {
+                [objectArray addObject:obj];
+            }
         }
     }
     if (objectArray.count) {
