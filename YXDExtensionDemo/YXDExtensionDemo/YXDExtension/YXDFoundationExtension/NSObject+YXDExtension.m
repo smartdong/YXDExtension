@@ -260,6 +260,9 @@ static force_inline NSDictionary* YXDGetPropertyMapDictionary(NSObject *object) 
 @property (nonatomic, assign, readonly) YXDEncodingType encodingType;
 @property (nonatomic, assign, readonly) YXDPropertyType propertyType;
 
+@property (nonatomic, strong, readwrite) NSString *mapKey;          //propertyMap中定义的服务器返回字段名 如果为nil 则代表服务器返回的就是name
+@property (nonatomic, assign, readwrite) Class arrayObjectClass;    //如果属性类型是数组 且propertyMap方法里有对象类型定义 则代表数组内对象的类型 否则为nil
+
 - (instancetype)initWithProperty:(objc_property_t)property;
 
 @end
