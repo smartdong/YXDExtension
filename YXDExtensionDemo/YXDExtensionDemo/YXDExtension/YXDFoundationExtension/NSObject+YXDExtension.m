@@ -316,13 +316,13 @@ static force_inline NSDictionary* YXDGetPropertyMapDictionary(NSObject *object) 
 
 @property (nonatomic, assign, readonly) objc_property_t property;
 @property (nonatomic, strong, readonly) NSString *name;
-@property (nonatomic, strong, readonly) NSString *getter;
-@property (nonatomic, strong, readonly) NSString *setter;
+@property (nonatomic, assign, readonly) SEL getter;
+@property (nonatomic, assign, readonly) SEL setter;
 @property (nonatomic, assign, readonly) YXDEncodingType encodingType;
 @property (nonatomic, assign, readonly) YXDPropertyType propertyType;
 
 @property (nonatomic, strong, readwrite) NSString *mapKey;          //propertyMap中定义的服务器返回字段名 如果为nil 则代表服务器返回的就是name
-@property (nonatomic, assign, readwrite) Class arrayObjectClass;    //如果属性类型是数组 且propertyMap方法里有对象类型定义 则代表数组内对象的类型 否则为nil
+@property (nonatomic, assign, readwrite) Class objectClass;         //如果属性类型是数组 且propertyMap方法里有对象类型定义 则代表数组内对象的类型 或属性类型为对象 则代表对象类型 否则为nil
 
 - (instancetype)initWithProperty:(objc_property_t)property;
 
@@ -334,6 +334,9 @@ static force_inline NSDictionary* YXDGetPropertyMapDictionary(NSObject *object) 
     if (!property) return nil;
     self = [self init];
     _property = property;
+    
+    //TODO: 对属性初始化
+    
 //    const char *name = property_getName(property);
 //    if (name) {
 //        _name = [NSString stringWithUTF8String:name];
@@ -351,6 +354,7 @@ static force_inline NSDictionary* YXDGetPropertyMapDictionary(NSObject *object) 
 //                    _encodingType = YXDEncodingGetType(attrs[i].value);
     
 //                    if (type & YYEncodingTypeObject) {
+//                         是 object 类型时 记得给 objectClass 赋值
 //                        size_t len = strlen(attrs[i].value);
 //                        if (len > 3) {
 //                            char name[len - 2];
@@ -382,13 +386,13 @@ static force_inline NSDictionary* YXDGetPropertyMapDictionary(NSObject *object) 
 //            case 'G': {
 //                _propertyType |= YXDPropertyTypeCustomGetter;
 //                if (attrs[i].value) {
-//                    _getter = [NSString stringWithUTF8String:attrs[i].value];
+//                    _getter = NSSelectorFromString([NSString stringWithUTF8String:attrs[i].value]);
 //                }
 //            } break;
 //            case 'S': {
 //                _propertyType |= YXDPropertyTypeCustomSetter;
 //                if (attrs[i].value) {
-//                    _setter = [NSString stringWithUTF8String:attrs[i].value];
+//                    _setter = NSSelectorFromString([NSString stringWithUTF8String:attrs[i].value]);
 //                }
 //            } break;
 //            default: break;
@@ -399,12 +403,13 @@ static force_inline NSDictionary* YXDGetPropertyMapDictionary(NSObject *object) 
 //        attrs = NULL;
 //    }
 //    
+//    _type = type;
 //    if (_name.length) {
 //        if (!_getter) {
-//            _getter = _name;
+//            _getter = NSSelectorFromString(_name);
 //        }
 //        if (!_setter) {
-//            _setter = [NSString stringWithFormat:@"set%@%@:", [_name substringToIndex:1].uppercaseString, [_name substringFromIndex:1]];
+//            _setter = NSSelectorFromString([NSString stringWithFormat:@"set%@%@:", [_name substringToIndex:1].uppercaseString, [_name substringFromIndex:1]]);
 //        }
 //    }
     return self;
