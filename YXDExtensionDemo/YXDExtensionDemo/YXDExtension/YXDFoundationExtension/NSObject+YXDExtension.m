@@ -654,30 +654,8 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
 #pragma mark - 各种列表
 
 - (NSArray *)propertyList {
-    
-    if ([self class] == [NSObject class]) {
-        return nil;
-    }
-    
-    unsigned int count;
-    
-    objc_property_t *properties = class_copyPropertyList([self class], &count);
-    
-    NSMutableArray *list = [NSMutableArray arrayWithCapacity:count];
-    
-    for (int i = 0; i < count; i++) {
-        const char *propertyName = property_getName(properties[i]);
-        
-        [list addObject:[NSString stringWithUTF8String:propertyName]];
-    }
-    
-    free(properties);
-    
-    if (list.count) {
-        return list;
-    }
-    
-    return nil;
+    YXDClassInfo *classInfo = [YXDClassInfo classInfoWithClass:[self class]];
+    return classInfo.propertyInfos.allKeys;
 }
 
 - (NSDictionary *)propertyValues {
