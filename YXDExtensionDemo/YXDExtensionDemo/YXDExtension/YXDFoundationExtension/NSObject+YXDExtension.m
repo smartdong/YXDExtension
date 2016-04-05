@@ -26,7 +26,7 @@ typedef NS_ENUM(NSInteger, YXDEncodingType) {
     YXDEncodingTypeDictionary,
     YXDEncodingTypeMutableDictionary,
     YXDEncodingTypeNumber,
-    YXDEncodingTypeDate,
+    YXDEncodingTypeDate,    //仅支持服务器返回数字 值为timeIntervalSince1970
     YXDEncodingTypeObject,
     YXDEncodingTypeInt32,
     YXDEncodingTypeUInt32,
