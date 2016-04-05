@@ -123,95 +123,6 @@ YXDEncodingType YXDGetEncodingType(const char *typeEncoding) {
     return YXDEncodingTypeUnknown;
 }
 
-//根据对象的属性和类型赋值
-static force_inline void YXDSetPropertyValue(NSObject *object, NSString *setter, YXDEncodingType encodingType, id value, Class arrayObjectClass) {
-    
-    if (!object || !setter || !value || [value isKindOfClass:[NSNull class]] || (encodingType == YXDEncodingTypeUnknown)) {
-        return;
-    }
-    
-    switch (encodingType) {
-        case YXDEncodingTypeString:
-        {
-            
-        }
-            break;
-        case YXDEncodingTypeMutableString:
-        {
-            
-        }
-            break;
-        case YXDEncodingTypeArray:
-        {
-            
-        }
-            break;
-        case YXDEncodingTypeMutableArray:
-        {
-            
-        }
-            break;
-        case YXDEncodingTypeDictionary:
-        {
-            
-        }
-            break;
-        case YXDEncodingTypeMutableDictionary:
-        {
-            
-        }
-            break;
-        case YXDEncodingTypeNumber:
-        {
-            
-        }
-            break;
-        case YXDEncodingTypeDate:
-        {
-            
-        }
-            break;
-        case YXDEncodingTypeObject:
-        {
-            
-        }
-            break;
-        case YXDEncodingTypeInt32:
-        {
-            
-        }
-            break;
-        case YXDEncodingTypeUInt32:
-        {
-            
-        }
-            break;
-        case YXDEncodingTypeFloat:
-        {
-            
-        }
-            break;
-        case YXDEncodingTypeDouble:
-        {
-            
-        }
-            break;
-        case YXDEncodingTypeBool:
-        {
-            
-        }
-            break;
-        case YXDEncodingTypeBoolean:
-        {
-            
-        }
-            break;
-            
-        default:
-            break;
-    }
-}
-
 //propertyString                T@"NSString",&,N,V_propertyString
 //propertyNumber                T@"NSNumber",&,N,V_propertyNumber
 //propertyArray                 T@"NSArray",&,N,V_propertyArray
@@ -233,6 +144,156 @@ static force_inline void YXDSetPropertyValue(NSObject *object, NSString *setter,
 //propertyDate                  T@"NSDate",&,N,V_propertyDate
 //propertyBlockWithArgs         T@?,C,N,V_propertyBlockWithArgs
 //propertySize                  T{CGSize=ff},N,V_propertySize
+
+//根据对象的属性和类型赋值
+static force_inline void YXDSetPropertyValue(NSObject *object, SEL setter, YXDEncodingType encodingType, id value, Class objectClass) {
+
+    if (!object || !setter || (encodingType == YXDEncodingTypeUnknown) || !value || [value isKindOfClass:[NSNull class]]) {
+        return;
+    }
+    
+    switch (encodingType) {
+        case YXDEncodingTypeString:
+        case YXDEncodingTypeMutableString:
+        {
+            NSString *val = nil;
+            
+            if ([value isKindOfClass:[NSString class]]) {
+                val = value;
+            } else if ([value isKindOfClass:[NSNumber class]]) {
+                val = ((NSNumber *)value).stringValue;
+            }
+            
+            if (val) {
+                if (encodingType == YXDEncodingTypeString) {
+                    ((void (*)(id, SEL, id))(void *) objc_msgSend)((id)object, setter, val);
+                } else if (encodingType == YXDEncodingTypeMutableString) {
+                    ((void (*)(id, SEL, id))(void *) objc_msgSend)((id)object, setter, val.mutableCopy);
+                }
+            }
+        }
+            break;
+        case YXDEncodingTypeArray:
+        case YXDEncodingTypeMutableArray:
+        {
+            NSMutableArray *val = nil;
+            
+            if (objectClass && [value isKindOfClass:[NSArray class]] && [value count]) {
+                val = [NSMutableArray array];
+                
+                for (id obj in value) {
+                    id newObj = [objectClass objectWithData:obj];
+                    if (newObj) {
+                        [val addObject:newObj];
+                    }
+                }
+                
+                if (val.count) {
+                    ((void (*)(id, SEL, id))(void *) objc_msgSend)((id)object, setter, val);
+                }
+            }
+        }
+            break;
+        case YXDEncodingTypeDictionary:
+        case YXDEncodingTypeMutableDictionary:
+        {
+            NSDictionary *val = nil;
+            
+            if ([value isKindOfClass:[NSDictionary class]]) {
+                val = value;
+            }
+
+            if (val) {
+                if (encodingType == YXDEncodingTypeDictionary) {
+                    ((void (*)(id, SEL, id))(void *) objc_msgSend)((id)object, setter, val);
+                } else if (encodingType == YXDEncodingTypeMutableDictionary) {
+                    ((void (*)(id, SEL, id))(void *) objc_msgSend)((id)object, setter, val.mutableCopy);
+                }
+            }
+        }
+            break;
+        case YXDEncodingTypeObject:
+        {
+            NSDictionary *val = nil;
+            
+            if ([value isKindOfClass:[NSDictionary class]]) {
+                val = value;
+            }
+            
+            if (objectClass && val) {
+                ((void (*)(id, SEL, id))(void *) objc_msgSend)((id)object, setter, [objectClass objectWithData:val]);
+            }
+        }
+            break;
+        case YXDEncodingTypeNumber:
+        case YXDEncodingTypeDate:
+        case YXDEncodingTypeInt32:
+        case YXDEncodingTypeUInt32:
+        case YXDEncodingTypeFloat:
+        case YXDEncodingTypeDouble:
+        case YXDEncodingTypeBool:
+        case YXDEncodingTypeBoolean:
+        {
+            NSNumber *val = nil;
+            
+            if ([value isKindOfClass:[NSNumber class]]) {
+                val = value;
+            } else if ([value isKindOfClass:[NSString class]]) {
+                val = @([((NSString *)value) doubleValue]);
+            }
+            
+            if (val) {
+                switch (encodingType) {
+                    case YXDEncodingTypeNumber:
+                    {
+                        ((void (*)(id, SEL, id))(void *) objc_msgSend)((id)object, setter, val);
+                    }
+                        break;
+                    case YXDEncodingTypeDate:
+                    {
+                        ((void (*)(id, SEL, id))(void *) objc_msgSend)((id)object, setter, [NSDate dateWithTimeIntervalSince1970:val.floatValue]);
+                    }
+                        break;
+                    case YXDEncodingTypeInt32:
+                    {
+                        ((void (*)(id, SEL, int32_t))(void *) objc_msgSend)((id)object, setter, (int32_t)val.integerValue);
+                    }
+                        break;
+                    case YXDEncodingTypeUInt32:
+                    {
+                        ((void (*)(id, SEL, uint32_t))(void *) objc_msgSend)((id)object, setter, (uint32_t)val.unsignedIntegerValue);
+                    }
+                        break;
+                    case YXDEncodingTypeFloat:
+                    {
+                        ((void (*)(id, SEL, float))(void *) objc_msgSend)((id)object, setter, val.floatValue);
+                    }
+                        break;
+                    case YXDEncodingTypeDouble:
+                    {
+                        ((void (*)(id, SEL, double))(void *) objc_msgSend)((id)object, setter, val.doubleValue);
+                    }
+                        break;
+                    case YXDEncodingTypeBool:
+                    {
+                        ((void (*)(id, SEL, int8_t))(void *) objc_msgSend)((id)object, setter, (int8_t)val.charValue);
+                    }
+                        break;
+                    case YXDEncodingTypeBoolean:
+                    {
+                        ((void (*)(id, SEL, uint8_t))(void *) objc_msgSend)((id)object, setter, (uint8_t)val.unsignedCharValue);
+                    }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+            break;
+        default:
+            break;
+    }
+}
 
 static force_inline NSDictionary* YXDGetPropertyMapDictionary(NSObject *object) {
     
