@@ -355,13 +355,11 @@ static force_inline NSDictionary* YXDGetPropertyMapDictionary(NSObject *object) 
 
 @property (nonatomic, assign, readonly) Class cls;
 @property (nonatomic, strong, readonly) NSString *name;
-@property (nonatomic, strong, readonly) NSDictionary<NSString *,YXDPropertyInfo *> *propertyInfos;
+@property (nonatomic, strong, readonly) NSDictionary<NSString *, YXDPropertyInfo *> *propertyInfos;     //对象属性信息
 @property (nonatomic, strong, readonly) NSDictionary<NSString *, id> *propertyMap;
 
 + (instancetype)classInfoWithClass:(Class)cls;
 + (instancetype)classInfoWithClassName:(NSString *)className;
-
-- (NSString *)mapKeyWithPropertyName:(NSString *)propertyName;
 
 @end
 
@@ -394,7 +392,27 @@ static force_inline NSDictionary* YXDGetPropertyMapDictionary(NSObject *object) 
         free(properties);
     }
     
-    _propertyMap = [self getPropertyMapDictionary];
+    _propertyMap = YXDGetPropertyMapDictionary([_cls new]);
+    
+    if (!_propertyInfos.count || !_propertyMap.count) {
+        return;
+    }
+    
+    [_propertyMap enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        YXDPropertyInfo *propertyInfo = [_propertyInfos objectForKey:key];
+        if (propertyInfo) {
+            if ([obj isKindOfClass:[NSString class]] && ((NSString *)obj).length) {
+                propertyInfo.mapKey = obj;
+            } else if ([obj isKindOfClass:[NSDictionary class]]) {
+                NSString *firstKey = ((NSDictionary *)obj).allKeys.firstObject;
+                id clazz = [((NSDictionary *)obj) objectForKey:firstKey];
+                if ([firstKey isKindOfClass:[NSString class]] && firstKey.length && [clazz respondsToSelector:@selector(isSubclassOfClass:)]) {
+                    propertyInfo.mapKey = firstKey;
+                    propertyInfo.arrayObjectClass = clazz;
+                }
+            }
+        }
+    }];
 }
 
 + (instancetype)classInfoWithClass:(Class)cls {
