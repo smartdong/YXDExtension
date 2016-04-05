@@ -234,6 +234,23 @@ static force_inline void YXDSetPropertyValue(NSObject *object, NSString *setter,
 //propertyBlockWithArgs         T@?,C,N,V_propertyBlockWithArgs
 //propertySize                  T{CGSize=ff},N,V_propertySize
 
+static force_inline NSDictionary* YXDGetPropertyMapDictionary(NSObject *object) {
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    
+    if ([object respondsToSelector:@selector(propertyMap)]) {
+        NSDictionary *map = [object performSelector:@selector(propertyMap)];
+        if (map && [map isKindOfClass:[NSDictionary class]] && map.count) {
+            return map;
+        }
+    }
+    
+#pragma clang diagnostic pop
+    
+    return nil;
+}
+
 @interface YXDPropertyInfo : NSObject
 
 @property (nonatomic, assign, readonly) objc_property_t property;
