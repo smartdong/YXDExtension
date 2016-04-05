@@ -469,12 +469,12 @@ static force_inline NSDictionary* YXDGetPropertyMapDictionary(NSObject *object) 
         if (propertyInfo) {
             if ([obj isKindOfClass:[NSString class]] && ((NSString *)obj).length) {
                 propertyInfo.mapKey = obj;
-            } else if ([obj isKindOfClass:[NSDictionary class]]) {
+            } else if (((propertyInfo.encodingType == YXDEncodingTypeArray) || (propertyInfo.encodingType == YXDEncodingTypeMutableArray)) && [obj isKindOfClass:[NSDictionary class]]) {
                 NSString *firstKey = ((NSDictionary *)obj).allKeys.firstObject;
                 id clazz = [((NSDictionary *)obj) objectForKey:firstKey];
                 if ([firstKey isKindOfClass:[NSString class]] && firstKey.length && [clazz respondsToSelector:@selector(isSubclassOfClass:)]) {
                     propertyInfo.mapKey = firstKey;
-                    propertyInfo.arrayObjectClass = clazz;
+                    propertyInfo.objectClass = clazz;
                 }
             }
         }
@@ -509,48 +509,6 @@ static force_inline NSDictionary* YXDGetPropertyMapDictionary(NSObject *object) 
     return [self classInfoWithClass:NSClassFromString(className)];
 }
 
-#pragma mark - 
-
-// 获取 propertyMap
-- (NSDictionary *)getPropertyMapDictionary {
-    
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wundeclared-selector"
-    
-    if ([self respondsToSelector:@selector(propertyMap)]) {
-        NSDictionary *map = [self performSelector:@selector(propertyMap)];
-        if (map && [map isKindOfClass:[NSDictionary class]] && map.count) {
-            return map;
-        }
-    }
-    
-#pragma clang diagnostic pop
-    
-    return nil;
-}
-
-// 如果有 propertyMap 则根据属性值获取实际返回的对应值
-- (NSString *)mapKeyWithPropertyName:(NSString *)propertyName {
-    if (!propertyName.length || !_propertyMap) {
-        return nil;
-    }
-    
-    NSString *mapKey = nil;
-    
-    id value = [_propertyMap valueForKey:propertyName];
-    
-    if ([value isKindOfClass:[NSString class]] && ((NSString *)value).length) {
-        mapKey = value;
-    } else if ([value isKindOfClass:[NSDictionary class]]) {
-        NSString *firstKey = ((NSDictionary *)value).allKeys.firstObject;
-        if ([firstKey isKindOfClass:[NSString class]] && firstKey.length) {
-            mapKey = firstKey;
-        }
-    }
-    
-    return mapKey;
-}
-
 @end
 
 static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDataKey;
@@ -568,14 +526,64 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
     NSMutableArray *arr = [NSMutableArray array];
     
     for (NSDictionary *dic in dictionaryArray) {
-        [arr addObject:[self objectWithData:dic]];
+        id obj = [self objectWithData:dic];
+        if (obj) {
+            [arr addObject:obj];
+        }
     }
-    
-    return arr;
+    if (arr.count) {
+        return arr;
+    }
+    return nil;
 }
 
 + (instancetype)objectWithData:(id)data {
-    return [[self new] voluationWithData:data];
+    
+    Class clazz = [self class];
+    
+    if (!data || [data isKindOfClass:[NSNull class]] || (clazz == [NSObject class])) {
+        return nil;
+    }
+    
+    if (clazz == [NSString class]) {
+        if ([data isKindOfClass:[NSString class]]) {
+            return data;
+        }
+    } else if (clazz == [NSMutableString class]) {
+        if ([data isKindOfClass:[NSString class]]) {
+            return [data mutableCopy];
+        }
+    } else if (clazz == [NSNumber class]) {
+        if ([data isKindOfClass:[NSNumber class]] || [data isKindOfClass:[NSNumber class]]) {
+            return @([data doubleValue]);
+        }
+    } else if (clazz == [NSDictionary class]) {
+        if ([data isKindOfClass:[NSDictionary class]]) {
+            return data;
+        }
+    } else if (clazz == [NSMutableDictionary class]) {
+        if ([data isKindOfClass:[NSDictionary class]]) {
+            return [data mutableCopy];
+        }
+    } else if ((clazz == [NSArray class]) || (clazz == [NSMutableArray class])) {
+        if ([data isKindOfClass:[NSArray class]] && [data count]) {
+            NSMutableArray *arr = [NSMutableArray array];
+            for (id obj in data) {
+                //因为无法确定obj的具体类型 所以只能支持基本类型
+                id newObj = [[obj class] objectWithData:obj];
+                if (newObj) {
+                    [arr addObject:newObj];
+                }
+            }
+            if (arr.count) {
+                return arr;
+            }
+        }
+    } else {
+        return [[self new] voluationWithData:data];
+    }
+    
+    return nil;
 }
 
 #warning 优化方案考虑如下: \
@@ -589,132 +597,15 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
     
     YXDClassInfo *classInfo = [YXDClassInfo classInfoWithClass:[self class]];
     
-    NSArray *propertyList = classInfo.propertyInfos.allKeys;
-    
-    if (!propertyList || !propertyList.count || !data || [data isKindOfClass:[NSNull class]]) {
+    if (!data || [data isKindOfClass:[NSNull class]] || !classInfo.propertyInfos.count) {
         return self;
     }
-    
-    //属性名称直接对应返回值
-    for (NSString *propertyName in propertyList) {
-        [self voluationWithPropertyName:propertyName value:[data valueForKey:propertyName] arrayObjectClass:nil];
-    }
-    
-    //属性名称对应不同的返回值
-    NSDictionary *propertyMapDictionary = classInfo.propertyMap;
-    
-    if (!propertyMapDictionary) {
-        return self;
-    }
-    
-    for (NSString *propertyName in propertyMapDictionary.allKeys) {
-        id propertyValue = [propertyMapDictionary valueForKey:propertyName];
-        if ([propertyValue isKindOfClass:[NSString class]]) {
-            [self voluationWithPropertyName:propertyName value:[data valueForKey:propertyValue] arrayObjectClass:nil];
-        } else if ([propertyValue isKindOfClass:[NSDictionary class]]) {
-            NSString *str = [((NSDictionary *)propertyValue).allKeys firstObject];
-            if (![str isKindOfClass:[NSString class]]) {
-                continue;
-            }
-            id clazz = [propertyValue valueForKey:str];
-            if ([clazz respondsToSelector:@selector(isSubclassOfClass:)]) {
-                [self voluationWithPropertyName:propertyName value:[data valueForKey:str] arrayObjectClass:clazz];
-            }
-        }
-    }
-    
+
+    [classInfo.propertyInfos enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, YXDPropertyInfo * _Nonnull obj, BOOL * _Nonnull stop) {
+        YXDSetPropertyValue(self, obj.setter, obj.encodingType, [data valueForKey:obj.mapKey?:key], obj.objectClass);
+    }];
+
     return self;
-}
-
-- (void)voluationWithPropertyName:(NSString *)propertyName value:(id)value arrayObjectClass:(Class)arrayObjectClass {
-    if (!value || [value isKindOfClass:[NSNull class]]) {
-        return;
-    }
-    
-    id propertyValue = nil;
-    
-    YXDClassInfo *classInfo = [YXDClassInfo classInfoWithClass:[self class]];
-//    YXDPropertyInfo *propertyInfo = classInfo.propertyInfos[propertyName];
-    
-    Class propertyClass = nil;
-    
-    if (!propertyClass) {
-        return;
-    }
-    
-    if (propertyClass == [NSString class]) {
-        if ([value isKindOfClass:[NSString class]]) {
-            propertyValue = value;
-        }
-    } else if (propertyClass == [NSNumber class]) {
-        if ([value isKindOfClass:[NSString class]] || [value isKindOfClass:[NSNumber class]]) {
-            propertyValue = @([value doubleValue]);
-        }
-    } else if ((propertyClass == [NSArray class]) || (propertyClass == [NSMutableArray class])) {
-        
-        NSDictionary *propertyMapDictionary = classInfo.propertyMap;
-        
-        if (!arrayObjectClass && propertyMapDictionary) {
-            NSDictionary *propertyDic = [propertyMapDictionary valueForKey:propertyName];
-            if (propertyDic && [propertyDic isKindOfClass:[NSDictionary class]] && propertyDic.count) {
-                id clazz = propertyDic.allValues.firstObject;
-                if ([clazz respondsToSelector:@selector(isSubclassOfClass:)]) {
-                    arrayObjectClass = clazz;
-                }
-            }
-        }
-        
-        if (arrayObjectClass && [value isKindOfClass:[NSArray class]]) {
-            NSMutableArray *arr = [NSMutableArray arrayWithCapacity:((NSArray *)value).count];
-            for (id val in value) {
-                if ([val isKindOfClass:[NSNull class]]) {
-                    continue;
-                }
-                
-                if ([arrayObjectClass isSubclassOfClass:[NSString class]] && [val isKindOfClass:[NSString class]]) {
-                    [arr addObject:val];
-                } else if ([arrayObjectClass isSubclassOfClass:[NSNumber class]] && ([val isKindOfClass:[NSString class]] || [val isKindOfClass:[NSNumber class]])) {
-                    [arr addObject:@([val doubleValue])];
-                } else if ([arrayObjectClass isSubclassOfClass:[NSDictionary class]] && [val isKindOfClass:[NSDictionary class]]) {
-                    if ([arrayObjectClass isSubclassOfClass:[NSMutableDictionary class]] && ![val isKindOfClass:[NSMutableDictionary class]]) {
-                        [arr addObject:[NSMutableDictionary dictionaryWithDictionary:val]];
-                    } else {
-                        [arr addObject:val];
-                    }
-                } else if ([arrayObjectClass isSubclassOfClass:[NSArray class]]) {
-                    //这个就不支持了 数组里面套数组有病啊
-                } else {
-                    [arr addObject:[arrayObjectClass objectWithData:val]];
-                }
-            }
-            
-            if (arr.count) {
-                propertyValue = arr;
-            }
-        }
-    } else if (propertyClass == [NSDictionary class]) {
-        if ([value isKindOfClass:[NSDictionary class]]) {
-            propertyValue = value;
-        }
-    } else if (propertyClass == [NSMutableDictionary class]) {
-        if ([value isKindOfClass:[NSMutableDictionary class]]) {
-            propertyValue = value;
-        } else if ([value isKindOfClass:[NSDictionary class]]) {
-            propertyValue = [NSMutableDictionary dictionaryWithDictionary:value];
-        }
-    } else if (propertyClass) {
-//        propertyValue = [propertyClass objectWithData:value];
-    }
-    
-//    if (propertyClass && [propertyValue isKindOfClass:propertyClass]) {
-//        [self setValue:propertyValue forKey:propertyName];
-//    }
-}
-
-
-    
-    
-    }
 }
 
 #pragma mark - 各种列表
@@ -742,9 +633,9 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
 
 - (NSDictionary *)propertyValuesWithNeedNullValue:(BOOL)needNullValue useMapPropertyKey:(BOOL)useMapPropertyKey {
     
-    YXDClassInfo *classInfo = [YXDClassInfo classInfoWithClass:[self class]];
+    //TODO: 重写方法
     
-    NSArray *propertyList = classInfo.propertyInfos.allKeys;
+    NSArray *propertyList = [self propertyList];
     
     if (!propertyList || !propertyList.count) {
         return nil;
@@ -827,32 +718,32 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
         }
     }
     
-    NSDictionary *propertyMapDictionary = classInfo.propertyMap;
-    
-    if (useMapPropertyKey && propertyMapDictionary) {
-        for (NSString *key in propertyMapDictionary.allKeys) {
-            if (![key isKindOfClass:[NSString class]] || !key.length) {
-                continue;
-            }
-            
-            NSString *mapPropertyKey = [classInfo mapKeyWithPropertyName:key];
-            
-            if (!mapPropertyKey.length) {
-                continue;
-            }
-            
-            id propertyValue = [propertyValues objectForKey:key];
-            
-            if (propertyValue) {
-                [propertyValues setObject:propertyValue forKey:mapPropertyKey];
-                [propertyValues removeObjectForKey:key];
-            }
-        }
-    }
-    
-    if (propertyValues.count || needNullValue) {
-        return propertyValues;
-    }
+//    NSDictionary *propertyMapDictionary = classInfo.propertyMap;
+//    
+//    if (useMapPropertyKey && propertyMapDictionary) {
+//        for (NSString *key in propertyMapDictionary.allKeys) {
+//            if (![key isKindOfClass:[NSString class]] || !key.length) {
+//                continue;
+//            }
+//            
+//            NSString *mapPropertyKey = [classInfo mapKeyWithPropertyName:key];
+//            
+//            if (!mapPropertyKey.length) {
+//                continue;
+//            }
+//            
+//            id propertyValue = [propertyValues objectForKey:key];
+//            
+//            if (propertyValue) {
+//                [propertyValues setObject:propertyValue forKey:mapPropertyKey];
+//                [propertyValues removeObjectForKey:key];
+//            }
+//        }
+//    }
+//    
+//    if (propertyValues.count || needNullValue) {
+//        return propertyValues;
+//    }
     
     return nil;
 }
