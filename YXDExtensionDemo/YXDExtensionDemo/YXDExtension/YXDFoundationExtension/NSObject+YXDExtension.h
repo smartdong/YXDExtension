@@ -11,7 +11,7 @@
 
 @property (nonatomic, strong) id userData;
 
-- (void)postNotificationName:(NSString *)notificationName userInfo:(NSDictionary *)userInfo;
+#pragma mark - 新建对象 & 对象赋值
 
 //根据数据创建对象数组
 + (NSMutableArray *)objectArrayWithDictionaryArray:(NSArray<NSDictionary *> *)dictionaryArray;
@@ -21,6 +21,8 @@
 
 //对当前对象进行赋值
 - (instancetype)voluationWithData:(id)data;
+
+#pragma mark - 各种列表
 
 //获取当前对象的属性列表
 - (NSArray *)propertyList;
@@ -43,6 +45,7 @@
 //获取当前对象的实例变量列表
 - (NSArray *)ivarList;
 
+#pragma mark - JSON 互转
 
 //将对象转化成 dictionary 然后再转化成 json
 - (NSString *)jsonString;
@@ -56,8 +59,13 @@
 //将 jsonstring 转化为对象数组
 + (NSArray *)objectArrayFromJSONString:(NSString *)jsonString;
 
+#pragma mark - Description
 
 //description 方法 并打印出所有的属性值
 - (NSString *)descriptionWithPropertyValues;
+
+#pragma mark - Others
+
+- (void)postNotificationName:(NSString *)notificationName userInfo:(NSDictionary *)userInfo;
 
 @end
