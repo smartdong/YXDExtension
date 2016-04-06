@@ -105,25 +105,15 @@ YXDEncodingType YXDGetEncodingType(const char *typeEncoding) {
                 } else if (*(type + 1) == ':') {
                     return YXDEncodingTypeSEL;
                 }
+            } else {
+                return YXDEncodingTypePointer;
             }
-            return YXDEncodingTypePointer;
         }
         case '@':
         {
             if (len == 2 && *(type + 1) == '?') {
                 return YXDEncodingTypeBlock;
             } else {
-                //TODO: 对各种类型判断
-                
-//                YXDEncodingTypeString,
-//                YXDEncodingTypeMutableString,
-//                YXDEncodingTypeArray,
-//                YXDEncodingTypeMutableArray,
-//                YXDEncodingTypeDictionary,
-//                YXDEncodingTypeMutableDictionary,
-//                YXDEncodingTypeNumber,
-//                YXDEncodingTypeDate,
-                
                 return YXDEncodingTypeObject;
             }
         }
@@ -131,28 +121,6 @@ YXDEncodingType YXDGetEncodingType(const char *typeEncoding) {
     }
     return YXDEncodingTypeUnknown;
 }
-
-//propertyString                T@"NSString",&,N,V_propertyString
-//propertyNumber                T@"NSNumber",&,N,V_propertyNumber
-//propertyArray                 T@"NSArray",&,N,V_propertyArray
-//propertyDictionary            T@"NSDictionary",&,N,V_propertyDictionary
-//propertyClass                 T^#,N,V_propertyClass
-//propertyBlock                 T@?,C,N,V_propertyBlock
-//propertyObject                T@"NSObject",&,N,V_propertyObject
-//propertySEL                   T^:,N,V_propertySEL
-//propertyInteger               Ti,N,V_propertyInteger
-//propertyFloat                 Tf,N,V_propertyFloat
-//propertyBool                  Tc,N,V_propertyBool
-//propertyMutableString         T@"NSMutableString",&,N,V_propertyMutableString
-//propertyMutableArray          T@"NSMutableArray",&,N,V_propertyMutableArray
-//propertyMutableDictionary     T@"NSMutableDictionary",&,N,V_propertyMutableDictionary
-//propertyInt                   Ti,N,V_propertyInt
-//propertyDouble                Td,N,V_propertyDouble
-//propertyBoolean               TC,N,V_propertyBoolean
-//propertyViewController        T@"UIViewController",&,N,V_propertyViewController
-//propertyDate                  T@"NSDate",&,N,V_propertyDate
-//propertyBlockWithArgs         T@?,C,N,V_propertyBlockWithArgs
-//propertySize                  T{CGSize=ff},N,V_propertySize
 
 //根据 YXDEncodingType 获取 NS 类型
 Class YXDGetClassWithEncodingType(YXDEncodingType encodingType) {
