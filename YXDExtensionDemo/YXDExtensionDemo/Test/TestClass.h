@@ -16,44 +16,18 @@ typedef void(^TestClassBlock)(NSString *string, NSError *error);
 
 @interface TestClass : YXDBaseObject
 
-//@property (nonatomic, copy) NSString *name;
-//
-//@property (nonatomic, strong) NSNumber *age;
-//
-//@property (nonatomic, strong) ClassA *classA;
-//
-//@property (nonatomic, strong) NSArray<ClassB *> *arrayClassB;
-//
-//@property (nonatomic, strong) NSArray<NSDictionary *> *arrayC;
-//
-//@property (nonatomic, strong) NSArray<NSString *> *arrayD;
-//
-//@property (nonatomic, strong) NSMutableDictionary *data;
+@property (nonatomic, copy) NSString *name;
 
-#pragma mark - Test Property
+@property (nonatomic, strong) NSNumber *age;
 
-//下面是支持的类型
-@property (nonatomic, strong) NSString              *propertyString;
-@property (nonatomic, strong) NSNumber              *propertyNumber;
-@property (nonatomic, strong) NSArray               *propertyArray;
-@property (nonatomic, strong) NSDictionary          *propertyDictionary;
-@property (nonatomic, assign) Class                 *propertyClass;
-@property (nonatomic, strong) dispatch_block_t       propertyBlock;
-@property (nonatomic, strong) NSObject              *propertyObject;
-@property (nonatomic, assign) SEL                   *propertySEL;
-@property (nonatomic, assign) NSInteger              propertyInteger;
-@property (nonatomic, assign) CGFloat                propertyFloat;
-@property (nonatomic, assign) BOOL                   propertyBool;
+@property (nonatomic, strong) ClassA *classA;
 
-@property (nonatomic, strong) NSMutableString       *propertyMutableString;
-@property (nonatomic, strong) NSMutableArray        *propertyMutableArray;
-@property (nonatomic, strong) NSMutableDictionary   *propertyMutableDictionary;
-@property (nonatomic, assign) int                    propertyInt;
-@property (nonatomic, assign) double                 propertyDouble;
-@property (nonatomic, assign) Boolean                propertyBoolean;
-@property (nonatomic, strong) UIViewController      *propertyViewController;
-@property (nonatomic, strong) NSDate                *propertyDate;
-@property (nonatomic, strong) TestClassBlock         propertyBlockWithArgs;
-@property (nonatomic, assign) CGSize                 propertySize;
+@property (nonatomic, strong) NSArray<ClassB *> *arrayClassB;
+
+@property (nonatomic, strong) NSArray<NSDictionary *> *arrayC;
+
+@property (nonatomic, strong) NSArray<NSString *> *arrayD;
+
+@property (nonatomic, strong) NSMutableDictionary *data;
 
 @end
