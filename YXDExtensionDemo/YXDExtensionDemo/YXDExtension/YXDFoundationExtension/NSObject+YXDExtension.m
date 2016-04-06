@@ -618,8 +618,9 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
         return self;
     }
 
+    BOOL useMapPropertyKey = [data isKindOfClass:[NSDictionary class]];
     [classInfo.propertyInfos enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, YXDPropertyInfo * _Nonnull obj, BOOL * _Nonnull stop) {
-        YXDSetPropertyValue(self, obj.setter, obj.encodingType, [data valueForKey:obj.mapKey?:key], obj.objectClass);
+        YXDSetPropertyValue(self, obj.setter, obj.encodingType, [data valueForKey:(useMapPropertyKey && obj.mapKey)?obj.mapKey:key], obj.objectClass);
     }];
 
     return self;
