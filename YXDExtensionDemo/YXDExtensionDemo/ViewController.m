@@ -44,7 +44,8 @@
                                                                 @"classB" : @[clsB,clsB2],
                                                                 @"classC" : @[@{@"key1":@{@"v1":@"v2"}},@{@"key2":@"value2"}],
                                                                 @"classD" : @[@"1",@"2"],
-                                                                @"returnData" : @{@"hehe":@"haha",@"hengheng":@{@"a":@"b"}}
+                                                                @"returnData" : @{@"hehe":@"haha",@"hengheng":@{@"a":@"b"}},
+                                                                @"date" : @([[NSDate date] timeIntervalSince1970]),
                                                                 }];
             TestClass *testClass2 = [TestClass objectWithJSONString:testClass1.jsonString];
             NSString *arrJSON = [TestClass jsonStringFromObjectArray:@[testClass1,testClass2]];

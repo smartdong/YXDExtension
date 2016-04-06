@@ -7,7 +7,6 @@
 //
 
 #import "YXDBaseObject.h"
-#import <UIKit/UIKit.h>
 
 @class ClassA;
 @class ClassB;
@@ -29,5 +28,7 @@ typedef void(^TestClassBlock)(NSString *string, NSError *error);
 @property (nonatomic, strong) NSArray<NSString *> *arrayD;
 
 @property (nonatomic, strong) NSMutableDictionary *data;
+
+@property (nonatomic, strong) NSDate *date;
 
 @end
