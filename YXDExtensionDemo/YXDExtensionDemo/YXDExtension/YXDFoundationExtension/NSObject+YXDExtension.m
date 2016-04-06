@@ -744,13 +744,6 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
     return nil;
 }
 
-#warning 优化方案考虑如下: \
-1.缓存 \
-2.一些对象可以声明成 __unsafe_unretained \
-3.使用高效的数组遍历方法 \
-4.优化遍历方案，减少遍历次数 \
-5.使用内联函数 \
-
 - (instancetype)voluationWithData:(id)data {
     
     YXDClassInfo *classInfo = [YXDClassInfo classInfoWithClass:[self class]];
