@@ -528,6 +528,147 @@ static force_inline NSDictionary* YXDGetPropertyMapDictionary(NSObject *object) 
 
 @end
 
+//根据对象属性生成 dictionary
+static force_inline NSDictionary* YXDGetPropertyValue(NSObject *object, BOOL needNullValue, BOOL useMapPropertyKey) {
+    
+    Class clazz = [object class];
+    
+    //如果某个对象的属性是数组时会用到这块代码
+    if (clazz == [NSNull class]) {
+        return nil;
+    } else if (clazz == [NSDate class]) {
+        return (id)@([((NSDate *)object) timeIntervalSince1970]);
+    } else if ((clazz == [NSString class]) ||
+               (clazz == [NSMutableString class]) ||
+               (clazz == [NSNumber class]) ||
+               (clazz == [NSDictionary class]) ||
+               (clazz == [NSMutableDictionary class])) {
+        return (id)object;
+    } else if ((clazz == [NSArray class]) || (clazz == [NSMutableArray class])) {
+        NSMutableArray *arr = [NSMutableArray array];
+        for (id arrObj in (NSArray *)object) {
+            id newObjPV = YXDGetPropertyValue(arrObj, needNullValue, useMapPropertyKey);
+            if (newObjPV) {
+                [arr addObject:newObjPV];
+            }
+        }
+        if (arr.count) {
+            return (id)arr;
+        }
+    }
+    
+    YXDClassInfo *classInfo = [YXDClassInfo classInfoWithClass:[object class]];
+    
+    if (!classInfo.propertyInfos.count) {
+        return nil;
+    }
+
+    NSMutableDictionary *propertyValues = [NSMutableDictionary dictionary];
+    
+    [classInfo.propertyInfos enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, YXDPropertyInfo * _Nonnull obj, BOOL * _Nonnull stop) {
+        
+        id value = nil;
+        
+        switch (obj.encodingType) {
+            case YXDEncodingTypeString:
+            case YXDEncodingTypeMutableString:
+            {
+                value = ((NSString* (*)(id, SEL))(void *) objc_msgSend)((id)object, obj.getter);
+            }
+                break;
+            case YXDEncodingTypeArray:
+            case YXDEncodingTypeMutableArray:
+            {
+                NSArray *arr = ((NSArray* (*)(id, SEL))(void *) objc_msgSend)((id)object, obj.getter);
+                if (arr && [arr isKindOfClass:[NSArray class]] && arr.count) {
+                    NSMutableArray *valArray = [NSMutableArray array];
+                    [arr enumerateObjectsUsingBlock:^(id  _Nonnull arrObj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        id arrObjPV = YXDGetPropertyValue(arrObj, needNullValue, useMapPropertyKey);
+                        if (arrObjPV) {
+                            [valArray addObject:arrObjPV];
+                        }
+                    }];
+                    if (valArray.count) {
+                        value = valArray;
+                    }
+                }
+            }
+                break;
+            case YXDEncodingTypeDictionary:
+            {
+                value = ((NSDictionary* (*)(id, SEL))(void *) objc_msgSend)((id)object, obj.getter);
+            }
+                break;
+            case YXDEncodingTypeMutableDictionary:
+            {
+                value = ((NSMutableDictionary* (*)(id, SEL))(void *) objc_msgSend)((id)object, obj.getter);
+            }
+                break;
+            case YXDEncodingTypeObject:
+            {
+                value = YXDGetPropertyValue(((NSObject* (*)(id, SEL))(void *) objc_msgSend)((id)object, obj.getter), needNullValue, useMapPropertyKey);
+            }
+                break;
+            case YXDEncodingTypeNumber:
+            {
+                value = ((NSNumber* (*)(id, SEL))(void *) objc_msgSend)((id)object, obj.getter);
+            }
+                break;
+            case YXDEncodingTypeDate:
+            {
+                value = @([((NSDate* (*)(id, SEL))(void *) objc_msgSend)((id)object, obj.getter) timeIntervalSince1970]);
+            }
+                break;
+            case YXDEncodingTypeInt32:
+            {
+                value = @(((int32_t (*)(id, SEL))(void *) objc_msgSend)((id)object, obj.getter));
+            }
+                break;
+            case YXDEncodingTypeUInt32:
+            {
+                value = @(((uint32_t (*)(id, SEL))(void *) objc_msgSend)((id)object, obj.getter));
+            }
+                break;
+            case YXDEncodingTypeFloat:
+            {
+                value = @(((float (*)(id, SEL))(void *) objc_msgSend)((id)object, obj.getter));
+            }
+                break;
+            case YXDEncodingTypeDouble:
+            {
+                value = @(((double (*)(id, SEL))(void *) objc_msgSend)((id)object, obj.getter));
+            }
+                break;
+            case YXDEncodingTypeBool:
+            {
+                value = @(((int8_t (*)(id, SEL))(void *) objc_msgSend)((id)object, obj.getter));
+            }
+                break;
+            case YXDEncodingTypeBoolean:
+            {
+                value = @(((uint8_t (*)(id, SEL))(void *) objc_msgSend)((id)object, obj.getter));
+            }
+                break;
+            default:
+                break;
+        }
+        
+        if (!value && needNullValue) {
+            value = [NSNull null];
+        }
+        
+        if (value) {
+            [propertyValues setObject:value forKey:(useMapPropertyKey && obj.mapKey)?obj.mapKey:obj.name];
+        }
+    }];
+    
+    if (propertyValues.count) {
+        return propertyValues;
+    }
+    
+    return nil;
+}
+
 static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDataKey;
 
 @implementation NSObject (YXDExtension)
@@ -634,136 +775,19 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
 }
 
 - (NSDictionary *)propertyValues {
-    return [self propertyValuesWithNeedNullValue:NO useMapPropertyKey:NO];
+    return YXDGetPropertyValue(self, NO, NO);
 }
 
 - (NSDictionary *)propertyValuesUseMapPropertyKey {
-    return [self propertyValuesWithNeedNullValue:NO useMapPropertyKey:YES];
+    return YXDGetPropertyValue(self, NO, YES);
 }
 
 - (NSDictionary *)allPropertyValues {
-    return [self propertyValuesWithNeedNullValue:YES useMapPropertyKey:NO];
+    return YXDGetPropertyValue(self, YES, NO);
 }
 
 - (NSDictionary *)allPropertyValuesUseMapPropertyKey {
-    return [self propertyValuesWithNeedNullValue:YES useMapPropertyKey:YES];
-}
-
-- (NSDictionary *)propertyValuesWithNeedNullValue:(BOOL)needNullValue useMapPropertyKey:(BOOL)useMapPropertyKey {
-    
-    //TODO: 重写方法
-    
-    NSArray *propertyList = [self propertyList];
-    
-    if (!propertyList || !propertyList.count) {
-        return nil;
-    }
-    
-    NSMutableDictionary *propertyValues = [NSMutableDictionary dictionaryWithCapacity:propertyList.count];
-    
-    for (NSString *valueKey in propertyList) {
-        id value = [self valueForKey:valueKey];
-        
-        if (!value) {
-            value = [NSNull null];
-        }
-        
-        if ([value isKindOfClass:[NSString class]] || [value isKindOfClass:[NSNumber class]] || [value isKindOfClass:[NSNull class]]) {
-            if (needNullValue || ![value isKindOfClass:[NSNull class]]) {
-                [propertyValues setObject:value forKey:valueKey];
-            }
-        } else if ([value isKindOfClass:[NSArray class]]) {
-            NSMutableArray *arr = [NSMutableArray array];
-            for (id obj in value) {
-                if ([obj isKindOfClass:[NSNull class]]) {
-                    if (needNullValue) {
-                        [arr addObject:[NSNull null]];
-                    }
-                    continue;
-                }
-                
-                if ([obj isKindOfClass:[NSString class]]) {
-                    [arr addObject:obj];
-                } else if ([obj isKindOfClass:[NSNumber class]]) {
-                    [arr addObject:obj];
-                } else if ([obj isKindOfClass:[NSDictionary class]]) {
-                    [arr addObject:obj];
-                } else if ([obj isKindOfClass:[NSArray class]]) {
-                    //不支持 理由同上
-                } else {
-                    NSDictionary *pvs = nil;
-                    
-                    if (needNullValue && useMapPropertyKey) {
-                        pvs = [obj allPropertyValuesUseMapPropertyKey];
-                    } else if (needNullValue) {
-                        pvs = [obj allPropertyValues];
-                    } else if (useMapPropertyKey) {
-                        pvs = [obj propertyValuesUseMapPropertyKey];
-                    } else {
-                        pvs = [obj propertyValues];
-                    }
-                    
-                    if (pvs.count) {
-                        [arr addObject:pvs];
-                    } else if (needNullValue) {
-                        [arr addObject:[NSDictionary dictionary]];
-                    }
-                }
-            }
-            if (needNullValue || arr.count) {
-                [propertyValues setObject:arr forKey:valueKey];
-            }
-        } else if ([value isKindOfClass:[NSDictionary class]]) {
-            [propertyValues setObject:value forKey:valueKey];
-        } else {
-            NSDictionary *pvs = nil;
-            
-            if (needNullValue && useMapPropertyKey) {
-                pvs = [value allPropertyValuesUseMapPropertyKey];
-            } else if (needNullValue) {
-                pvs = [value allPropertyValues];
-            } else if (useMapPropertyKey) {
-                pvs = [value propertyValuesUseMapPropertyKey];
-            } else {
-                pvs = [value propertyValues];
-            }
-            
-            if (pvs.count) {
-                [propertyValues setObject:pvs forKey:valueKey];
-            } else if (needNullValue) {
-                [propertyValues setObject:[NSNull null] forKey:valueKey];
-            }
-        }
-    }
-    
-//    NSDictionary *propertyMapDictionary = classInfo.propertyMap;
-//    
-//    if (useMapPropertyKey && propertyMapDictionary) {
-//        for (NSString *key in propertyMapDictionary.allKeys) {
-//            if (![key isKindOfClass:[NSString class]] || !key.length) {
-//                continue;
-//            }
-//            
-//            NSString *mapPropertyKey = [classInfo mapKeyWithPropertyName:key];
-//            
-//            if (!mapPropertyKey.length) {
-//                continue;
-//            }
-//            
-//            id propertyValue = [propertyValues objectForKey:key];
-//            
-//            if (propertyValue) {
-//                [propertyValues setObject:propertyValue forKey:mapPropertyKey];
-//                [propertyValues removeObjectForKey:key];
-//            }
-//        }
-//    }
-//    
-//    if (propertyValues.count || needNullValue) {
-//        return propertyValues;
-//    }
-    
-    return nil;
+    return YXDGetPropertyValue(self, YES, YES);
 }
 
 - (NSArray *)methodList {
