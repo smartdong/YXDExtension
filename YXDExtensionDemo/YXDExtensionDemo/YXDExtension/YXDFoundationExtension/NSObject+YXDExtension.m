@@ -336,21 +336,21 @@ static force_inline NSDictionary* YXDGetPropertyMapDictionary(NSObject *object) 
                             memcpy(name, attrs[i].value + 2, len - 3);
                             _objectClass = objc_getClass(name);
 
-                            if (_objectClass == [NSString class]) {
-                                _encodingType = YXDEncodingTypeString;
-                            } else if (_objectClass == [NSMutableString class]) {
+                            if ([_objectClass isSubclassOfClass:[NSMutableString class]]) {
                                 _encodingType = YXDEncodingTypeMutableString;
-                            } else if (_objectClass == [NSArray class]) {
-                                _encodingType = YXDEncodingTypeArray;
-                            } else if (_objectClass == [NSMutableArray class]) {
+                            } else if ([_objectClass isSubclassOfClass:[NSString class]]) {
+                                _encodingType = YXDEncodingTypeString;
+                            } else if ([_objectClass isSubclassOfClass:[NSMutableArray class]]) {
                                 _encodingType = YXDEncodingTypeMutableArray;
-                            } else if (_objectClass == [NSDictionary class]) {
-                                _encodingType = YXDEncodingTypeDictionary;
-                            } else if (_objectClass == [NSMutableDictionary class]) {
+                            } else if ([_objectClass isSubclassOfClass:[NSArray class]]) {
+                                _encodingType = YXDEncodingTypeArray;
+                            } else if ([_objectClass isSubclassOfClass:[NSMutableDictionary class]]) {
                                 _encodingType = YXDEncodingTypeMutableDictionary;
-                            } else if (_objectClass == [NSNumber class]) {
+                            } else if ([_objectClass isSubclassOfClass:[NSDictionary class]]) {
+                                _encodingType = YXDEncodingTypeDictionary;
+                            } else if ([_objectClass isSubclassOfClass:[NSNumber class]]) {
                                 _encodingType = YXDEncodingTypeNumber;
-                            } else if (_objectClass == [NSDate class]) {
+                            } else if ([_objectClass isSubclassOfClass:[NSDate class]]) {
                                 _encodingType = YXDEncodingTypeDate;
                             }
                         }
@@ -526,17 +526,15 @@ static force_inline NSDictionary* YXDGetPropertyValue(NSObject *object, BOOL nee
     Class clazz = [object class];
     
     //如果某个对象的属性是数组时会用到这块代码
-    if (clazz == [NSNull class]) {
+    if ([clazz isSubclassOfClass:[NSNull class]]) {
         return nil;
-    } else if (clazz == [NSDate class]) {
+    } else if ([clazz isSubclassOfClass:[NSDate class]]) {
         return (id)@([((NSDate *)object) timeIntervalSince1970]);
-    } else if ((clazz == [NSString class]) ||
-               (clazz == [NSMutableString class]) ||
-               (clazz == [NSNumber class]) ||
-               (clazz == [NSDictionary class]) ||
-               (clazz == [NSMutableDictionary class])) {
+    } else if ([clazz isSubclassOfClass:[NSString class]] ||
+               [clazz isSubclassOfClass:[NSNumber class]] ||
+               [clazz isSubclassOfClass:[NSDictionary class]]) {
         return (id)object;
-    } else if ((clazz == [NSArray class]) || (clazz == [NSMutableArray class])) {
+    } else if ([clazz isSubclassOfClass:[NSArray class]]) {
         NSMutableArray *arr = [NSMutableArray array];
         for (id arrObj in (NSArray *)object) {
             id newObjPV = YXDGetPropertyValue(arrObj, needNullValue, useMapPropertyKey);
@@ -695,27 +693,27 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
         return nil;
     }
     
-    if (clazz == [NSString class]) {
-        if ([data isKindOfClass:[NSString class]]) {
-            return data;
-        }
-    } else if (clazz == [NSMutableString class]) {
+    if ([clazz isSubclassOfClass:[NSMutableString class]]) {
         if ([data isKindOfClass:[NSString class]]) {
             return [data mutableCopy];
         }
-    } else if (clazz == [NSNumber class]) {
+    } else if ([clazz isSubclassOfClass:[NSString class]]) {
+        if ([data isKindOfClass:[NSString class]]) {
+            return data;
+        }
+    } else if ([clazz isSubclassOfClass:[NSNumber class]]) {
         if ([data isKindOfClass:[NSNumber class]] || [data isKindOfClass:[NSNumber class]]) {
             return @([data doubleValue]);
         }
-    } else if (clazz == [NSDictionary class]) {
-        if ([data isKindOfClass:[NSDictionary class]]) {
-            return data;
-        }
-    } else if (clazz == [NSMutableDictionary class]) {
+    } else if ([clazz isSubclassOfClass:[NSMutableDictionary class]]) {
         if ([data isKindOfClass:[NSDictionary class]]) {
             return [data mutableCopy];
         }
-    } else if ((clazz == [NSArray class]) || (clazz == [NSMutableArray class])) {
+    } else if ([clazz isSubclassOfClass:[NSDictionary class]]) {
+        if ([data isKindOfClass:[NSDictionary class]]) {
+            return data;
+        }
+    } else if ([clazz isSubclassOfClass:[NSArray class]]) {
         if ([data isKindOfClass:[NSArray class]] && [data count]) {
             NSMutableArray *arr = [NSMutableArray array];
             for (id obj in data) {
