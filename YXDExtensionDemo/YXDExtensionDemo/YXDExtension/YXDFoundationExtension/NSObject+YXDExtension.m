@@ -93,14 +93,23 @@ YXDEncodingType YXDGetEncodingType(const char *typeEncoding) {
         case 'f': return YXDEncodingTypeFloat;
         case 'd': return YXDEncodingTypeDouble;
         case 'D': return YXDEncodingTypeLongDouble;
-        case '#': return YXDEncodingTypeClass;
-        case ':': return YXDEncodingTypeSEL;
         case '*': return YXDEncodingTypeCString;
-        case '^': return YXDEncodingTypePointer;
         case '[': return YXDEncodingTypeCArray;
         case '(': return YXDEncodingTypeUnion;
         case '{': return YXDEncodingTypeStruct;
-        case '@': {
+        case '^':
+        {
+            if (len == 2) {
+                if (*(type + 1) == '#') {
+                    return YXDEncodingTypeClass;
+                } else if (*(type + 1) == ':') {
+                    return YXDEncodingTypeSEL;
+                }
+            }
+            return YXDEncodingTypePointer;
+        }
+        case '@':
+        {
             if (len == 2 && *(type + 1) == '?') {
                 return YXDEncodingTypeBlock;
             } else {
