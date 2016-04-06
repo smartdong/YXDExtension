@@ -122,23 +122,6 @@ YXDEncodingType YXDGetEncodingType(const char *typeEncoding) {
     return YXDEncodingTypeUnknown;
 }
 
-//根据 YXDEncodingType 获取 NS 类型
-Class YXDGetClassWithEncodingType(YXDEncodingType encodingType) {
-    switch (encodingType) {
-        case YXDEncodingTypeString              : return [NSString class];
-        case YXDEncodingTypeMutableString       : return [NSMutableString class];
-        case YXDEncodingTypeArray               : return [NSArray class];
-        case YXDEncodingTypeMutableArray        : return [NSMutableArray class];
-        case YXDEncodingTypeDictionary          : return [NSDictionary class];
-        case YXDEncodingTypeMutableDictionary   : return [NSMutableDictionary class];
-        case YXDEncodingTypeNumber              : return [NSNumber class];
-        case YXDEncodingTypeDate                : return [NSDate class];
-        case YXDEncodingTypeObject              : return [NSObject class];
-        default                                 : return nil;
-    }
-    return nil;
-}
-
 //根据对象的属性和类型赋值
 static force_inline void YXDSetPropertyValue(NSObject *object, SEL setter, YXDEncodingType encodingType, id value, Class objectClass) {
 
