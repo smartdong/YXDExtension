@@ -311,84 +311,116 @@ static force_inline NSDictionary* YXDGetPropertyMapDictionary(NSObject *object) 
     if (!property) return nil;
     self = [self init];
     _property = property;
+
+    const char *name = property_getName(property);
+    if (name) {
+        _name = [NSString stringWithUTF8String:name];
+    }
     
-    //TODO: 对属性初始化
+    _propertyType = YXDPropertyTypeUnknown;
     
-//    const char *name = property_getName(property);
-//    if (name) {
-//        _name = [NSString stringWithUTF8String:name];
-//    }
-//    
-//    _propertyType = YXDPropertyTypeUnknown;
-//    
-//    unsigned int attrCount;
-//    objc_property_attribute_t *attrs = property_copyAttributeList(property, &attrCount);
-//    for (unsigned int i = 0; i < attrCount; i++) {
-//        switch (attrs[i].name[0]) {
-//            case 'T': { // Type encoding
-//                if (attrs[i].value) {
-//
-//                    _encodingType = YXDEncodingGetType(attrs[i].value);
+    unsigned int attrCount;
+    objc_property_attribute_t *attrs = property_copyAttributeList(property, &attrCount);
+    for (unsigned int i = 0; i < attrCount; i++) {
+        switch (attrs[i].name[0]) {
+            case 'T':
+            {
+                if (attrs[i].value) {
+                    _encodingType = YXDGetEncodingType(attrs[i].value);
+                    
+                    if (_encodingType == YXDEncodingTypeObject) {
+                        size_t len = strlen(attrs[i].value);
+                        if (len > 3) {
+                            char name[len - 2];
+                            name[len - 3] = '\0';
+                            memcpy(name, attrs[i].value + 2, len - 3);
+                            _objectClass = objc_getClass(name);
+
+                            if (_objectClass == [NSString class]) {
+                                _encodingType = YXDEncodingTypeString;
+                            } else if (_objectClass == [NSMutableString class]) {
+                                _encodingType = YXDEncodingTypeMutableString;
+                            } else if (_objectClass == [NSArray class]) {
+                                _encodingType = YXDEncodingTypeArray;
+                            } else if (_objectClass == [NSMutableArray class]) {
+                                _encodingType = YXDEncodingTypeMutableArray;
+                            } else if (_objectClass == [NSDictionary class]) {
+                                _encodingType = YXDEncodingTypeDictionary;
+                            } else if (_objectClass == [NSMutableDictionary class]) {
+                                _encodingType = YXDEncodingTypeMutableDictionary;
+                            } else if (_objectClass == [NSNumber class]) {
+                                _encodingType = YXDEncodingTypeNumber;
+                            } else if (_objectClass == [NSDate class]) {
+                                _encodingType = YXDEncodingTypeDate;
+                            }
+                        }
+                    }
+                }
+            }
+                break;
+            case 'R':
+            {
+                _propertyType |= YXDPropertyTypeReadonly;
+            }
+                break;
+            case 'C':
+            {
+                _propertyType |= YXDPropertyTypeCopy;
+            }
+                break;
+            case '&':
+            {
+                _propertyType |= YXDPropertyTypeRetain;
+            }
+                break;
+            case 'N':
+            {
+                _propertyType |= YXDPropertyTypeNonatomic;
+            }
+                break;
+            case 'D':
+            {
+                _propertyType |= YXDPropertyTypeDynamic;
+            }
+                break;
+            case 'W':
+            {
+                _propertyType |= YXDPropertyTypeWeak;
+            }
+                break;
+            case 'G':
+            {
+                _propertyType |= YXDPropertyTypeCustomGetter;
+                if (attrs[i].value) {
+                    _getter = NSSelectorFromString([NSString stringWithUTF8String:attrs[i].value]);
+                }
+            }
+                break;
+            case 'S':
+            {
+                _propertyType |= YXDPropertyTypeCustomSetter;
+                if (attrs[i].value) {
+                    _setter = NSSelectorFromString([NSString stringWithUTF8String:attrs[i].value]);
+                }
+            }
+                break;
+            default:
+                break;
+        }
+    }
+    if (attrs) {
+        free(attrs);
+        attrs = NULL;
+    }
     
-//                    if (type & YYEncodingTypeObject) {
-//                         是 object 类型时 记得给 objectClass 赋值
-//                        size_t len = strlen(attrs[i].value);
-//                        if (len > 3) {
-//                            char name[len - 2];
-//                            name[len - 3] = '\0';
-//                            memcpy(name, attrs[i].value + 2, len - 3);
-//                            _cls = objc_getClass(name);
-//                        }
-//                    }
-//                }
-//            } break;
-//            case 'R': {
-//                _propertyType |= YXDPropertyTypeReadonly;
-//            } break;
-//            case 'C': {
-//                _propertyType |= YXDPropertyTypeCopy;
-//            } break;
-//            case '&': {
-//                _propertyType |= YXDPropertyTypeRetain;
-//            } break;
-//            case 'N': {
-//                _propertyType |= YXDPropertyTypeNonatomic;
-//            } break;
-//            case 'D': {
-//                _propertyType |= YXDPropertyTypeDynamic;
-//            } break;
-//            case 'W': {
-//                _propertyType |= YXDPropertyTypeWeak;
-//            } break;
-//            case 'G': {
-//                _propertyType |= YXDPropertyTypeCustomGetter;
-//                if (attrs[i].value) {
-//                    _getter = NSSelectorFromString([NSString stringWithUTF8String:attrs[i].value]);
-//                }
-//            } break;
-//            case 'S': {
-//                _propertyType |= YXDPropertyTypeCustomSetter;
-//                if (attrs[i].value) {
-//                    _setter = NSSelectorFromString([NSString stringWithUTF8String:attrs[i].value]);
-//                }
-//            } break;
-//            default: break;
-//        }
-//    }
-//    if (attrs) {
-//        free(attrs);
-//        attrs = NULL;
-//    }
-//    
-//    _type = type;
-//    if (_name.length) {
-//        if (!_getter) {
-//            _getter = NSSelectorFromString(_name);
-//        }
-//        if (!_setter) {
-//            _setter = NSSelectorFromString([NSString stringWithFormat:@"set%@%@:", [_name substringToIndex:1].uppercaseString, [_name substringFromIndex:1]]);
-//        }
-//    }
+    if (_name.length) {
+        if (!_getter) {
+            _getter = NSSelectorFromString(_name);
+        }
+        if (!_setter) {
+            _setter = NSSelectorFromString([NSString stringWithFormat:@"set%@%@:", [_name substringToIndex:1].uppercaseString, [_name substringFromIndex:1]]);
+        }
+    }
     return self;
 }
 
