@@ -460,7 +460,7 @@ static force_inline NSDictionary* YXDGetPropertyMapDictionary(NSObject *object) 
     
     _propertyMap = YXDGetPropertyMapDictionary([_cls new]);
     
-    if (!_propertyInfos.count || !_propertyMap.count) {
+    if (!_propertyMap.count || !_propertyInfos.count) {
         return;
     }
     
