@@ -31,4 +31,6 @@ typedef void(^TestClassBlock)(NSString *string, NSError *error);
 
 @property (nonatomic, strong) NSDate *date;
 
+@property (nonatomic, strong, readonly) NSNumber *readonlyTest;
+
 @end
