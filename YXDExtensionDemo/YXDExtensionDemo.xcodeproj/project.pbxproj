@@ -100,7 +100,6 @@
 		B555C88C1CA1343800FB37C9 /* EasyJSWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = B555C8871CA1343800FB37C9 /* EasyJSWebView.m */; };
 		B555C88D1CA1343800FB37C9 /* EasyJSWebViewProxyDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B555C8891CA1343800FB37C9 /* EasyJSWebViewProxyDelegate.m */; };
 		B555C8901CA13C6300FB37C9 /* YXDBaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B555C88F1CA13C6300FB37C9 /* YXDBaseWebViewController.m */; };
-		B555C8951CA23CC200FB37C9 /* YXDLoadStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = B555C8941CA23CC200FB37C9 /* YXDLoadStatusView.m */; };
 		B555C8981CA23D0100FB37C9 /* RefreshTestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B555C8971CA23D0100FB37C9 /* RefreshTestTableViewController.m */; };
 		B5D830B61B71E08B0094BE65 /* image_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = B5D830AD1B71E08B0094BE65 /* image_circle.png */; };
 		B5D830B71B71E08B0094BE65 /* image_line.png in Resources */ = {isa = PBXBuildFile; fileRef = B5D830AE1B71E08B0094BE65 /* image_line.png */; };
@@ -334,8 +333,6 @@
 		B555C8891CA1343800FB37C9 /* EasyJSWebViewProxyDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyJSWebViewProxyDelegate.m; sourceTree = "<group>"; };
 		B555C88E1CA13C6300FB37C9 /* YXDBaseWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDBaseWebViewController.h; sourceTree = "<group>"; };
 		B555C88F1CA13C6300FB37C9 /* YXDBaseWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDBaseWebViewController.m; sourceTree = "<group>"; };
-		B555C8931CA23CC200FB37C9 /* YXDLoadStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDLoadStatusView.h; sourceTree = "<group>"; };
-		B555C8941CA23CC200FB37C9 /* YXDLoadStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDLoadStatusView.m; sourceTree = "<group>"; };
 		B555C8961CA23D0100FB37C9 /* RefreshTestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefreshTestTableViewController.h; sourceTree = "<group>"; };
 		B555C8971CA23D0100FB37C9 /* RefreshTestTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefreshTestTableViewController.m; sourceTree = "<group>"; };
 		B5D830AD1B71E08B0094BE65 /* image_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_circle.png; sourceTree = "<group>"; };
@@ -834,15 +831,6 @@
 			path = VC;
 			sourceTree = "<group>";
 		};
-		B555C8921CA23CB200FB37C9 /* YXDLoadStatusView */ = {
-			isa = PBXGroup;
-			children = (
-				B555C8931CA23CC200FB37C9 /* YXDLoadStatusView.h */,
-				B555C8941CA23CC200FB37C9 /* YXDLoadStatusView.m */,
-			);
-			path = YXDLoadStatusView;
-			sourceTree = "<group>";
-		};
 		B5D830AB1B71E08B0094BE65 /* YXDLockScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -911,7 +899,6 @@
 		B5DE71781B6F174A006F8FF1 /* YXDFunctionExtension */ = {
 			isa = PBXGroup;
 			children = (
-				B555C8921CA23CB200FB37C9 /* YXDLoadStatusView */,
 				B54F4FA51C2BD8EB00CC46BB /* YXDActionView */,
 				B54CBB421C22D23D00C85912 /* YXDCache */,
 				0B6A009B1C12C19D009EF58B /* YXDCommonFunction */,
@@ -1147,7 +1134,6 @@
 				B55048851B81BB1100A78C8D /* YXDNetworkManager.m in Sources */,
 				B549BCBD1C15709A0092F3B2 /* ClassA.m in Sources */,
 				B549BCBA1C1570840092F3B2 /* TestClass.m in Sources */,
-				B555C8951CA23CC200FB37C9 /* YXDLoadStatusView.m in Sources */,
 				0B6725451B6E9FC9009272B4 /* main.m in Sources */,
 				B550484B1B81B63E00A78C8D /* AFURLConnectionOperation.m in Sources */,
 				B550486E1B81B63E00A78C8D /* SDWebImageCompat.m in Sources */,
