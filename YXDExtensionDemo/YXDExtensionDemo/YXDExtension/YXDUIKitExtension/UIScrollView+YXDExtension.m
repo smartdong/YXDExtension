@@ -165,7 +165,7 @@ static NSString *kYXDLoadStatusDefaultEmptyTitle = @"暂无内容";
             break;
         case YXDLoadStatusFailed:
         {
-            
+            //TODO:当失败或无数据时 记得禁止 scrollview 滚动  成功时再恢复
         }
             break;
         case YXDLoadStatusEmpty:
