@@ -111,6 +111,7 @@
 		B5B8FFA41CB7848E00AE66B7 /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B8FF971CB7848E00AE66B7 /* DDContextFilterLogFormatter.m */; };
 		B5B8FFA51CB7848E00AE66B7 /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B8FF991CB7848E00AE66B7 /* DDDispatchQueueLogFormatter.m */; };
 		B5B8FFA61CB7848E00AE66B7 /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B8FF9B1CB7848E00AE66B7 /* DDMultiFormatter.m */; };
+		B5B8FFAA1CB7940500AE66B7 /* YXDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B8FFA91CB7940500AE66B7 /* YXDLog.m */; };
 		B5D830B61B71E08B0094BE65 /* image_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = B5D830AD1B71E08B0094BE65 /* image_circle.png */; };
 		B5D830B71B71E08B0094BE65 /* image_line.png in Resources */ = {isa = PBXBuildFile; fileRef = B5D830AE1B71E08B0094BE65 /* image_line.png */; };
 		B5D830B81B71E08B0094BE65 /* YXDLockScreenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D830B01B71E08B0094BE65 /* YXDLockScreenManager.m */; };
@@ -370,6 +371,8 @@
 		B5B8FF991CB7848E00AE66B7 /* DDDispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDispatchQueueLogFormatter.m; sourceTree = "<group>"; };
 		B5B8FF9A1CB7848E00AE66B7 /* DDMultiFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMultiFormatter.h; sourceTree = "<group>"; };
 		B5B8FF9B1CB7848E00AE66B7 /* DDMultiFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMultiFormatter.m; sourceTree = "<group>"; };
+		B5B8FFA81CB7940500AE66B7 /* YXDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDLog.h; sourceTree = "<group>"; };
+		B5B8FFA91CB7940500AE66B7 /* YXDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDLog.m; sourceTree = "<group>"; };
 		B5D830AD1B71E08B0094BE65 /* image_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_circle.png; sourceTree = "<group>"; };
 		B5D830AE1B71E08B0094BE65 /* image_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_line.png; sourceTree = "<group>"; };
 		B5D830AF1B71E08B0094BE65 /* YXDLockScreenManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDLockScreenManager.h; sourceTree = "<group>"; };
@@ -915,6 +918,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		B5B8FFA71CB793F500AE66B7 /* YXDLog */ = {
+			isa = PBXGroup;
+			children = (
+				B5B8FFA81CB7940500AE66B7 /* YXDLog.h */,
+				B5B8FFA91CB7940500AE66B7 /* YXDLog.m */,
+			);
+			path = YXDLog;
+			sourceTree = "<group>";
+		};
 		B5D830AB1B71E08B0094BE65 /* YXDLockScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -983,6 +995,7 @@
 		B5DE71781B6F174A006F8FF1 /* YXDFunctionExtension */ = {
 			isa = PBXGroup;
 			children = (
+				B5B8FFA71CB793F500AE66B7 /* YXDLog */,
 				B54F4FA51C2BD8EB00CC46BB /* YXDActionView */,
 				B54CBB421C22D23D00C85912 /* YXDCache */,
 				0B6A009B1C12C19D009EF58B /* YXDCommonFunction */,
@@ -1198,6 +1211,7 @@
 				B55048811B81B63E00A78C8D /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				B550485C1B81B63E00A78C8D /* MJRefreshHeader.m in Sources */,
 				B5B8FFA51CB7848E00AE66B7 /* DDDispatchQueueLogFormatter.m in Sources */,
+				B5B8FFAA1CB7940500AE66B7 /* YXDLog.m in Sources */,
 				B5DE71C21B6F4A2F006F8FF1 /* YXDFileManager.m in Sources */,
 				B55048591B81B63E00A78C8D /* MJRefreshBackFooter.m in Sources */,
 				B5DE71BB1B6F3FF4006F8FF1 /* UIAlertView+YXDExtension.m in Sources */,
