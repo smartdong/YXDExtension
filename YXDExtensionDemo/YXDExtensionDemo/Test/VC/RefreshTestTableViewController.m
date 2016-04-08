@@ -24,12 +24,13 @@
     [self.tableView registerDefaultCell];
     
     [self.tableView addLoadStatusViewWithPullLoadingBlock:^{
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.count = 10;
             [self.tableView setStatusSuccess];
+//            [self.tableView setStatusFail];
         });
     } footerLoadingBlock:^{
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             if (self.count < 50) {
                 self.count += 10;
             } else {
@@ -38,6 +39,15 @@
             [self.tableView setStatusSuccess];
         });
     }];
+    
+    [self.tableView setTitle:@"没有内容了啊啊" imageName:@"imgNoInformation" forStatus:YXDLoadStatusEmpty];
+    [self.tableView setTitle:@"加载失败了啊喂" imageName:@"imgNoInformation" forStatus:YXDLoadStatusFailed];
+    
+//    [self.tableView setTitle:nil imageName:@"imgNoInformation" forStatus:YXDLoadStatusEmpty];
+//    [self.tableView setTitle:nil imageName:@"imgNoInformation" forStatus:YXDLoadStatusFailed];
+    
+//    [self.tableView setTitle:@"没有内容了啊啊" imageName:nil forStatus:YXDLoadStatusEmpty];
+//    [self.tableView setTitle:@"加载失败了啊喂" imageName:nil forStatus:YXDLoadStatusFailed];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
