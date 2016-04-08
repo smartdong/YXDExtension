@@ -102,7 +102,6 @@
 		B555C8901CA13C6300FB37C9 /* YXDBaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B555C88F1CA13C6300FB37C9 /* YXDBaseWebViewController.m */; };
 		B555C8981CA23D0100FB37C9 /* RefreshTestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B555C8971CA23D0100FB37C9 /* RefreshTestTableViewController.m */; };
 		B5B8FF9C1CB7848E00AE66B7 /* CLIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B8FF821CB7848E00AE66B7 /* CLIColor.m */; };
-		B5B8FF9D1CB7848E00AE66B7 /* CocoaLumberjack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B8FF841CB7848E00AE66B7 /* CocoaLumberjack.swift */; };
 		B5B8FF9E1CB7848E00AE66B7 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B8FF861CB7848E00AE66B7 /* DDAbstractDatabaseLogger.m */; };
 		B5B8FF9F1CB7848E00AE66B7 /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B8FF881CB7848E00AE66B7 /* DDASLLogCapture.m */; };
 		B5B8FFA01CB7848E00AE66B7 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B8FF8A1CB7848E00AE66B7 /* DDASLLogger.m */; };
@@ -349,7 +348,6 @@
 		B5B8FF811CB7848E00AE66B7 /* CLIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLIColor.h; sourceTree = "<group>"; };
 		B5B8FF821CB7848E00AE66B7 /* CLIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLIColor.m; sourceTree = "<group>"; };
 		B5B8FF831CB7848E00AE66B7 /* CocoaLumberjack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaLumberjack.h; sourceTree = "<group>"; };
-		B5B8FF841CB7848E00AE66B7 /* CocoaLumberjack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaLumberjack.swift; sourceTree = "<group>"; };
 		B5B8FF851CB7848E00AE66B7 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
 		B5B8FF861CB7848E00AE66B7 /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
 		B5B8FF871CB7848E00AE66B7 /* DDASLLogCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogCapture.h; sourceTree = "<group>"; };
@@ -874,7 +872,6 @@
 			children = (
 				B5B8FF801CB7848E00AE66B7 /* CLI */,
 				B5B8FF831CB7848E00AE66B7 /* CocoaLumberjack.h */,
-				B5B8FF841CB7848E00AE66B7 /* CocoaLumberjack.swift */,
 				B5B8FF851CB7848E00AE66B7 /* DDAbstractDatabaseLogger.h */,
 				B5B8FF861CB7848E00AE66B7 /* DDAbstractDatabaseLogger.m */,
 				B5B8FF871CB7848E00AE66B7 /* DDASLLogCapture.h */,
@@ -1226,7 +1223,6 @@
 				B55048851B81BB1100A78C8D /* YXDNetworkManager.m in Sources */,
 				B549BCBD1C15709A0092F3B2 /* ClassA.m in Sources */,
 				B549BCBA1C1570840092F3B2 /* TestClass.m in Sources */,
-				B5B8FF9D1CB7848E00AE66B7 /* CocoaLumberjack.swift in Sources */,
 				0B6725451B6E9FC9009272B4 /* main.m in Sources */,
 				B550484B1B81B63E00A78C8D /* AFURLConnectionOperation.m in Sources */,
 				B550486E1B81B63E00A78C8D /* SDWebImageCompat.m in Sources */,
