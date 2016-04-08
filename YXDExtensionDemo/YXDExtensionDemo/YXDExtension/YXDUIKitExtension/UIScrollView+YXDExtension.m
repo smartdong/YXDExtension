@@ -36,7 +36,7 @@
 
 #define kYXDLoadStatusDefaultTitleColor [UIColor colorWithRed:100/255. green:100/255. blue:100/255. alpha:1]
 
-static NSString *kYXDLoadStatusDefaultFailedTitle = @"加载失败,点击重试";
+static NSString *kYXDLoadStatusDefaultFailedTitle = @"加载失败，点击重试";
 static NSString *kYXDLoadStatusDefaultEmptyTitle = @"暂无内容";
 
 @implementation YXDLoadStatusView
@@ -135,38 +135,92 @@ static NSString *kYXDLoadStatusDefaultEmptyTitle = @"暂无内容";
 }
 
 - (void)layoutImageViewAndTitleLable {
-
-    //TODO:待处理出错和无数据时的情况
     
     CGPoint center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
     center.y -= self.scrollView.contentInset.top;
     
+    //先禁止滚动 等成功以后才允许滚动
+    self.scrollView.scrollEnabled = NO;
+    
     switch (self.loadStatus) {
         case YXDLoadStatusLoading:
         {
+            self.indicator.center = center;
+            
             self.imageView.hidden = YES;
             self.titleLable.hidden = YES;
             self.indicator.hidden = NO;
             
-            self.indicator.center = center;
             [self.indicator startAnimating];
-            
-            
         }
             break;
         case YXDLoadStatusSuccess:
         {
+            [self.indicator stopAnimating];
             
+            self.imageView.hidden = YES;
+            self.titleLable.hidden = YES;
+            self.indicator.hidden = YES;
+            
+            self.scrollView.scrollEnabled = YES;
         }
             break;
         case YXDLoadStatusFailed:
-        {
-            //TODO:当失败或无数据时 记得禁止 scrollview 滚动  成功时再恢复
-        }
-            break;
         case YXDLoadStatusEmpty:
         {
+            [self.indicator stopAnimating];
+            self.indicator.hidden = YES;
             
+            NSString *title = nil;
+            NSString *imageName = nil;
+            
+            switch (self.loadStatus) {
+                case YXDLoadStatusFailed:
+                {
+                    imageName = self.failedStatusImageName;
+                    title = imageName.length?self.failedStatusTitle:(self.failedStatusTitle.length?self.failedStatusTitle:kYXDLoadStatusDefaultFailedTitle);
+                }
+                    break;
+                case YXDLoadStatusEmpty:
+                {
+                    imageName = self.emptyStatusImageName;
+                    title = imageName.length?self.emptyStatusTitle:(self.emptyStatusTitle.length?self.emptyStatusTitle:kYXDLoadStatusDefaultEmptyTitle);
+                }
+                    break;
+                default:
+                    break;
+            }
+            
+            if (imageName.length) {
+                UIImage *image = [UIImage imageNamed:imageName];
+                self.imageView.image = image;
+                self.imageView.bounds = CGRectMake(0, 0, image.size.width, image.size.height);
+            }
+            
+            if (title.length) {
+                self.titleLable.text = title;
+            }
+            
+            if (title.length && imageName.length) {
+                //标题和图片都在
+                self.imageView.center = CGPointMake(center.x, center.y - self.titleLable.bounds.size.height / 2);
+                self.titleLable.center = CGPointMake(center.x, self.imageView.center.y + self.imageView.bounds.size.height / 2 + self.titleLable.bounds.size.height / 2);
+                
+                self.imageView.hidden = NO;
+                self.titleLable.hidden = NO;
+            } else if (imageName.length) {
+                //只有图片
+                self.imageView.center = center;
+                
+                self.imageView.hidden = NO;
+                self.titleLable.hidden = YES;
+            } else {
+                //只有标题
+                self.titleLable.center = center;
+                
+                self.imageView.hidden = YES;
+                self.titleLable.hidden = NO;
+            }
         }
             break;
     }
