@@ -21,15 +21,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+//    [self jsonToObjectTest];
+}
+
+- (void)jsonToObjectTest {
     ClassA *clsA = [ClassA new];
     clsA.name = @"clsA";
-
+    
     ClassB *clsB = [ClassB new];
     clsB.name = @"clsB";
-
+    
     ClassB *clsB2 = [ClassB new];
     clsB2.name = @"clsB2";
-
+    
     [YXDCommonFunction printTimeCost:^{
         for (int i = 0; i < 10000; i++) {
             TestClass *testClass1 = [TestClass objectWithData:@{
