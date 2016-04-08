@@ -49,10 +49,6 @@ static NSString *kYXDLoadStatusDefaultEmptyTitle = @"暂无内容";
     return self;
 }
 
-- (void)awakeFromNib {
-    [self commonInit];
-}
-
 - (void)commonInit {
     
     self.hidden = YES;
