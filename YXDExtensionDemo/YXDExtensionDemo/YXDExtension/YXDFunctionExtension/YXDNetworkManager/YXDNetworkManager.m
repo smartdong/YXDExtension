@@ -253,4 +253,22 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
     return self;
 }
 
+#pragma mark - Private
+
++ (NSString *)responseInfoDescription:(AFHTTPRequestOperation *)operation {
+    return  [NSString stringWithFormat:
+             @" ------RequestURL------: \n %@ %@, \n "
+              " ------RequestBody------: \n %@, \n "
+              " ------RequestHeader------:\n %@, \n "
+              " ------ResponseStatus:------:\n %@, \n "
+              " ------ResponseBody------:\n %@, \n "
+              " ------ResponseHeader-----:\n %@ \n ",
+             operation.request.URL, operation.request.HTTPMethod,
+             [[NSString alloc] initWithData:[operation.request HTTPBody] encoding:(NSUTF8StringEncoding)],
+             operation.request.allHTTPHeaderFields,
+             @(operation.response.statusCode),
+             operation.responseString,
+             operation.response.allHeaderFields];
+}
+
 @end
