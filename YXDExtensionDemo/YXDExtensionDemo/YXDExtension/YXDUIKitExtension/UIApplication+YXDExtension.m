@@ -6,7 +6,6 @@
 //
 
 #import "UIApplication+YXDExtension.h"
-#import "YXDCache.h"
 
 @implementation UIApplication (YXDExtension)
 
@@ -20,22 +19,6 @@
 
 + (void)callPhone:(NSString *)phone {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phone]]];
-}
-
-+ (NSCache *)sharedMemoryCache {
-    return [YXDCache sharedMemoryCache];
-}
-
-+ (NSCache *)sharedMemoryCacheForKey:(NSString *)key {
-    return [YXDCache sharedMemoryCacheForKey:key];
-}
-
-+ (void)removeMemoryCacheForKey:(NSString *)key {
-    [YXDCache removeMemoryCacheForKey:key];
-}
-
-+ (void)removeAllMemoryCache {
-    [YXDCache removeAllMemoryCache];
 }
 
 @end
