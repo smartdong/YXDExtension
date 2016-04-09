@@ -27,6 +27,12 @@
 		0BF6BF051CB95E4E00CF56DC /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF6BF041CB95E4E00CF56DC /* CoreFoundation.framework */; };
 		0BF6BF071CB95E5800CF56DC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF6BF061CB95E5800CF56DC /* QuartzCore.framework */; };
 		0BF6BF091CB95E6800CF56DC /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF6BF081CB95E6800CF56DC /* libsqlite3.tbd */; };
+		0BF6BF171CB964D800CF56DC /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF6BF0C1CB964D800CF56DC /* FMDatabase.m */; };
+		0BF6BF181CB964D800CF56DC /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF6BF0E1CB964D800CF56DC /* FMDatabaseAdditions.m */; };
+		0BF6BF191CB964D800CF56DC /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF6BF101CB964D800CF56DC /* FMDatabasePool.m */; };
+		0BF6BF1A1CB964D800CF56DC /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF6BF121CB964D800CF56DC /* FMDatabaseQueue.m */; };
+		0BF6BF1B1CB964D800CF56DC /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF6BF151CB964D800CF56DC /* FMResultSet.m */; };
+		0BF6BF1C1CB964D800CF56DC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0BF6BF161CB964D800CF56DC /* Info.plist */; };
 		B520A8FE1C130C2900CE6701 /* UIDevice+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B520A8FD1C130C2900CE6701 /* UIDevice+YXDExtension.m */; };
 		B520A9011C130C3E00CE6701 /* UITabBar+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B520A9001C130C3E00CE6701 /* UITabBar+YXDExtension.m */; };
 		B520A9041C130F8400CE6701 /* NSData+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B520A9031C130F8400CE6701 /* NSData+YXDExtension.m */; };
@@ -199,6 +205,18 @@
 		0BF6BF041CB95E4E00CF56DC /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		0BF6BF061CB95E5800CF56DC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		0BF6BF081CB95E6800CF56DC /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		0BF6BF0B1CB964D800CF56DC /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		0BF6BF0C1CB964D800CF56DC /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		0BF6BF0D1CB964D800CF56DC /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		0BF6BF0E1CB964D800CF56DC /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		0BF6BF0F1CB964D800CF56DC /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		0BF6BF101CB964D800CF56DC /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		0BF6BF111CB964D800CF56DC /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		0BF6BF121CB964D800CF56DC /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		0BF6BF131CB964D800CF56DC /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		0BF6BF141CB964D800CF56DC /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		0BF6BF151CB964D800CF56DC /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		0BF6BF161CB964D800CF56DC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B520A8FC1C130C2900CE6701 /* UIDevice+YXDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+YXDExtension.h"; sourceTree = "<group>"; };
 		B520A8FD1C130C2900CE6701 /* UIDevice+YXDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+YXDExtension.m"; sourceTree = "<group>"; };
 		B520A8FF1C130C3E00CE6701 /* UITabBar+YXDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBar+YXDExtension.h"; sourceTree = "<group>"; };
@@ -608,6 +626,25 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		0BF6BF0A1CB964D800CF56DC /* FMDB */ = {
+			isa = PBXGroup;
+			children = (
+				0BF6BF0B1CB964D800CF56DC /* FMDatabase.h */,
+				0BF6BF0C1CB964D800CF56DC /* FMDatabase.m */,
+				0BF6BF0D1CB964D800CF56DC /* FMDatabaseAdditions.h */,
+				0BF6BF0E1CB964D800CF56DC /* FMDatabaseAdditions.m */,
+				0BF6BF0F1CB964D800CF56DC /* FMDatabasePool.h */,
+				0BF6BF101CB964D800CF56DC /* FMDatabasePool.m */,
+				0BF6BF111CB964D800CF56DC /* FMDatabaseQueue.h */,
+				0BF6BF121CB964D800CF56DC /* FMDatabaseQueue.m */,
+				0BF6BF131CB964D800CF56DC /* FMDB.h */,
+				0BF6BF141CB964D800CF56DC /* FMResultSet.h */,
+				0BF6BF151CB964D800CF56DC /* FMResultSet.m */,
+				0BF6BF161CB964D800CF56DC /* Info.plist */,
+			);
+			path = FMDB;
+			sourceTree = "<group>";
+		};
 		B549BCB71C1570670092F3B2 /* Test */ = {
 			isa = PBXGroup;
 			children = (
@@ -653,6 +690,7 @@
 			isa = PBXGroup;
 			children = (
 				0BF6BF031CB95E2D00CF56DC /* Frameworks */,
+				0BF6BF0A1CB964D800CF56DC /* FMDB */,
 				0BF6BEF41CB95D4B00CF56DC /* YYCache */,
 				B5B8FF7F1CB7848E00AE66B7 /* Lumberjack */,
 				B555C8821CA1343800FB37C9 /* EasyJSWebView */,
@@ -1222,6 +1260,7 @@
 				0B6725501B6E9FC9009272B4 /* Images.xcassets in Resources */,
 				B5D830BA1B71E08B0094BE65 /* YXDLockScreenView.xib in Resources */,
 				0B2DFC531CB8C4B5005ABED3 /* loading.gif in Resources */,
+				0BF6BF1C1CB964D800CF56DC /* Info.plist in Resources */,
 				B5D830B71B71E08B0094BE65 /* image_line.png in Resources */,
 				B5D830B61B71E08B0094BE65 /* image_circle.png in Resources */,
 			);
@@ -1271,6 +1310,7 @@
 				B5D830BB1B71E08B0094BE65 /* YXDTouchIDHelper.m in Sources */,
 				B550485D1B81B63E00A78C8D /* MJRefreshAutoGifFooter.m in Sources */,
 				B550487D1B81B63E00A78C8D /* SVProgressHUD.m in Sources */,
+				0BF6BF1B1CB964D800CF56DC /* FMResultSet.m in Sources */,
 				B550485B1B81B63E00A78C8D /* MJRefreshFooter.m in Sources */,
 				B55048811B81B63E00A78C8D /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				B550485C1B81B63E00A78C8D /* MJRefreshHeader.m in Sources */,
@@ -1308,6 +1348,7 @@
 				B55048731B81B63E00A78C8D /* SDWebImagePrefetcher.m in Sources */,
 				B5D830B81B71E08B0094BE65 /* YXDLockScreenManager.m in Sources */,
 				B55048721B81B63E00A78C8D /* SDWebImageManager.m in Sources */,
+				0BF6BF191CB964D800CF56DC /* FMDatabasePool.m in Sources */,
 				B550487B1B81B63E00A78C8D /* SVIndefiniteAnimatedView.m in Sources */,
 				B5DE71AC1B6F3113006F8FF1 /* UIImage+YXDExtension.m in Sources */,
 				B555C88B1CA1343800FB37C9 /* EasyJSDataFunction.m in Sources */,
@@ -1320,6 +1361,7 @@
 				B55048601B81B63E00A78C8D /* MJRefreshBackGifFooter.m in Sources */,
 				B520A8FE1C130C2900CE6701 /* UIDevice+YXDExtension.m in Sources */,
 				B550484E1B81B63E00A78C8D /* AFURLSessionManager.m in Sources */,
+				0BF6BF171CB964D800CF56DC /* FMDatabase.m in Sources */,
 				B55048701B81B63E00A78C8D /* SDWebImageDownloader.m in Sources */,
 				B5DE71851B6F1DDC006F8FF1 /* NSDate+YXDExtension.m in Sources */,
 				B55047BB1B818C4100A78C8D /* UICollectionView+YXDExtension.m in Sources */,
@@ -1359,9 +1401,11 @@
 				B550485F1B81B63E00A78C8D /* MJRefreshAutoStateFooter.m in Sources */,
 				B55048781B81B63E00A78C8D /* UIImageView+HighlightedWebCache.m in Sources */,
 				B55048621B81B63E00A78C8D /* MJRefreshBackStateFooter.m in Sources */,
+				0BF6BF1A1CB964D800CF56DC /* FMDatabaseQueue.m in Sources */,
 				B55048651B81B63E00A78C8D /* MJRefreshStateHeader.m in Sources */,
 				B55048641B81B63E00A78C8D /* MJRefreshNormalHeader.m in Sources */,
 				B5DE71A31B6F3061006F8FF1 /* UINavigationBar+YXDExtension.m in Sources */,
+				0BF6BF181CB964D800CF56DC /* FMDatabaseAdditions.m in Sources */,
 				0BF6BEFF1CB95D4B00CF56DC /* YYKVStorage.m in Sources */,
 				B533A3041C7C08AD00BEA4A6 /* YXDNetworkImageObject.m in Sources */,
 				B550486B1B81B63E00A78C8D /* MKAnnotationView+WebCache.m in Sources */,
