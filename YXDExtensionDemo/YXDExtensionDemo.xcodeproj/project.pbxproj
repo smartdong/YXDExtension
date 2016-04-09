@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B2DFC531CB8C4B5005ABED3 /* loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0B2DFC521CB8C4B5005ABED3 /* loading.gif */; };
 		0B4E24F51B7764000008C4B0 /* UIScrollView+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B4E24F41B7764000008C4B0 /* UIScrollView+YXDExtension.m */; };
 		0B6725451B6E9FC9009272B4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B6725441B6E9FC9009272B4 /* main.m */; };
 		0B6725481B6E9FC9009272B4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B6725471B6E9FC9009272B4 /* AppDelegate.m */; };
@@ -153,6 +154,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0B2DFC521CB8C4B5005ABED3 /* loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading.gif; sourceTree = "<group>"; };
 		0B4E24F31B7764000008C4B0 /* UIScrollView+YXDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+YXDExtension.h"; sourceTree = "<group>"; };
 		0B4E24F41B7764000008C4B0 /* UIScrollView+YXDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+YXDExtension.m"; sourceTree = "<group>"; };
 		0B67253F1B6E9FC9009272B4 /* YXDExtensionDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YXDExtensionDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -451,6 +453,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B2DFC511CB8C4B5005ABED3 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				0B2DFC521CB8C4B5005ABED3 /* loading.gif */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		0B6725361B6E9FC9009272B4 = {
 			isa = PBXGroup;
 			children = (
@@ -551,6 +561,7 @@
 		B549BCB71C1570670092F3B2 /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				0B2DFC511CB8C4B5005ABED3 /* Resource */,
 				B549BCC11C1571DB0092F3B2 /* Class */,
 				B555C8911CA2392100FB37C9 /* VC */,
 			);
@@ -1158,6 +1169,7 @@
 				B550487C1B81B63E00A78C8D /* SVProgressHUD.bundle in Resources */,
 				0B6725501B6E9FC9009272B4 /* Images.xcassets in Resources */,
 				B5D830BA1B71E08B0094BE65 /* YXDLockScreenView.xib in Resources */,
+				0B2DFC531CB8C4B5005ABED3 /* loading.gif in Resources */,
 				B5D830B71B71E08B0094BE65 /* image_line.png in Resources */,
 				B5D830B61B71E08B0094BE65 /* image_circle.png in Resources */,
 			);
