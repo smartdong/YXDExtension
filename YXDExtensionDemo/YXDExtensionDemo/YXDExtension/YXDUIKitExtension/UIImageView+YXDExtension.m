@@ -23,8 +23,11 @@
     [self sd_setImageWithURL:urlString.url placeholderImage:[UIImage imageNamed:placeholderImageName]];
 }
 
-- (void)setAnimationWithImageNames:(NSArray *)imageNames duration:(CGFloat)duration {
-    self.animationImages = imageNames;
+- (void)setAnimationWithImages:(NSArray<UIImage *> *)images duration:(CGFloat)duration {
+    if (!images.count) {
+        return;
+    }
+    self.animationImages = images;
     self.animationDuration = duration;
     self.animationRepeatCount = 0;
     [self startAnimating];
