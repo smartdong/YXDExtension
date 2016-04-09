@@ -15,6 +15,10 @@
 
 - (void)setImageWithUrlString:(NSString *)urlString placeholderImageName:(NSString *)placeholderImageName;
 
+- (void)setAnimationWithGifImageName:(NSString *)gifImageName;
+
+- (void)setAnimationWithGifImagePath:(NSString *)gifImagePath;
+
 - (void)setAnimationWithImages:(NSArray<UIImage *> *)images duration:(CGFloat)duration;
 
 @end
