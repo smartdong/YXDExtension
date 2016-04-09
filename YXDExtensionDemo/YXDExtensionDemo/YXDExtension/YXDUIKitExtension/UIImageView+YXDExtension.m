@@ -24,16 +24,16 @@
     [self sd_setImageWithURL:urlString.url placeholderImage:[UIImage imageNamed:placeholderImageName]];
 }
 
-- (void)setAnimationWithGifImageName:(NSString *)gifImageName {
-    [self setAnimationWithGifImagePath:[[NSBundle mainBundle] pathForResource:gifImageName ofType:@".gif"]];
+- (void)startAnimatingWithGifImageName:(NSString *)gifImageName {
+    [self startAnimatingWithGifImagePath:[[NSBundle mainBundle] pathForResource:gifImageName ofType:@".gif"]];
 }
 
-- (void)setAnimationWithGifImagePath:(NSString *)gifImagePath {
+- (void)startAnimatingWithGifImagePath:(NSString *)gifImagePath {
     UIGifImageData *imageData = [UIImage gifImageDataByData:[NSData dataWithContentsOfFile:gifImagePath]];
-    [self setAnimationWithImages:imageData.images duration:imageData.duration];
+    [self startAnimatingWithImages:imageData.images duration:imageData.duration];
 }
 
-- (void)setAnimationWithImages:(NSArray<UIImage *> *)images duration:(CGFloat)duration {
+- (void)startAnimatingWithImages:(NSArray<UIImage *> *)images duration:(CGFloat)duration {
     if (!images.count) {
         return;
     }

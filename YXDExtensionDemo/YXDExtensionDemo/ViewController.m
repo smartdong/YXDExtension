@@ -25,7 +25,7 @@
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(100, 200, 30, 60)];
     [self.view addSubview:imageView];
-    [imageView setAnimationWithGifImageName:@"loading"];
+    [imageView startAnimatingWithGifImageName:@"loading"];
 }
 
 - (void)jsonToObjectTest {
