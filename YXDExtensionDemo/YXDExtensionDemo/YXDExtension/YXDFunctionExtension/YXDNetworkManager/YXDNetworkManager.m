@@ -10,6 +10,7 @@
 #import "YXDHUDManager.h"
 #import "YXDNetworkImageObject.h"
 #import "YXDNetworkResult.h"
+#import "YXDLog.h"
 
 NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
 
@@ -128,7 +129,7 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
                 [YXDHUDManager dismiss];
             }
             
-            NSLog(@"\nSuccess : %@ \n%@",result.message,[YXDNetworkManager responseInfoDescription:operation]);
+            DDLogInfo(@"\nSuccess : %@ \n%@",result.message,[YXDNetworkManager responseInfoDescription:operation]);
             
             [self handleSuccessWithOperation:operation result:result];
             
@@ -137,7 +138,7 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
                 [YXDHUDManager showErrorAndAutoDismissWithTitle:result.message];
             }
             
-            NSLog(@"\nError : %@ \n%@",result.error.localizedDescription,[YXDNetworkManager responseInfoDescription:operation]);
+            DDLogError(@"\nError : %@ \n%@",result.error.localizedDescription,[YXDNetworkManager responseInfoDescription:operation]);
             
             [self handleFailureWithOperation:operation result:result];
         }
@@ -149,7 +150,7 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
     
     void (^failureBlock)(AFHTTPRequestOperation *operation, NSError *error) = ^(AFHTTPRequestOperation *operation, NSError *error) {
         
-        NSLog(@"\nError : %@ \n%@",error.userInfo,[YXDNetworkManager responseInfoDescription:operation]);
+        DDLogError(@"\nError : %@ \n%@",error.userInfo,[YXDNetworkManager responseInfoDescription:operation]);
         
         NSString *message = @"网络连接失败";
         
