@@ -19,6 +19,14 @@
 		0B6A009E1C12C19D009EF58B /* YXDCommonFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A009D1C12C19D009EF58B /* YXDCommonFunction.m */; };
 		0BC67DAA1BB70455001B8582 /* YXDBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC67DA91BB70455001B8582 /* YXDBaseViewController.m */; };
 		0BEB8FBA1BB6F8FE0047B656 /* UIViewController+YXDSwizzlingExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BEB8FB91BB6F8FE0047B656 /* UIViewController+YXDSwizzlingExtension.m */; };
+		0BF6BEFD1CB95D4B00CF56DC /* YYCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF6BEF61CB95D4B00CF56DC /* YYCache.m */; };
+		0BF6BEFE1CB95D4B00CF56DC /* YYDiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF6BEF81CB95D4B00CF56DC /* YYDiskCache.m */; };
+		0BF6BEFF1CB95D4B00CF56DC /* YYKVStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF6BEFA1CB95D4B00CF56DC /* YYKVStorage.m */; };
+		0BF6BF001CB95D4B00CF56DC /* YYMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF6BEFC1CB95D4B00CF56DC /* YYMemoryCache.m */; };
+		0BF6BF021CB95E1600CF56DC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF6BF011CB95E1600CF56DC /* UIKit.framework */; };
+		0BF6BF051CB95E4E00CF56DC /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF6BF041CB95E4E00CF56DC /* CoreFoundation.framework */; };
+		0BF6BF071CB95E5800CF56DC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF6BF061CB95E5800CF56DC /* QuartzCore.framework */; };
+		0BF6BF091CB95E6800CF56DC /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF6BF081CB95E6800CF56DC /* libsqlite3.tbd */; };
 		B520A8FE1C130C2900CE6701 /* UIDevice+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B520A8FD1C130C2900CE6701 /* UIDevice+YXDExtension.m */; };
 		B520A9011C130C3E00CE6701 /* UITabBar+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B520A9001C130C3E00CE6701 /* UITabBar+YXDExtension.m */; };
 		B520A9041C130F8400CE6701 /* NSData+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B520A9031C130F8400CE6701 /* NSData+YXDExtension.m */; };
@@ -179,6 +187,18 @@
 		0BEB8FB71BB6F7B40047B656 /* YXDSwizzlingExtensionDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXDSwizzlingExtensionDefine.h; sourceTree = "<group>"; };
 		0BEB8FB81BB6F8FE0047B656 /* UIViewController+YXDSwizzlingExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+YXDSwizzlingExtension.h"; sourceTree = "<group>"; };
 		0BEB8FB91BB6F8FE0047B656 /* UIViewController+YXDSwizzlingExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+YXDSwizzlingExtension.m"; sourceTree = "<group>"; };
+		0BF6BEF51CB95D4B00CF56DC /* YYCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYCache.h; sourceTree = "<group>"; };
+		0BF6BEF61CB95D4B00CF56DC /* YYCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYCache.m; sourceTree = "<group>"; };
+		0BF6BEF71CB95D4B00CF56DC /* YYDiskCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYDiskCache.h; sourceTree = "<group>"; };
+		0BF6BEF81CB95D4B00CF56DC /* YYDiskCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYDiskCache.m; sourceTree = "<group>"; };
+		0BF6BEF91CB95D4B00CF56DC /* YYKVStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYKVStorage.h; sourceTree = "<group>"; };
+		0BF6BEFA1CB95D4B00CF56DC /* YYKVStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYKVStorage.m; sourceTree = "<group>"; };
+		0BF6BEFB1CB95D4B00CF56DC /* YYMemoryCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYMemoryCache.h; sourceTree = "<group>"; };
+		0BF6BEFC1CB95D4B00CF56DC /* YYMemoryCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYMemoryCache.m; sourceTree = "<group>"; };
+		0BF6BF011CB95E1600CF56DC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		0BF6BF041CB95E4E00CF56DC /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		0BF6BF061CB95E5800CF56DC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		0BF6BF081CB95E6800CF56DC /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		B520A8FC1C130C2900CE6701 /* UIDevice+YXDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+YXDExtension.h"; sourceTree = "<group>"; };
 		B520A8FD1C130C2900CE6701 /* UIDevice+YXDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+YXDExtension.m"; sourceTree = "<group>"; };
 		B520A8FF1C130C3E00CE6701 /* UITabBar+YXDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBar+YXDExtension.h"; sourceTree = "<group>"; };
@@ -440,6 +460,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BF6BF091CB95E6800CF56DC /* libsqlite3.tbd in Frameworks */,
+				0BF6BF071CB95E5800CF56DC /* QuartzCore.framework in Frameworks */,
+				0BF6BF051CB95E4E00CF56DC /* CoreFoundation.framework in Frameworks */,
+				0BF6BF021CB95E1600CF56DC /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -558,6 +582,32 @@
 			path = YXDSwizzlingExtension;
 			sourceTree = "<group>";
 		};
+		0BF6BEF41CB95D4B00CF56DC /* YYCache */ = {
+			isa = PBXGroup;
+			children = (
+				0BF6BEF51CB95D4B00CF56DC /* YYCache.h */,
+				0BF6BEF61CB95D4B00CF56DC /* YYCache.m */,
+				0BF6BEF71CB95D4B00CF56DC /* YYDiskCache.h */,
+				0BF6BEF81CB95D4B00CF56DC /* YYDiskCache.m */,
+				0BF6BEF91CB95D4B00CF56DC /* YYKVStorage.h */,
+				0BF6BEFA1CB95D4B00CF56DC /* YYKVStorage.m */,
+				0BF6BEFB1CB95D4B00CF56DC /* YYMemoryCache.h */,
+				0BF6BEFC1CB95D4B00CF56DC /* YYMemoryCache.m */,
+			);
+			path = YYCache;
+			sourceTree = "<group>";
+		};
+		0BF6BF031CB95E2D00CF56DC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0BF6BF081CB95E6800CF56DC /* libsqlite3.tbd */,
+				0BF6BF061CB95E5800CF56DC /* QuartzCore.framework */,
+				0BF6BF041CB95E4E00CF56DC /* CoreFoundation.framework */,
+				0BF6BF011CB95E1600CF56DC /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B549BCB71C1570670092F3B2 /* Test */ = {
 			isa = PBXGroup;
 			children = (
@@ -602,6 +652,8 @@
 		B55047BC1B81B63E00A78C8D /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				0BF6BF031CB95E2D00CF56DC /* Frameworks */,
+				0BF6BEF41CB95D4B00CF56DC /* YYCache */,
 				B5B8FF7F1CB7848E00AE66B7 /* Lumberjack */,
 				B555C8821CA1343800FB37C9 /* EasyJSWebView */,
 				B55047BD1B81B63E00A78C8D /* AFNetworking */,
@@ -1259,6 +1311,7 @@
 				B550487B1B81B63E00A78C8D /* SVIndefiniteAnimatedView.m in Sources */,
 				B5DE71AC1B6F3113006F8FF1 /* UIImage+YXDExtension.m in Sources */,
 				B555C88B1CA1343800FB37C9 /* EasyJSDataFunction.m in Sources */,
+				0BF6BEFD1CB95D4B00CF56DC /* YYCache.m in Sources */,
 				B55048541B81B63E00A78C8D /* UIProgressView+AFNetworking.m in Sources */,
 				B55048581B81B63E00A78C8D /* MJRefreshAutoFooter.m in Sources */,
 				B5DE71911B6F2907006F8FF1 /* NSDateFormatter+YXDExtension.m in Sources */,
@@ -1273,6 +1326,7 @@
 				B5DE719D1B6F3040006F8FF1 /* UIViewController+YXDExtension.m in Sources */,
 				B5DE71821B6F1AFF006F8FF1 /* NSString+YXDExtension.m in Sources */,
 				B5B8FFA31CB7848E00AE66B7 /* DDTTYLogger.m in Sources */,
+				0BF6BF001CB95D4B00CF56DC /* YYMemoryCache.m in Sources */,
 				B550486F1B81B63E00A78C8D /* SDWebImageDecoder.m in Sources */,
 				B520A90A1C131BAD00CE6701 /* NSDictionary+YXDExtension.m in Sources */,
 				B550487E1B81B63E00A78C8D /* TPKeyboardAvoidingCollectionView.m in Sources */,
@@ -1308,8 +1362,10 @@
 				B55048651B81B63E00A78C8D /* MJRefreshStateHeader.m in Sources */,
 				B55048641B81B63E00A78C8D /* MJRefreshNormalHeader.m in Sources */,
 				B5DE71A31B6F3061006F8FF1 /* UINavigationBar+YXDExtension.m in Sources */,
+				0BF6BEFF1CB95D4B00CF56DC /* YYKVStorage.m in Sources */,
 				B533A3041C7C08AD00BEA4A6 /* YXDNetworkImageObject.m in Sources */,
 				B550486B1B81B63E00A78C8D /* MKAnnotationView+WebCache.m in Sources */,
+				0BF6BEFE1CB95D4B00CF56DC /* YYDiskCache.m in Sources */,
 				B5DE71B81B6F349F006F8FF1 /* UIScreen+YXDExtension.m in Sources */,
 				B550486D1B81B63E00A78C8D /* SDImageCache.m in Sources */,
 			);
