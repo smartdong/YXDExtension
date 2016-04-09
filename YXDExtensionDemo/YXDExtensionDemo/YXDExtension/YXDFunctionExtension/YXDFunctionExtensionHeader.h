@@ -5,6 +5,7 @@
 //  Copyright (c) 2015年 YangXudong. All rights reserved.
 //
 
+#import "YXDFMDBHelper.h"
 #import "YXDLog.h"
 #import "YXDActionView.h"
 #import "YXDCache.h"
