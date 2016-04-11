@@ -156,6 +156,7 @@
 		B5DE71BB1B6F3FF4006F8FF1 /* UIAlertView+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B5DE71BA1B6F3FF4006F8FF1 /* UIAlertView+YXDExtension.m */; };
 		B5DE71BE1B6F3FFF006F8FF1 /* UIActionSheet+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B5DE71BD1B6F3FFF006F8FF1 /* UIActionSheet+YXDExtension.m */; };
 		B5DE71C21B6F4A2F006F8FF1 /* YXDFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5DE71C11B6F4A2F006F8FF1 /* YXDFileManager.m */; };
+		B5F1D76B1CBB521A00184ADF /* YXDCustomIndexView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F1D76A1CBB521A00184ADF /* YXDCustomIndexView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -474,6 +475,8 @@
 		B5DE71BD1B6F3FFF006F8FF1 /* UIActionSheet+YXDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+YXDExtension.m"; sourceTree = "<group>"; };
 		B5DE71C01B6F4A2F006F8FF1 /* YXDFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDFileManager.h; sourceTree = "<group>"; };
 		B5DE71C11B6F4A2F006F8FF1 /* YXDFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDFileManager.m; sourceTree = "<group>"; };
+		B5F1D7691CBB521A00184ADF /* YXDCustomIndexView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDCustomIndexView.h; sourceTree = "<group>"; };
+		B5F1D76A1CBB521A00184ADF /* YXDCustomIndexView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDCustomIndexView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1108,6 +1111,7 @@
 		B5DE71781B6F174A006F8FF1 /* YXDFunctionExtension */ = {
 			isa = PBXGroup;
 			children = (
+				B5F1D7681CBB521A00184ADF /* YXDCustomIndexView */,
 				0BF6BF1D1CB965EA00CF56DC /* YXDFMDBHelper */,
 				B5B8FFA71CB793F500AE66B7 /* YXDLog */,
 				B54F4FA51C2BD8EB00CC46BB /* YXDActionView */,
@@ -1183,6 +1187,15 @@
 				B5DE71C11B6F4A2F006F8FF1 /* YXDFileManager.m */,
 			);
 			path = YXDFileManager;
+			sourceTree = "<group>";
+		};
+		B5F1D7681CBB521A00184ADF /* YXDCustomIndexView */ = {
+			isa = PBXGroup;
+			children = (
+				B5F1D7691CBB521A00184ADF /* YXDCustomIndexView.h */,
+				B5F1D76A1CBB521A00184ADF /* YXDCustomIndexView.m */,
+			);
+			path = YXDCustomIndexView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1337,6 +1350,7 @@
 				B5DE71BE1B6F3FFF006F8FF1 /* UIActionSheet+YXDExtension.m in Sources */,
 				B5B8FF9C1CB7848E00AE66B7 /* CLIColor.m in Sources */,
 				B55048671B81B63E00A78C8D /* MJRefreshConst.m in Sources */,
+				B5F1D76B1CBB521A00184ADF /* YXDCustomIndexView.m in Sources */,
 				B54CBB451C22D26800C85912 /* YXDCache.m in Sources */,
 				B55048531B81B63E00A78C8D /* UIImageView+AFNetworking.m in Sources */,
 				B5DE71B21B6F313F006F8FF1 /* UIColor+YXDExtension.m in Sources */,
