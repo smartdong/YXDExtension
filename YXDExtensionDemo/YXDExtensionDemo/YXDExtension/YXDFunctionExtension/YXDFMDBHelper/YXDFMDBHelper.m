@@ -30,7 +30,10 @@ static NSString *YXDFMDBHelperDataBaseName = @"test.db";
     dispatch_once(&onceToken, ^{
         helper = [[YXDFMDBHelper new] fmdbInit];
     });
-    return helper;
+    if ([helper openDatabase]) {
+        return helper;
+    }
+    return nil;
 }
 
 - (instancetype)fmdbInit {
