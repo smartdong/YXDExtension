@@ -14,7 +14,7 @@
 /**
  *  选择了某个索引
  */
-- (void) customIndexView:(YXDCustomIndexView *)customView selectedSectionIndex:(int)index;
+- (void)customIndexView:(YXDCustomIndexView *)customView selectedSectionIndex:(NSUInteger)index;
 
 @end
 
@@ -25,10 +25,10 @@
 
 @property (nonatomic, strong) NSArray *sectionTitleArray;
 
-+ (YXDCustomIndexView *) customIndexViewWithWidth:(float)width
-                                           center:(CGPoint)center
-                                sectionTitleArray:(NSArray *)sectionTitleArray
-                                         delegate:(id)delegate
-                                        superView:(UIView *)superView;
++ (YXDCustomIndexView *)customIndexViewWithWidth:(CGFloat)width
+                                          center:(CGPoint)center
+                               sectionTitleArray:(NSArray *)sectionTitleArray
+                                        delegate:(id<YXDCustomIndexViewDelegate>)delegate
+                                       superView:(UIView *)superView;
 
 @end
