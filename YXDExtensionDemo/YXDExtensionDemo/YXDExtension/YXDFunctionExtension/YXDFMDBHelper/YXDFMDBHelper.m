@@ -65,3 +65,8 @@ static NSString *YXDFMDBHelperDataBaseName = @"test.db";
 }
 
 @end
+
+@implementation NSObject (YXDFMDBHelper)
+
+
+@end
