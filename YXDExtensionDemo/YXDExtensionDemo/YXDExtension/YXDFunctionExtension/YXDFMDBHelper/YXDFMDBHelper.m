@@ -7,6 +7,7 @@
 
 #import "YXDFMDBHelper.h"
 #import "FMDB.h"
+#import "NSObject+YXDExtension.h"
 
 static NSString *YXDFMDBHelperDataBaseName = @"test.db";
 
