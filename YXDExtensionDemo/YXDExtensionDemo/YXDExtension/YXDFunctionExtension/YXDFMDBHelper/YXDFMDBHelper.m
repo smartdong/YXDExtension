@@ -22,7 +22,11 @@ static NSString *YXDFMDBHelperDataBaseName = @"test.db";
 
 @implementation YXDFMDBHelper
 
-#pragma mark -
+#pragma mark - Shared Database
+
++ (FMDatabase *)sharedDatabase {
+    return YXDFMDBHelper_FMDB;
+}
 
 + (YXDFMDBHelper *)sharedInstance {
     static YXDFMDBHelper *helper = nil;

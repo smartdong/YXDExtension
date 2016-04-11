@@ -7,6 +7,13 @@
 
 #import <Foundation/Foundation.h>
 
+@class FMDatabase;
+
 @interface YXDFMDBHelper : NSObject
+
+
+#pragma mark - Shared Database
+
++ (FMDatabase *)sharedDatabase;
 
 @end
