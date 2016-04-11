@@ -9,19 +9,25 @@
 
 @class FMDatabase;
 
+@protocol YXDFMDBHelperObjectProtocol <NSObject>
+
+@property (nonatomic, copy) NSString *primaryID;
+
+@end
+
 @interface YXDFMDBHelper : NSObject
 
 #pragma mark - 增删改查
 
-+ (BOOL)insertObjects:(NSArray *)objects primaryKey:(NSString *)primaryKey error:(NSError *)error;
++ (BOOL)insertObjects:(NSArray<id<YXDFMDBHelperObjectProtocol>> *)objects error:(NSError **)error;
 
-+ (BOOL)deleteObjects:(NSArray *)objects primaryKey:(NSString *)primaryKey error:(NSError *)error;
++ (BOOL)deleteObjects:(NSArray<id<YXDFMDBHelperObjectProtocol>> *)objects error:(NSError **)error;
 
-+ (BOOL)updateObjects:(NSArray *)objects primaryKey:(NSString *)primaryKey error:(NSError *)error;
++ (BOOL)updateObjects:(NSArray<id<YXDFMDBHelperObjectProtocol>> *)objects error:(NSError **)error;
 
-+ (NSArray *)selectObjectsWithClass:(Class)clazz error:(NSError *)error;
++ (NSArray *)selectObjectsWithClass:(Class)clazz error:(NSError **)error;
 
-+ (NSArray *)selectObjectsWithQuery:(NSString *)query clazz:(Class)clazz error:(NSError *)error;
++ (NSArray *)selectObjectsWithQuery:(NSString *)query clazz:(Class)clazz error:(NSError **)error;
 
 #pragma mark - Shared Database
 
@@ -31,10 +37,10 @@
 
 @interface NSObject (YXDFMDBHelper)
 
-+ (NSArray *)selectAllObjects;
++ (NSArray *)selectAllObjects error:(NSError **)error;
 
-+ (NSArray *)selectObjectsWithConditions:(NSArray<NSString *> *)conditions orderBy:(NSString *)orderBy asc:(BOOL)isAsc limit:(NSString *)limit;
++ (NSArray *)selectObjectsWithConditions:(NSArray<NSString *> *)conditions orderBy:(NSString *)orderBy asc:(BOOL)isAsc limit:(NSString *)limit error:(NSError **)error;
 
-+ (NSArray *)selectObjectsWithQuery:(NSString *)query;
++ (NSArray *)selectObjectsWithQuery:(NSString *)query error:(NSError **)error;
 
 @end
