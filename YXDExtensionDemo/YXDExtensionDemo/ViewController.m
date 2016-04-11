@@ -22,10 +22,7 @@
     // Do any additional setup after loading the view, typically from a nib.
     
 //    [self jsonToObjectTest];
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(100, 200, 30, 60)];
-    [self.view addSubview:imageView];
-    [imageView startAnimatingWithGifImageName:@"loading"];
+//    [self playGifTest];
 }
 
 - (void)jsonToObjectTest {
@@ -61,6 +58,12 @@
             NSArray *arr = [TestClass objectArrayFromJSONString:arrJSON];
         }
     }];
+}
+
+- (void)playGifTest {
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(100, 200, 30, 60)];
+    [self.view addSubview:imageView];
+    [imageView startAnimatingWithGifImageName:@"loading"];
 }
 
 @end
