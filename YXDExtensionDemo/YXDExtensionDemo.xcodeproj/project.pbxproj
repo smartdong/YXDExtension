@@ -34,6 +34,8 @@
 		0BF6BF1B1CB964D800CF56DC /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF6BF151CB964D800CF56DC /* FMResultSet.m */; };
 		0BF6BF1C1CB964D800CF56DC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0BF6BF161CB964D800CF56DC /* Info.plist */; };
 		0BF6BF201CB965FD00CF56DC /* YXDFMDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF6BF1F1CB965FD00CF56DC /* YXDFMDBHelper.m */; };
+		B506E6EE1CBCD5E700B9945E /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = B506E6ED1CBCD5E700B9945E /* City.m */; };
+		B506E6F11CBCE9B200B9945E /* test.db in Resources */ = {isa = PBXBuildFile; fileRef = B506E6F01CBCE9B200B9945E /* test.db */; };
 		B520A8FE1C130C2900CE6701 /* UIDevice+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B520A8FD1C130C2900CE6701 /* UIDevice+YXDExtension.m */; };
 		B520A9011C130C3E00CE6701 /* UITabBar+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B520A9001C130C3E00CE6701 /* UITabBar+YXDExtension.m */; };
 		B520A9041C130F8400CE6701 /* NSData+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B520A9031C130F8400CE6701 /* NSData+YXDExtension.m */; };
@@ -221,7 +223,10 @@
 		0BF6BF161CB964D800CF56DC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0BF6BF1E1CB965FD00CF56DC /* YXDFMDBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDFMDBHelper.h; sourceTree = "<group>"; };
 		0BF6BF1F1CB965FD00CF56DC /* YXDFMDBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDFMDBHelper.m; sourceTree = "<group>"; };
+		B506E6EC1CBCD5E700B9945E /* City.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = City.h; sourceTree = "<group>"; };
+		B506E6ED1CBCD5E700B9945E /* City.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = City.m; sourceTree = "<group>"; };
 		B506E6EF1CBCE4DD00B9945E /* YXDExtensionDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDExtensionDefine.h; sourceTree = "<group>"; };
+		B506E6F01CBCE9B200B9945E /* test.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.db; sourceTree = "<group>"; };
 		B520A8FC1C130C2900CE6701 /* UIDevice+YXDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+YXDExtension.h"; sourceTree = "<group>"; };
 		B520A8FD1C130C2900CE6701 /* UIDevice+YXDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+YXDExtension.m"; sourceTree = "<group>"; };
 		B520A8FF1C130C3E00CE6701 /* UITabBar+YXDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBar+YXDExtension.h"; sourceTree = "<group>"; };
@@ -505,6 +510,7 @@
 		0B2DFC511CB8C4B5005ABED3 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				B506E6F01CBCE9B200B9945E /* test.db */,
 				0B2DFC521CB8C4B5005ABED3 /* loading.gif */,
 			);
 			path = Resource;
@@ -680,6 +686,8 @@
 				B549BCBC1C15709A0092F3B2 /* ClassA.m */,
 				B549BCBE1C1570A30092F3B2 /* ClassB.h */,
 				B549BCBF1C1570A30092F3B2 /* ClassB.m */,
+				B506E6EC1CBCD5E700B9945E /* City.h */,
+				B506E6ED1CBCD5E700B9945E /* City.m */,
 			);
 			name = Class;
 			sourceTree = "<group>";
@@ -1283,6 +1291,7 @@
 				0B67254E1B6E9FC9009272B4 /* Main.storyboard in Resources */,
 				0B6725531B6E9FC9009272B4 /* LaunchScreen.xib in Resources */,
 				B55048661B81B63E00A78C8D /* MJRefresh.bundle in Resources */,
+				B506E6F11CBCE9B200B9945E /* test.db in Resources */,
 				B555C88A1CA1343800FB37C9 /* easyjs-inject.js in Resources */,
 				B550487C1B81B63E00A78C8D /* SVProgressHUD.bundle in Resources */,
 				0B6725501B6E9FC9009272B4 /* Images.xcassets in Resources */,
@@ -1433,6 +1442,7 @@
 				B55048621B81B63E00A78C8D /* MJRefreshBackStateFooter.m in Sources */,
 				0BF6BF1A1CB964D800CF56DC /* FMDatabaseQueue.m in Sources */,
 				B55048651B81B63E00A78C8D /* MJRefreshStateHeader.m in Sources */,
+				B506E6EE1CBCD5E700B9945E /* City.m in Sources */,
 				B55048641B81B63E00A78C8D /* MJRefreshNormalHeader.m in Sources */,
 				B5DE71A31B6F3061006F8FF1 /* UINavigationBar+YXDExtension.m in Sources */,
 				0BF6BF181CB964D800CF56DC /* FMDatabaseAdditions.m in Sources */,
