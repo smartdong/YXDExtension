@@ -27,7 +27,9 @@
 
 + (NSArray *)selectObjectsWithClass:(Class)clazz error:(NSError **)error;
 
-+ (NSArray *)selectObjectsWithQuery:(NSString *)query clazz:(Class)clazz error:(NSError **)error;
++ (NSArray *)selectObjectsWithClass:(Class)clazz conditions:(NSArray<NSString *> *)conditions orderBy:(NSString *)orderBy asc:(BOOL)isAsc limit:(NSString *)limit error:(NSError **)error;
+
++ (NSArray *)selectObjectsWithClass:(Class)clazz query:(NSString *)query error:(NSError **)error;
 
 #pragma mark - Shared Database
 
@@ -37,7 +39,7 @@
 
 @interface NSObject (YXDFMDBHelper)
 
-+ (NSArray *)selectAllObjects error:(NSError **)error;
++ (NSArray *)selectAllObjectsWithError:(NSError **)error;
 
 + (NSArray *)selectObjectsWithConditions:(NSArray<NSString *> *)conditions orderBy:(NSString *)orderBy asc:(BOOL)isAsc limit:(NSString *)limit error:(NSError **)error;
 
