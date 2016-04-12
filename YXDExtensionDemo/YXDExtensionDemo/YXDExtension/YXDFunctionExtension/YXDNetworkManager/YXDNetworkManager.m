@@ -11,6 +11,7 @@
 #import "YXDNetworkImageObject.h"
 #import "YXDNetworkResult.h"
 #import "YXDLog.h"
+#import "YXDExtensionDefine.h"
 
 NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
 
@@ -124,7 +125,7 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
         
         result.allHeaderFields = operation.response.allHeaderFields;
         
-        if (result.code == YXDNetworkErrorCodeSuccess) {
+        if (result.code == YXDExtensionErrorCodeSuccess) {
             if (loadingStatus) {
                 [YXDHUDManager dismiss];
             }
@@ -159,7 +160,7 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
         }
         
         if (failure) {
-            failure([NSError errorWithDomain:kNetworkErrorDomain code:YXDNetworkErrorCodeLostNetwork userInfo:@{NSLocalizedDescriptionKey : message}]);
+            failure([NSError errorWithDomain:kYXDExtensionErrorDomain code:YXDExtensionErrorCodeLostNetwork userInfo:@{NSLocalizedDescriptionKey : message}]);
         }
     };
     

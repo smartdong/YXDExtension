@@ -7,8 +7,6 @@
 
 #import <Foundation/Foundation.h>
 
-static NSString *kNetworkErrorDomain        = @"com.yxd.demo";
-
 static NSString *kNetworkReturnCodeKey      = @"code";
 static NSString *kNetworkReturnMessageKey   = @"msg";
 static NSString *kNetworkReturnDataKey      = @"data";
@@ -16,13 +14,6 @@ static NSString *kNetworkReturnListKey      = @"list";
 static NSString *kNetworkReturnSizeKey      = @"size";
 static NSString *kNetworkReturnCountKey     = @"count";
 static NSString *kNetworkReturnOffsetKey    = @"offset";
-
-typedef NS_ENUM(NSInteger, YXDNetworkErrorCode) {
-    YXDNetworkErrorCodeSuccess      = 0,
-    YXDNetworkErrorCodeServerError  = 500,
-    YXDNetworkErrorCodeUndefine     = -1,
-    YXDNetworkErrorCodeLostNetwork  = -100,
-};
 
 @interface YXDNetworkResult : NSObject
 

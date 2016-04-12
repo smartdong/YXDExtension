@@ -7,6 +7,7 @@
 
 #import "YXDNetworkResult.h"
 #import "NSObject+YXDExtension.h"
+#import "YXDExtensionDefine.h"
 
 @interface YXDNetworkResult ()
 
@@ -37,9 +38,9 @@
     
     if (!dictionary || ![dictionary isKindOfClass:[NSDictionary class]]) {
         
-        result.code     = YXDNetworkErrorCodeServerError;
+        result.code     = YXDExtensionErrorCodeServerError;
         result.message  = @"服务器返回数据格式错误";
-        result.error    = [NSError errorWithDomain:kNetworkErrorDomain code:result.code userInfo:@{NSLocalizedDescriptionKey : result.message}];
+        result.error    = [NSError errorWithDomain:kYXDExtensionErrorDomain code:result.code userInfo:@{NSLocalizedDescriptionKey : result.message}];
         
         return result;
     }
@@ -48,23 +49,23 @@
     
     if (!code || ![code isKindOfClass:[NSNumber class]]) {
         
-        result.code     = YXDNetworkErrorCodeUndefine;
+        result.code     = YXDExtensionErrorCodeServerError;
         result.message  = @"服务器未返回code字段";
-        result.error    = [NSError errorWithDomain:kNetworkErrorDomain code:result.code userInfo:@{NSLocalizedDescriptionKey : result.message}];
+        result.error    = [NSError errorWithDomain:kYXDExtensionErrorDomain code:result.code userInfo:@{NSLocalizedDescriptionKey : result.message}];
         
         return result;
     }
     
-    if ([code integerValue] != YXDNetworkErrorCodeSuccess) {
+    if ([code integerValue] != YXDExtensionErrorCodeSuccess) {
 
         result.code     = [code integerValue];
         result.message  = [dictionary objectForKey:kNetworkReturnMessageKey] ? : @"服务器错误";
-        result.error    = [NSError errorWithDomain:kNetworkErrorDomain code:result.code userInfo:@{NSLocalizedDescriptionKey : result.message}];
+        result.error    = [NSError errorWithDomain:kYXDExtensionErrorDomain code:result.code userInfo:@{NSLocalizedDescriptionKey : result.message}];
         
         return result;
     }
     
-    result.code         = YXDNetworkErrorCodeSuccess;
+    result.code         = YXDExtensionErrorCodeSuccess;
     result.message      = [dictionary objectForKey:kNetworkReturnMessageKey] ? : @"成功";
     result.error        = nil;
     

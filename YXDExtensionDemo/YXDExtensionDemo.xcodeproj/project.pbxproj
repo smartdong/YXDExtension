@@ -221,6 +221,7 @@
 		0BF6BF161CB964D800CF56DC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0BF6BF1E1CB965FD00CF56DC /* YXDFMDBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDFMDBHelper.h; sourceTree = "<group>"; };
 		0BF6BF1F1CB965FD00CF56DC /* YXDFMDBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDFMDBHelper.m; sourceTree = "<group>"; };
+		B506E6EF1CBCE4DD00B9945E /* YXDExtensionDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDExtensionDefine.h; sourceTree = "<group>"; };
 		B520A8FC1C130C2900CE6701 /* UIDevice+YXDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+YXDExtension.h"; sourceTree = "<group>"; };
 		B520A8FD1C130C2900CE6701 /* UIDevice+YXDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+YXDExtension.m"; sourceTree = "<group>"; };
 		B520A8FF1C130C3E00CE6701 /* UITabBar+YXDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBar+YXDExtension.h"; sourceTree = "<group>"; };
@@ -1077,6 +1078,7 @@
 				B5DE71791B6F174A006F8FF1 /* YXDMacroExtension */,
 				B5DE717A1B6F174A006F8FF1 /* YXDUIKitExtension */,
 				0BEB8FB51BB6F71E0047B656 /* YXDSwizzlingExtension */,
+				B506E6EF1CBCE4DD00B9945E /* YXDExtensionDefine.h */,
 				B5DE717F1B6F1844006F8FF1 /* YXDExtensionHeader.h */,
 			);
 			path = YXDExtension;
