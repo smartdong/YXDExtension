@@ -10,6 +10,7 @@
 #import "TestClass.h"
 #import "ClassA.h"
 #import "ClassB.h"
+#import "City.h"
 
 @interface ViewController ()
 
@@ -23,6 +24,16 @@
     
 //    [self jsonToObjectTest];
 //    [self playGifTest];
+//    [self fmdbHelperTest];
+}
+
+- (void)fmdbHelperTest {
+    NSError *error = nil;
+    NSArray *arr1 = [City selectAllObjectsWithError:&error];
+    NSArray *arr2 = [City selectObjectsWithConditions:@[@"cityID < 50"] orderBy:@"cityID" asc:NO limit:@(5) error:&error];
+    if (error) {
+        NSLog(@"error : %@",error);
+    }
 }
 
 - (void)jsonToObjectTest {
