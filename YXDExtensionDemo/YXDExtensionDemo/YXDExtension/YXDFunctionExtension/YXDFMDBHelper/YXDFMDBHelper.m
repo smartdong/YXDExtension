@@ -38,7 +38,7 @@ static NSString *YXDFMDBHelperDataBaseName = @"test.db";
     return NO;
 }
 
-+ (NSArray *)selectObjectsWithClass:(Class)clazz error:(NSError **)error {
++ (NSArray *)selectAllObjectsWithClass:(Class)clazz error:(NSError **)error {
     return [self selectObjectsWithClass:clazz query:[NSString stringWithFormat:@"select * from %@",NSStringFromClass(clazz)] error:error];
 }
 
@@ -142,7 +142,7 @@ static NSString *YXDFMDBHelperDataBaseName = @"test.db";
 @implementation NSObject (YXDFMDBHelper)
 
 + (NSArray *)selectAllObjectsWithError:(NSError **)error {
-    return [YXDFMDBHelper selectObjectsWithClass:[self class] error:error];
+    return [YXDFMDBHelper selectAllObjectsWithClass:[self class] error:error];
 }
 
 + (NSArray *)selectObjectsWithConditions:(NSArray<NSString *> *)conditions orderBy:(NSString *)orderBy asc:(BOOL)isAsc limit:(NSNumber *)limit error:(NSError **)error {

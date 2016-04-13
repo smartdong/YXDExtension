@@ -25,7 +25,7 @@
 
 + (BOOL)updateObjects:(NSArray<id<YXDFMDBHelperObjectProtocol>> *)objects error:(NSError **)error;
 
-+ (NSArray *)selectObjectsWithClass:(Class)clazz error:(NSError **)error;
++ (NSArray *)selectAllObjectsWithClass:(Class)clazz error:(NSError **)error;
 
 + (NSArray *)selectObjectsWithClass:(Class)clazz conditions:(NSArray<NSString *> *)conditions orderBy:(NSString *)orderBy asc:(BOOL)isAsc limit:(NSNumber *)limit error:(NSError **)error;
 
