@@ -47,8 +47,9 @@ static NSString *YXDFMDBHelperDataBaseName = @"test.db";
     NSString *query = [NSString stringWithFormat:@"select * from %@ where 1=1",NSStringFromClass(clazz)];
     
     for (NSString *condition in conditions) {
-        query = [query stringByAppendingString:@" and "];
-        query = [query stringByAppendingString:condition];
+        if (condition.length) {
+            query = [query stringByAppendingString:[NSString stringWithFormat:@" and %@",condition]];
+        }
     }
     
     if (orderBy.length) {
