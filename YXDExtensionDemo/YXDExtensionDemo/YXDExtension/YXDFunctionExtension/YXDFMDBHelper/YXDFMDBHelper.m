@@ -89,6 +89,8 @@ static NSString *YXDFMDBHelperDataBaseName = @"test.db";
         }
     }
     
+    [YXDFMDBHelper_Instance closeDatabase];
+    
     if (resultArray.count) {
         return resultArray;
     }
