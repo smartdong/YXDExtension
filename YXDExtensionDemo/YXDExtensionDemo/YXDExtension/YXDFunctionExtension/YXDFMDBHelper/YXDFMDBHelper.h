@@ -9,6 +9,8 @@
 
 @class FMDatabase;
 
+static NSString *kYXDFMDBHelperObjectPrimaryID = @"primaryID";
+
 @protocol YXDFMDBHelperObjectProtocol <NSObject>
 
 @property (nonatomic, copy) NSString *primaryID;
