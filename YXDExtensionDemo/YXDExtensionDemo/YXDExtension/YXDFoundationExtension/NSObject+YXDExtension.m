@@ -60,10 +60,10 @@ typedef NS_ENUM(NSInteger, YXDPropertyType) {
     YXDPropertyTypeCopy         = 1 << 2,
     YXDPropertyTypeRetain       = 2 << 2,
     YXDPropertyTypeWeak         = 3 << 2,
-    YXDPropertyTypeReadonly     = 1 << 3,
-    YXDPropertyTypeCustomGetter = 2 << 3,
-    YXDPropertyTypeCustomSetter = 3 << 3,
-    YXDPropertyTypeDynamic      = 4 << 3,
+    YXDPropertyTypeCustomGetter = 1 << 3,
+    YXDPropertyTypeCustomSetter = 2 << 3,
+    YXDPropertyTypeDynamic      = 3 << 3,
+    YXDPropertyTypeReadonly     = 1 << 4,
 };
 
 YXDEncodingType YXDGetEncodingType(const char *typeEncoding) {
