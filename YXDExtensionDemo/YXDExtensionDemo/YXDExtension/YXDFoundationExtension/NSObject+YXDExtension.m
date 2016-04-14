@@ -755,8 +755,7 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
 #pragma mark - 各种列表
 
 - (NSArray *)propertyList {
-    YXDClassInfo *classInfo = [YXDClassInfo classInfoWithClass:[self class]];
-    return classInfo.propertyInfos.allKeys;
+    return [[self class] propertyList];
 }
 
 - (NSDictionary *)propertyValues {
@@ -776,6 +775,21 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
 }
 
 - (NSArray *)methodList {
+    return [[self class] methodList];
+}
+
+- (NSArray *)ivarList {
+    return [[self class] ivarList];
+}
+
+//获取当前类的属性列表
++ (NSArray *)propertyList {
+    YXDClassInfo *classInfo = [YXDClassInfo classInfoWithClass:[self class]];
+    return classInfo.propertyInfos.allKeys;
+}
+
+//获取当前类的方法列表
++ (NSArray *)methodList {
     unsigned int count;
     
     Method *methods = class_copyMethodList([self class], &count);
@@ -794,7 +808,8 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
     return nil;
 }
 
-- (NSArray *)ivarList {
+//获取当前类的实例变量列表
++ (NSArray *)ivarList {
     unsigned int count;
     
     Ivar *ivars = class_copyIvarList([self class], &count);

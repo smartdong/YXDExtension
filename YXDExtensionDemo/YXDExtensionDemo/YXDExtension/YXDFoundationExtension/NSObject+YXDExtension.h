@@ -45,6 +45,15 @@
 //获取当前对象的实例变量列表
 - (NSArray *)ivarList;
 
+//获取当前类的实例属性列表
++ (NSArray *)propertyList;
+
+//获取当前类的实例方法列表
++ (NSArray *)methodList;
+
+//获取当前类的实例变量列表
++ (NSArray *)ivarList;
+
 #pragma mark - JSON 互转
 
 //将对象转化成 dictionary 然后再转化成 json
