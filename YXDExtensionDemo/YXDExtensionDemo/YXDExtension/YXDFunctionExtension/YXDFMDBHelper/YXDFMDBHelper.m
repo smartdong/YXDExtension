@@ -27,6 +27,19 @@ static NSString *YXDFMDBHelperDataBaseName = @"test.db";
 #pragma mark - 增删改查
 
 + (BOOL)insertObjects:(NSArray<id<YXDFMDBHelperObjectProtocol>> *)objects error:(NSError **)error {
+    if (!objects.count) {
+        *error = [NSError errorWithDomain:kYXDExtensionErrorDomain code:YXDExtensionErrorCodeInputError userInfo:@{NSLocalizedDescriptionKey:@"insertObjects为空"}];
+        return NO;
+    }
+    
+    id<YXDFMDBHelperObjectProtocol> object = objects.firstObject;
+    
+    //先检查对象是否有 primaryID
+    //如果没有直接报错
+    //然后检查是否存在表 或者表结构是否对应对象属性
+    //如果表结构不对则更改表结构
+    //插入数据
+    
     return NO;
 }
 
@@ -37,6 +50,20 @@ static NSString *YXDFMDBHelperDataBaseName = @"test.db";
 + (BOOL)updateObjects:(NSArray<id<YXDFMDBHelperObjectProtocol>> *)objects error:(NSError **)error {
     return NO;
 }
+
+//检查表结构是否正确 如不正确则调整表结构 如不存在表则创建
++ (BOOL)checkTableWithClassString:(NSString *)classString {
+    
+
+    if ([YXDFMDBHelper_FMDB tableExists:classString]) {
+        
+    }
+    
+    
+    return YES;
+}
+
+///////////////////////////// 下面都是查询 /////////////////////////////
 
 + (NSArray *)selectAllObjectsWithClass:(Class)clazz error:(NSError **)error {
     return [self selectObjectsWithClass:clazz query:[NSString stringWithFormat:@"select * from %@",NSStringFromClass(clazz)] error:error];
