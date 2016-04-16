@@ -55,14 +55,19 @@ typedef NS_ENUM(NSInteger, YXDEncodingType) {
 };
 
 typedef NS_ENUM(NSInteger, YXDPropertyType) {
+    
     YXDPropertyTypeUnknown      = 0,
+    
     YXDPropertyTypeNonatomic    = 1 << 1,
+    
     YXDPropertyTypeCopy         = 1 << 2,
     YXDPropertyTypeRetain       = 2 << 2,
     YXDPropertyTypeWeak         = 3 << 2,
+    
     YXDPropertyTypeCustomGetter = 1 << 3,
     YXDPropertyTypeCustomSetter = 2 << 3,
     YXDPropertyTypeDynamic      = 3 << 3,
+    
     YXDPropertyTypeReadonly     = 1 << 4,
 };
 
