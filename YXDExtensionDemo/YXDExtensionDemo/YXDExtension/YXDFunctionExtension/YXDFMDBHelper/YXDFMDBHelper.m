@@ -32,13 +32,13 @@ static NSString *YXDFMDBHelperDataBaseName = @"test.db";
         return NO;
     }
     
-    id<YXDFMDBHelperObjectProtocol> object = objects.firstObject;
+    //相关检查
+    if (![self checkTableAndPrimaryIDWithObject:objects.firstObject error:error]) {
+        return NO;
+    }
     
-    //先检查对象是否有 primaryID
-    //如果没有直接报错
-    //然后检查是否存在表 或者表结构是否对应对象属性
-    //如果表结构不对则更改表结构
     //插入数据
+//    NSString *insert =
     
     return NO;
 }
@@ -49,14 +49,31 @@ static NSString *YXDFMDBHelperDataBaseName = @"test.db";
         return NO;
     }
     
-//    NSString *delete =
+    //相关检查
+    if (![self checkTableAndPrimaryIDWithObject:objects.firstObject error:error]) {
+        return NO;
+    }
     
-//    YXDFMDBHelper_FMDB executeUpdate:<#(NSString *), ...#>
+    //删除数据
+//    NSString *delete =
     
     return NO;
 }
 
 + (BOOL)updateObjects:(NSArray<id<YXDFMDBHelperObjectProtocol>> *)objects error:(NSError **)error {
+    if (!objects.count) {
+        *error = [NSError errorWithDomain:kYXDExtensionErrorDomain code:YXDExtensionErrorCodeInputError userInfo:@{NSLocalizedDescriptionKey:@"更新数据为空"}];
+        return NO;
+    }
+    
+    //相关检查
+    if (![self checkTableAndPrimaryIDWithObject:objects.firstObject error:error]) {
+        return NO;
+    }
+    
+    //更新数据
+//    NSString *update = 
+    
     return NO;
 }
 
