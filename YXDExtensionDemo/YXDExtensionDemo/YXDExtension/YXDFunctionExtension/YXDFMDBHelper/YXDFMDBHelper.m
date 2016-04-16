@@ -60,16 +60,31 @@ static NSString *YXDFMDBHelperDataBaseName = @"test.db";
     return NO;
 }
 
-//检查表结构是否正确 如不正确则调整表结构 如不存在表则创建
-+ (BOOL)checkTableWithClassString:(NSString *)classString {
-    
+//检查对象是否有 primaryID 且表结构是否正确
++ (BOOL)checkTableAndPrimaryIDWithObject:(id<YXDFMDBHelperObjectProtocol>)object error:(NSError **)error {
+    if ([self checkObjectHasPrimaryID:object error:error] && [self checkTableWithClassString:NSStringFromClass([object class]) error:error]) {
+        return YES;
+    }
+    return NO;
+}
 
-    if ([YXDFMDBHelper_FMDB tableExists:classString]) {
-        
+//检查对象是否有 primaryID
++ (BOOL)checkObjectHasPrimaryID:(id<YXDFMDBHelperObjectProtocol>)object error:(NSError **)error {
+    //TODO:
+    return NO;
+}
+
+//检查表结构是否正确 如不正确则调整表结构 如不存在表则创建
++ (BOOL)checkTableWithClassString:(NSString *)classString error:(NSError **)error {
+    if (![YXDFMDBHelper_FMDB tableExists:classString]) {
+        //如果表不存在 则创建表
+        //TODO:
+    } else {
+        //如果表存在 则检查表结构是否正确
+        //TODO:
     }
     
-    
-    return YES;
+    return NO;
 }
 
 ///////////////////////////// 下面都是查询 /////////////////////////////
