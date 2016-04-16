@@ -28,7 +28,7 @@ static NSString *YXDFMDBHelperDataBaseName = @"test.db";
 
 + (BOOL)insertObjects:(NSArray<id<YXDFMDBHelperObjectProtocol>> *)objects error:(NSError **)error {
     if (!objects.count) {
-        *error = [NSError errorWithDomain:kYXDExtensionErrorDomain code:YXDExtensionErrorCodeInputError userInfo:@{NSLocalizedDescriptionKey:@"insertObjects为空"}];
+        *error = [NSError errorWithDomain:kYXDExtensionErrorDomain code:YXDExtensionErrorCodeInputError userInfo:@{NSLocalizedDescriptionKey:@"插入数据为空"}];
         return NO;
     }
     
