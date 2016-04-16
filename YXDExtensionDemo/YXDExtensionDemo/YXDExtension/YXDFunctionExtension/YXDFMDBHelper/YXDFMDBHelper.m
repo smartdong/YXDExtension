@@ -43,7 +43,7 @@ static NSString *YXDFMDBHelperDataBaseName = @"test.db";
     return NO;
 }
 
-+ (BOOL)deleteObjects:(NSArray<id<YXDFMDBHelperObjectProtocol>> *)objects error:(NSError **)error {
++ (BOOL)deleteObjectsWithPrimaryIDs:(NSArray<NSString *> *)primaryIDs error:(NSError **)error {
     return NO;
 }
 

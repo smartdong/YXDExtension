@@ -23,7 +23,7 @@ static NSString *kYXDFMDBHelperObjectPrimaryID = @"primaryID";
 
 + (BOOL)insertObjects:(NSArray<id<YXDFMDBHelperObjectProtocol>> *)objects error:(NSError **)error;
 
-+ (BOOL)deleteObjects:(NSArray<id<YXDFMDBHelperObjectProtocol>> *)objects error:(NSError **)error;
++ (BOOL)deleteObjectsWithPrimaryIDs:(NSArray<NSString *> *)primaryIDs error:(NSError **)error;
 
 + (BOOL)updateObjects:(NSArray<id<YXDFMDBHelperObjectProtocol>> *)objects error:(NSError **)error;
 
