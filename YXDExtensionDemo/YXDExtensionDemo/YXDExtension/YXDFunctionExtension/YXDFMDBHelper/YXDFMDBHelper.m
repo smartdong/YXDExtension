@@ -43,8 +43,8 @@ static NSString *YXDFMDBHelperDataBaseName = @"test.db";
     return NO;
 }
 
-+ (BOOL)deleteObjectsWithPrimaryIDs:(NSArray<NSString *> *)primaryIDs error:(NSError **)error {
-    if (!primaryIDs.count) {
++ (BOOL)deleteObjects:(NSArray<id<YXDFMDBHelperObjectProtocol>> *)objects error:(NSError **)error {
+    if (!objects.count) {
         *error = [NSError errorWithDomain:kYXDExtensionErrorDomain code:YXDExtensionErrorCodeInputError userInfo:@{NSLocalizedDescriptionKey:@"删除数据为空"}];
         return NO;
     }
