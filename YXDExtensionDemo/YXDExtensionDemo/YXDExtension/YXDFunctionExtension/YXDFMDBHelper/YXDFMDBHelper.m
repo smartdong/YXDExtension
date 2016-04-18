@@ -87,7 +87,9 @@ static NSString *YXDFMDBHelperDataBaseName = @"test.db";
 
 //检查对象是否有 primaryID
 + (BOOL)checkObjectHasPrimaryID:(id<YXDFMDBHelperObjectProtocol>)object error:(NSError **)error {
-    //TODO:
+    if ([object respondsToSelector:@selector(primaryID)] && object.primaryID.integerValue) {
+        return YES;
+    }
     return NO;
 }
 
