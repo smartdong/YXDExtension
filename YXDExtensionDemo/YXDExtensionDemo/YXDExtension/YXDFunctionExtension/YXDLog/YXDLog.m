@@ -23,7 +23,7 @@ static DDFileLogger *fl = nil;
     fl = fileLogger;
 }
 
-+ (NSString *)logsFileDirectory {
++ (NSString *)logsDirectory {
     return fl.logFileManager.logsDirectory;
 }
 

@@ -16,6 +16,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 @interface YXDLog : NSObject
 
-+ (NSString *)logsFileDirectory;
++ (NSString *)logsDirectory;
 
 @end
