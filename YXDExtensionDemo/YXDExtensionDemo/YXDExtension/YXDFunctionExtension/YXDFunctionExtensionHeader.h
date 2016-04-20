@@ -9,12 +9,12 @@
 //#import "YXDFMDBHelper.h"
 #import "YXDLog.h"
 //#import "YXDActionView.h"
-#import "YXDCache.h"
+//#import "YXDCache.h"
 #import "YXDCommonFunction.h"
 #import "YXDNetworkManager.h"
 #import "YXDNetworkResult.h"
 #import "YXDHUDManager.h"
 //#import "YXDLockScreenManager.h"
-#import "YXDFileManager.h"
+//#import "YXDFileManager.h"
 
 
