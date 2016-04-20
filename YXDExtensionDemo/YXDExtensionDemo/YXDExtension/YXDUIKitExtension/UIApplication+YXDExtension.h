@@ -9,6 +9,7 @@
 
 @interface UIApplication (YXDExtension)
 
++ (NSString *)bundleIdentifier;
 + (NSString *)appVersion;
 + (NSString *)buildVersion;
 

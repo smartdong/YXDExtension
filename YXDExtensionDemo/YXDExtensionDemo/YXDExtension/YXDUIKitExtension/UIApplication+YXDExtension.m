@@ -9,6 +9,10 @@
 
 @implementation UIApplication (YXDExtension)
 
++ (NSString *)bundleIdentifier {
+    return [[NSBundle mainBundle] bundleIdentifier];
+}
+
 + (NSString *)appVersion {
     return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
 }
