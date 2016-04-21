@@ -247,7 +247,9 @@ static NSString *kJavascriptInterfacesName = @"demo";
         [self setLoadingProgress:kInitialProgressValue];
         
         //show that loading started in the status bar
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+        if (self.showLoadingBar) {
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+        }
     }
 }
 
@@ -263,7 +265,9 @@ static NSString *kJavascriptInterfacesName = @"demo";
 
 - (void)finishLoadProgress {
     //hide the activity indicator in the status bar
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    if (self.showLoadingBar) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }
     
     //reset the load progress
     [self setLoadingProgress:1.0f];

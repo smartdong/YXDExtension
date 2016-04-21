@@ -9,4 +9,10 @@
 
 @implementation YXDLocalHybridBaseWebViewController
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.showLoadingBar = NO;
+}
+
 @end
