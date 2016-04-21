@@ -57,6 +57,9 @@
 }
 
 - (NSURL *)url {
+    if ([self hasPrefix:@"/"]) {
+        return [NSURL fileURLWithPath:self];
+    }
     return [NSURL URLWithString:[self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 
