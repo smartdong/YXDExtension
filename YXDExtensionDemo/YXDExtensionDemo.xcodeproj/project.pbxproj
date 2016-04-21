@@ -32,6 +32,8 @@
 		0BF6BF1C1CB964D800CF56DC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0BF6BF161CB964D800CF56DC /* Info.plist */; };
 		0BF6BF201CB965FD00CF56DC /* YXDFMDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF6BF1F1CB965FD00CF56DC /* YXDFMDBHelper.m */; };
 		B506E6F11CBCE9B200B9945E /* test.db in Resources */ = {isa = PBXBuildFile; fileRef = B506E6F01CBCE9B200B9945E /* test.db */; };
+		B51786341CC87BE100A02F6C /* YXDLocalHybridBaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B51786331CC87BE100A02F6C /* YXDLocalHybridBaseWebViewController.m */; };
+		B51786371CC87C3300A02F6C /* LocalHybridDefaultPage.m in Sources */ = {isa = PBXBuildFile; fileRef = B51786361CC87C3300A02F6C /* LocalHybridDefaultPage.m */; };
 		B520A8FE1C130C2900CE6701 /* UIDevice+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B520A8FD1C130C2900CE6701 /* UIDevice+YXDExtension.m */; };
 		B520A9011C130C3E00CE6701 /* UITabBar+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B520A9001C130C3E00CE6701 /* UITabBar+YXDExtension.m */; };
 		B520A9041C130F8400CE6701 /* NSData+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B520A9031C130F8400CE6701 /* NSData+YXDExtension.m */; };
@@ -223,6 +225,10 @@
 		0BF6BF1F1CB965FD00CF56DC /* YXDFMDBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDFMDBHelper.m; sourceTree = "<group>"; };
 		B506E6EF1CBCE4DD00B9945E /* YXDExtensionDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDExtensionDefine.h; sourceTree = "<group>"; };
 		B506E6F01CBCE9B200B9945E /* test.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.db; sourceTree = "<group>"; };
+		B51786321CC87BE100A02F6C /* YXDLocalHybridBaseWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDLocalHybridBaseWebViewController.h; sourceTree = "<group>"; };
+		B51786331CC87BE100A02F6C /* YXDLocalHybridBaseWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDLocalHybridBaseWebViewController.m; sourceTree = "<group>"; };
+		B51786351CC87C3300A02F6C /* LocalHybridDefaultPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalHybridDefaultPage.h; sourceTree = "<group>"; };
+		B51786361CC87C3300A02F6C /* LocalHybridDefaultPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalHybridDefaultPage.m; sourceTree = "<group>"; };
 		B520A8FC1C130C2900CE6701 /* UIDevice+YXDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+YXDExtension.h"; sourceTree = "<group>"; };
 		B520A8FD1C130C2900CE6701 /* UIDevice+YXDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+YXDExtension.m"; sourceTree = "<group>"; };
 		B520A8FF1C130C3E00CE6701 /* UITabBar+YXDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBar+YXDExtension.h"; sourceTree = "<group>"; };
@@ -672,6 +678,24 @@
 			path = YXDFMDBHelper;
 			sourceTree = "<group>";
 		};
+		B517862D1CC876F800A02F6C /* LocalHybrid */ = {
+			isa = PBXGroup;
+			children = (
+				B51786351CC87C3300A02F6C /* LocalHybridDefaultPage.h */,
+				B51786361CC87C3300A02F6C /* LocalHybridDefaultPage.m */,
+			);
+			path = LocalHybrid;
+			sourceTree = "<group>";
+		};
+		B517862E1CC8779B00A02F6C /* YXDLocalHybridBase */ = {
+			isa = PBXGroup;
+			children = (
+				B51786321CC87BE100A02F6C /* YXDLocalHybridBaseWebViewController.h */,
+				B51786331CC87BE100A02F6C /* YXDLocalHybridBaseWebViewController.m */,
+			);
+			path = YXDLocalHybridBase;
+			sourceTree = "<group>";
+		};
 		B53E03BF1CC728AC00BE4411 /* YXDLogUploadHelper */ = {
 			isa = PBXGroup;
 			children = (
@@ -684,6 +708,7 @@
 		B5493FAD1CC86F5700EBD09D /* YXDLocalHybrid */ = {
 			isa = PBXGroup;
 			children = (
+				B517862E1CC8779B00A02F6C /* YXDLocalHybridBase */,
 				B5493FAE1CC86F6F00EBD09D /* YXDLocalHybridManager.h */,
 				B5493FAF1CC86F6F00EBD09D /* YXDLocalHybridManager.m */,
 			);
@@ -708,6 +733,7 @@
 		B549BCB71C1570670092F3B2 /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				B517862D1CC876F800A02F6C /* LocalHybrid */,
 				B555C8911CA2392100FB37C9 /* VC */,
 				B5493FB81CC8735400EBD09D /* Class */,
 				0B2DFC511CB8C4B5005ABED3 /* Resource */,
@@ -1426,6 +1452,7 @@
 				B520A9041C130F8400CE6701 /* NSData+YXDExtension.m in Sources */,
 				B55048601B81B63E00A78C8D /* MJRefreshBackGifFooter.m in Sources */,
 				B520A8FE1C130C2900CE6701 /* UIDevice+YXDExtension.m in Sources */,
+				B51786371CC87C3300A02F6C /* LocalHybridDefaultPage.m in Sources */,
 				B550484E1B81B63E00A78C8D /* AFURLSessionManager.m in Sources */,
 				B53E03C21CC728B800BE4411 /* YXDLogUploadHelper.m in Sources */,
 				0BF6BF171CB964D800CF56DC /* FMDatabase.m in Sources */,
@@ -1433,6 +1460,7 @@
 				B5DE71851B6F1DDC006F8FF1 /* NSDate+YXDExtension.m in Sources */,
 				B55047BB1B818C4100A78C8D /* UICollectionView+YXDExtension.m in Sources */,
 				B5DE719D1B6F3040006F8FF1 /* UIViewController+YXDExtension.m in Sources */,
+				B51786341CC87BE100A02F6C /* YXDLocalHybridBaseWebViewController.m in Sources */,
 				B5DE71821B6F1AFF006F8FF1 /* NSString+YXDExtension.m in Sources */,
 				B5B8FFA31CB7848E00AE66B7 /* DDTTYLogger.m in Sources */,
 				0BF6BF001CB95D4B00CF56DC /* YYMemoryCache.m in Sources */,
