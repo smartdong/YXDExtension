@@ -75,12 +75,19 @@ static NSString *kJavascriptInterfacesName = @"demo";
 
 #pragma mark - Init
 
-- (instancetype)initWithUrl:(NSString *)url {
+- (instancetype)init {
     self = [super init];
     if (self) {
-        self.url = url;
         self.showLoadingBar = YES;
         self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
+    return self;
+}
+
+- (instancetype)initWithUrl:(NSString *)url {
+    self = [self init];
+    if (self) {
+        self.url = url;
     }
     return self;
 }
@@ -322,6 +329,12 @@ static NSString *kJavascriptInterfacesName = @"demo";
     if (complete) {
         [self finishLoadProgress];
     }
+}
+
+#pragma mark - Wrong Way
+
+- (void)awakeFromNib {
+    NSAssert(NO, @"YXDBaseWebViewController DO NOT support this way !");
 }
 
 @end
