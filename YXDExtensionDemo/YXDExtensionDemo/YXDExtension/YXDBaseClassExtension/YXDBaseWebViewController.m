@@ -331,10 +331,4 @@ static NSString *kJavascriptInterfacesName = @"demo";
     }
 }
 
-#pragma mark - Wrong Way
-
-- (void)awakeFromNib {
-    NSAssert(NO, @"YXDBaseWebViewController DO NOT support this way !");
-}
-
 @end
