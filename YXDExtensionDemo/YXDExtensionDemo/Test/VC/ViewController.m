@@ -33,6 +33,8 @@
     NSArray *arr2 = [City selectObjectsWithConditions:@[@"cityID < 50"] orderBy:@"cityID" asc:NO limit:@(5) error:&error];
     if (error) {
         NSLog(@"error : %@",error);
+    } else {
+        NSLog(@"arr1 : %@ \narr2 : %@",arr1,arr2);
     }
 }
 
@@ -67,6 +69,7 @@
             TestClass *testClass2 = [TestClass objectWithJSONString:testClass1.jsonString];
             NSString *arrJSON = [TestClass jsonStringFromObjectArray:@[testClass1,testClass2]];
             NSArray *arr = [TestClass objectArrayFromJSONString:arrJSON];
+            arr = nil;
         }
     }];
 }

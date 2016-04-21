@@ -27,7 +27,7 @@
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="sAY-Ot-oaM" kind="push" id="7Xw-Vd-WRn"/>
+                                    <segue destination="sAY-Ot-oaM" kind="show" id="Tz7-Hk-fBw"/>
                                 </connections>
                             </button>
                         </subviews>
