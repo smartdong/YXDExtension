@@ -43,6 +43,7 @@
 		B520A90A1C131BAD00CE6701 /* NSDictionary+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B520A9091C131BAD00CE6701 /* NSDictionary+YXDExtension.m */; };
 		B533A3041C7C08AD00BEA4A6 /* YXDNetworkImageObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B533A3031C7C08AD00BEA4A6 /* YXDNetworkImageObject.m */; };
 		B53E03C21CC728B800BE4411 /* YXDLogUploadHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B53E03C11CC728B800BE4411 /* YXDLogUploadHelper.m */; };
+		B5493FB01CC86F6F00EBD09D /* YXDLocalHybridManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5493FAF1CC86F6F00EBD09D /* YXDLocalHybridManager.m */; };
 		B549BCBA1C1570840092F3B2 /* TestClass.m in Sources */ = {isa = PBXBuildFile; fileRef = B549BCB91C1570840092F3B2 /* TestClass.m */; };
 		B549BCBD1C15709A0092F3B2 /* ClassA.m in Sources */ = {isa = PBXBuildFile; fileRef = B549BCBC1C15709A0092F3B2 /* ClassA.m */; };
 		B549BCC01C1570A30092F3B2 /* ClassB.m in Sources */ = {isa = PBXBuildFile; fileRef = B549BCBF1C1570A30092F3B2 /* ClassB.m */; };
@@ -242,6 +243,8 @@
 		B533A3031C7C08AD00BEA4A6 /* YXDNetworkImageObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDNetworkImageObject.m; sourceTree = "<group>"; };
 		B53E03C01CC728B800BE4411 /* YXDLogUploadHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDLogUploadHelper.h; sourceTree = "<group>"; };
 		B53E03C11CC728B800BE4411 /* YXDLogUploadHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDLogUploadHelper.m; sourceTree = "<group>"; };
+		B5493FAE1CC86F6F00EBD09D /* YXDLocalHybridManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDLocalHybridManager.h; sourceTree = "<group>"; };
+		B5493FAF1CC86F6F00EBD09D /* YXDLocalHybridManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDLocalHybridManager.m; sourceTree = "<group>"; };
 		B549BCB81C1570840092F3B2 /* TestClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestClass.h; sourceTree = "<group>"; };
 		B549BCB91C1570840092F3B2 /* TestClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestClass.m; sourceTree = "<group>"; };
 		B549BCBB1C15709A0092F3B2 /* ClassA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassA.h; sourceTree = "<group>"; };
@@ -540,6 +543,7 @@
 		0B6725411B6E9FC9009272B4 /* YXDExtensionDemo */ = {
 			isa = PBXGroup;
 			children = (
+				B5493FAD1CC86F5700EBD09D /* YXDLocalHybrid */,
 				B5DE71761B6F174A006F8FF1 /* YXDExtension */,
 				B549BCB71C1570670092F3B2 /* Test */,
 				0B6725461B6E9FC9009272B4 /* AppDelegate.h */,
@@ -677,6 +681,15 @@
 				B53E03C11CC728B800BE4411 /* YXDLogUploadHelper.m */,
 			);
 			path = YXDLogUploadHelper;
+			sourceTree = "<group>";
+		};
+		B5493FAD1CC86F5700EBD09D /* YXDLocalHybrid */ = {
+			isa = PBXGroup;
+			children = (
+				B5493FAE1CC86F6F00EBD09D /* YXDLocalHybridManager.h */,
+				B5493FAF1CC86F6F00EBD09D /* YXDLocalHybridManager.m */,
+			);
+			path = YXDLocalHybrid;
 			sourceTree = "<group>";
 		};
 		B549BCB71C1570670092F3B2 /* Test */ = {
@@ -1463,6 +1476,7 @@
 				0BF6BEFF1CB95D4B00CF56DC /* YYKVStorage.m in Sources */,
 				B533A3041C7C08AD00BEA4A6 /* YXDNetworkImageObject.m in Sources */,
 				B550486B1B81B63E00A78C8D /* MKAnnotationView+WebCache.m in Sources */,
+				B5493FB01CC86F6F00EBD09D /* YXDLocalHybridManager.m in Sources */,
 				0BF6BEFE1CB95D4B00CF56DC /* YYDiskCache.m in Sources */,
 				B5DE71B81B6F349F006F8FF1 /* UIScreen+YXDExtension.m in Sources */,
 				B550486D1B81B63E00A78C8D /* SDImageCache.m in Sources */,
