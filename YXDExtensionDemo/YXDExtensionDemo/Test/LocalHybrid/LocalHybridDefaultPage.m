@@ -13,7 +13,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.url = @"https://github.com/smartdong";
+    self.url = [[NSBundle mainBundle] pathForResource:@"LocalHybridDefaultPage" ofType:@"html"];
 }
 
 @end

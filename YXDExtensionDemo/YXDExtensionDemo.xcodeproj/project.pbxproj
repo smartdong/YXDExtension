@@ -134,6 +134,7 @@
 		B5B8FFA51CB7848E00AE66B7 /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B8FF991CB7848E00AE66B7 /* DDDispatchQueueLogFormatter.m */; };
 		B5B8FFA61CB7848E00AE66B7 /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B8FF9B1CB7848E00AE66B7 /* DDMultiFormatter.m */; };
 		B5B8FFAA1CB7940500AE66B7 /* YXDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B8FFA91CB7940500AE66B7 /* YXDLog.m */; };
+		B5C163A91CC8D366000DD6CF /* LocalHybridDefaultPage.html in Resources */ = {isa = PBXBuildFile; fileRef = B5C163A81CC8D366000DD6CF /* LocalHybridDefaultPage.html */; };
 		B5D830B61B71E08B0094BE65 /* image_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = B5D830AD1B71E08B0094BE65 /* image_circle.png */; };
 		B5D830B71B71E08B0094BE65 /* image_line.png in Resources */ = {isa = PBXBuildFile; fileRef = B5D830AE1B71E08B0094BE65 /* image_line.png */; };
 		B5D830B81B71E08B0094BE65 /* YXDLockScreenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D830B01B71E08B0094BE65 /* YXDLockScreenManager.m */; };
@@ -435,6 +436,7 @@
 		B5B8FF9B1CB7848E00AE66B7 /* DDMultiFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMultiFormatter.m; sourceTree = "<group>"; };
 		B5B8FFA81CB7940500AE66B7 /* YXDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDLog.h; sourceTree = "<group>"; };
 		B5B8FFA91CB7940500AE66B7 /* YXDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDLog.m; sourceTree = "<group>"; };
+		B5C163A81CC8D366000DD6CF /* LocalHybridDefaultPage.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = LocalHybridDefaultPage.html; sourceTree = "<group>"; };
 		B5D830AD1B71E08B0094BE65 /* image_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_circle.png; sourceTree = "<group>"; };
 		B5D830AE1B71E08B0094BE65 /* image_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_line.png; sourceTree = "<group>"; };
 		B5D830AF1B71E08B0094BE65 /* YXDLockScreenManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDLockScreenManager.h; sourceTree = "<group>"; };
@@ -681,6 +683,7 @@
 		B517862D1CC876F800A02F6C /* LocalHybrid */ = {
 			isa = PBXGroup;
 			children = (
+				B5C163A81CC8D366000DD6CF /* LocalHybridDefaultPage.html */,
 				B51786351CC87C3300A02F6C /* LocalHybridDefaultPage.h */,
 				B51786361CC87C3300A02F6C /* LocalHybridDefaultPage.m */,
 			);
@@ -1341,6 +1344,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B55048661B81B63E00A78C8D /* MJRefresh.bundle in Resources */,
+				B5C163A91CC8D366000DD6CF /* LocalHybridDefaultPage.html in Resources */,
 				B506E6F11CBCE9B200B9945E /* test.db in Resources */,
 				B555C88A1CA1343800FB37C9 /* easyjs-inject.js in Resources */,
 				B5493FB41CC8730100EBD09D /* Main.storyboard in Resources */,
