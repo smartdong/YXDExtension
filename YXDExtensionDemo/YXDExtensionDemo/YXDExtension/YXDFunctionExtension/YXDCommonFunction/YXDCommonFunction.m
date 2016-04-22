@@ -9,6 +9,8 @@
 #import "YXDCommonFunction.h"
 #import "NSString+YXDExtension.h"
 
+#define YXDCommonFunctionUserDefaultsKey(key, account) (account?[NSString stringWithFormat:@"%@_%@",key,account]:key)
+
 @implementation YXDCommonFunction
 
 #pragma mark - Print Time Cost
@@ -22,97 +24,53 @@
     NSLog(@"Time Cost: %0.3f", end - start);
 }
 
-#pragma mark - Local data method
+#pragma mark - User Defaults
 
-+ (void)setLocalData:(id)data key:(NSString *)key{
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    if (data == nil) {
-        [ud removeObjectForKey:key];
-    }
-    else {
-        NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:data];
-        [ud setObject:userData forKey:key];
-    }
-    [ud synchronize];
++ (void)setUserDefaultsValue:(id)value forKey:(NSString *)key {
+    [self setUserDefaultsValue:value forKey:key account:nil];
 }
 
-+ (id)getLocalData:(NSString *)key{
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    if ([ud objectForKey:key] != NULL) {
-        NSData *userData = [ud objectForKey:key];
-        return [NSKeyedUnarchiver unarchiveObjectWithData:userData];
-    }
-    else {
-        return nil;
-    }
-}
-
-+ (void)setLocalValue:(id)value key:(NSString *)key {
++ (void)setUserDefaultsValue:(id)value forKey:(NSString *)key account:(NSString *)account {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     if (value == nil) {
-        [ud removeObjectForKey:key];
+        [ud removeObjectForKey:YXDCommonFunctionUserDefaultsKey(key, account)];
     }
     else {
-        [ud setObject:value forKey:key];
+        [ud setObject:value forKey:YXDCommonFunctionUserDefaultsKey(key, account)];
     }
     [ud synchronize];
 }
 
-+ (void)setLocalInt:(int)value key:(NSString *)key {
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    [ud setInteger:value forKey:key];
-    [ud synchronize];
++ (id)userDefaultsValueForKey:(NSString *)key {
+    return [self userDefaultsValueForKey:key account:nil];
 }
 
-+ (void)setLocalBool:(bool)value key:(NSString *)key {
++ (id)userDefaultsValueForKey:(NSString *)key account:(NSString *)account {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    [ud setBool:value forKey:key];
-    [ud synchronize];
+    return [ud objectForKey:YXDCommonFunctionUserDefaultsKey(key, account)];
 }
-
-+ (id)getLocalValue:(NSString *)key {
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    return [ud objectForKey:key];
-}
-
-+ (int)getLocalInt:(NSString *)key {
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    return (int)[ud integerForKey:key];
-}
-
-+ (bool)getLocalBool:(NSString *)key {
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    return [ud boolForKey:key];
-}
-
-+ (id)getLocalString:(NSString *)key {
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    return [ud stringForKey:key];
-}
-
-#pragma mark - 读取是否第一次打开 / 存储已经打开
 
 + (BOOL)isFirstOpen:(NSString *)key {
+    return [self isFirstOpen:key forAccount:nil];
+}
+
++ (BOOL)isFirstOpen:(NSString *)key forAccount:(NSString *)account {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    return ![ud boolForKey:key];
+    return ![ud boolForKey:YXDCommonFunctionUserDefaultsKey(key, account)];
 }
 
 + (void)setOpened:(NSString *)key {
+    [self setOpened:key forAccount:nil];
+}
+
++ (void)setOpened:(NSString *)key forAccount:(NSString *)account {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    [ud setBool:YES forKey:key];
+    [ud setBool:YES forKey:YXDCommonFunctionUserDefaultsKey(key, account)];
     [ud synchronize];
 }
 
 #pragma mark - 加密
 
-/**
- *  将文本加密
- *
- *  @param plainText 带加密文本
- *  @param secretKey 加密秘钥
- *
- *  @return 加密后的文本
- */
 + (NSString *)hmacsha1WithPlainText:(NSString *)plainText secretKey:(NSString *)secretKey {
     return [plainText hmacsha1WithSecretKey:secretKey];
 }

@@ -14,40 +14,22 @@
 
 + (void)printTimeCost:(dispatch_block_t)doSth;
 
-#pragma mark - Local Data Method
+#pragma mark - User Defaults
 
-+ (void)setLocalData:(id)data key:(NSString *)key;
-+ (id)getLocalData:(NSString *)key;
-+ (void)setLocalValue:(id)value key:(NSString *)key;
-+ (void)setLocalInt:(int)value key:(NSString *)key;
-+ (void)setLocalBool:(bool)value key:(NSString *)key;
-+ (id)getLocalValue:(NSString *)key;
-+ (int)getLocalInt:(NSString *)key;
-+ (bool)getLocalBool:(NSString *)key;
-+ (id)getLocalString:(NSString *)key;
++ (void)setUserDefaultsValue:(id)value forKey:(NSString *)key;
++ (void)setUserDefaultsValue:(id)value forKey:(NSString *)key account:(NSString *)account;
 
-#pragma mark - 读取是否第一次打开 / 存储已经打开
++ (id)userDefaultsValueForKey:(NSString *)key;
++ (id)userDefaultsValueForKey:(NSString *)key account:(NSString *)account;
 
-/**
- *  根据key值判断是不是第一次打开
- */
 + (BOOL)isFirstOpen:(NSString *)key;
++ (BOOL)isFirstOpen:(NSString *)key forAccount:(NSString *)account;
 
-/**
- *  根据key值设置成已经打开
- */
 + (void)setOpened:(NSString *)key;
++ (void)setOpened:(NSString *)key forAccount:(NSString *)account;
 
 #pragma mark - 加密
 
-/**
- *  将文本加密
- *
- *  @param plainText 带加密文本
- *  @param secretKey 加密秘钥
- *
- *  @return 加密后的文本
- */
 + (NSString *)hmacsha1WithPlainText:(NSString *)plainText secretKey:(NSString *)secretKey;
 
 @end
