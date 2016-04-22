@@ -21,7 +21,7 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
-    self.window.rootViewController = [YXDLocalHybridManager rootViewController];
+    self.window.rootViewController = [YXDLocalHybridManager sharedInstance].rootViewController;
     
     [self.window makeKeyAndVisible];
     

@@ -9,6 +9,11 @@
 
 @interface YXDLocalHybridManager : NSObject
 
-+ (UIViewController *)rootViewController;
+@property (nonatomic, assign, readonly, getter=isUpdating) BOOL updating;
+@property (nonatomic, assign, readonly, getter=isUpdated) BOOL updated;
+
+- (UIViewController *)rootViewController;
+
++ (instancetype)sharedInstance;
 
 @end
