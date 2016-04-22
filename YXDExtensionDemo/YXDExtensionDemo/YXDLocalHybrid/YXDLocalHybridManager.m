@@ -31,9 +31,9 @@ static NSString *kYXDLocalHybridManagerLocalConfigKey = @"kYXDLocalHybridManager
 #pragma mark - Update
 
 - (void)checkUpdate {
-    _updating = YES;
+//    _updating = YES;
     
-//    NSString *versionInfo = [YXDCommonFunction getLocalString:kYXDLocalHybridManagerVersionInfoKey];
+//    NSString *versionInfo = [YXDCommonFunction userDefaultsValueForKey:kYXDLocalHybridManagerVersionInfoKey];
     
     //调接口更新 参数为versionInfo
     
@@ -51,13 +51,13 @@ static NSString *kYXDLocalHybridManagerLocalConfigKey = @"kYXDLocalHybridManager
 
     //保存配置
 //    _localConfig = xxx;
-//    [YXDCommonFunction setLocalValue:_localConfig key:kYXDLocalHybridManagerLocalConfigKey];
+//    [YXDCommonFunction setUserDefaultsValue:_localConfig forKey:kYXDLocalHybridManagerLocalConfigKey];
     
     //保存版本信息
-//    [YXDCommonFunction setLocalValue:versionInfo key:kYXDLocalHybridManagerVersionInfoKey];
+//    [YXDCommonFunction setUserDefaultsValue:versionInfo forKey:kYXDLocalHybridManagerVersionInfoKey];
     
-    _updated = YES;
-    _updating = NO;
+//    _updated = YES;
+//    _updating = NO;
 }
 
 #pragma mark - Shared Instance
@@ -73,7 +73,7 @@ static NSString *kYXDLocalHybridManagerLocalConfigKey = @"kYXDLocalHybridManager
 }
 
 - (void)commonInit {
-    _localConfig = [YXDCommonFunction getLocalValue:kYXDLocalHybridManagerLocalConfigKey];
+    _localConfig = [YXDCommonFunction userDefaultsValueForKey:kYXDLocalHybridManagerLocalConfigKey];
 }
 
 @end
