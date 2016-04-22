@@ -7,8 +7,7 @@
 //
 
 #import "YXDCommonFunction.h"
-#import "NSObject+YXDExtension.h"
-#import <CommonCrypto/CommonHMAC.h>
+#import "NSString+YXDExtension.h"
 
 @implementation YXDCommonFunction
 
@@ -25,7 +24,7 @@
 
 #pragma mark - Local data method
 
-+ (void) setLocalData:(id)data key:(NSString *)key{
++ (void)setLocalData:(id)data key:(NSString *)key{
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     if (data == nil) {
         [ud removeObjectForKey:key];
@@ -37,7 +36,7 @@
     [ud synchronize];
 }
 
-+ (id) getLocalData:(NSString *)key{
++ (id)getLocalData:(NSString *)key{
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     if ([ud objectForKey:key] != NULL) {
         NSData *userData = [ud objectForKey:key];
@@ -48,7 +47,7 @@
     }
 }
 
-+ (void) setLocalValue:(id)value key:(NSString *)key {
++ (void)setLocalValue:(id)value key:(NSString *)key {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     if (value == nil) {
         [ud removeObjectForKey:key];
@@ -59,34 +58,34 @@
     [ud synchronize];
 }
 
-+ (void) setLocalInt:(int)value key:(NSString *)key {
++ (void)setLocalInt:(int)value key:(NSString *)key {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     [ud setInteger:value forKey:key];
     [ud synchronize];
 }
 
-+ (void) setLocalBool:(bool)value key:(NSString *)key {
++ (void)setLocalBool:(bool)value key:(NSString *)key {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     [ud setBool:value forKey:key];
     [ud synchronize];
 }
 
-+ (id) getLocalValue:(NSString *)key {
++ (id)getLocalValue:(NSString *)key {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     return [ud objectForKey:key];
 }
 
-+ (int) getLocalInt:(NSString *)key {
++ (int)getLocalInt:(NSString *)key {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     return (int)[ud integerForKey:key];
 }
 
-+ (bool) getLocalBool:(NSString *)key {
++ (bool)getLocalBool:(NSString *)key {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     return [ud boolForKey:key];
 }
 
-+ (id) getLocalString:(NSString *)key {
++ (id)getLocalString:(NSString *)key {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     return [ud stringForKey:key];
 }
@@ -115,19 +114,7 @@
  *  @return 加密后的文本
  */
 + (NSString *)hmacsha1WithPlainText:(NSString *)plainText secretKey:(NSString *)secretKey {
-    
-    const char *cKey  = [secretKey cStringUsingEncoding:NSASCIIStringEncoding];
-    const char *cData = [plainText cStringUsingEncoding:NSASCIIStringEncoding];
-    
-    unsigned char cHMAC[CC_SHA1_DIGEST_LENGTH];
-    
-    CCHmac(kCCHmacAlgSHA1, cKey, strlen(cKey), cData, strlen(cData), cHMAC);
-    
-    NSData *HMAC = [[NSData alloc] initWithBytes:cHMAC length:sizeof(cHMAC)];
-    
-    NSString *hash = [HMAC base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-    
-    return hash;
+    return [plainText hmacsha1WithSecretKey:secretKey];
 }
 
 @end

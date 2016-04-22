@@ -6,8 +6,7 @@
 //
 
 #import "NSString+YXDExtension.h"
-#import <CommonCrypto/CommonCrypto.h>
-#import "YXDCommonFunction.h"
+#import <CommonCrypto/CommonHMAC.h>
 
 @implementation NSString (YXDExtension)
 
@@ -115,30 +114,31 @@ static NSString * YXDPercentEscapedQueryStringValueFromStringWithEncoding(NSStri
     const char *cStr = [self UTF8String];
     unsigned char digest[16];
     CC_MD5( cStr, (CC_LONG)strlen(cStr), digest); // This is the md5 call
-    
     NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
-    
-    for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
+    for (int i = 0; i < CC_MD5_DIGEST_LENGTH; i++) {
         [output appendFormat:@"%02x", digest[i]];
-    return  output;
+    }
+    return output;
 }
 
--(NSString *)hmacsha1WithSecretKey:(NSString *)secretKey {
+- (NSString *)hmacsha1WithSecretKey:(NSString *)secretKey {
     if (!self.length) {
         return @"";
     }
-    
-    return [YXDCommonFunction hmacsha1WithPlainText:self secretKey:secretKey];
+    const char *cKey  = [secretKey cStringUsingEncoding:NSASCIIStringEncoding];
+    const char *cData = [self cStringUsingEncoding:NSASCIIStringEncoding];
+    unsigned char cHMAC[CC_SHA1_DIGEST_LENGTH];
+    CCHmac(kCCHmacAlgSHA1, cKey, strlen(cKey), cData, strlen(cData), cHMAC);
+    NSData *HMAC = [[NSData alloc] initWithBytes:cHMAC length:sizeof(cHMAC)];
+    return [HMAC base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
 }
 
 + (NSString *)randomStringWithLength:(int)length {
     NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     NSMutableString *randomString = [NSMutableString stringWithCapacity:length];
-    
     for (int i=0; i<length; i++) {
         [randomString appendFormat:@"%C", [letters characterAtIndex: arc4random_uniform((u_int32_t)[letters length])]];
     }
-    
     return randomString;
 }
 

@@ -16,15 +16,15 @@
 
 #pragma mark - Local Data Method
 
-+ (void) setLocalData:(id)data key:(NSString *)key;
-+ (id) getLocalData:(NSString *)key;
-+ (void) setLocalValue:(id)value key:(NSString *)key;
-+ (void) setLocalInt:(int)value key:(NSString *)key;
-+ (void) setLocalBool:(bool)value key:(NSString *)key;
-+ (id) getLocalValue:(NSString *)key;
-+ (int) getLocalInt:(NSString *)key;
-+ (bool) getLocalBool:(NSString *)key;
-+ (id) getLocalString:(NSString *)key;
++ (void)setLocalData:(id)data key:(NSString *)key;
++ (id)getLocalData:(NSString *)key;
++ (void)setLocalValue:(id)value key:(NSString *)key;
++ (void)setLocalInt:(int)value key:(NSString *)key;
++ (void)setLocalBool:(bool)value key:(NSString *)key;
++ (id)getLocalValue:(NSString *)key;
++ (int)getLocalInt:(NSString *)key;
++ (bool)getLocalBool:(NSString *)key;
++ (id)getLocalString:(NSString *)key;
 
 #pragma mark - 读取是否第一次打开 / 存储已经打开
 
