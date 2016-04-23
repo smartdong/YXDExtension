@@ -180,6 +180,7 @@
 		0B2DFC521CB8C4B5005ABED3 /* loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading.gif; sourceTree = "<group>"; };
 		0B4E24F31B7764000008C4B0 /* UIScrollView+YXDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+YXDExtension.h"; sourceTree = "<group>"; };
 		0B4E24F41B7764000008C4B0 /* UIScrollView+YXDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+YXDExtension.m"; sourceTree = "<group>"; };
+		0B5E8B7B1CCBABF50024BE34 /* YXDLocalHybridConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDLocalHybridConfig.h; sourceTree = "<group>"; };
 		0B67253F1B6E9FC9009272B4 /* YXDExtensionDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YXDExtensionDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B6725431B6E9FC9009272B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B6725441B6E9FC9009272B4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -712,6 +713,7 @@
 			isa = PBXGroup;
 			children = (
 				B517862E1CC8779B00A02F6C /* YXDLocalHybridBase */,
+				0B5E8B7B1CCBABF50024BE34 /* YXDLocalHybridConfig.h */,
 				B5493FAE1CC86F6F00EBD09D /* YXDLocalHybridManager.h */,
 				B5493FAF1CC86F6F00EBD09D /* YXDLocalHybridManager.m */,
 			);

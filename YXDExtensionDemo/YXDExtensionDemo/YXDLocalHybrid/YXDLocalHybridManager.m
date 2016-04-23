@@ -8,6 +8,7 @@
 #import "YXDLocalHybridManager.h"
 #import "LocalHybridDefaultPage.h"
 #import "YXDExtensionHeader.h"
+#import "YXDLocalHybridConfig.h"
 
 static NSString *kYXDLocalHybridManagerVersionInfoKey = @"kYXDLocalHybridManagerVersionInfoKey";
 static NSString *kYXDLocalHybridManagerLocalConfigKey = @"kYXDLocalHybridManagerLocalConfigKey";
