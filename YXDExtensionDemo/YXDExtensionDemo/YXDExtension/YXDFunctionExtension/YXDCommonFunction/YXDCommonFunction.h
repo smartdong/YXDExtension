@@ -22,11 +22,11 @@
 + (id)userDefaultsValueForKey:(NSString *)key;
 + (id)userDefaultsValueForKey:(NSString *)key account:(NSString *)account;
 
-+ (BOOL)isFirstOpen:(NSString *)key;
-+ (BOOL)isFirstOpen:(NSString *)key forAccount:(NSString *)account;
-
 + (void)setOpened:(NSString *)key;
 + (void)setOpened:(NSString *)key forAccount:(NSString *)account;
+
++ (BOOL)isFirstOpen:(NSString *)key;
++ (BOOL)isFirstOpen:(NSString *)key forAccount:(NSString *)account;
 
 #pragma mark - 加密
 

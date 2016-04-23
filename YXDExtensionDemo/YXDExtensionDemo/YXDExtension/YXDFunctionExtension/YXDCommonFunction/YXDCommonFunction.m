@@ -50,15 +50,6 @@
     return [ud objectForKey:YXDCommonFunctionUserDefaultsKey(key, account)];
 }
 
-+ (BOOL)isFirstOpen:(NSString *)key {
-    return [self isFirstOpen:key forAccount:nil];
-}
-
-+ (BOOL)isFirstOpen:(NSString *)key forAccount:(NSString *)account {
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    return ![ud boolForKey:YXDCommonFunctionUserDefaultsKey(key, account)];
-}
-
 + (void)setOpened:(NSString *)key {
     [self setOpened:key forAccount:nil];
 }
@@ -67,6 +58,15 @@
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     [ud setBool:YES forKey:YXDCommonFunctionUserDefaultsKey(key, account)];
     [ud synchronize];
+}
+
++ (BOOL)isFirstOpen:(NSString *)key {
+    return [self isFirstOpen:key forAccount:nil];
+}
+
++ (BOOL)isFirstOpen:(NSString *)key forAccount:(NSString *)account {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    return ![ud boolForKey:YXDCommonFunctionUserDefaultsKey(key, account)];
 }
 
 #pragma mark - 加密
