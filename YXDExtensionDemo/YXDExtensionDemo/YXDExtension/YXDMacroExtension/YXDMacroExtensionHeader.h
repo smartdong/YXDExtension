@@ -79,6 +79,18 @@ cancelButtonTitle:@"确定" \
 otherButtonTitles:nil]; \
 [alert show];
 
+//SharedInstance
+#define SharedInstanceDeclare + (instancetype)sharedInstance;
+#define SharedInstanceImplementation \
++ (instancetype)sharedInstance { \
+static id selfInstance = nil; \
+static dispatch_once_t onceToken; \
+dispatch_once(&onceToken, ^{ \
+    selfInstance = [self new]; \
+}); \
+return selfInstance; \
+}
+
 //触摸点在视图中的位置
 #define TouchPointInView(view) [((UITouch *)[[[event allTouches] allObjects] firstObject]) locationInView:view]
 
