@@ -14,6 +14,7 @@
 		0B6725501B6E9FC9009272B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B67254F1B6E9FC9009272B4 /* Images.xcassets */; };
 		0B67255F1B6E9FC9009272B4 /* YXDExtensionDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B67255E1B6E9FC9009272B4 /* YXDExtensionDemoTests.m */; };
 		0B6A009E1C12C19D009EF58B /* YXDCommonFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A009D1C12C19D009EF58B /* YXDCommonFunction.m */; };
+		0BB7B08D1CCC5DD300DA2296 /* YXDLocalHybridResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7B08C1CCC5DD300DA2296 /* YXDLocalHybridResourceManager.m */; };
 		0BC67DAA1BB70455001B8582 /* YXDBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC67DA91BB70455001B8582 /* YXDBaseViewController.m */; };
 		0BEB8FBA1BB6F8FE0047B656 /* UIViewController+YXDSwizzlingExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BEB8FB91BB6F8FE0047B656 /* UIViewController+YXDSwizzlingExtension.m */; };
 		0BF6BEFD1CB95D4B00CF56DC /* YYCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF6BEF61CB95D4B00CF56DC /* YYCache.m */; };
@@ -192,6 +193,8 @@
 		0B67255E1B6E9FC9009272B4 /* YXDExtensionDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXDExtensionDemoTests.m; sourceTree = "<group>"; };
 		0B6A009C1C12C19D009EF58B /* YXDCommonFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDCommonFunction.h; sourceTree = "<group>"; };
 		0B6A009D1C12C19D009EF58B /* YXDCommonFunction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDCommonFunction.m; sourceTree = "<group>"; };
+		0BB7B08B1CCC5DD300DA2296 /* YXDLocalHybridResourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDLocalHybridResourceManager.h; sourceTree = "<group>"; };
+		0BB7B08C1CCC5DD300DA2296 /* YXDLocalHybridResourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDLocalHybridResourceManager.m; sourceTree = "<group>"; };
 		0BC67DA71BB70361001B8582 /* YXDBaseClassExtensionHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXDBaseClassExtensionHeader.h; sourceTree = "<group>"; };
 		0BC67DA81BB70455001B8582 /* YXDBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDBaseViewController.h; sourceTree = "<group>"; };
 		0BC67DA91BB70455001B8582 /* YXDBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDBaseViewController.m; sourceTree = "<group>"; };
@@ -716,6 +719,8 @@
 				0B5E8B7B1CCBABF50024BE34 /* YXDLocalHybridConfig.h */,
 				B5493FAE1CC86F6F00EBD09D /* YXDLocalHybridManager.h */,
 				B5493FAF1CC86F6F00EBD09D /* YXDLocalHybridManager.m */,
+				0BB7B08B1CCC5DD300DA2296 /* YXDLocalHybridResourceManager.h */,
+				0BB7B08C1CCC5DD300DA2296 /* YXDLocalHybridResourceManager.m */,
 			);
 			path = YXDLocalHybrid;
 			sourceTree = "<group>";
@@ -1390,6 +1395,7 @@
 				B550487F1B81B63E00A78C8D /* TPKeyboardAvoidingScrollView.m in Sources */,
 				B555C8981CA23D0100FB37C9 /* RefreshTestTableViewController.m in Sources */,
 				B5DE71941B6F2FF6006F8FF1 /* UIView+YXDExtension.m in Sources */,
+				0BB7B08D1CCC5DD300DA2296 /* YXDLocalHybridResourceManager.m in Sources */,
 				B550486A1B81B63E00A78C8D /* UIView+MJExtension.m in Sources */,
 				B55048501B81B63E00A78C8D /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				B55048611B81B63E00A78C8D /* MJRefreshBackNormalFooter.m in Sources */,
