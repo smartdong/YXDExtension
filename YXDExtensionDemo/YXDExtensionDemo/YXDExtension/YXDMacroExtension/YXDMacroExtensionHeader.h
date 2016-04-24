@@ -95,8 +95,8 @@ return selfInstance; \
 #define TouchPointInView(view) [((UITouch *)[[[event allTouches] allObjects] firstObject]) locationInView:view]
 
 //weak self
-#define WEAKSELF   typeof(self) __weak weakSelf = self;
-#define STRONGSELF typeof(weakSelf) __strong strongSelf = weakSelf;
+#define WeakSelfDeclare     typeof(self) __weak weakSelf = self;
+#define StrongSelfDeclare   typeof(weakSelf) __strong strongSelf = weakSelf;
 
 /*--------------------------------一些方法简写--------------------------------------*/
 
