@@ -83,12 +83,12 @@ otherButtonTitles:nil]; \
 #define SharedInstanceDeclare + (instancetype)sharedInstance;
 #define SharedInstanceImplementation \
 + (instancetype)sharedInstance { \
-static id selfInstance = nil; \
+static id sharedInstance = nil; \
 static dispatch_once_t onceToken; \
 dispatch_once(&onceToken, ^{ \
-    selfInstance = [self new]; \
+    sharedInstance = [self new]; \
 }); \
-return selfInstance; \
+return sharedInstance; \
 }
 
 //触摸点在视图中的位置
