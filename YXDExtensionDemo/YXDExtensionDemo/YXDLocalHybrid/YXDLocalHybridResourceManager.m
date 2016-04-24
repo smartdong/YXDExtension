@@ -6,7 +6,18 @@
 //
 
 #import "YXDLocalHybridResourceManager.h"
+#import "YXDLocalHybridConfig.h"
+#import "YXDLocalHybridManager.h"
 
 @implementation YXDLocalHybridResourceManager
+
++ (NSString *)resourcePathForKey:(NSString *)key {
+    if (!key.length) {
+        return nil;
+    }
+
+    
+    return nil;
+}
 
 @end

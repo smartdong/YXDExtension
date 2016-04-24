@@ -9,4 +9,6 @@
 
 @interface YXDLocalHybridResourceManager : NSObject
 
++ (NSString *)resourcePathForKey:(NSString *)key;
+
 @end
