@@ -15,8 +15,6 @@ static NSString *kYXDLocalHybridManagerLocalConfigKey = @"kYXDLocalHybridManager
 
 @interface YXDLocalHybridManager ()
 
-@property (nonatomic, strong) NSDictionary *localConfig;
-
 @end
 
 @implementation YXDLocalHybridManager
