@@ -35,6 +35,7 @@
 		B506E6F11CBCE9B200B9945E /* test.db in Resources */ = {isa = PBXBuildFile; fileRef = B506E6F01CBCE9B200B9945E /* test.db */; };
 		B51786341CC87BE100A02F6C /* YXDLocalHybridBaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B51786331CC87BE100A02F6C /* YXDLocalHybridBaseWebViewController.m */; };
 		B51786371CC87C3300A02F6C /* LocalHybridDefaultPage.m in Sources */ = {isa = PBXBuildFile; fileRef = B51786361CC87C3300A02F6C /* LocalHybridDefaultPage.m */; };
+		B51BB8101CCDE212000D7B69 /* Aspects.m in Sources */ = {isa = PBXBuildFile; fileRef = B51BB80F1CCDE212000D7B69 /* Aspects.m */; };
 		B520A8FE1C130C2900CE6701 /* UIDevice+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B520A8FD1C130C2900CE6701 /* UIDevice+YXDExtension.m */; };
 		B520A9011C130C3E00CE6701 /* UITabBar+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B520A9001C130C3E00CE6701 /* UITabBar+YXDExtension.m */; };
 		B520A9041C130F8400CE6701 /* NSData+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B520A9031C130F8400CE6701 /* NSData+YXDExtension.m */; };
@@ -234,6 +235,8 @@
 		B51786331CC87BE100A02F6C /* YXDLocalHybridBaseWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDLocalHybridBaseWebViewController.m; sourceTree = "<group>"; };
 		B51786351CC87C3300A02F6C /* LocalHybridDefaultPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalHybridDefaultPage.h; sourceTree = "<group>"; };
 		B51786361CC87C3300A02F6C /* LocalHybridDefaultPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalHybridDefaultPage.m; sourceTree = "<group>"; };
+		B51BB80E1CCDE212000D7B69 /* Aspects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aspects.h; sourceTree = "<group>"; };
+		B51BB80F1CCDE212000D7B69 /* Aspects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Aspects.m; sourceTree = "<group>"; };
 		B520A8FC1C130C2900CE6701 /* UIDevice+YXDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+YXDExtension.h"; sourceTree = "<group>"; };
 		B520A8FD1C130C2900CE6701 /* UIDevice+YXDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+YXDExtension.m"; sourceTree = "<group>"; };
 		B520A8FF1C130C3E00CE6701 /* UITabBar+YXDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBar+YXDExtension.h"; sourceTree = "<group>"; };
@@ -703,6 +706,15 @@
 			path = YXDLocalHybridBase;
 			sourceTree = "<group>";
 		};
+		B51BB80D1CCDE212000D7B69 /* Aspects */ = {
+			isa = PBXGroup;
+			children = (
+				B51BB80E1CCDE212000D7B69 /* Aspects.h */,
+				B51BB80F1CCDE212000D7B69 /* Aspects.m */,
+			);
+			path = Aspects;
+			sourceTree = "<group>";
+		};
 		B53E03BF1CC728AC00BE4411 /* YXDLogUploadHelper */ = {
 			isa = PBXGroup;
 			children = (
@@ -773,6 +785,7 @@
 			isa = PBXGroup;
 			children = (
 				0BF6BF031CB95E2D00CF56DC /* Frameworks */,
+				B51BB80D1CCDE212000D7B69 /* Aspects */,
 				0BF6BF0A1CB964D800CF56DC /* FMDB */,
 				0BF6BEF41CB95D4B00CF56DC /* YYCache */,
 				B5B8FF7F1CB7848E00AE66B7 /* Lumberjack */,
@@ -1385,6 +1398,7 @@
 				B555C8811C9FC45800FB37C9 /* YXDNetworkResult.m in Sources */,
 				B5493FC31CC8737500EBD09D /* ClassB.m in Sources */,
 				B5B8FFA41CB7848E00AE66B7 /* DDContextFilterLogFormatter.m in Sources */,
+				B51BB8101CCDE212000D7B69 /* Aspects.m in Sources */,
 				B5DE71B51B6F33C1006F8FF1 /* UIWindow+YXDExtension.m in Sources */,
 				B55048631B81B63E00A78C8D /* MJRefreshGifHeader.m in Sources */,
 				B55048711B81B63E00A78C8D /* SDWebImageDownloaderOperation.m in Sources */,
