@@ -54,7 +54,7 @@ typedef NS_ENUM(NSInteger, YXDEncodingType) {
     YXDEncodingTypeBlock,
 };
 
-typedef NS_ENUM(NSInteger, YXDPropertyType) {
+typedef NS_OPTIONS(NSInteger, YXDPropertyType) {
     
     YXDPropertyTypeUnknown      = 0,
     
