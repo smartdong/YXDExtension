@@ -11,7 +11,7 @@
 
 @implementation YXDLocalHybridResourceManager
 
-+ (NSString *)resourcePathForKey:(NSString *)key {
++ (NSURL *)resourceUrlForKey:(NSString *)key{
     if (!key.length) {
         return nil;
     }
