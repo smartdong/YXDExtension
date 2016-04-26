@@ -10,6 +10,7 @@
 #import "YXDExtensionHeader.h"
 #import "YXDLocalHybridConfig.h"
 #import "YXDNetworkManager.h"
+#import "YXDNetworkResult.h"
 
 static NSString *kYXDLocalHybridManagerVersionInfoKey = @"kYXDLocalHybridManagerVersionInfoKey";
 static NSString *kYXDLocalHybridManagerLocalConfigKey = @"kYXDLocalHybridManagerLocalConfigKey";
@@ -39,7 +40,18 @@ static NSString *kYXDLocalHybridManagerLocalConfigKey = @"kYXDLocalHybridManager
     
 //    NSString *versionInfo = [YXDCommonFunction userDefaultsValueForKey:kYXDLocalHybridManagerVersionInfoKey];
     
-    //调接口更新 参数为versionInfo
+//    //调接口更新 参数为versionInfo
+//    YXDNetworkManager *manager = [YXDNetworkManager newManager];
+//    manager.commonParams = [self.params mutableCopy];
+//    manager.commonHeaders = [self.headers mutableCopy];
+//    [manager sendRequestWithParams:nil
+//                  interfaceAddress:self.updateUrl
+//                           success:^(YXDNetworkResult *result) {
+//                               
+//                           }
+//                           failure:nil
+//                     loadingStatus:nil
+//                            method:POST];
     
     //返回配置列表
     //返回所有图片资源文件
