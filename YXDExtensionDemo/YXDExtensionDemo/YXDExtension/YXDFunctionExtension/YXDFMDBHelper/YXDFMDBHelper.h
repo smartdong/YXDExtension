@@ -9,23 +9,23 @@
 
 @class FMDatabase;
 
-static NSString *kYXDFMDBHelperObjectPrimaryID = @"primaryID";
-
-@protocol YXDFMDBHelperObjectProtocol <NSObject>
-
-@property (nonatomic, copy) NSString *primaryID;
-
-@end
+//static NSString *kYXDFMDBHelperObjectPrimaryID = @"primaryID";
+//
+//@protocol YXDFMDBHelperObjectProtocol <NSObject>
+//
+//@property (nonatomic, copy) NSString *primaryID;
+//
+//@end
 
 @interface YXDFMDBHelper : NSObject
 
 #pragma mark - 增删改查
 
-+ (BOOL)insertObjects:(NSArray<id<YXDFMDBHelperObjectProtocol>> *)objects error:(NSError **)error;
-
-+ (BOOL)deleteObjects:(NSArray<id<YXDFMDBHelperObjectProtocol>> *)objects error:(NSError **)error;
-
-+ (BOOL)updateObjects:(NSArray<id<YXDFMDBHelperObjectProtocol>> *)objects error:(NSError **)error;
+//+ (BOOL)insertObjects:(NSArray<id<YXDFMDBHelperObjectProtocol>> *)objects error:(NSError **)error;
+//
+//+ (BOOL)deleteObjects:(NSArray<id<YXDFMDBHelperObjectProtocol>> *)objects error:(NSError **)error;
+//
+//+ (BOOL)updateObjects:(NSArray<id<YXDFMDBHelperObjectProtocol>> *)objects error:(NSError **)error;
 
 + (NSArray *)selectAllObjectsWithClass:(Class)clazz error:(NSError **)error;
 
