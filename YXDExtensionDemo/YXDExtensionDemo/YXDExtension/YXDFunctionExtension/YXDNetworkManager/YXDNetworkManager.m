@@ -91,6 +91,7 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
     
     if (loadingStatus) {
         [YXDHUDManager showWithStatus:loadingStatus];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     }
     
     [self willSendRequest];
@@ -121,6 +122,10 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
     
     void (^successBlock)(AFHTTPRequestOperation *operation, id responseObject) = ^(AFHTTPRequestOperation *operation, id responseObject) {
 
+        if (loadingStatus) {
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        }
+        
         YXDNetworkResult *result = [YXDNetworkResult resultWithDictionary:responseObject];
         
         result.allHeaderFields = operation.response.allHeaderFields;
@@ -157,6 +162,7 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
         
         if (loadingStatus) {
             [YXDHUDManager showErrorAndAutoDismissWithTitle:message];
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         }
         
         if (failure) {
