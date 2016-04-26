@@ -1,12 +1,12 @@
 //
-//  YXDMobClick.m
+//  YXDMobClickHelper.m
 //  YXDExtensionDemo
 //
 //  Copyright © 2016年 YangXudong. All rights reserved.
 //
 
-#import "YXDMobClick.h"
+#import "YXDMobClickHelper.h"
 
-@implementation YXDMobClick
+@implementation YXDMobClickHelper
 
 @end

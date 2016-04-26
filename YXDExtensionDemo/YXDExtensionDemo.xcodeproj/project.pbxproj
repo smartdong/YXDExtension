@@ -43,7 +43,7 @@
 		B520A90A1C131BAD00CE6701 /* NSDictionary+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B520A9091C131BAD00CE6701 /* NSDictionary+YXDExtension.m */; };
 		B533A3041C7C08AD00BEA4A6 /* YXDNetworkImageObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B533A3031C7C08AD00BEA4A6 /* YXDNetworkImageObject.m */; };
 		B53E03C21CC728B800BE4411 /* YXDLogUploadHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B53E03C11CC728B800BE4411 /* YXDLogUploadHelper.m */; };
-		B5459A711CCF4CF600C90304 /* YXDMobClick.m in Sources */ = {isa = PBXBuildFile; fileRef = B5459A701CCF4CF600C90304 /* YXDMobClick.m */; };
+		B5459A751CCF4E4700C90304 /* YXDMobClickHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B5459A741CCF4E4700C90304 /* YXDMobClickHelper.m */; };
 		B5493FB01CC86F6F00EBD09D /* YXDLocalHybridManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5493FAF1CC86F6F00EBD09D /* YXDLocalHybridManager.m */; };
 		B5493FB31CC8730100EBD09D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5493FB11CC8730100EBD09D /* LaunchScreen.xib */; };
 		B5493FB41CC8730100EBD09D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5493FB21CC8730100EBD09D /* Main.storyboard */; };
@@ -252,8 +252,8 @@
 		B533A3031C7C08AD00BEA4A6 /* YXDNetworkImageObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDNetworkImageObject.m; sourceTree = "<group>"; };
 		B53E03C01CC728B800BE4411 /* YXDLogUploadHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDLogUploadHelper.h; sourceTree = "<group>"; };
 		B53E03C11CC728B800BE4411 /* YXDLogUploadHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDLogUploadHelper.m; sourceTree = "<group>"; };
-		B5459A6F1CCF4CF600C90304 /* YXDMobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDMobClick.h; sourceTree = "<group>"; };
-		B5459A701CCF4CF600C90304 /* YXDMobClick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDMobClick.m; sourceTree = "<group>"; };
+		B5459A731CCF4E4700C90304 /* YXDMobClickHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDMobClickHelper.h; sourceTree = "<group>"; };
+		B5459A741CCF4E4700C90304 /* YXDMobClickHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDMobClickHelper.m; sourceTree = "<group>"; };
 		B5493FAE1CC86F6F00EBD09D /* YXDLocalHybridManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDLocalHybridManager.h; sourceTree = "<group>"; };
 		B5493FAF1CC86F6F00EBD09D /* YXDLocalHybridManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDLocalHybridManager.m; sourceTree = "<group>"; };
 		B5493FB11CC8730100EBD09D /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
@@ -727,13 +727,13 @@
 			path = YXDLogUploadHelper;
 			sourceTree = "<group>";
 		};
-		B5459A6E1CCF4CE600C90304 /* YXDMobClick */ = {
+		B5459A721CCF4E3C00C90304 /* YXDMobClickHelper */ = {
 			isa = PBXGroup;
 			children = (
-				B5459A6F1CCF4CF600C90304 /* YXDMobClick.h */,
-				B5459A701CCF4CF600C90304 /* YXDMobClick.m */,
+				B5459A731CCF4E4700C90304 /* YXDMobClickHelper.h */,
+				B5459A741CCF4E4700C90304 /* YXDMobClickHelper.m */,
 			);
-			path = YXDMobClick;
+			path = YXDMobClickHelper;
 			sourceTree = "<group>";
 		};
 		B5493FAD1CC86F5700EBD09D /* YXDLocalHybrid */ = {
@@ -1207,7 +1207,7 @@
 		B5DE71781B6F174A006F8FF1 /* YXDFunctionExtension */ = {
 			isa = PBXGroup;
 			children = (
-				B5459A6E1CCF4CE600C90304 /* YXDMobClick */,
+				B5459A721CCF4E3C00C90304 /* YXDMobClickHelper */,
 				0BF6BF1D1CB965EA00CF56DC /* YXDFMDBHelper */,
 				B5B8FFA71CB793F500AE66B7 /* YXDLog */,
 				B53E03BF1CC728AC00BE4411 /* YXDLogUploadHelper */,
@@ -1451,7 +1451,6 @@
 				B5DE71A61B6F3076006F8FF1 /* UINavigationItem+YXDExtension.m in Sources */,
 				B5DE71971B6F3001006F8FF1 /* UIButton+YXDExtension.m in Sources */,
 				B5493FC11CC8737500EBD09D /* City.m in Sources */,
-				B5459A711CCF4CF600C90304 /* YXDMobClick.m in Sources */,
 				B5DE71BE1B6F3FFF006F8FF1 /* UIActionSheet+YXDExtension.m in Sources */,
 				B5B8FF9C1CB7848E00AE66B7 /* CLIColor.m in Sources */,
 				B55048671B81B63E00A78C8D /* MJRefreshConst.m in Sources */,
@@ -1492,6 +1491,7 @@
 				B520A9041C130F8400CE6701 /* NSData+YXDExtension.m in Sources */,
 				B55048601B81B63E00A78C8D /* MJRefreshBackGifFooter.m in Sources */,
 				B520A8FE1C130C2900CE6701 /* UIDevice+YXDExtension.m in Sources */,
+				B5459A751CCF4E4700C90304 /* YXDMobClickHelper.m in Sources */,
 				B51786371CC87C3300A02F6C /* LocalHybridDefaultPage.m in Sources */,
 				B550484E1B81B63E00A78C8D /* AFURLSessionManager.m in Sources */,
 				B53E03C21CC728B800BE4411 /* YXDLogUploadHelper.m in Sources */,
