@@ -15,7 +15,7 @@
 
 //root vc type  1.纯vc 2.nvc 3.tab vc
 
-//root vc name （数组<字典> 根据 type  如果是3 字典里面是 1.vc url 2.tabicon 3.tabicon selected）
+//root vc name （数组<字典> 根据 type  如果是3 字典里面是 1.vc url 2.标题 3.tabicon url 4.tabicon selected url）
 
 //
 
