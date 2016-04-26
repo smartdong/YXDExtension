@@ -89,9 +89,10 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
                 loadingStatus:(NSString *)loadingStatus
                        method:(NetworkManagerHttpMethod)method {
     
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
     if (loadingStatus) {
         [YXDHUDManager showWithStatus:loadingStatus];
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     }
     
     [self willSendRequest];
@@ -122,7 +123,7 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
     
     void (^successBlock)(AFHTTPRequestOperation *operation, id responseObject) = ^(AFHTTPRequestOperation *operation, id responseObject) {
 
-        if (loadingStatus) {
+        if (!self.requsetManager.operationQueue.operationCount) {
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         }
         
@@ -156,13 +157,16 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
     
     void (^failureBlock)(AFHTTPRequestOperation *operation, NSError *error) = ^(AFHTTPRequestOperation *operation, NSError *error) {
         
+        if (!self.requsetManager.operationQueue.operationCount) {
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        }
+        
         DDLogError(@"\nError : %@ \n%@",error.userInfo,[YXDNetworkManager responseInfoDescription:operation]);
         
         NSString *message = @"网络连接失败";
         
         if (loadingStatus) {
             [YXDHUDManager showErrorAndAutoDismissWithTitle:message];
-            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         }
         
         if (failure) {
