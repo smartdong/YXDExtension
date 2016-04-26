@@ -20,6 +20,10 @@
 
 - (UIViewController *)rootViewController;
 
+#pragma mark -
+
+- (void)configUpdateUrl:(NSString *)updateUrl params:(NSDictionary *)params headers:(NSDictionary *)headers;
+
 + (instancetype)sharedInstance;
 
 @end

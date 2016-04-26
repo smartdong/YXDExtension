@@ -9,11 +9,16 @@
 #import "LocalHybridDefaultPage.h"
 #import "YXDExtensionHeader.h"
 #import "YXDLocalHybridConfig.h"
+#import "YXDNetworkManager.h"
 
 static NSString *kYXDLocalHybridManagerVersionInfoKey = @"kYXDLocalHybridManagerVersionInfoKey";
 static NSString *kYXDLocalHybridManagerLocalConfigKey = @"kYXDLocalHybridManagerLocalConfigKey";
 
 @interface YXDLocalHybridManager ()
+
+@property (nonatomic, copy) NSString *updateUrl;
+@property (nonatomic, strong) NSDictionary *params;
+@property (nonatomic, strong) NSDictionary *headers;
 
 @end
 
@@ -60,6 +65,12 @@ static NSString *kYXDLocalHybridManagerLocalConfigKey = @"kYXDLocalHybridManager
 }
 
 #pragma mark - Shared Instance
+
+- (void)configUpdateUrl:(NSString *)updateUrl params:(NSDictionary *)params headers:(NSDictionary *)headers {
+    self.updateUrl = updateUrl;
+    self.params = params;
+    self.headers = headers;
+}
 
 + (instancetype)sharedInstance {
     static YXDLocalHybridManager *localHybridManager = nil;
