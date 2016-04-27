@@ -7,6 +7,12 @@
 
 #pragma mark - 返回字段定义
 
+typedef NS_ENUM(NSInteger,YXDLocalHybridRootViewControllerType) {
+    YXDLocalHybridRootViewControllerTypeViewController          = 1,
+    YXDLocalHybridRootViewControllerTypeNavigationController    = 2,
+    YXDLocalHybridRootViewControllerTypeTabBarController        = 3,
+};
+
 //版本信息
 
 //本次是否要强制更新
