@@ -76,6 +76,14 @@ static NSString *kYXDLocalHybridManagerLocalConfigKey = @"kYXDLocalHybridManager
 //    _updating = NO;
 }
 
+#pragma mark - Getter
+
+- (BOOL)useLocalHtmlWhenUpdateFailed {
+    //获取配置
+//    [_localConfig objectForKey:];
+    return YES;
+}
+
 #pragma mark - Shared Instance
 
 - (void)configUpdateUrl:(NSString *)updateUrl params:(NSDictionary *)params headers:(NSDictionary *)headers {

@@ -18,6 +18,9 @@
 //本次启动是否已经更新完毕
 @property (nonatomic, assign, readonly, getter=isUpdated) BOOL updated;
 
+//当更新失败或者未更新时 是否使用本地 Html 默认 YES
+@property (nonatomic, assign, readonly) BOOL useLocalHtmlWhenUpdateFailed;
+
 - (UIViewController *)rootViewController;
 
 #pragma mark -
