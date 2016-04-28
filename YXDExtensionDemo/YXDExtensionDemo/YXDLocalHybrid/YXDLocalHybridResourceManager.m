@@ -25,7 +25,11 @@ static NSString *YXDLocalHybridResourceManagerPathMapKey = @"YXDLocalHybridResou
     
     NSString *path = [pathMap objectForKey:key];
     
-    if (path && [YXDFileManager existsItemAtPath:path]) {
+    YXDLocalHybridManager *manager = [YXDLocalHybridManager sharedInstance];
+    //当前是否可用本地 html
+    BOOL couldUseLocalHtml = manager.updated || manager.useLocalHtmlWhenUpdateFailed;
+    
+    if (path && [YXDFileManager existsItemAtPath:path] && couldUseLocalHtml) {
         return path.url;
     }
     
