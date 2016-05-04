@@ -26,10 +26,12 @@ static NSString *kYXDLocalHybridManagerLocalConfigKey = @"kYXDLocalHybridManager
 @implementation YXDLocalHybridManager
 
 - (UIViewController *)rootViewController {
-    //判断当前是否有配置启动页
-//    if ([_localConfig valueForKey:<#(nonnull NSString *)#>]) {
-//        
-//    }
+    //判断当前是否有配置启动页 如果没有配置 则直接返回默认页
+    
+    //判断当前启动页类型是 nvc 还是 tab 还是纯 vc
+    
+    //获取对应资源加载 （是加载本地还是加载在线由YXDLocalHybridResourceManager类判断）
+
     return [LocalHybridDefaultPage new];
 }
 
