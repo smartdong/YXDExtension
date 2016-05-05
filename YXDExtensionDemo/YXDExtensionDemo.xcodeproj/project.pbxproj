@@ -53,7 +53,6 @@
 		B5493FC31CC8737500EBD09D /* ClassB.m in Sources */ = {isa = PBXBuildFile; fileRef = B5493FBE1CC8737500EBD09D /* ClassB.m */; };
 		B5493FC41CC8737500EBD09D /* TestClass.m in Sources */ = {isa = PBXBuildFile; fileRef = B5493FC01CC8737500EBD09D /* TestClass.m */; };
 		B549BCC91C15B7350092F3B2 /* YXDBaseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B549BCC81C15B7350092F3B2 /* YXDBaseObject.m */; };
-		B549BCCC1C15C93B0092F3B2 /* NSObject+YXDSwizzlingExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B549BCCB1C15C93B0092F3B2 /* NSObject+YXDSwizzlingExtension.m */; };
 		B54CBB451C22D26800C85912 /* YXDCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B54CBB441C22D26800C85912 /* YXDCache.m */; };
 		B54F4FA81C2BD8F900CC46BB /* YXDActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = B54F4FA71C2BD8F900CC46BB /* YXDActionView.m */; };
 		B55047BB1B818C4100A78C8D /* UICollectionView+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B55047BA1B818C4100A78C8D /* UICollectionView+YXDExtension.m */; };
@@ -201,7 +200,6 @@
 		0BC67DA71BB70361001B8582 /* YXDBaseClassExtensionHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXDBaseClassExtensionHeader.h; sourceTree = "<group>"; };
 		0BC67DA81BB70455001B8582 /* YXDBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDBaseViewController.h; sourceTree = "<group>"; };
 		0BC67DA91BB70455001B8582 /* YXDBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDBaseViewController.m; sourceTree = "<group>"; };
-		0BEB8FB61BB6F7420047B656 /* YXDSwizzlingExtensionHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXDSwizzlingExtensionHeader.h; sourceTree = "<group>"; };
 		0BEB8FB71BB6F7B40047B656 /* YXDSwizzlingExtensionDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXDSwizzlingExtensionDefine.h; sourceTree = "<group>"; };
 		0BEB8FB81BB6F8FE0047B656 /* UIViewController+YXDSwizzlingExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+YXDSwizzlingExtension.h"; sourceTree = "<group>"; };
 		0BEB8FB91BB6F8FE0047B656 /* UIViewController+YXDSwizzlingExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+YXDSwizzlingExtension.m"; sourceTree = "<group>"; };
@@ -271,8 +269,6 @@
 		B5493FC01CC8737500EBD09D /* TestClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestClass.m; sourceTree = "<group>"; };
 		B549BCC71C15B7350092F3B2 /* YXDBaseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDBaseObject.h; sourceTree = "<group>"; };
 		B549BCC81C15B7350092F3B2 /* YXDBaseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDBaseObject.m; sourceTree = "<group>"; };
-		B549BCCA1C15C93B0092F3B2 /* NSObject+YXDSwizzlingExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+YXDSwizzlingExtension.h"; sourceTree = "<group>"; };
-		B549BCCB1C15C93B0092F3B2 /* NSObject+YXDSwizzlingExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+YXDSwizzlingExtension.m"; sourceTree = "<group>"; };
 		B54CBB431C22D26800C85912 /* YXDCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDCache.h; sourceTree = "<group>"; };
 		B54CBB441C22D26800C85912 /* YXDCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDCache.m; sourceTree = "<group>"; };
 		B54F4FA61C2BD8F900CC46BB /* YXDActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDActionView.h; sourceTree = "<group>"; };
@@ -629,10 +625,7 @@
 		0BEB8FB51BB6F71E0047B656 /* YXDSwizzlingExtension */ = {
 			isa = PBXGroup;
 			children = (
-				0BEB8FB61BB6F7420047B656 /* YXDSwizzlingExtensionHeader.h */,
 				0BEB8FB71BB6F7B40047B656 /* YXDSwizzlingExtensionDefine.h */,
-				B549BCCA1C15C93B0092F3B2 /* NSObject+YXDSwizzlingExtension.h */,
-				B549BCCB1C15C93B0092F3B2 /* NSObject+YXDSwizzlingExtension.m */,
 				0BEB8FB81BB6F8FE0047B656 /* UIViewController+YXDSwizzlingExtension.h */,
 				0BEB8FB91BB6F8FE0047B656 /* UIViewController+YXDSwizzlingExtension.m */,
 				B5FF8EF21CDAEDD100A356E8 /* UIView+YXDSwizzlingExtension.h */,
@@ -1532,7 +1525,6 @@
 				B55048691B81B63E00A78C8D /* UIScrollView+MJRefresh.m in Sources */,
 				B520A9011C130C3E00CE6701 /* UITabBar+YXDExtension.m in Sources */,
 				B549BCC91C15B7350092F3B2 /* YXDBaseObject.m in Sources */,
-				B549BCCC1C15C93B0092F3B2 /* NSObject+YXDSwizzlingExtension.m in Sources */,
 				B5B8FF9E1CB7848E00AE66B7 /* DDAbstractDatabaseLogger.m in Sources */,
 				B5DE719A1B6F3026006F8FF1 /* UITableView+YXDExtension.m in Sources */,
 				B55048791B81B63E00A78C8D /* UIImageView+WebCache.m in Sources */,

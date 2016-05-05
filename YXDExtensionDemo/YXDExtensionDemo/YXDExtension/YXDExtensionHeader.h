@@ -10,5 +10,4 @@
 #import "YXDFunctionExtensionHeader.h"
 #import "YXDMacroExtensionHeader.h"
 #import "YXDUIKitExtensionHeader.h"
-#import "YXDSwizzlingExtensionHeader.h"
 #import "YXDExtensionDefine.h"
