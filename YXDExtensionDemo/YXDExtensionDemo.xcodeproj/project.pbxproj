@@ -167,6 +167,7 @@
 		B5DE71BE1B6F3FFF006F8FF1 /* UIActionSheet+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B5DE71BD1B6F3FFF006F8FF1 /* UIActionSheet+YXDExtension.m */; };
 		B5DE71C21B6F4A2F006F8FF1 /* YXDFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5DE71C11B6F4A2F006F8FF1 /* YXDFileManager.m */; };
 		B5F1D76B1CBB521A00184ADF /* YXDCustomIndexView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F1D76A1CBB521A00184ADF /* YXDCustomIndexView.m */; };
+		B5FF8EF41CDAEDD100A356E8 /* UIView+YXDSwizzlingExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B5FF8EF31CDAEDD100A356E8 /* UIView+YXDSwizzlingExtension.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -507,6 +508,8 @@
 		B5DE71C11B6F4A2F006F8FF1 /* YXDFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDFileManager.m; sourceTree = "<group>"; };
 		B5F1D7691CBB521A00184ADF /* YXDCustomIndexView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDCustomIndexView.h; sourceTree = "<group>"; };
 		B5F1D76A1CBB521A00184ADF /* YXDCustomIndexView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDCustomIndexView.m; sourceTree = "<group>"; };
+		B5FF8EF21CDAEDD100A356E8 /* UIView+YXDSwizzlingExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+YXDSwizzlingExtension.h"; sourceTree = "<group>"; };
+		B5FF8EF31CDAEDD100A356E8 /* UIView+YXDSwizzlingExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+YXDSwizzlingExtension.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -632,6 +635,8 @@
 				B549BCCB1C15C93B0092F3B2 /* NSObject+YXDSwizzlingExtension.m */,
 				0BEB8FB81BB6F8FE0047B656 /* UIViewController+YXDSwizzlingExtension.h */,
 				0BEB8FB91BB6F8FE0047B656 /* UIViewController+YXDSwizzlingExtension.m */,
+				B5FF8EF21CDAEDD100A356E8 /* UIView+YXDSwizzlingExtension.h */,
+				B5FF8EF31CDAEDD100A356E8 /* UIView+YXDSwizzlingExtension.m */,
 			);
 			path = YXDSwizzlingExtension;
 			sourceTree = "<group>";
@@ -1425,6 +1430,7 @@
 				0BB7B08D1CCC5DD300DA2296 /* YXDLocalHybridResourceManager.m in Sources */,
 				B550486A1B81B63E00A78C8D /* UIView+MJExtension.m in Sources */,
 				B55048501B81B63E00A78C8D /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				B5FF8EF41CDAEDD100A356E8 /* UIView+YXDSwizzlingExtension.m in Sources */,
 				B55048611B81B63E00A78C8D /* MJRefreshBackNormalFooter.m in Sources */,
 				B54F4FA81C2BD8F900CC46BB /* YXDActionView.m in Sources */,
 				B55048471B81B63E00A78C8D /* AFHTTPRequestOperationManager.m in Sources */,
