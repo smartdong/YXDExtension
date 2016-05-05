@@ -13,12 +13,12 @@
 //+ (void)load{
 //    static dispatch_once_t onceToken;
 //    dispatch_once(&onceToken, ^{
-//        swizzling_exchangeMethod([UIViewController class] ,@selector(initWithNibName:bundle:), @selector(swizzling_initWithNibName:bundle:));
-//        swizzling_exchangeMethod([UIViewController class] ,@selector(viewDidLoad),    @selector(swizzling_viewDidLoad));
-//        swizzling_exchangeMethod([UIViewController class] ,@selector(viewWillAppear:), @selector(swizzling_viewWillAppear:));
-//        swizzling_exchangeMethod([UIViewController class] ,@selector(viewDidAppear:), @selector(swizzling_viewDidAppear:));
-//        swizzling_exchangeMethod([UIViewController class] ,@selector(viewWillDisappear:), @selector(swizzling_viewWillDisappear:));
-//        swizzling_exchangeMethod([UIViewController class] ,@selector(viewDidDisappear:), @selector(swizzling_viewDidDisappear:));
+//        swizzling_exchangeMethod([self class] ,@selector(initWithNibName:bundle:), @selector(swizzling_initWithNibName:bundle:));
+//        swizzling_exchangeMethod([self class] ,@selector(viewDidLoad),    @selector(swizzling_viewDidLoad));
+//        swizzling_exchangeMethod([self class] ,@selector(viewWillAppear:), @selector(swizzling_viewWillAppear:));
+//        swizzling_exchangeMethod([self class] ,@selector(viewDidAppear:), @selector(swizzling_viewDidAppear:));
+//        swizzling_exchangeMethod([self class] ,@selector(viewWillDisappear:), @selector(swizzling_viewWillDisappear:));
+//        swizzling_exchangeMethod([self class] ,@selector(viewDidDisappear:), @selector(swizzling_viewDidDisappear:));
 //    });
 //}
 
