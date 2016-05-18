@@ -23,69 +23,39 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
 
 #pragma mark - Request
 
-/**
- *  根据相应接口获取数据
- *
- *  @param params           数据字典
- *  @param interfaceAddress 接口地址
- *  @param success          成功处理方法
- *  @param loadingStatus    是否显示加载提示  nil则不提示
- *  @param method           网络请求方法
- */
 - (void)sendRequestWithParams:(NSDictionary *)params
              interfaceAddress:(NSString *)interfaceAddress
-                      success:(void (^)(YXDNetworkResult *result))success
+                   completion:(void (^)(YXDNetworkResult *result))completion
                 loadingStatus:(NSString *)loadingStatus
                        method:(NetworkManagerHttpMethod)method {
     [self sendRequestWithParams:params
                interfaceAddress:interfaceAddress
-                        success:success
-                        failure:nil
+                     completion:completion
+                 networkFailure:nil
                   loadingStatus:loadingStatus
                          method:method];
 }
 
-/**
- *  根据相应接口获取数据
- *
- *  @param params           数据字典
- *  @param interfaceAddress 接口地址
- *  @param success          成功处理方法
- *  @param failure          网络失败处理方法
- *  @param loadingStatus    是否显示加载提示  nil则不提示
- *  @param method           网络请求方法
- */
 - (void)sendRequestWithParams:(NSDictionary *)params
              interfaceAddress:(NSString *)interfaceAddress
-                      success:(void (^)(YXDNetworkResult *))success
-                      failure:(void (^)(NSError *))failure
+                   completion:(void (^)(YXDNetworkResult *result))completion
+               networkFailure:(void (^)(NSError *error))networkFailure
                 loadingStatus:(NSString *)loadingStatus
                        method:(NetworkManagerHttpMethod)method {
     [self sendRequestWithParams:params
                 imagesDataArray:nil
                interfaceAddress:interfaceAddress
-                        success:success
-                        failure:failure
+                     completion:completion
+                 networkFailure:networkFailure
                   loadingStatus:loadingStatus
                          method:method];
 }
 
-/**
- *  根据相应接口获取数据
- *
- *  @param params           数据字典
- *  @param imagesDataArray  图片数据
- *  @param interfaceAddress 接口地址
- *  @param success          成功处理方法
- *  @param failure          网络失败处理方法
- *  @param loadingStatus    是否显示加载提示  nil则不提示
- *  @param method           网络请求方法
- */
 - (void)sendRequestWithParams:(NSDictionary *)params
               imagesDataArray:(NSArray<YXDNetworkImageObject *> *)imagesDataArray
              interfaceAddress:(NSString *)interfaceAddress
-                      success:(void (^)(YXDNetworkResult *))success
-                      failure:(void (^)(NSError *))failure
+                   completion:(void (^)(YXDNetworkResult *result))completion
+               networkFailure:(void (^)(NSError *error))networkFailure
                 loadingStatus:(NSString *)loadingStatus
                        method:(NetworkManagerHttpMethod)method {
     
@@ -150,8 +120,8 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
             [self handleFailureWithOperation:operation result:result];
         }
         
-        if (success) {
-            success(result);
+        if (completion) {
+            completion(result);
         }
     };
     
@@ -169,8 +139,8 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
             [YXDHUDManager showErrorAndAutoDismissWithTitle:message];
         }
         
-        if (failure) {
-            failure([NSError errorWithDomain:kYXDExtensionErrorDomain code:YXDExtensionErrorCodeLostNetwork userInfo:@{NSLocalizedDescriptionKey : message}]);
+        if (networkFailure) {
+            networkFailure([NSError errorWithDomain:kYXDExtensionErrorDomain code:YXDExtensionErrorCodeLostNetwork userInfo:@{NSLocalizedDescriptionKey : message}]);
         }
     };
     

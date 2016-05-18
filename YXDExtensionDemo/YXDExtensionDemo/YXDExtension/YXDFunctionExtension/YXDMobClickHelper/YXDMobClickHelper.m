@@ -40,7 +40,7 @@ static NSString *YXDMobClickHelperAutoConfigKey = @"YXDMobClickHelperAutoConfigK
     //更新最新的 config
     [[YXDNetworkManager newManager] sendRequestWithParams:params
                                          interfaceAddress:url
-                                                  success:^(YXDNetworkResult *result) {
+                                                  completion:^(YXDNetworkResult *result) {
                                                       if (result.list.count) {
                                                           [YXDCommonFunction setUserDefaultsValue:result.list forKey:YXDMobClickHelperAutoConfigKey];
                                                       }

@@ -38,13 +38,13 @@ typedef NS_ENUM(NSInteger, NetworkManagerHttpMethod) {
  *
  *  @param params           数据字典
  *  @param interfaceAddress 接口地址
- *  @param success          成功处理方法
+ *  @param completion       接口返回处理方法
  *  @param loadingStatus    是否显示加载提示  nil则不提示
  *  @param method           网络请求方法
  */
 - (void)sendRequestWithParams:(NSDictionary *)params
              interfaceAddress:(NSString *)interfaceAddress
-                      success:(void (^)(YXDNetworkResult *result))success
+                   completion:(void (^)(YXDNetworkResult *result))completion
                 loadingStatus:(NSString *)loadingStatus
                        method:(NetworkManagerHttpMethod)method;
 
@@ -53,15 +53,15 @@ typedef NS_ENUM(NSInteger, NetworkManagerHttpMethod) {
  *
  *  @param params           数据字典
  *  @param interfaceAddress 接口地址
- *  @param success          成功处理方法
- *  @param failure          网络失败处理方法
+ *  @param completion       接口返回处理方法
+ *  @param networkFailure   网络失败处理方法
  *  @param loadingStatus    是否显示加载提示  nil则不提示
  *  @param method           网络请求方法
  */
 - (void)sendRequestWithParams:(NSDictionary *)params
              interfaceAddress:(NSString *)interfaceAddress
-                      success:(void (^)(YXDNetworkResult *result))success
-                      failure:(void (^)(NSError *error))failure
+                   completion:(void (^)(YXDNetworkResult *result))completion
+               networkFailure:(void (^)(NSError *error))networkFailure
                 loadingStatus:(NSString *)loadingStatus
                        method:(NetworkManagerHttpMethod)method;
 
@@ -71,16 +71,16 @@ typedef NS_ENUM(NSInteger, NetworkManagerHttpMethod) {
 *  @param params           数据字典
 *  @param imagesDataArray  图片数据
 *  @param interfaceAddress 接口地址
-*  @param success          成功处理方法
-*  @param failure          网络失败处理方法
+*  @param completion       接口返回处理方法
+*  @param networkFailure   网络失败处理方法
 *  @param loadingStatus    是否显示加载提示  nil则不提示
 *  @param method           网络请求方法
 */
 - (void)sendRequestWithParams:(NSDictionary *)params
               imagesDataArray:(NSArray<YXDNetworkImageObject *> *)imagesDataArray
              interfaceAddress:(NSString *)interfaceAddress
-                      success:(void (^)(YXDNetworkResult *result))success
-                      failure:(void (^)(NSError *error))failure
+                   completion:(void (^)(YXDNetworkResult *result))completion
+               networkFailure:(void (^)(NSError *error))networkFailure
                 loadingStatus:(NSString *)loadingStatus
                        method:(NetworkManagerHttpMethod)method;
 
