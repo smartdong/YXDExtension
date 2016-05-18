@@ -26,6 +26,17 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
 - (void)sendRequestWithParams:(NSDictionary *)params
              interfaceAddress:(NSString *)interfaceAddress
                    completion:(void (^)(YXDNetworkResult *result))completion
+                       method:(NetworkManagerHttpMethod)method {
+    [self sendRequestWithParams:params
+               interfaceAddress:interfaceAddress
+                     completion:completion
+                  loadingStatus:nil
+                         method:method];
+}
+
+- (void)sendRequestWithParams:(NSDictionary *)params
+             interfaceAddress:(NSString *)interfaceAddress
+                   completion:(void (^)(YXDNetworkResult *result))completion
                 loadingStatus:(NSString *)loadingStatus
                        method:(NetworkManagerHttpMethod)method {
     [self sendRequestWithParams:params

@@ -45,7 +45,6 @@ static NSString *YXDMobClickHelperAutoConfigKey = @"YXDMobClickHelperAutoConfigK
                                                           [YXDCommonFunction setUserDefaultsValue:result.list forKey:YXDMobClickHelperAutoConfigKey];
                                                       }
                                                   }
-                                            loadingStatus:nil
                                                    method:POST];
 }
 

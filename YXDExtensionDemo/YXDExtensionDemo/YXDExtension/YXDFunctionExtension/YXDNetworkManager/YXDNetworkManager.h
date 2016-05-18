@@ -39,6 +39,19 @@ typedef NS_ENUM(NSInteger, NetworkManagerHttpMethod) {
  *  @param params           数据字典
  *  @param interfaceAddress 接口地址
  *  @param completion       接口返回处理方法
+ *  @param method           网络请求方法
+ */
+- (void)sendRequestWithParams:(NSDictionary *)params
+             interfaceAddress:(NSString *)interfaceAddress
+                   completion:(void (^)(YXDNetworkResult *result))completion
+                       method:(NetworkManagerHttpMethod)method;
+
+/**
+ *  根据相应接口获取数据
+ *
+ *  @param params           数据字典
+ *  @param interfaceAddress 接口地址
+ *  @param completion       接口返回处理方法
  *  @param loadingStatus    是否显示加载提示  nil则不提示
  *  @param method           网络请求方法
  */
