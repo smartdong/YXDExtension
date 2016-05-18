@@ -82,11 +82,13 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
 
     void (^constructingBodyBlock)(id<AFMultipartFormData> formData) = imagesDataArray.count?^(id<AFMultipartFormData> formData){
         for (YXDNetworkImageObject *imageObject in imagesDataArray) {
-            if ([imageObject isKindOfClass:[YXDNetworkImageObject class]] && imageObject.imageData && imageObject.paramName.length) {
-                [formData appendPartWithFileData:[imageObject.imageData isKindOfClass:[UIImage class]]?UIImageJPEGRepresentation(imageObject.imageData,(imageObject.quality>0)?imageObject.quality:0.1):[NSData data]
+            if ([imageObject isKindOfClass:[YXDNetworkImageObject class]] && imageObject.paramName.length && [imageObject.imageData isKindOfClass:[UIImage class]]) {
+                [formData appendPartWithFileData:UIImageJPEGRepresentation(imageObject.imageData,(imageObject.quality>0)?imageObject.quality:0.1)
                                             name:imageObject.paramName
                                         fileName:imageObject.imageName?:@""
                                         mimeType:[NSString stringWithFormat:@"image/%@",imageObject.imageType.length?imageObject.imageType:@"png"]];
+            } else {
+                DDLogInfo(@"图片上传数据有误");
             }
         }
     }:nil;

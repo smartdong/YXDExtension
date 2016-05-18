@@ -69,7 +69,7 @@ typedef NS_ENUM(NSInteger, NetworkManagerHttpMethod) {
 *  根据相应接口获取数据
 *
 *  @param params           数据字典
-*  @param imagesDataArray  图片数据
+*  @param imagesDataArray  图片数据（只有在 POST 方法下才生效）
 *  @param interfaceAddress 接口地址
 *  @param completion       接口返回处理方法
 *  @param networkFailure   网络失败处理方法
