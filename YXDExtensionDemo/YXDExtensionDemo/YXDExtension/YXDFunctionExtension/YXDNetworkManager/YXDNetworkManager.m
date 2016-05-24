@@ -205,6 +205,8 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
     }
 }
 
+#pragma mark - Upload & Download
+
 #pragma mark - Cancel
 
 - (void)cancelAllRequest {

@@ -99,6 +99,8 @@ typedef NS_ENUM(NSInteger, NetworkManagerHttpMethod) {
                 loadingStatus:(NSString *)loadingStatus
                        method:(NetworkManagerHttpMethod)method;
 
+#pragma mark - Upload & Download
+
 #pragma mark - Cancel
 
 /**
