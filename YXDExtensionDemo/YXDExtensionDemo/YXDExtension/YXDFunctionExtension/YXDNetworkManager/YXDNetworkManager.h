@@ -21,6 +21,7 @@ typedef NS_ENUM(NSInteger, NetworkManagerHttpMethod) {
 
 @class AFHTTPRequestOperationManager;
 @class AFHTTPRequestOperation;
+@class AFURLSessionManager;
 @class YXDNetworkImageObject;
 @class YXDNetworkResult;
 
@@ -30,6 +31,7 @@ typedef NS_ENUM(NSInteger, NetworkManagerHttpMethod) {
 @property (nonatomic, strong) NSMutableDictionary *commonHeaders;
 
 @property (nonatomic, strong) AFHTTPRequestOperationManager *requestManager;    //普通请求
+@property (nonatomic, strong) AFURLSessionManager *tasksManager;                //上传下载
 
 #pragma mark - Request
 
@@ -97,15 +99,30 @@ typedef NS_ENUM(NSInteger, NetworkManagerHttpMethod) {
                 loadingStatus:(NSString *)loadingStatus
                        method:(NetworkManagerHttpMethod)method;
 
+#pragma mark - Cancel
+
 /**
- *  取消所有请求
+ *  取消所有普通请求
  */
 - (void)cancelAllRequest;
 
+/**
+ *  取消所有上传下载
+ */
+- (void)cancelAllTasks;
+
+/**
+ *  取消所有网络请求及上传下载
+ */
+- (void)cancelAllRequestAndTasks;
+
 #pragma mark - Return Data Handle
 
+//将要发送请求时调用
 - (void)willSendRequest;
+//接口返回成功时调用
 - (void)handleSuccessWithOperation:(AFHTTPRequestOperation *)operation result:(YXDNetworkResult *)result;
+//接口返回失败时调用
 - (void)handleFailureWithOperation:(AFHTTPRequestOperation *)operation result:(YXDNetworkResult *)result;
 
 #pragma mark - New

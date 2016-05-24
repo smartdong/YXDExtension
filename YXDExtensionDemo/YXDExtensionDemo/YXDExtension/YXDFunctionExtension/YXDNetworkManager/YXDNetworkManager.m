@@ -205,11 +205,19 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
     }
 }
 
-/**
- *  取消所有请求
- */
+#pragma mark - Cancel
+
 - (void)cancelAllRequest {
-    [self.requsetManager.operationQueue cancelAllOperations];
+    [self.requestManager.operationQueue cancelAllOperations];
+}
+
+- (void)cancelAllTasks {
+    [self.tasksManager.operationQueue cancelAllOperations];
+}
+
+- (void)cancelAllRequestAndTasks {
+    [self cancelAllRequest];
+    [self cancelAllTasks];
 }
 
 #pragma mark - Return Data Handle
@@ -248,6 +256,16 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
     self.requestManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"text/json",@"application/json",@"text/plain",@"text/javascript",nil];
     self.requestManager.requestSerializer.timeoutInterval = 15; //设置超时
     return self;
+}
+
+- (AFURLSessionManager *)tasksManager {
+    if (_tasksManager) {
+        return _tasksManager;
+    }
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    _tasksManager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    return _tasksManager;
 }
 
 #pragma mark - Private
