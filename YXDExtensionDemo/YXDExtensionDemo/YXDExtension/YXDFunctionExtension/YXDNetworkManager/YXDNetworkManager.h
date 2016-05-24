@@ -26,10 +26,10 @@ typedef NS_ENUM(NSInteger, NetworkManagerHttpMethod) {
 
 @interface YXDNetworkManager : NSObject
 
-@property (nonatomic, strong) AFHTTPRequestOperationManager *requsetManager;
-
 @property (nonatomic, strong) NSMutableDictionary *commonParams;
 @property (nonatomic, strong) NSMutableDictionary *commonHeaders;
+
+@property (nonatomic, strong) AFHTTPRequestOperationManager *requestManager;    //普通请求
 
 #pragma mark - Request
 

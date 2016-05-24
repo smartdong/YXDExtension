@@ -87,7 +87,7 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
     
     [self.commonHeaders enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL * _Nonnull stop) {
         if ([key isKindOfClass:[NSString class]] && [value isKindOfClass:[NSString class]]) {
-            [self.requsetManager.requestSerializer setValue:value forHTTPHeaderField:key];
+            [self.requestManager.requestSerializer setValue:value forHTTPHeaderField:key];
         }
     }];
 
@@ -106,7 +106,7 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
     
     void (^successBlock)(AFHTTPRequestOperation *operation, id responseObject) = ^(AFHTTPRequestOperation *operation, id responseObject) {
 
-        if (!self.requsetManager.operationQueue.operationCount) {
+        if (!self.requestManager.operationQueue.operationCount) {
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         }
         
@@ -140,7 +140,7 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
     
     void (^failureBlock)(AFHTTPRequestOperation *operation, NSError *error) = ^(AFHTTPRequestOperation *operation, NSError *error) {
         
-        if (!self.requsetManager.operationQueue.operationCount) {
+        if (!self.requestManager.operationQueue.operationCount) {
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         }
         
@@ -160,7 +160,7 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
     switch (method) {
         case GET:
         {
-            [self.requsetManager GET:interfaceAddress
+            [self.requestManager GET:interfaceAddress
                           parameters:sendParams
                              success:successBlock
                              failure:failureBlock];
@@ -168,7 +168,7 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
             break;
         case POST:
         {
-            [self.requsetManager POST:interfaceAddress
+            [self.requestManager POST:interfaceAddress
                            parameters:sendParams
             constructingBodyWithBlock:constructingBodyBlock
                               success:successBlock
@@ -177,7 +177,7 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
             break;
         case PUT:
         {
-            [self.requsetManager PUT:interfaceAddress
+            [self.requestManager PUT:interfaceAddress
                           parameters:sendParams
                              success:successBlock
                              failure:failureBlock];
@@ -185,7 +185,7 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
             break;
         case DELETE:
         {
-            [self.requsetManager DELETE:interfaceAddress
+            [self.requestManager DELETE:interfaceAddress
                              parameters:sendParams
                                 success:successBlock
                                 failure:failureBlock];
@@ -193,7 +193,7 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
             break;
         case PATCH:
         {
-            [self.requsetManager PATCH:interfaceAddress
+            [self.requestManager PATCH:interfaceAddress
                             parameters:sendParams
                                success:successBlock
                                failure:failureBlock];
@@ -244,9 +244,9 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
 }
 
 - (instancetype)commonInit {
-    self.requsetManager = [AFHTTPRequestOperationManager new];
-    self.requsetManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"text/json",@"application/json",@"text/plain",@"text/javascript",nil];
-    self.requsetManager.requestSerializer.timeoutInterval = 15; //设置超时
+    self.requestManager = [AFHTTPRequestOperationManager new];
+    self.requestManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"text/json",@"application/json",@"text/plain",@"text/javascript",nil];
+    self.requestManager.requestSerializer.timeoutInterval = 15; //设置超时
     return self;
 }
 
