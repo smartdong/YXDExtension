@@ -12,35 +12,40 @@
 #import "YXDCommonFunction.h"
 #import "YXDFileManager.h"
 
-static NSString *YXDLocalHybridResourceManagerPathMapKey = @"YXDLocalHybridResourceManagerPathMapKey";
+static NSString *YXDLocalHybridResourcerPathMapKey = @"YXDLocalHybridResourcerPathMapKey";
 
 @implementation YXDLocalHybridResourceManager
 
-+ (NSURL *)resourceUrlForKey:(NSString *)key{
-    if (!key.length) {
++ (void)setResourcePath:(NSString *)resourcePath forPage:(NSString *)page {
+    if (!page.length) {
+        return;
+    }
+    NSMutableDictionary *resourcePathMap = [YXDCommonFunction userDefaultsValueForKey:YXDLocalHybridResourcerPathMapKey];
+    if (!resourcePathMap || ![resourcePathMap isKindOfClass:[NSDictionary class]]) {
+        resourcePathMap = [NSMutableDictionary dictionary];
+    } else if (![resourcePathMap isKindOfClass:[NSMutableDictionary class]]){
+        resourcePathMap = [NSMutableDictionary dictionaryWithDictionary:resourcePathMap];
+    }
+    [resourcePathMap setObject:resourcePath forKey:page];
+    [YXDCommonFunction setUserDefaultsValue:resourcePathMap forKey:YXDLocalHybridResourcerPathMapKey];
+}
+
++ (NSURL *)resourceUrlForPage:(NSString *)page {
+    if (!page.length) {
         return nil;
     }
-    
-    NSDictionary *pathMap = [YXDCommonFunction userDefaultsValueForKey:YXDLocalHybridResourceManagerPathMapKey];
-    
-    NSString *path = [pathMap objectForKey:key];
+    NSDictionary *resourcePathMap = [YXDCommonFunction userDefaultsValueForKey:YXDLocalHybridResourcerPathMapKey];
+    NSString *resourcePath = [resourcePathMap objectForKey:page];
     
     YXDLocalHybridManager *manager = [YXDLocalHybridManager sharedInstance];
-    //当前是否可用本地 html
-    BOOL couldUseLocalHtml = manager.updated || manager.useLocalHtmlWhenUpdateFailed;
+    BOOL couldUseLocalHtml = manager.updated || manager.useLocalHtmlBeforeUpdateSucceed;
     
-    if (path && [YXDFileManager existsItemAtPath:path] && couldUseLocalHtml) {
-        return path.url;
+    if (resourcePath && [YXDFileManager existsItemAtPath:resourcePath] && couldUseLocalHtml) {
+        return resourcePath.url;
     }
     
-    //获取下载链接
-    //返回下载链接的 url value
-    //下载资源
-    //成功后将文件地址作为value存在本地
-    
-    NSString *resourcePath = nil;
-
-    return resourcePath.url;
+    //如果不能使用本地资源 或者本地没有可用资源 则使用在线 URL
+    return [YXDLocalHybridConfig urlForKey:page].url;
 }
 
 @end
