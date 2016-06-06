@@ -98,6 +98,10 @@ return sharedInstance; \
 #define WeakSelfDeclare     typeof(self) __weak weakSelf = self;
 #define StrongSelfDeclare   typeof(weakSelf) __strong strongSelf = weakSelf;
 
+//Assert Define
+#define YXDOverrideAssert           NSAssert(0, @"Subclass should override this method !");
+#define YXDTypeAssert(obj, type)    NSAssert([obj isKindOfClass:[type class]], @"Type check error, expect %@, actually is %@", [type class], [obj class]);
+
 /*--------------------------------一些方法简写--------------------------------------*/
 
 //root view controller
