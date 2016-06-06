@@ -5,6 +5,8 @@
 //  Copyright © 2016年 YangXudong. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+
 #pragma mark - 返回字段定义
 
 typedef NS_ENUM(NSInteger,YXDLocalHybridRootViewControllerType) {
@@ -32,3 +34,16 @@ typedef NS_ENUM(NSInteger,YXDLocalHybridRootViewControllerType) {
 //
 
 //
+
+@interface YXDLocalHybridConfig : NSObject
+
+//根据某个页面获取在线 URL
++ (NSString *)urlForPage:(NSString *)page;
+
+//获取具体某项配置的值
++ (id)valueForConfigKey:(NSString *)configKey;
+
+//更新为服务器返回的配置
++ (void)updateConfig:(NSDictionary *)configDictionary;
+
+@end

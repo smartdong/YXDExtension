@@ -45,7 +45,7 @@ static NSString *YXDLocalHybridResourcerPathMapKey = @"YXDLocalHybridResourcerPa
     }
     
     //如果不能使用本地资源 或者本地没有可用资源 则使用在线 URL
-    return [YXDLocalHybridConfig urlForKey:page].url;
+    return [YXDLocalHybridConfig urlForPage:page].url;
 }
 
 @end

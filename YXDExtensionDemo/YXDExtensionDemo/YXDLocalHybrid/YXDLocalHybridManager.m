@@ -6,16 +6,18 @@
 //
 
 #import "YXDLocalHybridManager.h"
-#import "LocalHybridDefaultPage.h"
 #import "YXDExtensionHeader.h"
 #import "YXDLocalHybridConfig.h"
 #import "YXDNetworkManager.h"
 #import "YXDNetworkResult.h"
 
-static NSString *kYXDLocalHybridManagerVersionInfoKey = @"kYXDLocalHybridManagerVersionInfoKey";
-static NSString *kYXDLocalHybridManagerLocalConfigKey = @"kYXDLocalHybridManagerLocalConfigKey";
+//static NSString *kYXDLocalHybridManagerVersionInfoKey = @"kYXDLocalHybridManagerVersionInfoKey";
+//static NSString *kYXDLocalHybridManagerLocalConfigKey = @"kYXDLocalHybridManagerLocalConfigKey";
 
 @interface YXDLocalHybridManager ()
+
+//是否正在更新
+//@property (nonatomic, assign, readonly, getter=isUpdating) BOOL updating;
 
 @property (nonatomic, copy) NSString *updateUrl;
 @property (nonatomic, strong) NSDictionary *params;
@@ -24,16 +26,6 @@ static NSString *kYXDLocalHybridManagerLocalConfigKey = @"kYXDLocalHybridManager
 @end
 
 @implementation YXDLocalHybridManager
-
-- (UIViewController *)rootViewController {
-    //判断当前是否有配置启动页 如果没有配置 则直接返回默认页
-    
-    //判断当前启动页类型是 nvc 还是 tab 还是纯 vc
-    
-    //获取对应资源加载 （是加载本地还是加载在线由YXDLocalHybridResourceManager类判断）
-
-    return [LocalHybridDefaultPage new];
-}
 
 #pragma mark - Update
 
@@ -80,13 +72,13 @@ static NSString *kYXDLocalHybridManagerLocalConfigKey = @"kYXDLocalHybridManager
 
 #pragma mark - Getter
 
-- (BOOL)useLocalHtmlWhenUpdateFailed {
+- (BOOL)useLocalHtmlBeforeUpdateSucceed {
     //获取配置
-//    [_localConfig objectForKey:];
+//    [YXDLocalHybridConfig valueForConfigKey:<#(NSString *)#>];
     return YES;
 }
 
-#pragma mark - Shared Instance
+#pragma mark - Shared Instance & Set Up
 
 - (void)configUpdateUrl:(NSString *)updateUrl params:(NSDictionary *)params headers:(NSDictionary *)headers {
     self.updateUrl = updateUrl;
@@ -99,13 +91,8 @@ static NSString *kYXDLocalHybridManagerLocalConfigKey = @"kYXDLocalHybridManager
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         localHybridManager = [YXDLocalHybridManager new];
-        [localHybridManager commonInit];
     });
     return localHybridManager;
-}
-
-- (void)commonInit {
-    _localConfig = [YXDCommonFunction userDefaultsValueForKey:kYXDLocalHybridManagerLocalConfigKey];
 }
 
 @end
