@@ -9,10 +9,14 @@
 
 @implementation YXDLocalHybridBaseWebViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)setUrl:(NSString *)url {
+    [super setUrl:url];
     
-    self.showLoadingBar = NO;
+    if ([url hasPrefix:@"/"]) {
+        self.showLoadingBar = NO;
+    } else {
+        self.showLoadingBar = YES;
+    }
 }
 
 @end
