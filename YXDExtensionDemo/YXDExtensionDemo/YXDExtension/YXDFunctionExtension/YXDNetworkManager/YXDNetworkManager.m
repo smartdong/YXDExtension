@@ -207,6 +207,42 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
 
 #pragma mark - Upload & Download
 
+//- (void)downTest {
+//    NSURL *URL = [NSURL URLWithString:@"http://porn.yangxudong.me/resource/imgs/giftest.gif"];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+//    NSURLSessionDownloadTask *downloadTask = [self.tasksManager downloadTaskWithRequest:request
+//                                                                               progress:nil
+//                                                                            destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+//                                                                                NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
+//                                                                                                                                                      inDomain:NSUserDomainMask
+//                                                                                                                                             appropriateForURL:nil
+//                                                                                                                                                        create:NO
+//                                                                                                                                                         error:nil];
+//                                                                                return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
+//                                                                            }
+//                                                                      completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+//                                                                          NSLog(@"File downloaded to: %@", filePath);
+//                                                                      }];
+//    
+//    [self.tasksManager setDownloadTaskDidWriteDataBlock:^(NSURLSession *session, NSURLSessionDownloadTask *downloadTask, int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
+//        
+//        double progress = totalBytesWritten/(double)totalBytesExpectedToWrite;
+//        
+//        NSLog(@"Progress... %.2f",progress);
+//        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            if (progress < 1) {
+//                [YXDHUDManager showProgress:progress status:@"正在下载"];
+//            } else {
+//                [YXDHUDManager showSuccessWithTitle:@"下载成功" duration:1];
+//            }
+//        });
+//
+//    }];
+//    
+//    [downloadTask resume];
+//}
+
 #pragma mark - Cancel
 
 - (void)cancelAllRequest {
