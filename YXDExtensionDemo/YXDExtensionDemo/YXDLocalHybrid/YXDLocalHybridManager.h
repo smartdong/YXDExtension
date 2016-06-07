@@ -12,7 +12,7 @@
 //本次启动是否已经更新完毕
 @property (nonatomic, assign, readonly, getter=isUpdated) BOOL updated;
 
-//在更新资源成功以前是否使用本地 HTML 默认 YES
+//在更新资源成功以前是否使用本地 HTML
 @property (nonatomic, assign, readonly) BOOL useLocalHtmlBeforeUpdateSucceed;
 
 #pragma mark - Update

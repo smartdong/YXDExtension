@@ -7,9 +7,12 @@
 
 #import "YXDLocalHybridConfig.h"
 #import "YXDCommonFunction.h"
-#import "YXDMacroExtensionHeader.h"
+//#import "YXDMacroExtensionHeader.h"
 
-static NSString *YXDLocalHybridConfigKey = @"YXDLocalHybridConfigKey";
+NSString *const kYXDLocalHybridConfigVersionInfoKey                     = @"kYXDLocalHybridConfigVersionInfoKey";
+NSString *const kYXDLocalHybridConfigUseLocalHtmlBeforeUpdateSucceedKey = @"kYXDLocalHybridConfigUseLocalHtmlBeforeUpdateSucceedKey";
+
+static NSString *const YXDLocalHybridConfigKey = @"YXDLocalHybridConfigKey";
 
 @implementation YXDLocalHybridConfig
 

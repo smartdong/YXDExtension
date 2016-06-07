@@ -12,7 +12,7 @@
 #import "YXDCommonFunction.h"
 #import "YXDFileManager.h"
 
-static NSString *YXDLocalHybridResourcerPathMapKey = @"YXDLocalHybridResourcerPathMapKey";
+static NSString *const YXDLocalHybridResourcerPathMapKey = @"YXDLocalHybridResourcerPathMapKey";
 
 @implementation YXDLocalHybridResourceManager
 

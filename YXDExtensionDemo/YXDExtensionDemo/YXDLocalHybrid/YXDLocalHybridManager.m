@@ -11,13 +11,10 @@
 #import "YXDNetworkManager.h"
 #import "YXDNetworkResult.h"
 
-//static NSString *kYXDLocalHybridManagerVersionInfoKey = @"kYXDLocalHybridManagerVersionInfoKey";
-//static NSString *kYXDLocalHybridManagerLocalConfigKey = @"kYXDLocalHybridManagerLocalConfigKey";
-
 @interface YXDLocalHybridManager ()
 
 //是否正在更新
-//@property (nonatomic, assign, readonly, getter=isUpdating) BOOL updating;
+@property (nonatomic, assign, readonly, getter=isUpdating) BOOL updating;
 
 @property (nonatomic, copy) NSString *updateUrl;
 @property (nonatomic, strong) NSDictionary *params;
@@ -73,9 +70,7 @@
 #pragma mark - Getter
 
 - (BOOL)useLocalHtmlBeforeUpdateSucceed {
-    //获取配置
-//    [YXDLocalHybridConfig valueForConfigKey:<#(NSString *)#>];
-    return YES;
+    return [[YXDLocalHybridConfig valueForConfigKey:kYXDLocalHybridConfigUseLocalHtmlBeforeUpdateSucceedKey] boolValue];
 }
 
 #pragma mark - Shared Instance & Set Up
