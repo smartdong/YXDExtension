@@ -12,6 +12,8 @@
 #import "YXDNetworkResult.h"
 #import "YXDLog.h"
 #import "YXDExtensionDefine.h"
+#import "NSString+YXDExtension.h"
+#import "YXDFileManager.h"
 
 NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
 
@@ -207,23 +209,35 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
 
 #pragma mark - Upload & Download
 
-//- (void)downTest {
-//    NSURL *URL = [NSURL URLWithString:@"http://porn.yangxudong.me/resource/imgs/giftest.gif"];
-//    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-//    NSURLSessionDownloadTask *downloadTask = [self.tasksManager downloadTaskWithRequest:request
-//                                                                               progress:nil
-//                                                                            destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
-//                                                                                NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
-//                                                                                                                                                      inDomain:NSUserDomainMask
-//                                                                                                                                             appropriateForURL:nil
-//                                                                                                                                                        create:NO
-//                                                                                                                                                         error:nil];
-//                                                                                return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
-//                                                                            }
-//                                                                      completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
-//                                                                          NSLog(@"File downloaded to: %@", filePath);
-//                                                                      }];
-//    
+- (void)downloadWithURL:(NSString *)URL
+              directory:(NSURL *)directory
+             completion:(YXDNetworkManagerDownloadCompletionBlock)completion {
+    if (!URL.length) {
+        if (completion) {
+            completion(nil,[NSError errorWithDomain:kYXDExtensionErrorDomain code:YXDExtensionErrorCodeInputError userInfo:@{NSLocalizedDescriptionKey : @"下载URL为空"}]);
+        }
+        return;
+    }
+    
+    NSURLSessionDownloadTask *downloadTask = [self.tasksManager downloadTaskWithRequest:URL.urlRequest
+                                                                               progress:nil
+                                                                            destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+                                                                                NSURL *targetURL = directory?:[[[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
+                                                                                                                                                     inDomain:NSUserDomainMask
+                                                                                                                                            appropriateForURL:nil
+                                                                                                                                                       create:NO
+                                                                                                                                                         error:nil] URLByAppendingPathComponent:@"Download"];
+                                                                                if (![YXDFileManager isDirectoryItemAtPath:targetURL.relativePath]) {
+                                                                                    [YXDFileManager createDirectoriesForPath:targetURL.relativePath];
+                                                                                }
+                                                                                return [targetURL URLByAppendingPathComponent:[response suggestedFilename]];
+                                                                            }
+                                                                      completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+                                                                          if (completion) {
+                                                                              completion(filePath,error);
+                                                                          }
+                                                                      }];
+    
 //    [self.tasksManager setDownloadTaskDidWriteDataBlock:^(NSURLSession *session, NSURLSessionDownloadTask *downloadTask, int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
 //        
 //        double progress = totalBytesWritten/(double)totalBytesExpectedToWrite;
@@ -237,11 +251,11 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
 //                [YXDHUDManager showSuccessWithTitle:@"下载成功" duration:1];
 //            }
 //        });
-//
+//        
 //    }];
-//    
-//    [downloadTask resume];
-//}
+    
+    [downloadTask resume];
+}
 
 #pragma mark - Cancel
 
