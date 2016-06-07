@@ -7,14 +7,21 @@
 
 #import "UIButton+YXDExtension.h"
 
+//默认倒计时时间
+#define YXDExtension_Verify_Button_Time                  60
+
+//可用时的标题
+#define YXDExtension_Verify_Button_Title_Available       @"获取验证码"
+
+//倒计时的标题
+#define YXDExtension_Verify_Button_Title_Unavailable     @"秒"
+
 @implementation UIButton (YXDExtension)
 
-/**
- *  接收到按钮事件后 调用此方法
- */
-- (void)unavailable
-{
-    if (!self.userInteractionEnabled)return;
+- (void)unavailable {
+    if (!self.userInteractionEnabled) {
+        return;
+    }
     
     __block int timeout = YXDExtension_Verify_Button_Time;
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -46,7 +53,7 @@
     dispatch_resume(_timer);
 }
 
--(void)available {
+- (void)available {
     [self setTitle:YXDExtension_Verify_Button_Title_Available
           forState:UIControlStateNormal];
     self.userInteractionEnabled = YES;
