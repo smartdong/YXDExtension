@@ -120,12 +120,12 @@ typedef NS_ENUM(NSInteger, NetworkManagerHttpMethod) {
 
 #pragma mark - Return Data Handle
 
-//将要发送请求时调用
-- (void)willSendRequest;
-//接口返回成功时调用
-- (void)handleSuccessWithOperation:(AFHTTPRequestOperation *)operation result:(YXDNetworkResult *)result;
-//接口返回失败时调用
-- (void)handleFailureWithOperation:(AFHTTPRequestOperation *)operation result:(YXDNetworkResult *)result;
+//将要发送HTTP请求时调用
+- (void)willSendHTTPRequest;
+//HTTP请求返回成功时调用
+- (void)handleSuccessWithHTTPRequestOperation:(AFHTTPRequestOperation *)operation result:(YXDNetworkResult *)result;
+//HTTP请求返回失败时调用
+- (void)handleFailureWithHTTPRequestOperation:(AFHTTPRequestOperation *)operation result:(YXDNetworkResult *)result;
 
 #pragma mark - New
 

@@ -76,7 +76,7 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
         [YXDHUDManager showWithStatus:loadingStatus];
     }
     
-    [self willSendRequest];
+    [self willSendHTTPRequest];
     
     NSMutableDictionary *sendParams = nil;
     
@@ -121,7 +121,7 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
             
             DDLogInfo(@"\nSuccess : %@ \n%@",result.message,[YXDNetworkManager responseInfoDescription:operation]);
             
-            [self handleSuccessWithOperation:operation result:result];
+            [self handleSuccessWithHTTPRequestOperation:operation result:result];
             
         } else {
             if (loadingStatus) {
@@ -130,7 +130,7 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
             
             DDLogError(@"\nError : %@ \n%@",result.error.localizedDescription,[YXDNetworkManager responseInfoDescription:operation]);
             
-            [self handleFailureWithOperation:operation result:result];
+            [self handleFailureWithHTTPRequestOperation:operation result:result];
         }
         
         if (completion) {
@@ -260,15 +260,15 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
 
 #pragma mark - Return Data Handle
 
-- (void)willSendRequest {
+- (void)willSendHTTPRequest {
     
 }
 
-- (void)handleSuccessWithOperation:(AFHTTPRequestOperation *)operation result:(YXDNetworkResult *)result {
+- (void)handleSuccessWithHTTPRequestOperation:(AFHTTPRequestOperation *)operation result:(YXDNetworkResult *)result {
     
 }
 
-- (void)handleFailureWithOperation:(AFHTTPRequestOperation *)operation result:(YXDNetworkResult *)result {
+- (void)handleFailureWithHTTPRequestOperation:(AFHTTPRequestOperation *)operation result:(YXDNetworkResult *)result {
     
 }
 
