@@ -251,6 +251,10 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
                                                                       return [targetURL URLByAppendingPathComponent:[response suggestedFilename]];
                                                                   }
                                                             completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+                                                                if (loadingStatus && (error.code == YXDExtensionErrorCodeCancelled)) {
+                                                                    [YXDHUDManager showSuccessAndAutoDismissWithTitle:@"下载已取消"];
+                                                                }
+                                                                
                                                                 if (completion) {
                                                                     completion(filePath,error);
                                                                 }
@@ -264,7 +268,7 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
                     if (progress < 1) {
                         [YXDHUDManager showProgress:progress status:loadingStatus];
                     } else {
-                        [YXDHUDManager showSuccessWithTitle:@"下载成功" duration:1];
+                        [YXDHUDManager showSuccessAndAutoDismissWithTitle:@"下载成功"];
                     }
                 });
             }

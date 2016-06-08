@@ -13,4 +13,5 @@ typedef NS_ENUM(NSInteger, YXDExtensionErrorCode) {
     YXDExtensionErrorCodeServerError  = 500     ,   //服务器内部错误
     YXDExtensionErrorCodeLostNetwork  = -100    ,   //当前无网络
     YXDExtensionErrorCodeInputError   = 100     ,   //输入错误
+    YXDExtensionErrorCodeCancelled    = -999    ,   //用户取消
 };
