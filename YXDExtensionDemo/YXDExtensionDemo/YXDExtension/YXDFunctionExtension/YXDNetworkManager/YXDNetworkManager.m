@@ -281,7 +281,9 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
 }
 
 - (void)cancelAllTasks {
-    [self.tasksManager.operationQueue cancelAllOperations];
+    for (NSURLSessionTask *task in self.tasksManager.tasks) {
+        [task cancel];
+    }
 }
 
 - (void)cancelAllRequestAndTasks {
