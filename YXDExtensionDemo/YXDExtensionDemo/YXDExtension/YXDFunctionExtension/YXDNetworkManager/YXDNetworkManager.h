@@ -107,12 +107,34 @@ typedef void(^YXDNetworkManagerDownloadCompletionBlock)(NSURL *filePath, NSError
 /**
  *  根据 URL 下载文件
  *
- *  @param URL        文件 URL
- *  @param directory  下载目录
- *  @param completion 下载完毕后执行的方法
+ *  @param URL              文件 URL
+ *  @param completion       下载完毕后执行的方法
+ */
+- (void)downloadWithURL:(NSString *)URL
+             completion:(YXDNetworkManagerDownloadCompletionBlock)completion;
+
+/**
+ *  根据 URL 下载文件
+ *
+ *  @param URL              文件 URL
+ *  @param directory        下载目录
+ *  @param completion       下载完毕后执行的方法
  */
 - (void)downloadWithURL:(NSString *)URL
               directory:(NSURL *)directory
+             completion:(YXDNetworkManagerDownloadCompletionBlock)completion;
+
+/**
+ *  根据 URL 下载文件
+ *
+ *  @param URL              文件 URL
+ *  @param directory        下载目录
+ *  @param loadingStatus    是否显示加载提示  nil则不提示 不为nil则同时显示下载进度
+ *  @param completion       下载完毕后执行的方法
+ */
+- (void)downloadWithURL:(NSString *)URL
+              directory:(NSURL *)directory
+          loadingStatus:(NSString *)loadingStatus
              completion:(YXDNetworkManagerDownloadCompletionBlock)completion;
 
 #pragma mark - Cancel

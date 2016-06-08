@@ -210,8 +210,26 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
 #pragma mark - Upload & Download
 
 - (void)downloadWithURL:(NSString *)URL
+             completion:(YXDNetworkManagerDownloadCompletionBlock)completion {
+    [self downloadWithURL:URL
+                directory:nil
+               completion:completion];
+}
+
+- (void)downloadWithURL:(NSString *)URL
               directory:(NSURL *)directory
              completion:(YXDNetworkManagerDownloadCompletionBlock)completion {
+    [self downloadWithURL:URL
+                directory:directory
+            loadingStatus:nil
+               completion:completion];
+}
+
+- (void)downloadWithURL:(NSString *)URL
+              directory:(NSURL *)directory
+          loadingStatus:(NSString *)loadingStatus
+             completion:(YXDNetworkManagerDownloadCompletionBlock)completion {
+    
     if (!URL.length) {
         if (completion) {
             completion(nil,[NSError errorWithDomain:kYXDExtensionErrorDomain code:YXDExtensionErrorCodeInputError userInfo:@{NSLocalizedDescriptionKey : @"下载URL为空"}]);
@@ -219,42 +237,39 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
         return;
     }
     
-    NSURLSessionDownloadTask *downloadTask = [self.tasksManager downloadTaskWithRequest:URL.URLRequest
-                                                                               progress:nil
-                                                                            destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
-                                                                                NSURL *targetURL = directory?:[[[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
-                                                                                                                                                     inDomain:NSUserDomainMask
-                                                                                                                                            appropriateForURL:nil
-                                                                                                                                                       create:NO
-                                                                                                                                                         error:nil] URLByAppendingPathComponent:@"Download"];
-                                                                                if (![YXDFileManager isDirectoryItemAtPath:targetURL.relativePath]) {
-                                                                                    [YXDFileManager createDirectoriesForPath:targetURL.relativePath];
-                                                                                }
-                                                                                return [targetURL URLByAppendingPathComponent:[response suggestedFilename]];
-                                                                            }
-                                                                      completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
-                                                                          if (completion) {
-                                                                              completion(filePath,error);
-                                                                          }
-                                                                      }];
+    NSURLSessionDownloadTask *dt = [self.tasksManager downloadTaskWithRequest:URL.URLRequest
+                                                                     progress:nil
+                                                                  destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+                                                                      NSURL *targetURL = directory?:[[[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
+                                                                                                                                            inDomain:NSUserDomainMask
+                                                                                                                                   appropriateForURL:nil
+                                                                                                                                              create:NO
+                                                                                                                                               error:nil] URLByAppendingPathComponent:@"Downloads"];
+                                                                      if (![YXDFileManager isDirectoryItemAtPath:targetURL.relativePath]) {
+                                                                          [YXDFileManager createDirectoriesForPath:targetURL.relativePath];
+                                                                      }
+                                                                      return [targetURL URLByAppendingPathComponent:[response suggestedFilename]];
+                                                                  }
+                                                            completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+                                                                if (completion) {
+                                                                    completion(filePath,error);
+                                                                }
+                                                            }];
     
-//    [self.tasksManager setDownloadTaskDidWriteDataBlock:^(NSURLSession *session, NSURLSessionDownloadTask *downloadTask, int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
-//        
-//        double progress = totalBytesWritten/(double)totalBytesExpectedToWrite;
-//        
-//        NSLog(@"Progress... %.2f",progress);
-//        
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            if (progress < 1) {
-//                [YXDHUDManager showProgress:progress status:@"正在下载"];
-//            } else {
-//                [YXDHUDManager showSuccessWithTitle:@"下载成功" duration:1];
-//            }
-//        });
-//        
-//    }];
+    if (loadingStatus) {
+        [self.tasksManager setDownloadTaskDidWriteDataBlock:^(NSURLSession *session, NSURLSessionDownloadTask *downloadTask, int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
+            double progress = totalBytesWritten/(double)totalBytesExpectedToWrite;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (progress < 1) {
+                    [YXDHUDManager showProgress:progress status:loadingStatus];
+                } else {
+                    [YXDHUDManager showSuccessWithTitle:@"下载成功" duration:1];
+                }
+            });
+        }];
+    }
     
-    [downloadTask resume];
+    [dt resume];
 }
 
 #pragma mark - Cancel
