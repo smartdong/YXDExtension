@@ -258,14 +258,16 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
     
     if (loadingStatus) {
         [self.tasksManager setDownloadTaskDidWriteDataBlock:^(NSURLSession *session, NSURLSessionDownloadTask *downloadTask, int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
-            double progress = totalBytesWritten/(double)totalBytesExpectedToWrite;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (progress < 1) {
-                    [YXDHUDManager showProgress:progress status:loadingStatus];
-                } else {
-                    [YXDHUDManager showSuccessWithTitle:@"下载成功" duration:1];
-                }
-            });
+            if (downloadTask == dt) { //同时只显示一个进度
+                double progress = totalBytesWritten/(double)totalBytesExpectedToWrite;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (progress < 1) {
+                        [YXDHUDManager showProgress:progress status:loadingStatus];
+                    } else {
+                        [YXDHUDManager showSuccessWithTitle:@"下载成功" duration:1];
+                    }
+                });
+            }
         }];
     }
     
