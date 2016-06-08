@@ -56,7 +56,7 @@ static NSString *kJavascriptInterfacesName = @"demo";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if (self.url.length && !self.webView.request) {
+    if (self.URL.length && !self.webView.request) {
         [self loadRequest];
     }
 }
@@ -84,10 +84,10 @@ static NSString *kJavascriptInterfacesName = @"demo";
     return self;
 }
 
-- (instancetype)initWithUrl:(NSString *)url {
+- (instancetype)initWithURL:(NSString *)URL {
     self = [self init];
     if (self) {
-        self.url = url;
+        self.URL = URL;
     }
     return self;
 }
@@ -125,11 +125,11 @@ static NSString *kJavascriptInterfacesName = @"demo";
 #pragma mark - Method
 
 - (void)loadRequest {
-    if (!self.url.length) {
+    if (!self.URL.length) {
         return;
     }
     
-    [self.webView loadRequest:self.url.urlRequest];
+    [self.webView loadRequest:self.URL.URLRequest];
 }
 
 - (void)addJavascriptInterfaces {

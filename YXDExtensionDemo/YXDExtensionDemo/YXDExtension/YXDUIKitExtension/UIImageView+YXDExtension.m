@@ -16,12 +16,12 @@
     self.image = [UIImage imageNamed:name];
 }
 
-- (void)setImageWithUrlString:(NSString *)urlString {
-    [self sd_setImageWithURL:urlString.url];
+- (void)setImageWithURLString:(NSString *)URLString {
+    [self sd_setImageWithURL:URLString.URL];
 }
 
-- (void)setImageWithUrlString:(NSString *)urlString placeholderImageName:(NSString *)placeholderImageName {
-    [self sd_setImageWithURL:urlString.url placeholderImage:[UIImage imageNamed:placeholderImageName]];
+- (void)setImageWithURLString:(NSString *)URLString placeholderImageName:(NSString *)placeholderImageName {
+    [self sd_setImageWithURL:URLString.URL placeholderImage:[UIImage imageNamed:placeholderImageName]];
 }
 
 - (void)startAnimatingWithGifImageName:(NSString *)gifImageName {

@@ -11,9 +11,9 @@
 
 - (void)setImageWithName:(NSString *)name;
 
-- (void)setImageWithUrlString:(NSString *)urlString;
+- (void)setImageWithURLString:(NSString *)URLString;
 
-- (void)setImageWithUrlString:(NSString *)urlString placeholderImageName:(NSString *)placeholderImageName;
+- (void)setImageWithURLString:(NSString *)URLString placeholderImageName:(NSString *)placeholderImageName;
 
 - (void)startAnimatingWithGifImageName:(NSString *)gifImageName;
 

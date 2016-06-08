@@ -55,15 +55,15 @@
     return [[NSString stringWithFormat:@"%.2f",price] priceString];
 }
 
-- (NSURL *)url {
+- (NSURL *)URL {
     if ([self hasPrefix:@"/"]) {
         return [NSURL fileURLWithPath:self];
     }
     return [NSURL URLWithString:[self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 
-- (NSURLRequest *)urlRequest {
-    return [NSURLRequest requestWithURL:self.url];
+- (NSURLRequest *)URLRequest {
+    return [NSURLRequest requestWithURL:self.URL];
 }
 
 - (NSNumber *)numberValue {
@@ -88,11 +88,11 @@ static NSString * YXDPercentEscapedQueryStringValueFromStringWithEncoding(NSStri
     return (__bridge_transfer  NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef)string, NULL, (__bridge CFStringRef)kAFCharactersToBeEscapedInQueryString, CFStringConvertNSStringEncodingToEncoding(encoding));
 }
 
-- (NSString *)urlDecode {
+- (NSString *)URLDecode {
     return [self stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
-- (NSString *)urlEncode {
+- (NSString *)URLEncode {
     return YXDPercentEscapedQueryStringValueFromStringWithEncoding(self, NSUTF8StringEncoding);
 }
 

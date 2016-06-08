@@ -219,7 +219,7 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
         return;
     }
     
-    NSURLSessionDownloadTask *downloadTask = [self.tasksManager downloadTaskWithRequest:URL.urlRequest
+    NSURLSessionDownloadTask *downloadTask = [self.tasksManager downloadTaskWithRequest:URL.URLRequest
                                                                                progress:nil
                                                                             destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
                                                                                 NSURL *targetURL = directory?:[[[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory

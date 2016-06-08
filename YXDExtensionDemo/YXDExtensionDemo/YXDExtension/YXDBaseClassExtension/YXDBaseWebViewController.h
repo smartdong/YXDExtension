@@ -15,13 +15,13 @@
 
 @property (nonatomic, strong) UIColor *backgroundColor;
 
-@property (nonatomic, copy) NSString *url;
+@property (nonatomic, copy) NSString *URL;
 
 @property (nonatomic, assign) BOOL showLoadingBar;              //Default YES
 
 @property (nonatomic, strong) UIColor *loadingBarTintColor;     //Default colour is iOS system blue
 
-- (instancetype)initWithUrl:(NSString *)url;
+- (instancetype)initWithURL:(NSString *)URL;
 
 //加载 self.url  会在 viewWillAppear 时自动调用
 - (void)loadRequest;

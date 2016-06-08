@@ -21,13 +21,13 @@
 - (NSString *)priceString;
 + (NSString *)priceStringWithFloat:(float)price;
 
-- (NSURL *)url;
-- (NSURLRequest *)urlRequest;
+- (NSURL *)URL;
+- (NSURLRequest *)URLRequest;
 
 - (NSNumber *)numberValue;
 
-- (NSString *)urlDecode;
-- (NSString *)urlEncode;
+- (NSString *)URLDecode;
+- (NSString *)URLEncode;
 
 - (NSString *)toBase64String;
 - (NSString *)base64StringToOriginString;
