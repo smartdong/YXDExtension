@@ -11,6 +11,7 @@
 #import "ClassA.h"
 #import "ClassB.h"
 #import "City.h"
+#import "YXDNetworkManager.h"
 
 @interface ViewController ()
 
@@ -25,6 +26,30 @@
 //    [self jsonToObjectTest];
 //    [self playGifTest];
 //    [self fmdbHelperTest];
+}
+
+//- (void)viewDidAppear:(BOOL)animated {
+//    [super viewDidAppear:animated];
+//    
+//    [self downloadTest];
+//}
+//
+//-(void)viewDidDisappear:(BOOL)animated {
+//    [super viewDidDisappear:animated];
+//    
+//    [[YXDNetworkManager sharedInstance] cancelAllTasks];
+//}
+
+- (void)downloadTest {
+//    http://porn.yangxudong.me/resource/imgs/giftest.gif
+//    http://porn.yangxudong.me/resource/data/resource.zip
+    
+    [[YXDNetworkManager sharedInstance] downloadWithURL:@"http://porn.yangxudong.me/resource/data/resource.zip"
+                                              directory:[kDocuments.URL URLByAppendingPathComponent:@"H5"]
+                                          loadingStatus:@"正在下载"
+                                             completion:^(NSURL *filePath, NSError *error) {
+                                                 NSLog(@"path : %@ \n error : %@",filePath.relativeString,error);
+                                             }];
 }
 
 - (void)fmdbHelperTest {
