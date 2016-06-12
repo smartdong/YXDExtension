@@ -240,15 +240,7 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
     NSURLSessionDownloadTask *dt = [self.tasksManager downloadTaskWithRequest:URL.URLRequest
                                                                      progress:nil
                                                                   destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
-                                                                      NSURL *targetURL = directory?:[[[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
-                                                                                                                                            inDomain:NSUserDomainMask
-                                                                                                                                   appropriateForURL:nil
-                                                                                                                                              create:NO
-                                                                                                                                               error:nil] URLByAppendingPathComponent:@"Downloads"];
-                                                                      if (![YXDFileManager isDirectoryItemAtPath:targetURL.relativePath]) {
-                                                                          [YXDFileManager createDirectoriesForPath:targetURL.relativePath];
-                                                                      }
-                                                                      return [targetURL URLByAppendingPathComponent:[response suggestedFilename]];
+                                                                      return [YXDNetworkManager downloadDestinationWithDirectory:directory response:response];
                                                                   }
                                                             completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
                                                                 if (loadingStatus && (error.code == YXDExtensionErrorCodeCancelled)) {
@@ -276,6 +268,80 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
     }
     
     [dt resume];
+}
+
+- (void)downloadWithURLArray:(NSArray<NSString *> *)URLArray
+                   directory:(NSURL *)directory
+                  completion:(YXDNetworkManagerMultiFilesDownloadCompletionBlock)completion {
+    if (!URLArray.count) {
+        if (completion) {
+            completion(nil,[NSError errorWithDomain:kYXDExtensionErrorDomain code:YXDExtensionErrorCodeInputError userInfo:@{NSLocalizedDescriptionKey : @"下载URL为空"}]);
+        }
+        return;
+    }
+    
+    //下载队列
+    NSMutableArray *tasks = [NSMutableArray array];
+    //文件地址
+    NSMutableArray *filePaths = [NSMutableArray array];
+    //创建下载任务
+    for (NSString *URL in URLArray) {
+        if (!URL.length) {
+            continue;
+        }
+        
+        NSURLSessionDownloadTask *dt = [self.tasksManager downloadTaskWithRequest:URL.URLRequest
+                                                                         progress:nil
+                                                                      destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+                                                                          return [YXDNetworkManager downloadDestinationWithDirectory:directory response:response];
+                                                                      }
+                                                                completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+                                                                    if (!error && filePath) {
+                                                                        [filePaths addObject:filePath];
+                                                                    }
+                                                                }];
+        //将下载任务添加到队列
+        [tasks addObject:dt];
+    }
+    
+    if (!tasks.count) {
+        completion(nil,[NSError errorWithDomain:kYXDExtensionErrorDomain code:YXDExtensionErrorCodeInputError userInfo:@{NSLocalizedDescriptionKey : @"没有有效的下载URL"}]);
+        return;
+    }
+    
+    //下载完成 从队列中移除
+    [self.tasksManager setTaskDidCompleteBlock:^(NSURLSession * _Nonnull session, NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
+        if ([tasks containsObject:task]) {
+            [tasks removeObject:task];
+        }
+        
+        //如果当前没有下载任务 则表示下载全部完成
+        if (!tasks.count) {
+            if (error.code == YXDExtensionErrorCodeCancelled) {
+                completion(filePaths,[NSError errorWithDomain:kYXDExtensionErrorDomain code:YXDExtensionErrorCodeCancelled userInfo:@{NSLocalizedDescriptionKey : @"用户下载取消"}]);
+            } else {
+                completion(filePaths,error);
+            }
+        }
+    }];
+    
+    //开始下载
+    for (NSURLSessionDownloadTask *dt in tasks) {
+        [dt resume];
+    }
+}
+
+//获取下载目录 若目录不存在则创建目录
++ (NSURL *)downloadDestinationWithDirectory:(NSURL *)directory response:(NSURLResponse *)response {
+    NSURL *targetURL = directory?:[[[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
+                                                                          inDomain:NSUserDomainMask
+                                                                 appropriateForURL:nil
+                                                                            create:NO
+                                                                             error:nil] URLByAppendingPathComponent:@"Downloads"];
+    if (![YXDFileManager isDirectoryItemAtPath:targetURL.relativePath]) {
+        [YXDFileManager createDirectoriesForPath:targetURL.relativePath];
+    }
+    return [targetURL URLByAppendingPathComponent:[response suggestedFilename]];
 }
 
 #pragma mark - Cancel

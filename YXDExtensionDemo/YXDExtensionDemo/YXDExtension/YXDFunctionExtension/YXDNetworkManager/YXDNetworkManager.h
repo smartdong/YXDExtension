@@ -19,8 +19,8 @@ typedef NS_ENUM(NSInteger, NetworkManagerHttpMethod) {
     PATCH,
 };
 
-//typedef void(^YXDNetworkManagerProgressBlock)(float progressValue);
 typedef void(^YXDNetworkManagerDownloadCompletionBlock)(NSURL *filePath, NSError *error);
+typedef void(^YXDNetworkManagerMultiFilesDownloadCompletionBlock)(NSArray<NSURL *> *filePaths, NSError *error);
 
 @class AFHTTPRequestOperationManager;
 @class AFHTTPRequestOperation;
@@ -136,6 +136,17 @@ typedef void(^YXDNetworkManagerDownloadCompletionBlock)(NSURL *filePath, NSError
               directory:(NSURL *)directory
           loadingStatus:(NSString *)loadingStatus
              completion:(YXDNetworkManagerDownloadCompletionBlock)completion;
+
+/**
+ *  根据 URLArray 下载文件
+ *
+ *  @param URLArray         文件 URLArray
+ *  @param directory        下载目录 所有的文件都下载到这个目录
+ *  @param completion       下载完毕后执行的方法
+ */
+- (void)downloadWithURLArray:(NSArray<NSString *> *)URLArray
+                   directory:(NSURL *)directory
+                  completion:(YXDNetworkManagerMultiFilesDownloadCompletionBlock)completion;
 
 #pragma mark - Cancel
 
