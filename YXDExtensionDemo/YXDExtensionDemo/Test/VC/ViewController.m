@@ -12,6 +12,7 @@
 #import "ClassB.h"
 #import "City.h"
 #import "YXDNetworkManager.h"
+#import "YXDFileManager.h"
 
 @interface ViewController ()
 
@@ -28,17 +29,21 @@
 //    [self fmdbHelperTest];
 }
 
-//- (void)viewDidAppear:(BOOL)animated {
-//    [super viewDidAppear:animated];
-//    
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
 //    [self downloadTest];
-//}
-//
-//-(void)viewDidDisappear:(BOOL)animated {
-//    [super viewDidDisappear:animated];
-//    
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
 //    [[YXDNetworkManager sharedInstance] cancelAllTasks];
-//}
+}
+
+- (void)unzipWithZipFilePath:(NSString *)zipFilePath destinationPath:(NSString *)destinationPath {
+    [YXDFileManager unzipFileAtPath:zipFilePath toDestination:destinationPath];
+}
 
 - (void)downloadTest {
 //    http://porn.yangxudong.me/resource/imgs/giftest.gif
@@ -46,31 +51,32 @@
     
     NSLog(@"开始下载");
     
-//    [[YXDNetworkManager sharedInstance] downloadWithURL:@"http://porn.yangxudong.me/resource/data/resource.zip"
-//                                              directory:[kDocuments.URL URLByAppendingPathComponent:@"H5"]
-//                                          loadingStatus:@"正在下载"
-//                                             completion:^(NSURL *filePath, NSError *error) {
-//                                                 NSLog(@"path : %@ \n error : %@",filePath.relativeString,error);
-//                                             }];
+    [[YXDNetworkManager sharedInstance] downloadWithURL:@"http://porn.yangxudong.me/resource/data/resource.zip"
+                                              directory:[kDocuments.URL URLByAppendingPathComponent:@"H5"]
+                                          loadingStatus:@"正在下载"
+                                             completion:^(NSURL *filePath, NSError *error) {
+                                                 NSLog(@"path : %@ \n error : %@",filePath.relativeString,error);
+                                                 [self unzipWithZipFilePath:filePath.relativePath destinationPath:[NSString stringWithFormat:@"%@/H5/Test",kDocuments]];
+                                             }];
     
-    [[YXDNetworkManager sharedInstance] downloadWithURLArray:@[
-                                                               @"http://porn.yangxudong.me/resource/imgs/test.jpg",
-                                                               @"http://porn.yangxudong.me/resource/imgs/giftest.gif",
-                                                               @"http://porn.yangxudong.me/resource/data/resource.zip",
-                                                               ]
-                                                   directory:[kDocuments.URL URLByAppendingPathComponent:@"dls"]
-                                                  completion:^(NSArray<NSURL *> *filePaths, NSError *error) {
-                                                      if (error) {
-                                                          NSLog(@"error : %@",error.localizedDescription);
-                                                      }
-                                                      
-                                                      if (filePaths.count) {
-                                                          NSLog(@"下载完成:");
-                                                          for (NSURL *fp in filePaths) {
-                                                              NSLog(@"path : %@",fp.relativePath);
-                                                          }
-                                                      }
-                                                  }];
+//    [[YXDNetworkManager sharedInstance] downloadWithURLArray:@[
+//                                                               @"http://porn.yangxudong.me/resource/imgs/test.jpg",
+//                                                               @"http://porn.yangxudong.me/resource/imgs/giftest.gif",
+//                                                               @"http://porn.yangxudong.me/resource/data/resource.zip",
+//                                                               ]
+//                                                   directory:[kDocuments.URL URLByAppendingPathComponent:@"dls"]
+//                                                  completion:^(NSArray<NSURL *> *filePaths, NSError *error) {
+//                                                      if (error) {
+//                                                          NSLog(@"error : %@",error.localizedDescription);
+//                                                      }
+//                                                      
+//                                                      if (filePaths.count) {
+//                                                          NSLog(@"下载完成:");
+//                                                          for (NSURL *fp in filePaths) {
+//                                                              NSLog(@"path : %@",fp.relativePath);
+//                                                          }
+//                                                      }
+//                                                  }];
 }
 
 - (void)fmdbHelperTest {
