@@ -21,7 +21,7 @@ extern NSString *const kYXDLocalHybridConfigUseLocalHtmlBeforeUpdateSucceedKey;
 @interface YXDLocalHybridConfig : NSObject
 
 //根据某个页面获取在线 URL
-+ (NSString *)urlForPage:(NSString *)page;
++ (NSString *)URLForPage:(NSString *)page;
 
 //获取具体某项配置的值
 + (id)valueForConfigKey:(NSString *)configKey;

@@ -23,7 +23,7 @@
 #pragma mark - Shared Instance & Set Up
 
 //配置更新 URL 以及相关请求参数
-- (void)configUpdateUrl:(NSString *)updateUrl params:(NSDictionary *)params headers:(NSDictionary *)headers;
+- (void)configUpdateURL:(NSString *)updateURL params:(NSDictionary *)params headers:(NSDictionary *)headers;
 
 + (instancetype)sharedInstance;
 

@@ -16,7 +16,7 @@ static NSString *const YXDLocalHybridConfigKey = @"YXDLocalHybridConfigKey";
 
 @implementation YXDLocalHybridConfig
 
-+ (NSString *)urlForPage:(NSString *)page {
++ (NSString *)URLForPage:(NSString *)page {
     //子类继承 实现页面与 URL 的对应关系
 //    YXDOverrideAssert
     return nil;

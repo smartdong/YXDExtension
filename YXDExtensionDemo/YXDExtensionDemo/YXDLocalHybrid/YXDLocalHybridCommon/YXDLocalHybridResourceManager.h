@@ -18,6 +18,6 @@
 + (void)setResourcePath:(NSString *)resourcePath forPage:(NSString *)page;
 
 //根据某个页面（page）来获取加载 URL（由配置判断加载本地或者在线）
-+ (NSURL *)resourceUrlForPage:(NSString *)page;
++ (NSURL *)resourceURLForPage:(NSString *)page;
 
 @end

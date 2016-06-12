@@ -30,7 +30,7 @@ static NSString *const YXDLocalHybridResourcerPathMapKey = @"YXDLocalHybridResou
     [YXDCommonFunction setUserDefaultsValue:resourcePathMap forKey:YXDLocalHybridResourcerPathMapKey];
 }
 
-+ (NSURL *)resourceUrlForPage:(NSString *)page {
++ (NSURL *)resourceURLForPage:(NSString *)page {
     if (!page.length) {
         return nil;
     }
@@ -45,7 +45,7 @@ static NSString *const YXDLocalHybridResourcerPathMapKey = @"YXDLocalHybridResou
     }
     
     //如果不能使用本地资源 或者本地没有可用资源 则使用在线 URL
-    return [YXDLocalHybridConfig urlForPage:page].URL;
+    return [YXDLocalHybridConfig URLForPage:page].URL;
 }
 
 @end

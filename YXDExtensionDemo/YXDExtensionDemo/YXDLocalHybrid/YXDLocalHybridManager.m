@@ -16,7 +16,7 @@
 //是否正在更新
 @property (nonatomic, assign) BOOL updating;
 
-@property (nonatomic, copy) NSString *updateUrl;
+@property (nonatomic, copy) NSString *updateURL;
 @property (nonatomic, strong) NSDictionary *params;
 @property (nonatomic, strong) NSDictionary *headers;
 
@@ -56,8 +56,8 @@
 
 #pragma mark - Shared Instance & Set Up
 
-- (void)configUpdateUrl:(NSString *)updateUrl params:(NSDictionary *)params headers:(NSDictionary *)headers {
-    self.updateUrl = updateUrl;
+- (void)configUpdateURL:(NSString *)updateURL params:(NSDictionary *)params headers:(NSDictionary *)headers {
+    self.updateURL = updateURL;
     self.params = params;
     self.headers = headers;
 }
