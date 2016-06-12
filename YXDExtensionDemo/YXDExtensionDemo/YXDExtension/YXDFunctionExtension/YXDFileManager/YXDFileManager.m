@@ -7,6 +7,10 @@
 
 #import "YXDFileManager.h"
 
+#if __has_include("SSZipArchive.h")
+#import "SSZipArchive.h"
+#endif
+
 @implementation YXDFileManager
 
 +(NSMutableArray *)absoluteDirectories
@@ -1021,5 +1025,77 @@
     
     return YES;
 }
+
+#pragma mark - Zip
+
+#if __has_include("SSZipArchive.h")
+
++ (BOOL)unzipFileAtPath:(NSString *)path toDestination:(NSString *)destination {
+    return [SSZipArchive unzipFileAtPath:path toDestination:destination];
+}
+
++ (BOOL)unzipFileAtPath:(NSString *)path toDestination:(NSString *)destination overwrite:(BOOL)overwrite password:(NSString *)password error:(NSError * *)error {
+    return [SSZipArchive unzipFileAtPath:path toDestination:destination overwrite:overwrite password:password error:error];
+}
+
++ (BOOL)createZipFileAtPath:(NSString *)path withFilesAtPaths:(NSArray *)paths {
+    return [SSZipArchive createZipFileAtPath:path withFilesAtPaths:paths];
+}
+
++ (BOOL)createZipFileAtPath:(NSString *)path withContentsOfDirectory:(NSString *)directoryPath {
+    return [SSZipArchive createZipFileAtPath:path withContentsOfDirectory:directoryPath];
+}
+
++ (BOOL)createZipFileAtPath:(NSString *)path withContentsOfDirectory:(NSString *)directoryPath keepParentDirectory:(BOOL)keepParentDirectory {
+    return [SSZipArchive createZipFileAtPath:path withContentsOfDirectory:directoryPath keepParentDirectory:keepParentDirectory];
+}
+
++ (BOOL)createZipFileAtPath:(NSString *)path withFilesAtPaths:(NSArray *)paths withPassword:(NSString *)password {
+    return [SSZipArchive createZipFileAtPath:path withFilesAtPaths:paths withPassword:password];
+}
+
++ (BOOL)createZipFileAtPath:(NSString *)path withContentsOfDirectory:(NSString *)directoryPath withPassword:(NSString *)password {
+    return [SSZipArchive createZipFileAtPath:path withContentsOfDirectory:directoryPath withPassword:password];
+}
+
++ (BOOL)createZipFileAtPath:(NSString *)path withContentsOfDirectory:(NSString *)directoryPath keepParentDirectory:(BOOL)keepParentDirectory withPassword:(NSString *)password {
+    return [SSZipArchive createZipFileAtPath:path withContentsOfDirectory:directoryPath keepParentDirectory:keepParentDirectory withPassword:password];
+}
+
+#else
+
++ (BOOL)unzipFileAtPath:(NSString *)path toDestination:(NSString *)destination {
+    return NO;
+}
+
++ (BOOL)unzipFileAtPath:(NSString *)path toDestination:(NSString *)destination overwrite:(BOOL)overwrite password:(NSString *)password error:(NSError * *)error {
+    return NO;
+}
+
++ (BOOL)createZipFileAtPath:(NSString *)path withFilesAtPaths:(NSArray *)paths {
+    return NO;
+}
+
++ (BOOL)createZipFileAtPath:(NSString *)path withContentsOfDirectory:(NSString *)directoryPath {
+    return NO;
+}
+
++ (BOOL)createZipFileAtPath:(NSString *)path withContentsOfDirectory:(NSString *)directoryPath keepParentDirectory:(BOOL)keepParentDirectory {
+    return NO;
+}
+
++ (BOOL)createZipFileAtPath:(NSString *)path withFilesAtPaths:(NSArray *)paths withPassword:(NSString *)password {
+    return NO;
+}
+
++ (BOOL)createZipFileAtPath:(NSString *)path withContentsOfDirectory:(NSString *)directoryPath withPassword:(NSString *)password {
+    return NO;
+}
+
++ (BOOL)createZipFileAtPath:(NSString *)path withContentsOfDirectory:(NSString *)directoryPath keepParentDirectory:(BOOL)keepParentDirectory withPassword:(NSString *)password {
+    return NO;
+}
+
+#endif
 
 @end
