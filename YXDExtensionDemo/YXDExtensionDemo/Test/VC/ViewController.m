@@ -44,12 +44,33 @@
 //    http://porn.yangxudong.me/resource/imgs/giftest.gif
 //    http://porn.yangxudong.me/resource/data/resource.zip
     
-    [[YXDNetworkManager sharedInstance] downloadWithURL:@"http://porn.yangxudong.me/resource/data/resource.zip"
-                                              directory:[kDocuments.URL URLByAppendingPathComponent:@"H5"]
-                                          loadingStatus:@"正在下载"
-                                             completion:^(NSURL *filePath, NSError *error) {
-                                                 NSLog(@"path : %@ \n error : %@",filePath.relativeString,error);
-                                             }];
+    NSLog(@"开始下载");
+    
+//    [[YXDNetworkManager sharedInstance] downloadWithURL:@"http://porn.yangxudong.me/resource/data/resource.zip"
+//                                              directory:[kDocuments.URL URLByAppendingPathComponent:@"H5"]
+//                                          loadingStatus:@"正在下载"
+//                                             completion:^(NSURL *filePath, NSError *error) {
+//                                                 NSLog(@"path : %@ \n error : %@",filePath.relativeString,error);
+//                                             }];
+    
+    [[YXDNetworkManager sharedInstance] downloadWithURLArray:@[
+                                                               @"http://porn.yangxudong.me/resource/imgs/test.jpg",
+                                                               @"http://porn.yangxudong.me/resource/imgs/giftest.gif",
+                                                               @"http://porn.yangxudong.me/resource/data/resource.zip",
+                                                               ]
+                                                   directory:[kDocuments.URL URLByAppendingPathComponent:@"dls"]
+                                                  completion:^(NSArray<NSURL *> *filePaths, NSError *error) {
+                                                      if (error) {
+                                                          NSLog(@"error : %@",error.localizedDescription);
+                                                      }
+                                                      
+                                                      if (filePaths.count) {
+                                                          NSLog(@"下载完成:");
+                                                          for (NSURL *fp in filePaths) {
+                                                              NSLog(@"path : %@",fp.relativePath);
+                                                          }
+                                                      }
+                                                  }];
 }
 
 - (void)fmdbHelperTest {
