@@ -7,3 +7,4 @@
 * 添加如下`Frameworks`:（如不需要相关功能，则直接删除对应代码也可）
  * `libz.tbd`（`Zip`文件操作）
  * `libsqlite3.tbd`（`sqlite`操作）
+* 导入需要的头文件或直接`#import "YXDExtensionHeader.h"` 
