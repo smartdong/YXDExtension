@@ -20,9 +20,6 @@
 		0BF6BEFE1CB95D4B00CF56DC /* YYDiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF6BEF81CB95D4B00CF56DC /* YYDiskCache.m */; };
 		0BF6BEFF1CB95D4B00CF56DC /* YYKVStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF6BEFA1CB95D4B00CF56DC /* YYKVStorage.m */; };
 		0BF6BF001CB95D4B00CF56DC /* YYMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF6BEFC1CB95D4B00CF56DC /* YYMemoryCache.m */; };
-		0BF6BF021CB95E1600CF56DC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF6BF011CB95E1600CF56DC /* UIKit.framework */; };
-		0BF6BF051CB95E4E00CF56DC /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF6BF041CB95E4E00CF56DC /* CoreFoundation.framework */; };
-		0BF6BF071CB95E5800CF56DC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF6BF061CB95E5800CF56DC /* QuartzCore.framework */; };
 		0BF6BF091CB95E6800CF56DC /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF6BF081CB95E6800CF56DC /* libsqlite3.tbd */; };
 		0BF6BF171CB964D800CF56DC /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF6BF0C1CB964D800CF56DC /* FMDatabase.m */; };
 		0BF6BF181CB964D800CF56DC /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF6BF0E1CB964D800CF56DC /* FMDatabaseAdditions.m */; };
@@ -207,9 +204,6 @@
 		0BF6BEFA1CB95D4B00CF56DC /* YYKVStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYKVStorage.m; sourceTree = "<group>"; };
 		0BF6BEFB1CB95D4B00CF56DC /* YYMemoryCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYMemoryCache.h; sourceTree = "<group>"; };
 		0BF6BEFC1CB95D4B00CF56DC /* YYMemoryCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYMemoryCache.m; sourceTree = "<group>"; };
-		0BF6BF011CB95E1600CF56DC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		0BF6BF041CB95E4E00CF56DC /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		0BF6BF061CB95E5800CF56DC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		0BF6BF081CB95E6800CF56DC /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		0BF6BF0B1CB964D800CF56DC /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
 		0BF6BF0C1CB964D800CF56DC /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
@@ -511,9 +505,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0BF6BF091CB95E6800CF56DC /* libsqlite3.tbd in Frameworks */,
-				0BF6BF071CB95E5800CF56DC /* QuartzCore.framework in Frameworks */,
-				0BF6BF051CB95E4E00CF56DC /* CoreFoundation.framework in Frameworks */,
-				0BF6BF021CB95E1600CF56DC /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -650,9 +641,6 @@
 			isa = PBXGroup;
 			children = (
 				0BF6BF081CB95E6800CF56DC /* libsqlite3.tbd */,
-				0BF6BF061CB95E5800CF56DC /* QuartzCore.framework */,
-				0BF6BF041CB95E4E00CF56DC /* CoreFoundation.framework */,
-				0BF6BF011CB95E1600CF56DC /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
