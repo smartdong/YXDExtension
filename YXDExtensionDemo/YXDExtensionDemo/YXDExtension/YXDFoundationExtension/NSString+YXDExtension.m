@@ -56,10 +56,11 @@
 }
 
 - (NSURL *)URL {
+    NSString *encodedString = [[self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"];
     if ([self hasPrefix:@"/"]) {
-        return [NSURL fileURLWithPath:self];
+        return [NSURL fileURLWithPath:encodedString];
     }
-    return [NSURL URLWithString:[self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    return [NSURL URLWithString:encodedString];
 }
 
 - (NSURLRequest *)URLRequest {
