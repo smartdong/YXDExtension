@@ -7,60 +7,135 @@
 
 #import "YXDLocalHybridManager.h"
 #import "YXDExtensionHeader.h"
-#import "YXDLocalHybridConfig.h"
 #import "YXDNetworkManager.h"
 #import "YXDNetworkResult.h"
+#import "YXDCommonFunction.h"
+#import "YXDFileManager.h"
 
 @interface YXDLocalHybridManager ()
 
 //是否正在更新
-@property (nonatomic, assign) BOOL updating;
+@property (nonatomic, assign, getter=isUpdating) BOOL updating;
 
-@property (nonatomic, copy) NSString *updateURL;
-@property (nonatomic, strong) NSDictionary *params;
-@property (nonatomic, strong) NSDictionary *headers;
+//本次启动是否已经更新完毕
+@property (nonatomic, assign, getter=isUpdated) BOOL updated;
+
+//在更新资源成功以前是否使用本地 HTML
+@property (nonatomic, assign) BOOL useLocalHtmlBeforeUpdateSucceed;
 
 @end
+
+static NSString *const kYXDLocalHybridManagerVersionKey             = @"kYXDLocalHybridManagerVersionKey";
+static NSString *const kYXDLocalHybridManagerResourcerPathMapKey    = @"kYXDLocalHybridManagerResourcerPathMapKey";
 
 @implementation YXDLocalHybridManager
 
 #pragma mark - Update
 
-- (void)checkUpdate {
-    if (_updating) {
++ (void)checkUpdateWithURL:(NSString *)URL params:(NSDictionary *)params {
+    YXDLocalHybridManager *manager = [YXDLocalHybridManager sharedInstance];
+    
+    if (manager.isUpdating) {
         return;
     }
     
-    _updating = YES;
+    manager.updating = YES;
     
-//    NSString *versionInfo = [YXDLocalHybridConfig valueForConfigKey:kYXDLocalHybridConfigVersionInfoKey];
+    dispatch_block_t completion = ^{
+        manager.updated = YES;
+        manager.updating = NO;
+    };
     
-    //调接口更新 参数为versionInfo
-//    YXDNetworkManager *manager = [YXDNetworkManager newManager];
-//    manager.commonParams = [self.params mutableCopy];
-//    manager.commonHeaders = [self.headers mutableCopy];
-
-    //调取接口 获取更新资源包
-    //如果有资源包 则下载资源包
-    //解压资源包到临时目录 并复制文件到资源目录 覆盖同名文件
+    NSString *resourceVersion = [self resourceVersion];
     
-    _updated = YES;
-    _updating = NO;
+    if (resourceVersion.length) {
+        params = [NSMutableDictionary dictionaryWithDictionary:params];
+        [(NSMutableDictionary *)params setObject:resourceVersion forKey:@"version"];
+    }
+    
+    [[YXDNetworkManager sharedInstance] sendRequestWithParams:params
+                                             interfaceAddress:URL
+                                                   completion:^(YXDNetworkResult *result) {
+                                                       
+                                                       NSString *serverVersion = [result.data objectForKey:@"version"];
+                                                       NSDictionary *resourceDic = [result.data objectForKey:@"resource"];
+                                                       
+                                                       if (result.error || !serverVersion.length || !resourceDic.count) {
+                                                           completion();
+                                                           return;
+                                                       }
+                                                       
+                                                       // url   资源包下载地址
+                                                       // path  资源包里网页文件路径
+                                                       // name  页面名称
+                                                       
+                                                       NSString *resourcePath = [NSString stringWithFormat:@"%@/HTML",kDocuments];
+                                                       NSURL *resourceDownloadDirectory = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/Zips",resourcePath]];
+                                                       
+                                                       [[YXDNetworkManager sharedInstance] downloadWithURL:[resourceDic objectForKey:@"url"]
+                                                                                                 directory:resourceDownloadDirectory
+                                                                                                completion:^(NSURL *filePath, NSError *error) {
+                                                                                                    if (filePath && !error) {
+                                                                                                        BOOL unzipSuccess = [YXDFileManager unzipFileAtPath:filePath.relativePath toDestination:resourcePath];
+                                                                                                        if (unzipSuccess) {
+                                                                                                            [self setResourcePath:[NSString stringWithFormat:@"%@/%@",resourcePath,[resourceDic objectForKey:@"path"]] forPage:[resourceDic objectForKey:@"name"]];
+                                                                                                            [self setResourceVersion:serverVersion];
+                                                                                                        }
+                                                                                                        [YXDFileManager removeItemAtPath:filePath.relativePath];
+                                                                                                    }
+                                                                                                    completion();
+                                                                                                }];
+                                                   }
+                                                       method:POST];
 }
 
-#pragma mark - Getter
+#pragma mark - Get & Set Path
+
++ (NSString *)resourcePathForPage:(NSString *)page {
+    if (!page.length) {
+        return nil;
+    }
+    NSDictionary *resourcePathMap = [YXDCommonFunction userDefaultsValueForKey:kYXDLocalHybridManagerResourcerPathMapKey];
+    NSString *resourcePath = [resourcePathMap objectForKey:page];
+    
+    YXDLocalHybridManager *manager = [YXDLocalHybridManager sharedInstance];
+    BOOL couldUseLocalHtml = manager.updated || manager.useLocalHtmlBeforeUpdateSucceed;
+    
+    if (resourcePath && [YXDFileManager existsItemAtPath:resourcePath] && couldUseLocalHtml) {
+        return resourcePath;
+    }
+    return nil;
+}
+
++ (void)setResourcePath:(NSString *)resourcePath forPage:(NSString *)page {
+    if (!page.length) {
+        return;
+    }
+    NSMutableDictionary *resourcePathMap = [YXDCommonFunction userDefaultsValueForKey:kYXDLocalHybridManagerResourcerPathMapKey];
+    if (!resourcePathMap || ![resourcePathMap isKindOfClass:[NSDictionary class]]) {
+        resourcePathMap = [NSMutableDictionary dictionary];
+    } else if (![resourcePathMap isKindOfClass:[NSMutableDictionary class]]){
+        resourcePathMap = [NSMutableDictionary dictionaryWithDictionary:resourcePathMap];
+    }
+    [resourcePathMap setObject:resourcePath forKey:page];
+    [YXDCommonFunction setUserDefaultsValue:resourcePathMap forKey:kYXDLocalHybridManagerResourcerPathMapKey];
+}
+
+#pragma mark - Config
 
 - (BOOL)useLocalHtmlBeforeUpdateSucceed {
-    return [[YXDLocalHybridConfig valueForConfigKey:kYXDLocalHybridConfigUseLocalHtmlBeforeUpdateSucceedKey] boolValue];
+    return NO;
 }
 
-#pragma mark - Shared Instance & Set Up
-
-- (void)configUpdateURL:(NSString *)updateURL params:(NSDictionary *)params headers:(NSDictionary *)headers {
-    self.updateURL = updateURL;
-    self.params = params;
-    self.headers = headers;
++ (void)setResourceVersion:(NSString *)resourceVersion {
+    [YXDCommonFunction setUserDefaultsValue:resourceVersion forKey:kYXDLocalHybridManagerVersionKey];
 }
+
++ (NSString *)resourceVersion {
+    return [YXDCommonFunction userDefaultsValueForKey:kYXDLocalHybridManagerVersionKey];
+}
+
+#pragma mark - Shared Instance
 
 + (instancetype)sharedInstance {
     static YXDLocalHybridManager *localHybridManager = nil;
