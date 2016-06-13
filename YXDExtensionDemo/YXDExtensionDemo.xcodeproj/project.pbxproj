@@ -29,7 +29,6 @@
 		0BF6BF1C1CB964D800CF56DC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0BF6BF161CB964D800CF56DC /* Info.plist */; };
 		0BF6BF201CB965FD00CF56DC /* YXDFMDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF6BF1F1CB965FD00CF56DC /* YXDFMDBHelper.m */; };
 		B506E6F11CBCE9B200B9945E /* test.db in Resources */ = {isa = PBXBuildFile; fileRef = B506E6F01CBCE9B200B9945E /* test.db */; };
-		B51786341CC87BE100A02F6C /* YXDLocalHybridBaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B51786331CC87BE100A02F6C /* YXDLocalHybridBaseWebViewController.m */; };
 		B51BB8101CCDE212000D7B69 /* Aspects.m in Sources */ = {isa = PBXBuildFile; fileRef = B51BB80F1CCDE212000D7B69 /* Aspects.m */; };
 		B520A8FE1C130C2900CE6701 /* UIDevice+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B520A8FD1C130C2900CE6701 /* UIDevice+YXDExtension.m */; };
 		B520A9011C130C3E00CE6701 /* UITabBar+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B520A9001C130C3E00CE6701 /* UITabBar+YXDExtension.m */; };
@@ -39,7 +38,6 @@
 		B533A3041C7C08AD00BEA4A6 /* YXDNetworkImageObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B533A3031C7C08AD00BEA4A6 /* YXDNetworkImageObject.m */; };
 		B53E03C21CC728B800BE4411 /* YXDLogUploadHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B53E03C11CC728B800BE4411 /* YXDLogUploadHelper.m */; };
 		B5459A751CCF4E4700C90304 /* YXDMobClickHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B5459A741CCF4E4700C90304 /* YXDMobClickHelper.m */; };
-		B5493FB01CC86F6F00EBD09D /* YXDLocalHybridManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5493FAF1CC86F6F00EBD09D /* YXDLocalHybridManager.m */; };
 		B5493FB31CC8730100EBD09D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5493FB11CC8730100EBD09D /* LaunchScreen.xib */; };
 		B5493FB41CC8730100EBD09D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5493FB21CC8730100EBD09D /* Main.storyboard */; };
 		B5493FB71CC8732700EBD09D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5493FB61CC8732700EBD09D /* ViewController.m */; };
@@ -113,6 +111,8 @@
 		B55048811B81B63E00A78C8D /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B55048451B81B63E00A78C8D /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
 		B55048851B81BB1100A78C8D /* YXDNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B55048841B81BB1100A78C8D /* YXDNetworkManager.m */; };
 		B55048891B81C0D900A78C8D /* YXDHUDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B55048881B81C0D900A78C8D /* YXDHUDManager.m */; };
+		B5532ADA1D0E958A009F951D /* YXDLocalHybridBaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5532AD71D0E958A009F951D /* YXDLocalHybridBaseWebViewController.m */; };
+		B5532ADB1D0E958A009F951D /* YXDLocalHybridManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5532AD91D0E958A009F951D /* YXDLocalHybridManager.m */; };
 		B555C8811C9FC45800FB37C9 /* YXDNetworkResult.m in Sources */ = {isa = PBXBuildFile; fileRef = B555C8801C9FC45800FB37C9 /* YXDNetworkResult.m */; };
 		B555C88A1CA1343800FB37C9 /* easyjs-inject.js in Resources */ = {isa = PBXBuildFile; fileRef = B555C8831CA1343800FB37C9 /* easyjs-inject.js */; };
 		B555C88B1CA1343800FB37C9 /* EasyJSDataFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = B555C8851CA1343800FB37C9 /* EasyJSDataFunction.m */; };
@@ -234,8 +234,6 @@
 		0BF6BF1F1CB965FD00CF56DC /* YXDFMDBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDFMDBHelper.m; sourceTree = "<group>"; };
 		B506E6EF1CBCE4DD00B9945E /* YXDExtensionDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDExtensionDefine.h; sourceTree = "<group>"; };
 		B506E6F01CBCE9B200B9945E /* test.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.db; sourceTree = "<group>"; };
-		B51786321CC87BE100A02F6C /* YXDLocalHybridBaseWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDLocalHybridBaseWebViewController.h; sourceTree = "<group>"; };
-		B51786331CC87BE100A02F6C /* YXDLocalHybridBaseWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDLocalHybridBaseWebViewController.m; sourceTree = "<group>"; };
 		B51BB80E1CCDE212000D7B69 /* Aspects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aspects.h; sourceTree = "<group>"; };
 		B51BB80F1CCDE212000D7B69 /* Aspects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Aspects.m; sourceTree = "<group>"; };
 		B520A8FC1C130C2900CE6701 /* UIDevice+YXDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+YXDExtension.h"; sourceTree = "<group>"; };
@@ -254,8 +252,6 @@
 		B53E03C11CC728B800BE4411 /* YXDLogUploadHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDLogUploadHelper.m; sourceTree = "<group>"; };
 		B5459A731CCF4E4700C90304 /* YXDMobClickHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDMobClickHelper.h; sourceTree = "<group>"; };
 		B5459A741CCF4E4700C90304 /* YXDMobClickHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDMobClickHelper.m; sourceTree = "<group>"; };
-		B5493FAE1CC86F6F00EBD09D /* YXDLocalHybridManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDLocalHybridManager.h; sourceTree = "<group>"; };
-		B5493FAF1CC86F6F00EBD09D /* YXDLocalHybridManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDLocalHybridManager.m; sourceTree = "<group>"; };
 		B5493FB11CC8730100EBD09D /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		B5493FB21CC8730100EBD09D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		B5493FB51CC8732700EBD09D /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -404,6 +400,10 @@
 		B55048841B81BB1100A78C8D /* YXDNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDNetworkManager.m; sourceTree = "<group>"; };
 		B55048871B81C0D900A78C8D /* YXDHUDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDHUDManager.h; sourceTree = "<group>"; };
 		B55048881B81C0D900A78C8D /* YXDHUDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDHUDManager.m; sourceTree = "<group>"; };
+		B5532AD61D0E958A009F951D /* YXDLocalHybridBaseWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDLocalHybridBaseWebViewController.h; sourceTree = "<group>"; };
+		B5532AD71D0E958A009F951D /* YXDLocalHybridBaseWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDLocalHybridBaseWebViewController.m; sourceTree = "<group>"; };
+		B5532AD81D0E958A009F951D /* YXDLocalHybridManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDLocalHybridManager.h; sourceTree = "<group>"; };
+		B5532AD91D0E958A009F951D /* YXDLocalHybridManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDLocalHybridManager.m; sourceTree = "<group>"; };
 		B555C87F1C9FC45800FB37C9 /* YXDNetworkResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDNetworkResult.h; sourceTree = "<group>"; };
 		B555C8801C9FC45800FB37C9 /* YXDNetworkResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDNetworkResult.m; sourceTree = "<group>"; };
 		B555C8831CA1343800FB37C9 /* easyjs-inject.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "easyjs-inject.js"; sourceTree = "<group>"; };
@@ -595,7 +595,6 @@
 		0B6725411B6E9FC9009272B4 /* YXDExtensionDemo */ = {
 			isa = PBXGroup;
 			children = (
-				B5493FAD1CC86F5700EBD09D /* YXDLocalHybrid */,
 				B5DE71761B6F174A006F8FF1 /* YXDExtension */,
 				B549BCB71C1570670092F3B2 /* Test */,
 				0B6725461B6E9FC9009272B4 /* AppDelegate.h */,
@@ -719,15 +718,6 @@
 			path = YXDFMDBHelper;
 			sourceTree = "<group>";
 		};
-		B517862E1CC8779B00A02F6C /* YXDLocalHybridBase */ = {
-			isa = PBXGroup;
-			children = (
-				B51786321CC87BE100A02F6C /* YXDLocalHybridBaseWebViewController.h */,
-				B51786331CC87BE100A02F6C /* YXDLocalHybridBaseWebViewController.m */,
-			);
-			path = YXDLocalHybridBase;
-			sourceTree = "<group>";
-		};
 		B51BB80D1CCDE212000D7B69 /* Aspects */ = {
 			isa = PBXGroup;
 			children = (
@@ -753,16 +743,6 @@
 				B5459A741CCF4E4700C90304 /* YXDMobClickHelper.m */,
 			);
 			path = YXDMobClickHelper;
-			sourceTree = "<group>";
-		};
-		B5493FAD1CC86F5700EBD09D /* YXDLocalHybrid */ = {
-			isa = PBXGroup;
-			children = (
-				B517862E1CC8779B00A02F6C /* YXDLocalHybridBase */,
-				B5493FAE1CC86F6F00EBD09D /* YXDLocalHybridManager.h */,
-				B5493FAF1CC86F6F00EBD09D /* YXDLocalHybridManager.m */,
-			);
-			path = YXDLocalHybrid;
 			sourceTree = "<group>";
 		};
 		B5493FB81CC8735400EBD09D /* Class */ = {
@@ -1072,6 +1052,25 @@
 			path = YXDHUDManager;
 			sourceTree = "<group>";
 		};
+		B5532AD41D0E958A009F951D /* YXDLocalHybrid */ = {
+			isa = PBXGroup;
+			children = (
+				B5532AD51D0E958A009F951D /* YXDLocalHybridBase */,
+				B5532AD81D0E958A009F951D /* YXDLocalHybridManager.h */,
+				B5532AD91D0E958A009F951D /* YXDLocalHybridManager.m */,
+			);
+			path = YXDLocalHybrid;
+			sourceTree = "<group>";
+		};
+		B5532AD51D0E958A009F951D /* YXDLocalHybridBase */ = {
+			isa = PBXGroup;
+			children = (
+				B5532AD61D0E958A009F951D /* YXDLocalHybridBaseWebViewController.h */,
+				B5532AD71D0E958A009F951D /* YXDLocalHybridBaseWebViewController.m */,
+			);
+			path = YXDLocalHybridBase;
+			sourceTree = "<group>";
+		};
 		B555C8821CA1343800FB37C9 /* EasyJSWebView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1280,6 +1279,7 @@
 		B5DE71781B6F174A006F8FF1 /* YXDFunctionExtension */ = {
 			isa = PBXGroup;
 			children = (
+				B5532AD41D0E958A009F951D /* YXDLocalHybrid */,
 				B5459A721CCF4E3C00C90304 /* YXDMobClickHelper */,
 				0BF6BF1D1CB965EA00CF56DC /* YXDFMDBHelper */,
 				B5B8FFA71CB793F500AE66B7 /* YXDLog */,
@@ -1571,6 +1571,7 @@
 				B55048601B81B63E00A78C8D /* MJRefreshBackGifFooter.m in Sources */,
 				B520A8FE1C130C2900CE6701 /* UIDevice+YXDExtension.m in Sources */,
 				B5459A751CCF4E4700C90304 /* YXDMobClickHelper.m in Sources */,
+				B5532ADB1D0E958A009F951D /* YXDLocalHybridManager.m in Sources */,
 				B5618BBD1D0D2EF700CA654F /* mztools.c in Sources */,
 				B550484E1B81B63E00A78C8D /* AFURLSessionManager.m in Sources */,
 				B5618BB81D0D2EF700CA654F /* hmac.c in Sources */,
@@ -1580,13 +1581,13 @@
 				B5DE71851B6F1DDC006F8FF1 /* NSDate+YXDExtension.m in Sources */,
 				B55047BB1B818C4100A78C8D /* UICollectionView+YXDExtension.m in Sources */,
 				B5DE719D1B6F3040006F8FF1 /* UIViewController+YXDExtension.m in Sources */,
-				B51786341CC87BE100A02F6C /* YXDLocalHybridBaseWebViewController.m in Sources */,
 				B5DE71821B6F1AFF006F8FF1 /* NSString+YXDExtension.m in Sources */,
 				B5B8FFA31CB7848E00AE66B7 /* DDTTYLogger.m in Sources */,
 				0BF6BF001CB95D4B00CF56DC /* YYMemoryCache.m in Sources */,
 				B550486F1B81B63E00A78C8D /* SDWebImageDecoder.m in Sources */,
 				B520A90A1C131BAD00CE6701 /* NSDictionary+YXDExtension.m in Sources */,
 				B550487E1B81B63E00A78C8D /* TPKeyboardAvoidingCollectionView.m in Sources */,
+				B5532ADA1D0E958A009F951D /* YXDLocalHybridBaseWebViewController.m in Sources */,
 				B550484A1B81B63E00A78C8D /* AFSecurityPolicy.m in Sources */,
 				B5DE71A01B6F3057006F8FF1 /* UINavigationController+YXDExtension.m in Sources */,
 				B550484D1B81B63E00A78C8D /* AFURLResponseSerialization.m in Sources */,
@@ -1628,7 +1629,6 @@
 				0BF6BEFF1CB95D4B00CF56DC /* YYKVStorage.m in Sources */,
 				B533A3041C7C08AD00BEA4A6 /* YXDNetworkImageObject.m in Sources */,
 				B550486B1B81B63E00A78C8D /* MKAnnotationView+WebCache.m in Sources */,
-				B5493FB01CC86F6F00EBD09D /* YXDLocalHybridManager.m in Sources */,
 				0BF6BEFE1CB95D4B00CF56DC /* YYDiskCache.m in Sources */,
 				B5DE71B81B6F349F006F8FF1 /* UIScreen+YXDExtension.m in Sources */,
 				B550486D1B81B63E00A78C8D /* SDImageCache.m in Sources */,
