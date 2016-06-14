@@ -8,7 +8,7 @@
 #import "YXDNetworkManager.h"
 #import "AFNetworking.h"
 #import "YXDHUDManager.h"
-#import "YXDNetworkImageObject.h"
+#import "YXDNetworkUploadObject.h"
 #import "YXDNetworkResult.h"
 #import "YXDLog.h"
 #import "YXDExtensionDefine.h"
@@ -56,7 +56,7 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
                 loadingStatus:(NSString *)loadingStatus
                        method:(NetworkManagerHttpMethod)method {
     [self sendRequestWithParams:params
-                imagesDataArray:nil
+             uploadObjectsArray:nil
                interfaceAddress:interfaceAddress
                      completion:completion
                  networkFailure:networkFailure
@@ -65,7 +65,7 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
 }
 
 - (void)sendRequestWithParams:(NSDictionary *)params
-              imagesDataArray:(NSArray<YXDNetworkImageObject *> *)imagesDataArray
+           uploadObjectsArray:(NSArray<YXDNetworkUploadObject *> *)uploadObjectsArray
              interfaceAddress:(NSString *)interfaceAddress
                    completion:(void (^)(YXDNetworkResult *result))completion
                networkFailure:(void (^)(NSError *error))networkFailure
@@ -93,15 +93,26 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
         }
     }];
 
-    void (^constructingBodyBlock)(id<AFMultipartFormData> formData) = imagesDataArray.count?^(id<AFMultipartFormData> formData){
-        for (YXDNetworkImageObject *imageObject in imagesDataArray) {
-            if ([imageObject isKindOfClass:[YXDNetworkImageObject class]] && imageObject.paramName.length && [imageObject.imageData isKindOfClass:[UIImage class]]) {
-                [formData appendPartWithFileData:UIImageJPEGRepresentation(imageObject.imageData,(imageObject.quality>0)?imageObject.quality:0.1)
-                                            name:imageObject.paramName
-                                        fileName:imageObject.imageName?:@""
-                                        mimeType:[NSString stringWithFormat:@"image/%@",imageObject.imageType.length?imageObject.imageType:@"png"]];
+    void (^constructingBodyBlock)(id<AFMultipartFormData> formData) = uploadObjectsArray.count?^(id<AFMultipartFormData> formData){
+        for (YXDNetworkUploadObject *uploadObject in uploadObjectsArray) {
+            if ([uploadObject isKindOfClass:[YXDNetworkUploadObject class]] && uploadObject.paramName.length && uploadObject.file) {
+                
+                NSData *data = nil;
+                
+                if ([uploadObject.file isKindOfClass:[NSData class]]) {
+                    data = uploadObject.file;
+                } else if ([uploadObject.file isKindOfClass:[UIImage class]]) {
+                    data = UIImageJPEGRepresentation(uploadObject.file,(uploadObject.imageQuality>0)?uploadObject.imageQuality:0.1);
+                } else {
+                    continue;
+                }
+                
+                [formData appendPartWithFileData:data
+                                            name:uploadObject.paramName
+                                        fileName:uploadObject.fileName?:@""
+                                        mimeType:uploadObject.fileType?:@"image/png"];
             } else {
-                DDLogInfo(@"图片上传数据有误");
+                DDLogInfo(@"上传数据格式错误");
             }
         }
     }:nil;
