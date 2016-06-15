@@ -7,6 +7,12 @@
 
 #import "YXDHUDManager.h"
 
+@interface YXDHUDManager ()
+
+@property (nonatomic, strong) NSMutableArray<dispatch_block_t> *completionBlocks;
+
+@end
+
 @implementation YXDHUDManager
 
 + (void)showWithDuration:(CGFloat)duration {
@@ -74,15 +80,39 @@
 }
 
 + (void)dissmissAfterDuration:(CGFloat)duration completion:(dispatch_block_t)completion {
+    if (completion) {
+        [[YXDHUDManager sharedManager].completionBlocks addObject:completion];
+    }
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self dismiss];
-        if (completion) {
-            completion();
-        }
     });
 }
 
 #pragma mark - Private
+
+- (void)progressHUDDidDisappear {
+    if (![YXDHUDManager sharedManager].completionBlocks.count) {
+        return;
+    }
+    
+    for (dispatch_block_t completion in [YXDHUDManager sharedManager].completionBlocks) {
+        completion();
+    }
+    
+    [[YXDHUDManager sharedManager].completionBlocks removeAllObjects];
+}
+
++ (instancetype)sharedManager {
+    static YXDHUDManager *manager = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        manager = [YXDHUDManager new];
+        manager.completionBlocks = [NSMutableArray array];
+        [[NSNotificationCenter defaultCenter] addObserver:manager selector:@selector(progressHUDDidDisappear) name:SVProgressHUDDidDisappearNotification object:nil];
+    });
+    return manager;
+}
 
 + (NSTimeInterval)displayDurationForString:(NSString*)string {
     
