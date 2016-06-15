@@ -13,6 +13,7 @@
 #import "City.h"
 #import "YXDNetworkManager.h"
 #import "YXDFileManager.h"
+#import "YXDHUDManager.h"
 
 @interface ViewController ()
 
@@ -33,12 +34,32 @@
     [super viewDidAppear:animated];
     
 //    [self downloadTest];
+//    [self HUDTest];
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     
+//    [SVProgressHUD dismiss];
 //    [[YXDNetworkManager sharedInstance] cancelAllTasks];
+}
+
+- (void)HUDTest {
+    [YXDHUDManager showWithDuration:3 completion:^{
+        NSLog(@"1");
+    }];
+    
+    [YXDHUDManager showWithDuration:4 completion:^{
+        NSLog(@"2");
+    }];
+
+    [YXDHUDManager showWithDuration:2 completion:^{
+        NSLog(@"3");
+    }];
+    
+    [YXDHUDManager showSuccessAndAutoDismissWithTitle:@"呵呵" completion:^{
+        NSLog(@"4");
+    }];
 }
 
 - (void)unzipWithZipFilePath:(NSString *)zipFilePath destinationPath:(NSString *)destinationPath {
