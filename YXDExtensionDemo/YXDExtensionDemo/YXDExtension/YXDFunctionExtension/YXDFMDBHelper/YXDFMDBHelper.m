@@ -29,9 +29,15 @@ static NSString *YXDFMDBHelperDataBaseName = @"test.db";
 
 + (BOOL)insertObjects:(NSArray<YXDBaseObject *> *)objects error:(NSError **)error {
     if (!objects.count) {
-        *error = [NSError errorWithDomain:kYXDExtensionErrorDomain code:YXDExtensionErrorCodeInputError userInfo:@{NSLocalizedDescriptionKey:@"插入数据为空"}];
+        *error = [NSError errorWithDomain:kYXDExtensionErrorDomain code:YXDExtensionErrorCodeInputError userInfo:@{NSLocalizedDescriptionKey:@"Insert objects is Empty"}];
         return NO;
     }
+    
+    if (![self checkTableWithClass:objects.firstObject.class error:error]) {
+        return NO;
+    }
+    
+    //TODO: 拼接 sql 语句 插入数据库
     
     return NO;
 }
@@ -46,8 +52,8 @@ static NSString *YXDFMDBHelperDataBaseName = @"test.db";
 
 //检查对象类型以及表结构是否正确 如类型不正确则返回错误 如表结构不正确则调整表结构 如不存在表则创建
 + (BOOL)checkTableWithClass:(Class)clazz error:(NSError **)error {
-    if (!clazz) {
-        *error = [NSError errorWithDomain:kYXDExtensionErrorDomain code:YXDExtensionErrorCodeInputError userInfo:@{NSLocalizedDescriptionKey:@"对象类型错误"}];
+    if (!clazz || ![clazz isSubclassOfClass:YXDBaseObject.class]) {
+        *error = [NSError errorWithDomain:kYXDExtensionErrorDomain code:YXDExtensionErrorCodeInputError userInfo:@{NSLocalizedDescriptionKey:@"Object must be subclass of 'YXDBaseObject'"}];
         return NO;
     }
     
@@ -55,11 +61,13 @@ static NSString *YXDFMDBHelperDataBaseName = @"test.db";
     
     if (![YXDFMDBHelper_FMDB tableExists:classString]) {
         //如果表不存在 则创建表
-        //TODO:
-    } else {
-        //如果表存在 则检查表结构是否正确
-        //TODO:
+        
+        NSString *createTable = [NSString stringWithFormat:@""];
+        
     }
+    
+    //检查表结构是否正确
+    
     
     return NO;
 }
@@ -98,7 +106,7 @@ static NSString *YXDFMDBHelperDataBaseName = @"test.db";
 + (NSArray *)selectObjectsWithClass:(Class)clazz query:(NSString *)query error:(NSError **)error {
     
     if (!clazz || !query.length) {
-        *error = [NSError errorWithDomain:kYXDExtensionErrorDomain code:YXDExtensionErrorCodeInputError userInfo:@{NSLocalizedDescriptionKey:@"Class或sql语句无效"}];
+        *error = [NSError errorWithDomain:kYXDExtensionErrorDomain code:YXDExtensionErrorCodeInputError userInfo:@{NSLocalizedDescriptionKey:@"Class or SQL invalid"}];
         return nil;
     }
     

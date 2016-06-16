@@ -7,13 +7,12 @@
 
 #import "ViewController.h"
 #import "YXDExtensionHeader.h"
+#import "YXDFileManager.h"
 #import "TestClass.h"
 #import "ClassA.h"
 #import "ClassB.h"
 #import "City.h"
-#import "YXDNetworkManager.h"
-#import "YXDFileManager.h"
-#import "YXDHUDManager.h"
+#import "GirlFriend.h"
 
 @interface ViewController ()
 
@@ -27,7 +26,7 @@
     
 //    [self jsonToObjectTest];
 //    [self playGifTest];
-//    [self fmdbHelperTest];
+    [self fmdbHelperTest];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -101,13 +100,38 @@
 }
 
 - (void)fmdbHelperTest {
+//    NSError *error = nil;
+//    NSArray *arr1 = [City selectAllObjectsWithError:&error];
+//    NSArray *arr2 = [City selectObjectsWithConditions:@[@"cityID < 50"] orderBy:@"cityID" asc:NO limit:@(5) error:&error];
+//    if (error) {
+//        NSLog(@"error : %@",error);
+//    } else {
+//        NSLog(@"arr1 : %@ \narr2 : %@",arr1,arr2);
+//    }
+    
+    GirlFriend *gf1 = [GirlFriend new];
+    gf1.name = @"Honey";
+    gf1.age = @(18);
+    gf1.height = @(168);
+    gf1.weight = @(48);
+    gf1.size = @"C";
+    
+    GirlFriend *gf2 = [GirlFriend new];
+    gf2.name = @"Loli";
+    gf2.age = @(12);
+    gf2.height = @(150);
+    gf2.weight = @(35);
+    gf2.size = @"A";
+    
     NSError *error = nil;
-    NSArray *arr1 = [City selectAllObjectsWithError:&error];
-    NSArray *arr2 = [City selectObjectsWithConditions:@[@"cityID < 50"] orderBy:@"cityID" asc:NO limit:@(5) error:&error];
-    if (error) {
-        NSLog(@"error : %@",error);
+    
+    BOOL suc = [@[gf1,gf2] insertWithError:&error];
+    
+    if (!suc || error) {
+        NSLog(@"insert error : %@",error.localizedDescription);
     } else {
-        NSLog(@"arr1 : %@ \narr2 : %@",arr1,arr2);
+        NSArray *girlFriends = [GirlFriend selectAllObjectsWithError:&error];
+        NSLog(@"girl friends : %@ \n error : %@",girlFriends,error);
     }
 }
 
