@@ -135,6 +135,7 @@
 		B5618BBF1D0D2EF700CA654F /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = B5618BAE1D0D2EF700CA654F /* zip.c */; };
 		B5618BC01D0D2EF700CA654F /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = B5618BB11D0D2EF700CA654F /* SSZipArchive.m */; };
 		B5618BC21D0D2F1C00CA654F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B5618BC11D0D2F1C00CA654F /* libz.tbd */; };
+		B57214E31D1254C400DADAF4 /* GirlFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = B57214E21D1254C400DADAF4 /* GirlFriend.m */; };
 		B5B8FF9C1CB7848E00AE66B7 /* CLIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B8FF821CB7848E00AE66B7 /* CLIColor.m */; };
 		B5B8FF9E1CB7848E00AE66B7 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B8FF861CB7848E00AE66B7 /* DDAbstractDatabaseLogger.m */; };
 		B5B8FF9F1CB7848E00AE66B7 /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B8FF881CB7848E00AE66B7 /* DDASLLogCapture.m */; };
@@ -452,6 +453,8 @@
 		B5618BB11D0D2EF700CA654F /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
 		B5618BB21D0D2EF700CA654F /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipArchive.h; sourceTree = "<group>"; };
 		B5618BC11D0D2F1C00CA654F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		B57214E11D1254C400DADAF4 /* GirlFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GirlFriend.h; sourceTree = "<group>"; };
+		B57214E21D1254C400DADAF4 /* GirlFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GirlFriend.m; sourceTree = "<group>"; };
 		B5B8FF811CB7848E00AE66B7 /* CLIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLIColor.h; sourceTree = "<group>"; };
 		B5B8FF821CB7848E00AE66B7 /* CLIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLIColor.m; sourceTree = "<group>"; };
 		B5B8FF831CB7848E00AE66B7 /* CocoaLumberjack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaLumberjack.h; sourceTree = "<group>"; };
@@ -756,6 +759,8 @@
 				B5493FBE1CC8737500EBD09D /* ClassB.m */,
 				B5493FBF1CC8737500EBD09D /* TestClass.h */,
 				B5493FC01CC8737500EBD09D /* TestClass.m */,
+				B57214E11D1254C400DADAF4 /* GirlFriend.h */,
+				B57214E21D1254C400DADAF4 /* GirlFriend.m */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -1517,6 +1522,7 @@
 				B550485B1B81B63E00A78C8D /* MJRefreshFooter.m in Sources */,
 				B5493FC21CC8737500EBD09D /* ClassA.m in Sources */,
 				B55048811B81B63E00A78C8D /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
+				B57214E31D1254C400DADAF4 /* GirlFriend.m in Sources */,
 				B550485C1B81B63E00A78C8D /* MJRefreshHeader.m in Sources */,
 				B5B8FFA51CB7848E00AE66B7 /* DDDispatchQueueLogFormatter.m in Sources */,
 				B5B8FFAA1CB7940500AE66B7 /* YXDLog.m in Sources */,
