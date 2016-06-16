@@ -8,24 +8,17 @@
 #import <Foundation/Foundation.h>
 
 @class FMDatabase;
-
-//static NSString *kYXDFMDBHelperObjectPrimaryID = @"primaryID";
-//
-//@protocol YXDFMDBHelperObjectProtocol <NSObject>
-//
-//@property (nonatomic, copy) NSString *primaryID;
-//
-//@end
+@class YXDBaseObject;
 
 @interface YXDFMDBHelper : NSObject
 
 #pragma mark - 增删改查
 
-//+ (BOOL)insertObjects:(NSArray<id<YXDFMDBHelperObjectProtocol>> *)objects error:(NSError **)error;
-//
-//+ (BOOL)deleteObjects:(NSArray<id<YXDFMDBHelperObjectProtocol>> *)objects error:(NSError **)error;
-//
-//+ (BOOL)updateObjects:(NSArray<id<YXDFMDBHelperObjectProtocol>> *)objects error:(NSError **)error;
++ (BOOL)insertObjects:(NSArray<YXDBaseObject *> *)objects error:(NSError **)error;
+
++ (BOOL)deleteObjects:(NSArray<YXDBaseObject *> *)objects error:(NSError **)error;
+
++ (BOOL)updateObjects:(NSArray<YXDBaseObject *> *)objects error:(NSError **)error;
 
 + (NSArray *)selectAllObjectsWithClass:(Class)clazz error:(NSError **)error;
 
@@ -36,6 +29,16 @@
 #pragma mark - Shared Database
 
 + (FMDatabase *)sharedDatabase;
+
+@end
+
+@interface NSArray (YXDFMDBHelper)
+
+- (BOOL)insertWithError:(NSError **)error;
+
+- (BOOL)deleteWithError:(NSError **)error;
+
+- (BOOL)updateWithError:(NSError **)error;
 
 @end
 
