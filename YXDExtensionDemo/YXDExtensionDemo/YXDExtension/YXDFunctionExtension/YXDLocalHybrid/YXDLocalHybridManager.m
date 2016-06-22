@@ -111,12 +111,7 @@ static NSString *const kYXDLocalHybridManagerResourcerPathMapKey    = @"kYXDLoca
     if (!page.length) {
         return;
     }
-    NSMutableDictionary *resourcePathMap = [YXDCommonFunction userDefaultsValueForKey:kYXDLocalHybridManagerResourcerPathMapKey];
-    if (!resourcePathMap) {
-        resourcePathMap = [NSMutableDictionary dictionary];
-    } else {
-        resourcePathMap = [NSMutableDictionary dictionaryWithDictionary:resourcePathMap];
-    }
+    NSMutableDictionary *resourcePathMap = [([YXDCommonFunction userDefaultsValueForKey:kYXDLocalHybridManagerResourcerPathMapKey]?:@{}) mutableCopy];
     [resourcePathMap setObject:resourcePath forKey:page];
     [YXDCommonFunction setUserDefaultsValue:resourcePathMap forKey:kYXDLocalHybridManagerResourcerPathMapKey];
 }
