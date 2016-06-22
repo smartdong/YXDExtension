@@ -90,7 +90,8 @@
 }
 
 - (UIImage *)roundedWithRadius:(NSUInteger)radius maskType:(UIImageRoundedCornerMaskType)maskType {
-    CGRect imageRect = CGRectMake(0, 0, self.size.width, self.size.height);
+    CGRect imageRect = CGRectMake(0, 0, self.size.width * self.scale, self.size.height * self.scale);
+    radius *= self.scale;
     
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = CGBitmapContextCreate(NULL, imageRect.size.width, imageRect.size.height, 8, 4 * imageRect.size.width, colorSpace, kCGImageAlphaPremultipliedFirst);
@@ -106,7 +107,7 @@
     CGContextRelease(context);
     CGColorSpaceRelease(colorSpace);
     
-    UIImage *newImage = [UIImage imageWithCGImage:imageMasked];
+    UIImage *newImage = [UIImage imageWithCGImage:imageMasked scale:self.scale orientation:UIImageOrientationUp];
     CGImageRelease(imageMasked);
     return newImage;
 }
