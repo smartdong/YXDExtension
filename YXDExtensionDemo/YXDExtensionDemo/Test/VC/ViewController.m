@@ -26,7 +26,8 @@
     
 //    [self jsonToObjectTest];
 //    [self playGifTest];
-    [self fmdbHelperTest];
+//    [self imageCornerTest];
+//    [self fmdbHelperTest];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
