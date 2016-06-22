@@ -24,6 +24,8 @@ typedef enum {
 
 @interface UIImage (YXDExtension)
 
+- (CGFloat)radius;
+
 //将GIF图片转化为图片数组 但是调用此方法需要引入系统库 ImageIO
 + (UIGifImageData *)gifImageDataByData:(NSData *)data;
 
@@ -35,19 +37,25 @@ typedef enum {
 
 - (UIImage *)roundedImage;
 
-- (UIImage *)radius:(NSUInteger)radius;
+- (UIImage *)roundedWithRadius:(NSUInteger)radius;
 
-- (UIImage *)radius:(NSUInteger)radius maskType:(UIImageRoundedCornerMaskType)maskType;
+- (UIImage *)roundedWithMaskType:(UIImageRoundedCornerMaskType)maskType;
+
+- (UIImage *)roundedWithRadius:(NSUInteger)radius maskType:(UIImageRoundedCornerMaskType)maskType;
 
 + (UIImage *)roundedImageNamed:(NSString *)name;
 
 + (UIImage *)imageNamed:(NSString *)name radius:(NSUInteger)radius;
+
++ (UIImage *)imageNamed:(NSString *)name maskType:(UIImageRoundedCornerMaskType)maskType;
 
 + (UIImage *)imageNamed:(NSString *)name radius:(NSUInteger)radius maskType:(UIImageRoundedCornerMaskType)maskType;
 
 + (UIImage *)roundedImageWithContentsOfFile:(NSString *)path;
 
 + (UIImage *)imageWithContentsOfFile:(NSString *)path radius:(NSUInteger)radius;
+
++ (UIImage *)imageWithContentsOfFile:(NSString *)path maskType:(UIImageRoundedCornerMaskType)maskType;
 
 + (UIImage *)imageWithContentsOfFile:(NSString *)path radius:(NSUInteger)radius maskType:(UIImageRoundedCornerMaskType)maskType;
 

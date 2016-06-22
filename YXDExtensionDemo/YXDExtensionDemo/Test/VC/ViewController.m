@@ -177,4 +177,30 @@
     [imageView startAnimatingWithGifImageName:@"loading"];
 }
 
+- (void)imageCornerTest {
+    
+    UIColor *bgColor = mRGBColor(244, 244, 244);
+    CGSize size = CGSizeMake(60, 60);
+    
+    UIImage *img1 = [UIImage imageWithColor:[UIColor redColor] size:size];
+    UIImage *img2 = [UIImage imageWithColor:[UIColor greenColor] size:size];
+    UIImage *img3 = [UIImage imageWithColor:[UIColor blueColor] size:size];
+    
+    UIImageView *imv1 = [[UIImageView alloc] initWithFrame:CGRectMake(50, 300, size.width, size.height)];
+    UIImageView *imv2 = [[UIImageView alloc] initWithFrame:CGRectMake(150, 300, size.width, size.height)];
+    UIImageView *imv3 = [[UIImageView alloc] initWithFrame:CGRectMake(250, 300, size.width, size.height)];
+    
+    imv1.backgroundColor = bgColor;
+    imv2.backgroundColor = bgColor;
+    imv3.backgroundColor = bgColor;
+    
+    imv1.image = [img1 roundedWithMaskType:UIImageRoundedCornerMaskTypeTopRight];
+    imv2.image = [img2 roundedWithMaskType:UIImageRoundedCornerMaskTypeBottomRight | UIImageRoundedCornerMaskTypeTopLeft];
+    imv3.image = [img3 roundedImage];
+    
+    [self.view addSubview:imv1];
+    [self.view addSubview:imv2];
+    [self.view addSubview:imv3];
+}
+
 @end

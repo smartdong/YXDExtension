@@ -16,6 +16,10 @@
 
 @implementation UIImage (YXDExtension)
 
+- (CGFloat)radius {
+    return ((self.size.width < self.size.height) ? self.size.width : self.size.height) / 2;
+}
+
 + (UIGifImageData *)gifImageDataByData:(NSData *)data {
 #if __has_include(<ImageIO/ImageIO.h>)
     NSMutableArray *frames = [[NSMutableArray alloc] init];
@@ -52,7 +56,7 @@
 
 + (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size {
     CGRect rect = CGRectMake(0, 0, size.width, size.height);
-    UIGraphicsBeginImageContext(rect.size);
+    UIGraphicsBeginImageContextWithOptions(rect.size, YES, [UIScreen mainScreen].scale);
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetFillColorWithColor(context,color.CGColor);
     CGContextFillRect(context, rect);
@@ -66,57 +70,44 @@
 }
 
 - (UIImage *)scaleToSize:(CGSize)size {
-    size.width /= self.scale;
-    size.height /= self.scale;
-    // 创建一个bitmap的context
-    // 并把它设置成为当前正在使用的context
-    UIGraphicsBeginImageContext(size);
     UIGraphicsBeginImageContextWithOptions(size, YES, self.scale);
-    
-    // 绘制改变大小的图片
     [self drawInRect:CGRectMake(0, 0, size.width, size.height)];
-    // 从当前context中创建一个改变大小后的图片
-    UIImage* scaledImage = UIGraphicsGetImageFromCurrentImageContext();
-    // 使当前的context出堆栈
+    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    // 返回新的改变大小后的图片
     return scaledImage;
 }
 
 - (UIImage *)roundedImage {
-    CGFloat radius = (self.size.width > self.size.height) ? self.size.height : self.size.width;
-    return [self radius:radius];
+    return [self roundedWithRadius:self.radius];
 }
 
-- (UIImage *)radius:(NSUInteger)radius {
-    return [self radius:radius maskType:UIImageRoundedCornerMaskTypeAll];
+- (UIImage *)roundedWithRadius:(NSUInteger)radius {
+    return [self roundedWithRadius:radius maskType:UIImageRoundedCornerMaskTypeAll];
 }
 
-- (UIImage *)radius:(NSUInteger)radius maskType:(UIImageRoundedCornerMaskType)maskType {
-    
-    UIImageView *bkImageViewTmp = [[UIImageView alloc] initWithImage:self];
-    
-    int w = self.size.width;
-    int h = self.size.height;
+- (UIImage *)roundedWithMaskType:(UIImageRoundedCornerMaskType)maskType {
+    return [self roundedWithRadius:self.radius maskType:maskType];
+}
+
+- (UIImage *)roundedWithRadius:(NSUInteger)radius maskType:(UIImageRoundedCornerMaskType)maskType {
+    CGRect imageRect = CGRectMake(0, 0, self.size.width, self.size.height);
     
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context = CGBitmapContextCreate(NULL, w, h, 8, 4 * w, colorSpace, kCGImageAlphaPremultipliedFirst);
+    CGContextRef context = CGBitmapContextCreate(NULL, imageRect.size.width, imageRect.size.height, 8, 4 * imageRect.size.width, colorSpace, kCGImageAlphaPremultipliedFirst);
     
     CGContextBeginPath(context);
-    addRoundedRectToPath(context,bkImageViewTmp.frame, radius, maskType);
+    addRoundedRectToPath(context, imageRect, radius, maskType);
     CGContextClosePath(context);
     CGContextClip(context);
     
-    CGContextDrawImage(context, CGRectMake(0, 0, w, h), self.CGImage);
+    CGContextDrawImage(context, imageRect, self.CGImage);
     
     CGImageRef imageMasked = CGBitmapContextCreateImage(context);
     CGContextRelease(context);
     CGColorSpaceRelease(colorSpace);
     
     UIImage *newImage = [UIImage imageWithCGImage:imageMasked];
-    
     CGImageRelease(imageMasked);
-    
     return newImage;
 }
 
@@ -125,11 +116,16 @@
 }
 
 + (UIImage *)imageNamed:(NSString *)name radius:(NSUInteger)radius {
-    return [[self imageNamed:name] radius:radius];
+    return [[self imageNamed:name] roundedWithRadius:radius];
+}
+
++ (UIImage *)imageNamed:(NSString *)name maskType:(UIImageRoundedCornerMaskType)maskType {
+    UIImage *image = [self imageNamed:name];
+    return [image roundedWithRadius:image.radius maskType:maskType];
 }
 
 + (UIImage *)imageNamed:(NSString *)name radius:(NSUInteger)radius maskType:(UIImageRoundedCornerMaskType)maskType {
-    return [[self imageNamed:name] radius:radius maskType:maskType];
+    return [[self imageNamed:name] roundedWithRadius:radius maskType:maskType];
 }
 
 + (UIImage *)roundedImageWithContentsOfFile:(NSString *)path {
@@ -137,11 +133,16 @@
 }
 
 + (UIImage *)imageWithContentsOfFile:(NSString *)path radius:(NSUInteger)radius {
-    return [[self imageWithContentsOfFile:path] radius:radius];
+    return [[self imageWithContentsOfFile:path] roundedWithRadius:radius];
+}
+
++ (UIImage *)imageWithContentsOfFile:(NSString *)path maskType:(UIImageRoundedCornerMaskType)maskType {
+    UIImage *image = [self imageWithContentsOfFile:path];
+    return [image roundedWithRadius:image.radius maskType:maskType];
 }
 
 + (UIImage *)imageWithContentsOfFile:(NSString *)path radius:(NSUInteger)radius maskType:(UIImageRoundedCornerMaskType)maskType {
-    return [[self imageWithContentsOfFile:path] radius:radius maskType:maskType];
+    return [[self imageWithContentsOfFile:path] roundedWithRadius:radius maskType:maskType];
 }
 
 #pragma mark - 
@@ -149,38 +150,24 @@
 //UIKit坐标系统原点在左上角，y方向向下的（坐标系A），但在Quartz中坐标系原点在左下角，y方向向上的(坐标系B)。图片绘制也是颠倒的。
 static void addRoundedRectToPath(CGContextRef context, CGRect rect, float radius, UIImageRoundedCornerMaskType maskType)
 {
-    //原点在左下方，y方向向上。移动到线条2的起点。
     CGContextMoveToPoint(context, rect.origin.x, rect.origin.y + radius);
     
-    //画出线条2, 目前画线的起始点已经移动到线条2的结束地方了。
     CGContextAddLineToPoint(context, rect.origin.x, rect.origin.y + rect.size.height - radius);
     
     //如果左上角需要画圆角，画出一个弧线出来。
     if (maskType & UIImageRoundedCornerMaskTypeTopLeft) {
-        
-        //已左上的正方形的右下脚为圆心，半径为radius， 180度到90度画一个弧线，
-        CGContextAddArc(context, rect.origin.x + radius, rect.origin.y + rect.size.height - radius,
-                        radius, M_PI, M_PI / 2, 1);
-    }
-    
-    else {
-        //如果不需要画左上角的弧度。从线2终点，画到线3的终点，
+        CGContextAddArc(context, rect.origin.x + radius, rect.origin.y + rect.size.height - radius, radius, M_PI, M_PI / 2, 1);
+    } else {
         CGContextAddLineToPoint(context, rect.origin.x, rect.origin.y + rect.size.height);
-        
-        //线3终点，画到线4的起点
         CGContextAddLineToPoint(context, rect.origin.x + radius, rect.origin.y + rect.size.height);
     }
     
-    //画线4的起始，到线4的终点
-    CGContextAddLineToPoint(context, rect.origin.x + rect.size.width - radius,
-                            rect.origin.y + rect.size.height);
+    CGContextAddLineToPoint(context, rect.origin.x + rect.size.width - radius, rect.origin.y + rect.size.height);
     
     //画右上角
     if (maskType & UIImageRoundedCornerMaskTypeTopRight) {
-        CGContextAddArc(context, rect.origin.x + rect.size.width - radius,
-                        rect.origin.y + rect.size.height - radius, radius, M_PI / 2, 0.0f, 1);
-    }
-    else {
+        CGContextAddArc(context, rect.origin.x + rect.size.width - radius, rect.origin.y + rect.size.height - radius, radius, M_PI / 2, 0.0f, 1);
+    } else {
         CGContextAddLineToPoint(context, rect.origin.x + rect.size.width, rect.origin.y + rect.size.height);
         CGContextAddLineToPoint(context, rect.origin.x + rect.size.width, rect.origin.y + rect.size.height - radius);
     }
@@ -189,10 +176,8 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, float radius
     
     //画右下角弧线
     if (maskType & UIImageRoundedCornerMaskTypeBottomRight) {
-        CGContextAddArc(context, rect.origin.x + rect.size.width - radius, rect.origin.y + radius,
-                        radius, 0.0f, -M_PI / 2, 1);
-    }
-    else {
+        CGContextAddArc(context, rect.origin.x + rect.size.width - radius, rect.origin.y + radius, radius, 0.0f, -M_PI / 2, 1);
+    } else {
         CGContextAddLineToPoint(context, rect.origin.x + rect.size.width, rect.origin.y);
         CGContextAddLineToPoint(context, rect.origin.x + rect.size.width - radius, rect.origin.y);
     }
@@ -201,10 +186,8 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, float radius
     
     //画左下角弧线
     if (maskType & UIImageRoundedCornerMaskTypeBottomLeft) {
-        CGContextAddArc(context, rect.origin.x + radius, rect.origin.y + radius, radius,
-                        -M_PI / 2, M_PI, 1);
-    }
-    else {
+        CGContextAddArc(context, rect.origin.x + radius, rect.origin.y + radius, radius, -M_PI / 2, M_PI, 1);
+    } else {
         CGContextAddLineToPoint(context, rect.origin.x, rect.origin.y);
         CGContextAddLineToPoint(context, rect.origin.x, rect.origin.y + radius);
     }
