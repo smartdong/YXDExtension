@@ -111,7 +111,6 @@
 		B55048811B81B63E00A78C8D /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B55048451B81B63E00A78C8D /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
 		B55048851B81BB1100A78C8D /* YXDNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B55048841B81BB1100A78C8D /* YXDNetworkManager.m */; };
 		B55048891B81C0D900A78C8D /* YXDHUDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B55048881B81C0D900A78C8D /* YXDHUDManager.m */; };
-		B5532ADA1D0E958A009F951D /* YXDLocalHybridBaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5532AD71D0E958A009F951D /* YXDLocalHybridBaseWebViewController.m */; };
 		B5532ADB1D0E958A009F951D /* YXDLocalHybridManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5532AD91D0E958A009F951D /* YXDLocalHybridManager.m */; };
 		B555C8811C9FC45800FB37C9 /* YXDNetworkResult.m in Sources */ = {isa = PBXBuildFile; fileRef = B555C8801C9FC45800FB37C9 /* YXDNetworkResult.m */; };
 		B555C88A1CA1343800FB37C9 /* easyjs-inject.js in Resources */ = {isa = PBXBuildFile; fileRef = B555C8831CA1343800FB37C9 /* easyjs-inject.js */; };
@@ -401,8 +400,6 @@
 		B55048841B81BB1100A78C8D /* YXDNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDNetworkManager.m; sourceTree = "<group>"; };
 		B55048871B81C0D900A78C8D /* YXDHUDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDHUDManager.h; sourceTree = "<group>"; };
 		B55048881B81C0D900A78C8D /* YXDHUDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDHUDManager.m; sourceTree = "<group>"; };
-		B5532AD61D0E958A009F951D /* YXDLocalHybridBaseWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDLocalHybridBaseWebViewController.h; sourceTree = "<group>"; };
-		B5532AD71D0E958A009F951D /* YXDLocalHybridBaseWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDLocalHybridBaseWebViewController.m; sourceTree = "<group>"; };
 		B5532AD81D0E958A009F951D /* YXDLocalHybridManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDLocalHybridManager.h; sourceTree = "<group>"; };
 		B5532AD91D0E958A009F951D /* YXDLocalHybridManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDLocalHybridManager.m; sourceTree = "<group>"; };
 		B555C87F1C9FC45800FB37C9 /* YXDNetworkResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDNetworkResult.h; sourceTree = "<group>"; };
@@ -1060,20 +1057,10 @@
 		B5532AD41D0E958A009F951D /* YXDLocalHybrid */ = {
 			isa = PBXGroup;
 			children = (
-				B5532AD51D0E958A009F951D /* YXDLocalHybridBase */,
 				B5532AD81D0E958A009F951D /* YXDLocalHybridManager.h */,
 				B5532AD91D0E958A009F951D /* YXDLocalHybridManager.m */,
 			);
 			path = YXDLocalHybrid;
-			sourceTree = "<group>";
-		};
-		B5532AD51D0E958A009F951D /* YXDLocalHybridBase */ = {
-			isa = PBXGroup;
-			children = (
-				B5532AD61D0E958A009F951D /* YXDLocalHybridBaseWebViewController.h */,
-				B5532AD71D0E958A009F951D /* YXDLocalHybridBaseWebViewController.m */,
-			);
-			path = YXDLocalHybridBase;
 			sourceTree = "<group>";
 		};
 		B555C8821CA1343800FB37C9 /* EasyJSWebView */ = {
@@ -1594,7 +1581,6 @@
 				B550486F1B81B63E00A78C8D /* SDWebImageDecoder.m in Sources */,
 				B520A90A1C131BAD00CE6701 /* NSDictionary+YXDExtension.m in Sources */,
 				B550487E1B81B63E00A78C8D /* TPKeyboardAvoidingCollectionView.m in Sources */,
-				B5532ADA1D0E958A009F951D /* YXDLocalHybridBaseWebViewController.m in Sources */,
 				B550484A1B81B63E00A78C8D /* AFSecurityPolicy.m in Sources */,
 				B5DE71A01B6F3057006F8FF1 /* UINavigationController+YXDExtension.m in Sources */,
 				B550484D1B81B63E00A78C8D /* AFURLResponseSerialization.m in Sources */,
