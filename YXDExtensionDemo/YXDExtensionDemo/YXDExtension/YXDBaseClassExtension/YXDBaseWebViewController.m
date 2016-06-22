@@ -124,6 +124,16 @@ static NSString *kJavascriptInterfacesName = @"demo";
 
 #pragma mark - Method
 
+- (void)setURL:(NSString *)URL {
+    _URL = URL;
+    
+    if ([URL hasPrefix:@"/"]) {
+        self.showLoadingBar = NO;
+    } else {
+        self.showLoadingBar = YES;
+    }
+}
+
 - (void)loadRequest {
     if (!self.URL.length) {
         return;
