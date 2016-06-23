@@ -27,6 +27,7 @@
 
 static NSString *const kYXDLocalHybridManagerVersionKey             = @"kYXDLocalHybridManagerVersionKey";
 static NSString *const kYXDLocalHybridManagerResourcerPathMapKey    = @"kYXDLocalHybridManagerResourcerPathMapKey";
+static NSString *const kYXDLocalHybridManagerResourcerRootName      = @"HTML";
 
 @implementation YXDLocalHybridManager
 
@@ -69,21 +70,25 @@ static NSString *const kYXDLocalHybridManagerResourcerPathMapKey    = @"kYXDLoca
                                                        // path  资源包里网页文件路径
                                                        // name  页面名称
                                                        
-                                                       NSString *resourcePath = [NSString stringWithFormat:@"%@/HTML",kDocuments];
+                                                       NSString *resourcePath = [NSString stringWithFormat:@"%@/%@",kDocuments,kYXDLocalHybridManagerResourcerRootName];
                                                        NSURL *resourceDownloadDirectory = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/Zips",resourcePath]];
                                                        
                                                        [[YXDNetworkManager sharedInstance] downloadWithURL:[resourceDic objectForKey:@"url"]
                                                                                                  directory:resourceDownloadDirectory
                                                                                                 completion:^(NSURL *filePath, NSError *error) {
-                                                                                                    if (filePath && !error) {
-                                                                                                        BOOL unzipSuccess = [YXDFileManager unzipFileAtPath:filePath.relativePath toDestination:resourcePath];
-                                                                                                        if (unzipSuccess) {
-                                                                                                            [self setResourcePath:[NSString stringWithFormat:@"%@/%@",resourcePath,[resourceDic objectForKey:@"path"]] forPage:[resourceDic objectForKey:@"name"]];
-                                                                                                            [self setResourceVersion:serverVersion];
+                                                                                                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                                                                        if (filePath && !error) {
+                                                                                                            BOOL unzipSuccess = [YXDFileManager unzipFileAtPath:filePath.relativePath toDestination:resourcePath];
+                                                                                                            if (unzipSuccess) {
+                                                                                                                [self setResourcePath:[NSString stringWithFormat:@"%@/%@",kYXDLocalHybridManagerResourcerRootName,[resourceDic objectForKey:@"path"]] forPage:[resourceDic objectForKey:@"name"]];
+                                                                                                                [self setResourceVersion:serverVersion];
+                                                                                                            }
                                                                                                         }
-                                                                                                        [YXDFileManager removeItemAtPath:filePath.relativePath];
-                                                                                                    }
-                                                                                                    completion();
+                                                                                                        if (filePath.relativePath.length) {
+                                                                                                            [YXDFileManager removeItemAtPath:filePath.relativePath];
+                                                                                                        }
+                                                                                                        completion();
+                                                                                                    });
                                                                                                 }];
                                                    }
                                                        method:POST];
@@ -97,12 +102,13 @@ static NSString *const kYXDLocalHybridManagerResourcerPathMapKey    = @"kYXDLoca
     }
     NSDictionary *resourcePathMap = [YXDCommonFunction userDefaultsValueForKey:kYXDLocalHybridManagerResourcerPathMapKey];
     NSString *resourcePath = [resourcePathMap objectForKey:page];
+    NSString *realPath = resourcePath.length?[NSString stringWithFormat:@"%@/%@",kDocuments,resourcePath]:nil;
     
     YXDLocalHybridManager *manager = [YXDLocalHybridManager sharedInstance];
     BOOL couldUseLocalHtml = manager.updated || manager.useLocalHtmlBeforeUpdateSucceed;
     
-    if (resourcePath && [YXDFileManager existsItemAtPath:resourcePath] && couldUseLocalHtml) {
-        return resourcePath;
+    if (resourcePath.length && [YXDFileManager existsItemAtPath:realPath] && couldUseLocalHtml) {
+        return realPath;
     }
     return nil;
 }
