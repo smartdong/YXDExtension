@@ -118,7 +118,11 @@ static NSString *const kYXDLocalHybridManagerResourcerRootName      = @"HTML";
         return;
     }
     NSMutableDictionary *resourcePathMap = [([YXDCommonFunction userDefaultsValueForKey:kYXDLocalHybridManagerResourcerPathMapKey]?:@{}) mutableCopy];
-    [resourcePathMap setObject:resourcePath forKey:page];
+    if (resourcePath.length) {
+        [resourcePathMap setObject:resourcePath forKey:page];
+    } else {
+        [resourcePathMap removeObjectForKey:page];
+    }
     [YXDCommonFunction setUserDefaultsValue:resourcePathMap forKey:kYXDLocalHybridManagerResourcerPathMapKey];
 }
 
