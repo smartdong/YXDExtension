@@ -135,6 +135,7 @@
 		B5618BC01D0D2EF700CA654F /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = B5618BB11D0D2EF700CA654F /* SSZipArchive.m */; };
 		B5618BC21D0D2F1C00CA654F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B5618BC11D0D2F1C00CA654F /* libz.tbd */; };
 		B57214E31D1254C400DADAF4 /* GirlFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = B57214E21D1254C400DADAF4 /* GirlFriend.m */; };
+		B575E0131D22471900781F10 /* YXDFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = B575E0121D22471900781F10 /* YXDFilterView.m */; };
 		B5B8FF9C1CB7848E00AE66B7 /* CLIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B8FF821CB7848E00AE66B7 /* CLIColor.m */; };
 		B5B8FF9E1CB7848E00AE66B7 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B8FF861CB7848E00AE66B7 /* DDAbstractDatabaseLogger.m */; };
 		B5B8FF9F1CB7848E00AE66B7 /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B8FF881CB7848E00AE66B7 /* DDASLLogCapture.m */; };
@@ -452,6 +453,8 @@
 		B5618BC11D0D2F1C00CA654F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		B57214E11D1254C400DADAF4 /* GirlFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GirlFriend.h; sourceTree = "<group>"; };
 		B57214E21D1254C400DADAF4 /* GirlFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GirlFriend.m; sourceTree = "<group>"; };
+		B575E0111D22471900781F10 /* YXDFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDFilterView.h; sourceTree = "<group>"; };
+		B575E0121D22471900781F10 /* YXDFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDFilterView.m; sourceTree = "<group>"; };
 		B5B8FF811CB7848E00AE66B7 /* CLIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLIColor.h; sourceTree = "<group>"; };
 		B5B8FF821CB7848E00AE66B7 /* CLIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLIColor.m; sourceTree = "<group>"; };
 		B5B8FF831CB7848E00AE66B7 /* CocoaLumberjack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaLumberjack.h; sourceTree = "<group>"; };
@@ -1145,6 +1148,15 @@
 			path = minizip;
 			sourceTree = "<group>";
 		};
+		B575E0101D22470A00781F10 /* YXDFilterView */ = {
+			isa = PBXGroup;
+			children = (
+				B575E0111D22471900781F10 /* YXDFilterView.h */,
+				B575E0121D22471900781F10 /* YXDFilterView.m */,
+			);
+			path = YXDFilterView;
+			sourceTree = "<group>";
+		};
 		B5B8FF7F1CB7848E00AE66B7 /* Lumberjack */ = {
 			isa = PBXGroup;
 			children = (
@@ -1271,6 +1283,7 @@
 		B5DE71781B6F174A006F8FF1 /* YXDFunctionExtension */ = {
 			isa = PBXGroup;
 			children = (
+				B575E0101D22470A00781F10 /* YXDFilterView */,
 				B5532AD41D0E958A009F951D /* YXDLocalHybrid */,
 				B5459A721CCF4E3C00C90304 /* YXDMobClickHelper */,
 				0BF6BF1D1CB965EA00CF56DC /* YXDFMDBHelper */,
@@ -1496,6 +1509,7 @@
 				B550485A1B81B63E00A78C8D /* MJRefreshComponent.m in Sources */,
 				B55048741B81B63E00A78C8D /* UIButton+WebCache.m in Sources */,
 				0B6725481B6E9FC9009272B4 /* AppDelegate.m in Sources */,
+				B575E0131D22471900781F10 /* YXDFilterView.m in Sources */,
 				B5DE71A91B6F30C3006F8FF1 /* UIImageView+YXDExtension.m in Sources */,
 				B5618BB61D0D2EF700CA654F /* entropy.c in Sources */,
 				B5B8FFA01CB7848E00AE66B7 /* DDASLLogger.m in Sources */,
