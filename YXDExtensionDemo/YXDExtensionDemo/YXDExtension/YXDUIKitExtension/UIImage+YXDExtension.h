@@ -24,6 +24,8 @@ typedef enum {
 
 @interface UIImage (YXDExtension)
 
+- (UIImage *)tintWithColor:(UIColor *)color;
+
 - (CGFloat)radius;
 
 //将GIF图片转化为图片数组 但是调用此方法需要引入系统库 ImageIO

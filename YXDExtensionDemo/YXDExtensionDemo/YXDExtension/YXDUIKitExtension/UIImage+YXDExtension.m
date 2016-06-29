@@ -16,6 +16,16 @@
 
 @implementation UIImage (YXDExtension)
 
+- (UIImage *)tintWithColor:(UIColor *)color {
+    UIImage *newImage = [self imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIGraphicsBeginImageContextWithOptions(newImage.size, NO, newImage.scale);
+    [color set];
+    [newImage drawInRect:CGRectMake(0, 0, newImage.size.width, newImage.size.height)];
+    newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
 - (CGFloat)radius {
     return ((self.size.width < self.size.height) ? self.size.width : self.size.height) / 2;
 }
