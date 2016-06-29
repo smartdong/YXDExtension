@@ -18,6 +18,25 @@
 
 @implementation UIButton (YXDExtension)
 
+- (void)setImageAlignment:(UIButtonImageAlignment)imageAlignment {
+    switch (imageAlignment) {
+        case UIButtonImageAlignmentLeft:
+        {
+            self.transform = CGAffineTransformIdentity;
+            self.titleLabel.transform = CGAffineTransformIdentity;
+            self.imageView.transform = CGAffineTransformIdentity;
+        }
+            break;
+        case UIButtonImageAlignmentRight:
+        {
+            self.transform = CGAffineTransformMakeScale(-1.0, 1.0);
+            self.titleLabel.transform = CGAffineTransformMakeScale(-1.0, 1.0);
+            self.imageView.transform = CGAffineTransformMakeScale(-1.0, 1.0);
+        }
+            break;
+    }
+}
+
 - (void)unavailable {
     if (!self.userInteractionEnabled) {
         return;

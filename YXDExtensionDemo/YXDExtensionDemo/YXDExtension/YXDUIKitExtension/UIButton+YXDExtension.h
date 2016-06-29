@@ -7,7 +7,14 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, UIButtonImageAlignment) {
+    UIButtonImageAlignmentLeft  = 0, // default
+    UIButtonImageAlignmentRight = 1,
+};
+
 @interface UIButton (YXDExtension)
+
+- (void)setImageAlignment:(UIButtonImageAlignment)imageAlignment;
 
 - (void)unavailable;
 - (void)available;
