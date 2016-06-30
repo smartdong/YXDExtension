@@ -13,8 +13,11 @@
 #import "ClassB.h"
 #import "City.h"
 #import "GirlFriend.h"
+#import "YXDFilterView.h"
 
-@interface ViewController ()
+@interface ViewController ()<YXDFilterViewDelegate>
+
+@property (nonatomic, strong) YXDFilterView *filterView;
 
 @end
 
@@ -28,6 +31,7 @@
 //    [self playGifTest];
 //    [self imageCornerTest];
 //    [self fmdbHelperTest];
+//    [self filterViewTest];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -203,5 +207,90 @@
     [self.view addSubview:imv2];
     [self.view addSubview:imv3];
 }
+
+#pragma mark - Filter View
+
+- (void)filterViewTest {
+    UIView *filterViewContainer = [[UIView alloc] initWithFrame:CGRectMake(30, 100, mScreenWidth - 30 * 2, 300)];
+    filterViewContainer.backgroundColor = mRGBColor(250, 250, 250);
+    [self.view addSubview:filterViewContainer];
+    
+    self.filterView = [YXDFilterView filterViewWithSuperView:filterViewContainer delegate:self];
+}
+
+// Rows count in section (This count is NOT include special row)
+- (NSInteger)filterView:(YXDFilterView *)filterView numberOfRowsInSection:(NSInteger)section {
+    return [[@{
+              @(0) : @[@"短标题1",@"特殊短标题2"],
+              @(1) : @[@"长标题1",@"长标题2",@"长标题3",@"长标题4"],
+              @(2) : @[@"特别长的标题1",@"特别长的标题2",@"特别长的标题3",@"特别长的标题4",@"特别长的标题5",@"特别长的标题6"],
+              } objectForKey:@(section)] count];
+}
+
+// Header title
+- (NSString *)filterView:(YXDFilterView *)filterView titleForHeaderInSection:(NSInteger)section {
+    return [@[
+             @"短标题",
+             @"长标题",
+             @"特别长的标题",
+             ] objectAtIndex:section];
+}
+
+// Row title
+- (NSString *)filterView:(YXDFilterView *)filterView titleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [@{
+              @(0) : @[@"短标题1",@"特殊短标题2"],
+              @(1) : @[@"长标题1",@"长标题2",@"长标题3",@"长标题4"],
+              @(2) : @[@"特别长的标题1",@"特别长的标题2",@"特别长的标题3",@"特别长的标题4",@"特别长的标题5",@"特别长的标题6"],
+              } objectForKey:@(indexPath.section)][indexPath.row];
+}
+
+// Select row event (If isSpecialRow is ture , the indexPath.row == -1)
+- (void)filterView:(YXDFilterView *)filterView didSelectRowAtIndexPath:(NSIndexPath *)indexPath isSpecialRow:(BOOL)isSpecialRow {
+    NSLog(@"didSelectRowAtIndexPath, section : %ld  row : %ld . %@",(long)indexPath.section,(long)indexPath.row,isSpecialRow?@"isSpecialRow":@"notSpecialRow");
+}
+
+// Default nil , not shown . Set title to show special row.
+- (nullable NSString *)filterView:(YXDFilterView *)filterView specialRowTitleInSection:(NSInteger)section {
+    return [@[
+              @"全部短标题",
+              @"",
+              @"全部特别长的标题",
+              ] objectAtIndex:section];
+}
+
+// Default 1 / (sections count) . 0 < percentage <= 1
+- (CGFloat)filterView:(YXDFilterView *)filterView headerWidthPercentageInSection:(NSInteger)section {
+    return [[@[
+              @"0.3",
+              @"0.3",
+              @"0.4",
+              ] objectAtIndex:section] floatValue];
+}
+
+// Default 1
+- (NSInteger)numberOfSectionsInFilterView:(YXDFilterView *)filterView {
+    return 3;
+}
+
+//// Default 50
+//- (CGFloat)rowHeightForFilterView:(YXDFilterView *)filterView {
+//    return 88;
+//}
+//
+//// Default 14
+//- (NSInteger)titleFontSizeForFilterView:(YXDFilterView *)filterView {
+//    return 12;
+//}
+
+//// Default lightGrayColor
+//- (UIColor *)normalTitleColorForFilterView:(YXDFilterView *)filterView {
+//    return [UIColor redColor];
+//}
+//
+//// Default orangeColor
+//- (UIColor *)selectedTitleColorForFilterView:(YXDFilterView *)filterView {
+//    return [UIColor yellowColor];
+//}
 
 @end
