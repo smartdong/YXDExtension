@@ -24,3 +24,4 @@
 #import "UIColor+YXDExtension.h"
 #import "UIDevice+YXDExtension.h"
 #import "UITabBar+YXDExtension.h"
+#import "UITableViewCell+YXDExtension.h"
