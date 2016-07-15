@@ -23,7 +23,7 @@
 
 - (instancetype)initWithURL:(NSString *)URL;
 
-//加载 self.url  会在 viewWillAppear 时自动调用
+//加载 self.URL  会在 viewWillAppear 时自动调用
 - (void)loadRequest;
 
 //调用 js 方法
