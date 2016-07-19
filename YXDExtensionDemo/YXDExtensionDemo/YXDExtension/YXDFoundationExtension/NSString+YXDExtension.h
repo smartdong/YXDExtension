@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class UIImage;
+
 @interface NSString (YXDExtension)
 
 - (BOOL)isEmail;
@@ -31,6 +33,8 @@
 
 - (NSString *)toBase64String;
 - (NSString *)base64StringToOriginString;
+
+- (UIImage *)QRCodeImage;
 
 - (id)objectFromJSONString;
 

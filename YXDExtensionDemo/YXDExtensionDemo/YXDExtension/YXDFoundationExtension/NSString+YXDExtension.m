@@ -7,6 +7,7 @@
 
 #import "NSString+YXDExtension.h"
 #import <CommonCrypto/CommonHMAC.h>
+#import <UIKit/UIImage.h>
 
 @implementation NSString (YXDExtension)
 
@@ -102,6 +103,15 @@ static NSString * YXDPercentEscapedQueryStringValueFromStringWithEncoding(NSStri
 
 - (NSString *)base64StringToOriginString {
     return [[NSString alloc] initWithData:[[NSData alloc] initWithBase64EncodedString:self options:0] encoding:NSASCIIStringEncoding];
+}
+
+- (UIImage *)QRCodeImage {
+    if (!self.length) {
+        return nil;
+    }
+    CIFilter *qrFilter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
+    [qrFilter setValue:[self dataUsingEncoding:NSISOLatin1StringEncoding] forKey:@"inputMessage"];
+    return [UIImage imageWithCIImage:[qrFilter.outputImage imageByApplyingTransform:CGAffineTransformMakeScale(5.0f, 5.0f)]];
 }
 
 -(id)objectFromJSONString {
