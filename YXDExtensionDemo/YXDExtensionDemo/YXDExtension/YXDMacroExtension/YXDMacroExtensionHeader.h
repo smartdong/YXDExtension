@@ -102,7 +102,7 @@ return sharedInstance; \
 
 //weak self
 #define WeakSelfDeclare     typeof(self) __weak weakSelf = self;
-#define StrongSelfDeclare   typeof(weakSelf) __strong strongSelf = weakSelf;
+#define StrongSelfDeclare   typeof(weakSelf) __strong self = weakSelf;
 
 //Assert Define
 #define YXDOverrideAssert           NSAssert(0, @"Subclass should override this method !");
