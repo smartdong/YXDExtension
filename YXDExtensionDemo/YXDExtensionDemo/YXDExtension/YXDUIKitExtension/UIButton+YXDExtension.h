@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger, UIButtonImageAlignment) {
 
 - (void)setImageAlignment:(UIButtonImageAlignment)imageAlignment;
 
-- (void)unavailable;
-- (void)available;
+- (void)beginCountdownState;
+- (void)endCountdownState;
 
 @end

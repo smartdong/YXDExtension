@@ -37,7 +37,7 @@
     }
 }
 
-- (void)unavailable {
+- (void)beginCountdownState {
     if (!self.userInteractionEnabled) {
         return;
     }
@@ -53,7 +53,7 @@
                                               dispatch_source_cancel(_timer);
                                               dispatch_async(dispatch_get_main_queue(), ^
                                                              {
-                                                                 [self available];
+                                                                 [self endCountdownState];
                                                              });
                                           } else {
                                               int seconds = timeout % 60;
@@ -72,7 +72,7 @@
     dispatch_resume(_timer);
 }
 
-- (void)available {
+- (void)endCountdownState {
     [self setTitle:YXDExtension_Verify_Button_Title_Available
           forState:UIControlStateNormal];
     self.userInteractionEnabled = YES;
