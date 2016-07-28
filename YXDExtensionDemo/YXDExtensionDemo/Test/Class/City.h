@@ -6,12 +6,9 @@
 //  Copyright © 2016年 YangXudong. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "YXDFMDBHelper.h"
+#import "YXDBaseObject.h"
 
-@interface City : NSObject //<YXDFMDBHelperObjectProtocol>
-
-//@property (nonatomic, copy) NSString *primaryID;
+@interface City : YXDBaseObject
 
 @property (nonatomic, copy) NSNumber *cityID;
 @property (nonatomic, copy) NSString *name;

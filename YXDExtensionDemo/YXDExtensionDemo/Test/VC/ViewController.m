@@ -14,6 +14,7 @@
 #import "City.h"
 #import "GirlFriend.h"
 #import "YXDFilterView.h"
+#import "YXDFMDBHelper.h"
 
 @interface ViewController ()<YXDFilterViewDelegate>
 
