@@ -13,7 +13,7 @@
     return [NSJSONSerialization JSONObjectWithData:self options:0 error:nil];
 }
 
--(NSString *)hexString {
+- (NSString *)hexString {
     const unsigned char *dataBuffer = (const unsigned char *)[self bytes];
     
     if (!dataBuffer) {

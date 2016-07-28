@@ -15,8 +15,8 @@ static NSString *YXDMobClickHelperAutoConfigKey = @"YXDMobClickHelperAutoConfigK
 
 @implementation YXDMobClickHelper
 
-+ (void)autoConfigWithUrl:(NSString *)url params:(NSDictionary *)params eventBlock:(void (^)(NSString *))eventBlock {
-    if (!url.length || !eventBlock) {
++ (void)autoConfigWithURL:(NSString *)URL params:(NSDictionary *)params eventBlock:(void (^)(NSString *))eventBlock {
+    if (!URL.length || !eventBlock) {
         return;
     }
     
@@ -39,7 +39,7 @@ static NSString *YXDMobClickHelperAutoConfigKey = @"YXDMobClickHelperAutoConfigK
     
     //更新最新的 config
     [[YXDNetworkManager newManager] sendRequestWithParams:params
-                                         interfaceAddress:url
+                                         interfaceAddress:URL
                                                   completion:^(YXDNetworkResult *result) {
                                                       if (result.list.count) {
                                                           [YXDCommonFunction setUserDefaultsValue:result.list forKey:YXDMobClickHelperAutoConfigKey];

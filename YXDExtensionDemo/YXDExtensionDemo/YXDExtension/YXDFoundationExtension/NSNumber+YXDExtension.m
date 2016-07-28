@@ -6,6 +6,7 @@
 //
 
 #import "NSNumber+YXDExtension.h"
+#import "NSString+YXDExtension.h"
 
 @implementation NSNumber (YXDExtension)
 
@@ -18,28 +19,19 @@
 }
 
 - (NSString *)rmbString {
-    return [NSString stringWithFormat:@"￥%@", [self priceString]];
+    return self.stringValue.rmbString;
 }
 
 + (NSString *)rmbStringWithFloat:(float)price {
-    return [NSString stringWithFormat:@"￥%@", [self priceStringWithFloat:price]];
+    return @(price).rmbString;
 }
 
 - (NSString *)priceString {
-    NSString *result = [NSString stringWithFormat:@"%.2f", self.floatValue];
-    
-    //如果没有小数 不显示.00
-    if ([result hasSuffix:@".00"]) {
-        result = [result stringByReplacingOccurrencesOfString:@".00" withString:@""];
-    } else if ([result hasSuffix:@"0"]) {
-        result = [result stringByReplacingCharactersInRange:NSMakeRange(result.length - 1, 1) withString:@""];
-    }
-    
-    return result;
+    return self.stringValue.priceString;
 }
 
 + (NSString *)priceStringWithFloat:(float)price {
-    return [@(price) priceString];
+    return @(price).priceString;
 }
 
 @end

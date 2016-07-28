@@ -946,7 +946,7 @@
 }
 
 
-+(NSURL *)urlForItemAtPath:(NSString *)path
++(NSURL *)URLForItemAtPath:(NSString *)path
 {
     return [NSURL fileURLWithPath:[self absolutePath:path]];
 }

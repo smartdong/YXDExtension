@@ -156,8 +156,7 @@
 +(NSNumber *)sizeOfItemAtPath:(NSString *)path;
 +(NSNumber *)sizeOfItemAtPath:(NSString *)path error:(NSError **)error;
 
-
-+(NSURL *)urlForItemAtPath:(NSString *)path;
++(NSURL *)URLForItemAtPath:(NSString *)path;
 
 +(BOOL)writeFileAtPath:(NSString *)path content:(NSObject *)content;
 +(BOOL)writeFileAtPath:(NSString *)path content:(NSObject *)content error:(NSError **)error;

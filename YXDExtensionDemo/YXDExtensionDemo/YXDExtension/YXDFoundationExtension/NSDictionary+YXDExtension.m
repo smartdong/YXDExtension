@@ -34,7 +34,7 @@
         sortedString = [sortedString stringByAppendingString:[NSString stringWithFormat:@"%@=%@&",aKey,[self objectForKey:aKey]]];
     }
     
-    return [sortedString substringToIndex:[sortedString length] - 1];
+    return [sortedString substringToIndex:(sortedString.length - 1)];
 }
 
 @end
