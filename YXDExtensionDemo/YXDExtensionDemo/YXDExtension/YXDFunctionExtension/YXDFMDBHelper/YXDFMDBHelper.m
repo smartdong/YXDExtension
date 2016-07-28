@@ -62,12 +62,12 @@ static NSString *YXDFMDBHelperDataBaseName = @"test.db";
     if (![YXDFMDBHelper_FMDB tableExists:classString]) {
         //如果表不存在 则创建表
         
-        NSString *createTable = [NSString stringWithFormat:@""];
+        //TODO: 生成建表语句
+        //NSString *createTable = [NSString stringWithFormat:@""];
         
     }
     
-    //检查表结构是否正确
-    
+    //TODO: 检查表结构是否正确
     
     return NO;
 }
