@@ -8,6 +8,7 @@
 #import "RefreshTestTableViewController.h"
 #import "UITableView+YXDExtension.h"
 #import "UIScrollView+YXDExtension.h"
+#import "YXDMacroExtensionHeader.h"
 
 @interface RefreshTestTableViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -23,14 +24,17 @@
     
     [self.tableView registerDefaultCell];
     
+    WeakSelfDeclare
     [self.tableView addLoadStatusViewWithPullLoadingBlock:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            StrongSelfDeclare
             self.count = 10;
             [self.tableView setStatusSuccess];
 //            [self.tableView setStatusFail];
         });
     } footerLoadingBlock:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            StrongSelfDeclare
             if (self.count < 50) {
                 self.count += 10;
             } else {
