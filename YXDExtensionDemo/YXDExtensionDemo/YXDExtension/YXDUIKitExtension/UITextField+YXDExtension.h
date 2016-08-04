@@ -8,11 +8,13 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSInteger,UITextFieldInputCharacterType) {
+    UITextFieldInputCharacterTypeDefault,               //默认 不限制
     UITextFieldInputCharacterTypeNumber,                //数字
     UITextFieldInputCharacterTypeNaturalNumber,         //自然数
     UITextFieldInputCharacterTypeDecimal,               //小数
     UITextFieldInputCharacterTypeDecimalToOnePlace,     //一位小数
     UITextFieldInputCharacterTypeDecimalToTwoPlaces,    //两位小数
+    UITextFieldInputCharacterTypeDecimalToThreePlaces,  //三位小数
     UITextFieldInputCharacterTypeLetter,                //字母
     UITextFieldInputCharacterTypeLetterAndNumber,       //字母加数字
 };
