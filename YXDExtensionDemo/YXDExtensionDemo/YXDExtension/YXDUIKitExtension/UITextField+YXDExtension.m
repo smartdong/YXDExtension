@@ -13,9 +13,7 @@ static NSString *const kYXDExtensionStringAllLetterAndNumber    = @"ABCDEFGHIJKL
 
 @implementation UITextField (YXDExtension)
 
-- (BOOL)shouldChangeCharactersWithType:(UITextFieldInputCharacterType)type
-                                length:(NSInteger)length
-                     replacementString:(NSString *)string {
+- (BOOL)shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string maxLength:(NSInteger)maxLength type:(UITextFieldInputCharacterType)type {
     
     if ([string isEqualToString:@"\n"]) {
         return YES;
@@ -25,7 +23,7 @@ static NSString *const kYXDExtensionStringAllLetterAndNumber    = @"ABCDEFGHIJKL
         return YES;
     }
     
-    if ((length > 0) && ((self.text.length + string.length) > length)) {
+    if ((maxLength > 0) && ((self.text.length + string.length - range.length) > maxLength)) {
         return NO;
     }
     
