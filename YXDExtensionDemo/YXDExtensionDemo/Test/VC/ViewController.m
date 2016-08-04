@@ -16,9 +16,11 @@
 #import "YXDFilterView.h"
 #import "YXDFMDBHelper.h"
 
-@interface ViewController ()<YXDFilterViewDelegate>
+@interface ViewController ()<YXDFilterViewDelegate,UITextFieldDelegate>
 
 @property (nonatomic, strong) YXDFilterView *filterView;
+
+@property (weak, nonatomic) IBOutlet UITextField *inputTextField;
 
 @end
 
@@ -207,6 +209,13 @@
     [self.view addSubview:imv1];
     [self.view addSubview:imv2];
     [self.view addSubview:imv3];
+}
+
+#pragma mark - Text Field Delegate
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSLog(@"------\n range.location : %lu \n range.length : %lu \n string : %@ \n\n",(unsigned long)range.location,(unsigned long)range.length,string);
+    return [textField shouldChangeCharactersInRange:range replacementString:string maxLength:10 type:UITextFieldInputCharacterTypeDefault];
 }
 
 #pragma mark - Filter View
