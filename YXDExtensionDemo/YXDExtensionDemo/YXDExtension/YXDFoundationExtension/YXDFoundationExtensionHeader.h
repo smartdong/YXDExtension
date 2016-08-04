@@ -11,3 +11,6 @@
 #import "NSNumber+YXDExtension.h"
 #import "NSNull+YXDExtension.h"
 #import "NSObject+YXDExtension.h"
+#import "NSData+YXDExtension.h"
+#import "NSArray+YXDExtension.h"
+#import "NSDictionary+YXDExtension.h"
