@@ -214,8 +214,7 @@
 #pragma mark - Text Field Delegate
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    NSLog(@"------\n range.location : %lu \n range.length : %lu \n string : %@ \n\n",(unsigned long)range.location,(unsigned long)range.length,string);
-    return [textField shouldChangeCharactersInRange:range replacementString:string maxLength:10 type:UITextFieldInputCharacterTypeDefault];
+    return [textField shouldChangeCharactersInRange:range replacementString:string maxLength:6 type:UITextFieldInputCharacterTypeDecimalToTwoPlaces];
 }
 
 #pragma mark - Filter View
