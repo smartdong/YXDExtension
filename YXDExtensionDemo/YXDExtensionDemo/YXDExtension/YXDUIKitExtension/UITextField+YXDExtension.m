@@ -43,7 +43,7 @@ static NSString *const kYXDExtensionStringAllLetterAndNumber    = @"ABCDEFGHIJKL
             break;
         case UITextFieldInputCharacterTypeNaturalNumber:
         {
-            if (!self.text.length && !string.integerValue) {
+            if (!self.text.length && [string isEqualToString:@"0"]) {
                 return NO;
             }
             filter = kYXDExtensionStringAllNumber;
