@@ -31,25 +31,24 @@
     return [NSDate dateWithTimeIntervalSince1970:self.doubleValue / 1000];
 }
 
-- (NSString *)rmbString {
+- (NSString *)RMBString {
     return [NSString stringWithFormat:@"￥%@", [self priceString]];
 }
 
-+ (NSString *)rmbStringWithFloat:(float)price {
++ (NSString *)RMBStringWithFloat:(float)price {
     return [NSString stringWithFormat:@"￥%@", [self priceStringWithFloat:price]];
 }
 
 - (NSString *)priceString {
-    NSString *result = [NSString stringWithFormat:@"%.2f", self.floatValue];
+    NSString *string = [NSString stringWithFormat:@"%.2f", self.floatValue];
     
-    //如果没有小数 不显示.00
-    if ([result hasSuffix:@".00"]) {
-        result = [result stringByReplacingOccurrencesOfString:@".00" withString:@""];
-    } else if ([result hasSuffix:@"0"]) {
-        result = [result stringByReplacingCharactersInRange:NSMakeRange(result.length - 1, 1) withString:@""];
+    if ([string hasSuffix:@".00"]) {
+        string = [string substringToIndex:string.length - 3];
+    } else if ([string hasSuffix:@"0"]) {
+        string = [string substringToIndex:string.length - 1];
     }
     
-    return result;
+    return string;
 }
 
 + (NSString *)priceStringWithFloat:(float)price {

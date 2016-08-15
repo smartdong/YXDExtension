@@ -18,12 +18,12 @@
     return [NSDate dateWithTimeIntervalSince1970:self.doubleValue / 1000];
 }
 
-- (NSString *)rmbString {
-    return self.stringValue.rmbString;
+- (NSString *)RMBString {
+    return self.stringValue.RMBString;
 }
 
-+ (NSString *)rmbStringWithFloat:(float)price {
-    return @(price).rmbString;
++ (NSString *)RMBStringWithFloat:(float)price {
+    return @(price).RMBString;
 }
 
 - (NSString *)priceString {

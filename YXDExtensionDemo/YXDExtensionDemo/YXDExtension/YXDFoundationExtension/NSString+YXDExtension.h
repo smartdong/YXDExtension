@@ -17,8 +17,8 @@
 - (NSDate *)dateFromSeconds;
 - (NSDate *)dateFromMilliSeconds;
 
-- (NSString *)rmbString;
-+ (NSString *)rmbStringWithFloat:(float)price;
+- (NSString *)RMBString;
++ (NSString *)RMBStringWithFloat:(float)price;
 
 - (NSString *)priceString;
 + (NSString *)priceStringWithFloat:(float)price;
