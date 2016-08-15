@@ -23,6 +23,8 @@
 - (NSString *)priceString;
 + (NSString *)priceStringWithFloat:(float)price;
 
+- (NSString *)stringToThirdDecimalPlace;
+
 - (NSURL *)URL;
 - (NSURLRequest *)URLRequest;
 

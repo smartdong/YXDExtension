@@ -55,6 +55,20 @@
     return [[NSString stringWithFormat:@"%.2f",price] priceString];
 }
 
+- (NSString *)stringToThirdDecimalPlace {
+    NSString *string = [NSString stringWithFormat:@"%.3f", self.floatValue];
+    
+    if ([string hasSuffix:@".000"]) {
+        string = [string substringToIndex:string.length - 4];
+    } else if ([string hasSuffix:@"00"]) {
+        string = [string substringToIndex:string.length - 2];
+    } else if ([string hasSuffix:@"0"]) {
+        string = [string substringToIndex:string.length - 1];
+    }
+    
+    return string;
+}
+
 - (NSURL *)URL {
     NSString *encodedString = [[self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"];
     return [NSURL URLWithString:encodedString];
