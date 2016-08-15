@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 
 @class UIImage;
+@class UIColor;
 
 @interface NSString (YXDExtension)
 
@@ -24,6 +25,14 @@
 + (NSString *)priceStringWithFloat:(float)price;
 
 - (NSString *)stringToThirdDecimalPlace;
+
+- (NSAttributedString *)attributedWithRMBStringFontSize:(NSUInteger)RMBStringFontSize
+                                    priceStringFontSize:(NSUInteger)priceStringFontSize;
+
+- (NSAttributedString *)attributedWithRMBStringFontSize:(NSUInteger)RMBStringFontSize
+                                         RMBStringColor:(UIColor *)RMBStringColor
+                                    priceStringFontSize:(NSUInteger)priceStringFontSize
+                                       priceStringColor:(UIColor *)priceStringColor;
 
 - (NSURL *)URL;
 - (NSURLRequest *)URLRequest;

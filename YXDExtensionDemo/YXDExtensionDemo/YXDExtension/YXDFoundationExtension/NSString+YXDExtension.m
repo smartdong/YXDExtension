@@ -8,6 +8,9 @@
 #import "NSString+YXDExtension.h"
 #import <CommonCrypto/CommonHMAC.h>
 #import <UIKit/UIImage.h>
+#import <UIKit/UIColor.h>
+#import <UIKit/UIFont.h>
+#import <UIKit/NSAttributedString.h>
 
 @implementation NSString (YXDExtension)
 
@@ -67,6 +70,39 @@
     }
     
     return string;
+}
+
+- (NSAttributedString *)attributedWithRMBStringFontSize:(NSUInteger)RMBStringFontSize
+                                    priceStringFontSize:(NSUInteger)priceStringFontSize {
+    return [self attributedWithRMBStringFontSize:RMBStringFontSize
+                                  RMBStringColor:nil
+                             priceStringFontSize:priceStringFontSize
+                                priceStringColor:nil];
+}
+
+- (NSAttributedString *)attributedWithRMBStringFontSize:(NSUInteger)RMBStringFontSize
+                                         RMBStringColor:(UIColor *)RMBStringColor
+                                    priceStringFontSize:(NSUInteger)priceStringFontSize
+                                       priceStringColor:(UIColor *)priceStringColor {
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.RMBString];
+    
+    if (RMBStringFontSize > 0) {
+        [attributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:RMBStringFontSize] range:NSMakeRange(0, 1)];
+    }
+    
+    if (priceStringFontSize > 0) {
+        [attributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:priceStringFontSize] range:NSMakeRange(1, attributedString.length - 1)];
+    }
+    
+    if (RMBStringColor) {
+        [attributedString addAttribute:NSForegroundColorAttributeName value:RMBStringColor range:NSMakeRange(0, 1)];
+    }
+    
+    if (priceStringColor) {
+        [attributedString addAttribute:NSForegroundColorAttributeName value:priceStringColor range:NSMakeRange(1, attributedString.length - 1)];
+    }
+    
+    return attributedString;
 }
 
 - (NSURL *)URL {
