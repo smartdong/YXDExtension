@@ -14,3 +14,4 @@
 #import "NSData+YXDExtension.h"
 #import "NSArray+YXDExtension.h"
 #import "NSDictionary+YXDExtension.h"
+#import "NSTimer+YXDExtension.h"
