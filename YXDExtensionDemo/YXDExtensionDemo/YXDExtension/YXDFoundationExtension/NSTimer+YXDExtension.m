@@ -9,7 +9,7 @@
 
 @implementation NSTimer (YXDExtension)
 
-+ (dispatch_source_t)countDownTimerForInterval:(NSUInteger)seconds repeatTimes:(NSUInteger)times action:(void (^)(NSUInteger))action competion:(void (^)(void))completion {
++ (dispatch_source_t)countDownTimerForInterval:(NSUInteger)seconds repeatTimes:(NSUInteger)times action:(void (^)(NSUInteger))action completion:(void (^)(void))completion {
     __block NSUInteger count = times;
     dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue());
     uint64_t nsec = (uint64_t)(seconds * NSEC_PER_SEC);
