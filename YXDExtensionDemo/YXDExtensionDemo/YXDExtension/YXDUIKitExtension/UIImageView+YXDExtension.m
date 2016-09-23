@@ -25,21 +25,33 @@
 }
 
 - (void)startAnimatingWithGifImageName:(NSString *)gifImageName {
-    [self startAnimatingWithGifImagePath:[[NSBundle mainBundle] pathForResource:gifImageName ofType:@".gif"]];
+    [self startAnimatingWithGifImageName:gifImageName repeatCount:0];
+}
+
+- (void)startAnimatingWithGifImageName:(NSString *)gifImageName repeatCount:(NSUInteger)repeatCount {
+    [self startAnimatingWithGifImagePath:[[NSBundle mainBundle] pathForResource:gifImageName ofType:@".gif"] repeatCount:repeatCount];
 }
 
 - (void)startAnimatingWithGifImagePath:(NSString *)gifImagePath {
+    [self startAnimatingWithGifImagePath:gifImagePath repeatCount:0];
+}
+
+- (void)startAnimatingWithGifImagePath:(NSString *)gifImagePath repeatCount:(NSUInteger)repeatCount {
     UIGifImageData *imageData = [UIImage gifImageDataByData:[NSData dataWithContentsOfFile:gifImagePath]];
-    [self startAnimatingWithImages:imageData.images duration:imageData.duration];
+    [self startAnimatingWithImages:imageData.images duration:imageData.duration repeatCount:repeatCount];
 }
 
 - (void)startAnimatingWithImages:(NSArray<UIImage *> *)images duration:(CGFloat)duration {
+    [self startAnimatingWithImages:images duration:duration repeatCount:0];
+}
+
+- (void)startAnimatingWithImages:(NSArray<UIImage *> *)images duration:(CGFloat)duration repeatCount:(NSUInteger)repeatCount {
     if (!images.count) {
         return;
     }
     self.animationImages = images;
     self.animationDuration = duration;
-    self.animationRepeatCount = 0;
+    self.animationRepeatCount = repeatCount;
     [self startAnimating];
 }
 

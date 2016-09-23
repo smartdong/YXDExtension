@@ -16,9 +16,12 @@
 - (void)setImageWithURLString:(NSString *)URLString placeholderImageName:(NSString *)placeholderImageName;
 
 - (void)startAnimatingWithGifImageName:(NSString *)gifImageName;
+- (void)startAnimatingWithGifImageName:(NSString *)gifImageName repeatCount:(NSUInteger)repeatCount;
 
 - (void)startAnimatingWithGifImagePath:(NSString *)gifImagePath;
+- (void)startAnimatingWithGifImagePath:(NSString *)gifImagePath repeatCount:(NSUInteger)repeatCount;
 
 - (void)startAnimatingWithImages:(NSArray<UIImage *> *)images duration:(CGFloat)duration;
+- (void)startAnimatingWithImages:(NSArray<UIImage *> *)images duration:(CGFloat)duration repeatCount:(NSUInteger)repeatCount;
 
 @end
