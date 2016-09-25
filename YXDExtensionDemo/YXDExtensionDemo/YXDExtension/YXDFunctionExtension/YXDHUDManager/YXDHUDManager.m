@@ -13,16 +13,19 @@
 
 @end
 
+static CGFloat const kYXDHUDManagerShowDelay = 0.2f;
+
 @implementation YXDHUDManager
 
 + (void)showWithDuration:(CGFloat)duration {
-    [self show];
-    [self dissmissAfterDuration:duration completion:nil];
+    [self showWithDuration:duration completion:nil];
 }
 
 + (void)showWithDuration:(CGFloat)duration completion:(dispatch_block_t)completion {
-    [self showWithMaskType:SVProgressHUDMaskTypeBlack];
-    [self dissmissAfterDuration:duration completion:completion];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kYXDHUDManagerShowDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self showWithMaskType:SVProgressHUDMaskTypeBlack];
+        [self dissmissAfterDuration:duration completion:completion];
+    });
 }
 
 + (void)showAndAutoDismissWithTitle:(NSString *)title {
@@ -34,13 +37,14 @@
 }
 
 + (void)showWithTitle:(NSString *)title duration:(CGFloat)duration {
-    [self showWithStatus:title];
-    [self dissmissAfterDuration:duration completion:nil];
+    [self showWithTitle:title duration:duration completion:nil];
 }
 
 + (void)showWithTitle:(NSString *)title duration:(CGFloat)duration completion:(dispatch_block_t)completion {
-    [self showWithStatus:title maskType:SVProgressHUDMaskTypeBlack];
-    [self dissmissAfterDuration:duration completion:completion];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kYXDHUDManagerShowDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self showWithStatus:title maskType:SVProgressHUDMaskTypeBlack];
+        [self dissmissAfterDuration:duration completion:completion];
+    });
 }
 
 + (void)showSuccessAndAutoDismissWithTitle:(NSString *)title {
@@ -52,13 +56,14 @@
 }
 
 + (void)showSuccessWithTitle:(NSString *)title duration:(CGFloat)duration {
-    [self showSuccessWithStatus:title];
-    [self dissmissAfterDuration:duration completion:nil];
+    [self showSuccessWithTitle:title duration:duration completion:nil];
 }
 
 + (void)showSuccessWithTitle:(NSString *)title duration:(CGFloat)duration completion:(dispatch_block_t)completion {
-    [self showSuccessWithStatus:title maskType:SVProgressHUDMaskTypeBlack];
-    [self dissmissAfterDuration:duration completion:completion];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kYXDHUDManagerShowDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self showSuccessWithStatus:title maskType:SVProgressHUDMaskTypeBlack];
+        [self dissmissAfterDuration:duration completion:completion];
+    });
 }
 
 + (void)showErrorAndAutoDismissWithTitle:(NSString *)title {
@@ -70,13 +75,14 @@
 }
 
 + (void)showErrorWithTitle:(NSString *)title duration:(CGFloat)duration {
-    [self showErrorWithStatus:title];
-    [self dissmissAfterDuration:duration completion:nil];
+    [self showErrorWithTitle:title duration:duration completion:nil];
 }
 
 + (void)showErrorWithTitle:(NSString *)title duration:(CGFloat)duration completion:(dispatch_block_t)completion {
-    [self showErrorWithStatus:title maskType:SVProgressHUDMaskTypeBlack];
-    [self dissmissAfterDuration:duration completion:completion];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kYXDHUDManagerShowDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self showErrorWithStatus:title maskType:SVProgressHUDMaskTypeBlack];
+        [self dissmissAfterDuration:duration completion:completion];
+    });
 }
 
 + (void)dissmissAfterDuration:(CGFloat)duration completion:(dispatch_block_t)completion {
