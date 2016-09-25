@@ -12,6 +12,8 @@
 + (NSDateFormatter *)defaultDateFormatter;
 + (NSDateFormatter *)defaultDatetimeFormatter;
 + (NSDateFormatter *)defaultDatetimeWithoutSecondsFormatter;
+
++ (NSDateFormatter *)dateFormatterForGMT;
 + (NSDateFormatter *)dateFormatterWithFormat:(NSString *)dateFormat;
 
 @end
