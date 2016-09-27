@@ -61,6 +61,7 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
                      completion:completion
                  networkFailure:networkFailure
                   loadingStatus:loadingStatus
+                 uploadProgress:nil
                          method:method];
 }
 
@@ -70,6 +71,7 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
                    completion:(void (^)(YXDNetworkResult *result))completion
                networkFailure:(void (^)(NSError *error))networkFailure
                 loadingStatus:(NSString *)loadingStatus
+               uploadProgress:(YXDNetworkManagerUploadProgressChangedBlock)uploadProgress
                        method:(NetworkManagerHttpMethod)method {
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
@@ -92,33 +94,9 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
             [self.requestManager.requestSerializer setValue:value forHTTPHeaderField:key];
         }
     }];
-
-    void (^constructingBodyBlock)(id<AFMultipartFormData> formData) = uploadObjectsArray.count?^(id<AFMultipartFormData> formData){
-        for (YXDNetworkUploadObject *uploadObject in uploadObjectsArray) {
-            if ([uploadObject isKindOfClass:[YXDNetworkUploadObject class]] && uploadObject.paramName.length && uploadObject.file) {
-                
-                NSData *data = nil;
-                
-                if ([uploadObject.file isKindOfClass:[NSData class]]) {
-                    data = uploadObject.file;
-                } else if ([uploadObject.file isKindOfClass:[UIImage class]]) {
-                    data = UIImageJPEGRepresentation(uploadObject.file,(uploadObject.imageQuality>0)?uploadObject.imageQuality:0.1);
-                } else {
-                    continue;
-                }
-                
-                [formData appendPartWithFileData:data
-                                            name:uploadObject.paramName
-                                        fileName:uploadObject.fileName?:@""
-                                        mimeType:uploadObject.fileType?:@"image/png"];
-            } else {
-                DDLogInfo(@"上传数据格式错误");
-            }
-        }
-    }:nil;
     
     void (^successBlock)(AFHTTPRequestOperation *operation, id responseObject) = ^(AFHTTPRequestOperation *operation, id responseObject) {
-
+        
         if (!self.requestManager.operationQueue.operationCount) {
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         }
@@ -170,55 +148,139 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
         }
     };
     
-    switch (method) {
-        case GET:
-        {
-            [self.requestManager GET:interfaceAddress
-                          parameters:sendParams
-                             success:successBlock
-                             failure:failureBlock];
+    if (uploadObjectsArray.count) {
+        self.requestManager.requestSerializer.timeoutInterval = 0;
+        
+        void (^constructingBodyBlock)(id<AFMultipartFormData> formData) = uploadObjectsArray.count?^(id<AFMultipartFormData> formData){
+            for (YXDNetworkUploadObject *uploadObject in uploadObjectsArray) {
+                if ([uploadObject isKindOfClass:[YXDNetworkUploadObject class]] && uploadObject.paramName.length && uploadObject.file) {
+                    
+                    NSData *data = nil;
+                    
+                    if ([uploadObject.file isKindOfClass:[NSData class]]) {
+                        data = uploadObject.file;
+                    } else if ([uploadObject.file isKindOfClass:[UIImage class]]) {
+                        data = UIImageJPEGRepresentation(uploadObject.file,(uploadObject.imageQuality>0)?uploadObject.imageQuality:0.1);
+                    } else {
+                        continue;
+                    }
+                    
+                    [formData appendPartWithFileData:data
+                                                name:uploadObject.paramName
+                                            fileName:uploadObject.fileName?:@""
+                                            mimeType:uploadObject.fileType?:@"image/png"];
+                } else {
+                    DDLogInfo(@"上传数据格式错误");
+                }
+            }
+        }:nil;
+        
+        NSMutableURLRequest *request = [self.requestManager.requestSerializer multipartFormRequestWithMethod:@"POST"
+                                                                                                   URLString:interfaceAddress
+                                                                                                  parameters:sendParams
+                                                                                   constructingBodyWithBlock:constructingBodyBlock
+                                                                                                       error:nil];
+        
+        AFHTTPRequestOperation *operation = [self.requestManager HTTPRequestOperationWithRequest:request
+                                                                                         success:successBlock
+                                                                                         failure:failureBlock];
+        
+        if (uploadProgress) {
+            [operation setUploadProgressBlock:^(NSUInteger __unused bytesWritten,
+                                                long long totalBytesWritten,
+                                                long long totalBytesExpectedToWrite) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    uploadProgress((CGFloat)(totalBytesWritten/(double)totalBytesExpectedToWrite));
+                });
+            }];
         }
-            break;
-        case POST:
-        {
-            [self.requestManager POST:interfaceAddress
-                           parameters:sendParams
-            constructingBodyWithBlock:constructingBodyBlock
-                              success:successBlock
-                              failure:failureBlock];
+        
+        [operation start];
+        
+    } else {
+        self.requestManager.requestSerializer.timeoutInterval = 15;
+        
+        switch (method) {
+            case GET:
+            {
+                [self.requestManager GET:interfaceAddress
+                              parameters:sendParams
+                                 success:successBlock
+                                 failure:failureBlock];
+            }
+                break;
+            case POST:
+            {
+                [self.requestManager POST:interfaceAddress
+                               parameters:sendParams
+                constructingBodyWithBlock:nil
+                                  success:successBlock
+                                  failure:failureBlock];
+            }
+                break;
+            case PUT:
+            {
+                [self.requestManager PUT:interfaceAddress
+                              parameters:sendParams
+                                 success:successBlock
+                                 failure:failureBlock];
+            }
+                break;
+            case DELETE:
+            {
+                [self.requestManager DELETE:interfaceAddress
+                                 parameters:sendParams
+                                    success:successBlock
+                                    failure:failureBlock];
+            }
+                break;
+            case PATCH:
+            {
+                [self.requestManager PATCH:interfaceAddress
+                                parameters:sendParams
+                                   success:successBlock
+                                   failure:failureBlock];
+            }
+                break;
+                
+            default:
+                break;
         }
-            break;
-        case PUT:
-        {
-            [self.requestManager PUT:interfaceAddress
-                          parameters:sendParams
-                             success:successBlock
-                             failure:failureBlock];
-        }
-            break;
-        case DELETE:
-        {
-            [self.requestManager DELETE:interfaceAddress
-                             parameters:sendParams
-                                success:successBlock
-                                failure:failureBlock];
-        }
-            break;
-        case PATCH:
-        {
-            [self.requestManager PATCH:interfaceAddress
-                            parameters:sendParams
-                               success:successBlock
-                               failure:failureBlock];
-        }
-            break;
-            
-        default:
-            break;
     }
 }
 
 #pragma mark - Upload & Download
+
+//- (void)uploadWithURL:(NSString *)URL
+//                 data:(NSData *)data
+//      currentProgress:(YXDNetworkManagerUploadProgressChangedBlock)currentProgress
+//           completion:(void (^)(YXDNetworkResult *result))completion {
+//
+//    NSURLSessionUploadTask *ut = [self.tasksManager uploadTaskWithRequest:URL.URLRequest
+//                                                                 fromData:data
+//                                                                 progress:nil
+//                                                        completionHandler:^(NSURLResponse * _Nonnull response, id  _Nonnull responseObject, NSError * _Nonnull error) {
+//
+//                                                        }];
+//
+//
+//    [self.tasksManager setTaskDidSendBodyDataBlock:^(NSURLSession * _Nonnull session, NSURLSessionTask * _Nonnull task, int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend) {
+//        if (currentProgress && (task == ut)) {
+//            __block double progress = bytesSent/(double)totalBytesSent;
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                if (progress < 0) {
+//                    progress = 0;
+//                } else if (progress > 1) {
+//                    progress = 1;
+//                }
+//
+//                currentProgress(progress);
+//            });
+//        }
+//    }];
+//
+//    [ut resume];
+//}
 
 - (void)downloadWithURL:(NSString *)URL
              completion:(YXDNetworkManagerDownloadCompletionBlock)completion {
@@ -406,7 +468,6 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
 - (instancetype)commonInit {
     self.requestManager = [AFHTTPRequestOperationManager new];
     self.requestManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"text/json",@"application/json",@"text/plain",@"text/javascript",nil];
-    self.requestManager.requestSerializer.timeoutInterval = 15; //设置超时
     return self;
 }
 
@@ -425,11 +486,11 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
 + (NSString *)responseInfoDescription:(AFHTTPRequestOperation *)operation {
     return  [NSString stringWithFormat:
              @" ------RequestURL------: \n %@ %@, \n "
-              " ------RequestBody------: \n %@, \n "
-              " ------RequestHeader------:\n %@, \n "
-              " ------ResponseStatus:------:\n %@, \n "
-              " ------ResponseBody------:\n %@, \n "
-              " ------ResponseHeader-----:\n %@ \n ",
+             " ------RequestBody------: \n %@, \n "
+             " ------RequestHeader------:\n %@, \n "
+             " ------ResponseStatus:------:\n %@, \n "
+             " ------ResponseBody------:\n %@, \n "
+             " ------ResponseHeader-----:\n %@ \n ",
              operation.request.URL, operation.request.HTTPMethod,
              [[NSString alloc] initWithData:[operation.request HTTPBody] encoding:(NSUTF8StringEncoding)],
              operation.request.allHTTPHeaderFields,
