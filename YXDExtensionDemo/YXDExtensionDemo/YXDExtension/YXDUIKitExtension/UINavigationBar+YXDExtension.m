@@ -22,8 +22,14 @@ static const void *YXDExtensionSystemBackgroundViewKey = &YXDExtensionSystemBack
 
 @implementation UINavigationBar (YXDExtension)
 
+- (void)setSeparatorLineHidden:(BOOL)hidden {
+    UIImageView *separatorLine = [self.subviews firstObject].subviews.firstObject;
+    if ([separatorLine isKindOfClass:[UIImageView class]] && (separatorLine.bounds.size.width == [UIScreen mainScreen].bounds.size.width) && (separatorLine.bounds.size.height <= 1)) {
+        separatorLine.hidden = hidden;
+    }
+}
+
 - (void)setBarBackgroundColor:(UIColor *)backgroundColor {
-    
     if (!self.backView) {
         self.backView = [[UIView alloc] initWithFrame:CGRectMake(0, -20, [UIScreen mainScreen].bounds.size.width, 64)];
         self.backView.userInteractionEnabled = NO;
@@ -49,31 +55,24 @@ static const void *YXDExtensionSystemBackgroundViewKey = &YXDExtensionSystemBack
 
 #pragma mark -
 
--(void)setBackView:(UIView *)backView
-{
+- (void)setBackView:(UIView *)backView {
     objc_setAssociatedObject(self, YXDExtensionBackViewKey, backView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
--(UIView *)backView
-{
+- (UIView *)backView {
     return objc_getAssociatedObject(self, YXDExtensionBackViewKey);
 }
 
--(void)setSystemBackgroundView:(UIImageView *)systemBackgroundView
-{
+- (void)setSystemBackgroundView:(UIImageView *)systemBackgroundView {
     objc_setAssociatedObject(self, YXDExtensionSystemBackgroundViewKey, systemBackgroundView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
--(UIImageView *)systemBackgroundView
-{
+- (UIImageView *)systemBackgroundView {
     UIImageView *backgroundView = objc_getAssociatedObject(self, YXDExtensionSystemBackgroundViewKey);
     
     if (!backgroundView) {
-        
         for (UIView *view in self.subviews) {
-            
-            if ([view isKindOfClass:[UIImageView class]])
-            {
+            if ([view isKindOfClass:[UIImageView class]]) {
                 self.systemBackgroundView = (UIImageView *)view;
                 backgroundView = (UIImageView *)view;
                 break;

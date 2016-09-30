@@ -9,10 +9,12 @@
 
 @interface UINavigationBar (YXDExtension)
 
-- (void) setBarBackgroundColor:(UIColor *)backgroundColor;
+- (void)setSeparatorLineHidden:(BOOL)hidden;
 
-- (void) setBarBackgroundAlpha:(CGFloat)alpha;
+- (void)setBarBackgroundColor:(UIColor *)backgroundColor;
 
-- (void) resetBarColor;
+- (void)setBarBackgroundAlpha:(CGFloat)alpha;
+
+- (void)resetBarColor;
 
 @end
