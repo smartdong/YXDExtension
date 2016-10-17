@@ -18,4 +18,6 @@
 - (NSString *)priceString;
 + (NSString *)priceStringWithFloat:(float)price;
 
+- (NSNumber *)numberValue;
+
 @end

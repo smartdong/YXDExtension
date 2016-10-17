@@ -34,4 +34,8 @@
     return @(price).priceString;
 }
 
+- (NSNumber *)numberValue {
+    return self;
+}
+
 @end
