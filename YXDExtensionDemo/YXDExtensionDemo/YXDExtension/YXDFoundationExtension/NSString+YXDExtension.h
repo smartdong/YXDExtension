@@ -38,6 +38,7 @@
 - (NSURLRequest *)URLRequest;
 
 - (NSNumber *)numberValue;
+- (NSString *)stringValue;
 
 - (NSString *)URLDecode;
 - (NSString *)URLEncode;

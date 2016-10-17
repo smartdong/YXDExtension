@@ -123,6 +123,10 @@
     return [f numberFromString:self];
 }
 
+- (NSString *)stringValue {
+    return self;
+}
+
 #pragma mark - urlEncode & urlDecode
 
 static NSString * const kAFCharactersToBeEscapedInQueryString = @":/?&=;+!@#$()',*";
