@@ -15,8 +15,6 @@ extern NSString *const kYXDNetworkLoadingStatusDefault;
 extern NSTimeInterval const kYXDNetworkRequestTimeoutIntervalDefault;
 extern NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault;
 
-extern NSString *const kYXDNetworkReachabilityStatusChangedNotification;
-
 typedef NS_ENUM(NSInteger, NetworkManagerReachabilityStatus) {
     NetworkManagerReachabilityStatusUnknown          = -1,
     NetworkManagerReachabilityStatusNotReachable     = 0,

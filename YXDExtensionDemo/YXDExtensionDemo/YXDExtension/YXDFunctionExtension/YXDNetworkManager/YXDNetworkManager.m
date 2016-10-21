@@ -20,8 +20,6 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
 NSTimeInterval const kYXDNetworkRequestTimeoutIntervalDefault = 15.;
 NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
 
-NSString *const kYXDNetworkReachabilityStatusChangedNotification = @"kYXDNetworkReachabilityStatusChangedNotification";
-
 @interface YXDNetworkManager ()
 
 @end
@@ -513,12 +511,11 @@ NSString *const kYXDNetworkReachabilityStatusChangedNotification = @"kYXDNetwork
 }
 
 + (void)setReachabilityStatusChangeBlock:(nullable void (^)(NetworkManagerReachabilityStatus status))block {
-    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kYXDNetworkReachabilityStatusChangedNotification object:@(status)];
-        if (block) {
+    if (block) {
+        [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
             block((NetworkManagerReachabilityStatus)status);
-        }
-    }];
+        }];
+    }
 }
 
 #pragma mark - Private
