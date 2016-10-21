@@ -6,10 +6,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreGraphics/CGBase.h>
 
 #define NetworkManagerInstance  [YXDNetworkManager sharedInstance]
 
 extern NSString *const kYXDNetworkLoadingStatusDefault;
+extern NSTimeInterval const kYXDNetworkRequestTimeoutIntervalDefault;
+extern NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault;
 
 typedef NS_ENUM(NSInteger, NetworkManagerHttpMethod) {
     GET = 0,
@@ -94,6 +97,7 @@ typedef void(^YXDNetworkManagerMultiFilesDownloadCompletionBlock)(NSArray<NSURL 
  *  @param networkFailure     网络失败处理方法
  *  @param loadingStatus      是否显示加载提示  nil则不提示
  *  @param uploadProgress     上传进度
+ *  @param timeoutInterval    超时时间
  *  @param method             网络请求方法
  */
 - (void)sendRequestWithParams:(NSDictionary *)params
@@ -103,6 +107,7 @@ typedef void(^YXDNetworkManagerMultiFilesDownloadCompletionBlock)(NSArray<NSURL 
                networkFailure:(void (^)(NSError *error))networkFailure
                 loadingStatus:(NSString *)loadingStatus
                uploadProgress:(YXDNetworkManagerUploadProgressChangedBlock)uploadProgress
+              timeoutInterval:(NSTimeInterval)timeoutInterval
                        method:(NetworkManagerHttpMethod)method;
 
 #pragma mark - Upload & Download

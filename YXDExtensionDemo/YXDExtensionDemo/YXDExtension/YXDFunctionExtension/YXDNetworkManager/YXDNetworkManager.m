@@ -16,6 +16,8 @@
 #import "YXDFileManager.h"
 
 NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
+NSTimeInterval const kYXDNetworkRequestTimeoutIntervalDefault = 15.;
+NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
 
 @interface YXDNetworkManager ()
 
@@ -62,6 +64,7 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
                  networkFailure:networkFailure
                   loadingStatus:loadingStatus
                  uploadProgress:nil
+                timeoutInterval:kYXDNetworkRequestTimeoutIntervalDefault
                          method:method];
 }
 
@@ -72,6 +75,7 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
                networkFailure:(void (^)(NSError *error))networkFailure
                 loadingStatus:(NSString *)loadingStatus
                uploadProgress:(YXDNetworkManagerUploadProgressChangedBlock)uploadProgress
+              timeoutInterval:(NSTimeInterval)timeoutInterval
                        method:(NetworkManagerHttpMethod)method {
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
@@ -149,7 +153,12 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
     };
     
     if (uploadObjectsArray.count) {
-        self.requestManager.requestSerializer.timeoutInterval = 0;
+        
+        if (timeoutInterval > 0) {
+            self.requestManager.requestSerializer.timeoutInterval = timeoutInterval;
+        } else {
+            self.requestManager.requestSerializer.timeoutInterval = kYXDNetworkUploadTimeoutIntervalDefault;
+        }
         
         void (^constructingBodyBlock)(id<AFMultipartFormData> formData) = uploadObjectsArray.count?^(id<AFMultipartFormData> formData){
             for (YXDNetworkUploadObject *uploadObject in uploadObjectsArray) {
@@ -198,7 +207,12 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
         [operation start];
         
     } else {
-        self.requestManager.requestSerializer.timeoutInterval = 15;
+        
+        if (timeoutInterval > 0) {
+            self.requestManager.requestSerializer.timeoutInterval = timeoutInterval;
+        } else {
+            self.requestManager.requestSerializer.timeoutInterval = kYXDNetworkRequestTimeoutIntervalDefault;
+        }
         
         switch (method) {
             case GET:
