@@ -11,8 +11,18 @@
 #define NetworkManagerInstance  [YXDNetworkManager sharedInstance]
 
 extern NSString *const kYXDNetworkLoadingStatusDefault;
+
 extern NSTimeInterval const kYXDNetworkRequestTimeoutIntervalDefault;
 extern NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault;
+
+extern NSString *const kYXDNetworkReachabilityStatusChangedNotification;
+
+typedef NS_ENUM(NSInteger, NetworkManagerReachabilityStatus) {
+    NetworkManagerReachabilityStatusUnknown          = -1,
+    NetworkManagerReachabilityStatusNotReachable     = 0,
+    NetworkManagerReachabilityStatusReachableViaWWAN = 1,
+    NetworkManagerReachabilityStatusReachableViaWiFi = 2,
+};
 
 typedef NS_ENUM(NSInteger, NetworkManagerHttpMethod) {
     GET = 0,
@@ -193,5 +203,14 @@ typedef void(^YXDNetworkManagerMultiFilesDownloadCompletionBlock)(NSArray<NSURL 
  *  新建一个 manager
  */
 + (instancetype)newManager;
+
+#pragma mark - Reachability Status
+
++ (void)startMonitoringReachabilityStatus;
++ (void)stopMonitoringReachabilityStatus;
+
++ (NetworkManagerReachabilityStatus)currentReachabilityStatus;
+
++ (void)setReachabilityStatusChangeBlock:(nullable void (^)(NetworkManagerReachabilityStatus status))block;
 
 @end

@@ -16,8 +16,11 @@
 #import "YXDFileManager.h"
 
 NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
+
 NSTimeInterval const kYXDNetworkRequestTimeoutIntervalDefault = 15.;
 NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
+
+NSString *const kYXDNetworkReachabilityStatusChangedNotification = @"kYXDNetworkReachabilityStatusChangedNotification";
 
 @interface YXDNetworkManager ()
 
@@ -493,6 +496,29 @@ NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     _tasksManager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
     return _tasksManager;
+}
+
+#pragma mark - Reachability Status
+
++ (void)startMonitoringReachabilityStatus {
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+}
+
++ (void)stopMonitoringReachabilityStatus {
+    [[AFNetworkReachabilityManager sharedManager] stopMonitoring];
+}
+
++ (NetworkManagerReachabilityStatus)currentReachabilityStatus {
+    return (NetworkManagerReachabilityStatus)([AFNetworkReachabilityManager sharedManager].networkReachabilityStatus);
+}
+
++ (void)setReachabilityStatusChangeBlock:(nullable void (^)(NetworkManagerReachabilityStatus status))block {
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kYXDNetworkReachabilityStatusChangedNotification object:@(status)];
+        if (block) {
+            block((NetworkManagerReachabilityStatus)status);
+        }
+    }];
 }
 
 #pragma mark - Private
