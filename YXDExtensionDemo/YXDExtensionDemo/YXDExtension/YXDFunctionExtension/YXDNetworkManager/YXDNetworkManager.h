@@ -62,10 +62,10 @@ typedef void(^YXDNetworkManagerMultiFilesDownloadCompletionBlock)(NSArray<NSURL 
  *  @param completion       接口返回处理方法
  *  @param method           网络请求方法
  */
-- (void)sendRequestWithParams:(NSDictionary *)params
-             interfaceAddress:(NSString *)interfaceAddress
-                   completion:(void (^)(YXDNetworkResult *result))completion
-                       method:(NetworkManagerHttpMethod)method;
+- (YXDNetworkRequestOperation *)sendRequestWithParams:(NSDictionary *)params
+                                     interfaceAddress:(NSString *)interfaceAddress
+                                           completion:(void (^)(YXDNetworkResult *result))completion
+                                               method:(NetworkManagerHttpMethod)method;
 
 /**
  *  根据相应接口获取数据
@@ -76,11 +76,11 @@ typedef void(^YXDNetworkManagerMultiFilesDownloadCompletionBlock)(NSArray<NSURL 
  *  @param loadingStatus    是否显示加载提示  nil则不提示
  *  @param method           网络请求方法
  */
-- (void)sendRequestWithParams:(NSDictionary *)params
-             interfaceAddress:(NSString *)interfaceAddress
-                   completion:(void (^)(YXDNetworkResult *result))completion
-                loadingStatus:(NSString *)loadingStatus
-                       method:(NetworkManagerHttpMethod)method;
+- (YXDNetworkRequestOperation *)sendRequestWithParams:(NSDictionary *)params
+                                     interfaceAddress:(NSString *)interfaceAddress
+                                           completion:(void (^)(YXDNetworkResult *result))completion
+                                        loadingStatus:(NSString *)loadingStatus
+                                               method:(NetworkManagerHttpMethod)method;
 
 /**
  *  根据相应接口获取数据
@@ -92,12 +92,12 @@ typedef void(^YXDNetworkManagerMultiFilesDownloadCompletionBlock)(NSArray<NSURL 
  *  @param loadingStatus    是否显示加载提示  nil则不提示
  *  @param method           网络请求方法
  */
-- (void)sendRequestWithParams:(NSDictionary *)params
-             interfaceAddress:(NSString *)interfaceAddress
-                   completion:(void (^)(YXDNetworkResult *result))completion
-               networkFailure:(void (^)(NSError *error))networkFailure
-                loadingStatus:(NSString *)loadingStatus
-                       method:(NetworkManagerHttpMethod)method;
+- (YXDNetworkRequestOperation *)sendRequestWithParams:(NSDictionary *)params
+                                     interfaceAddress:(NSString *)interfaceAddress
+                                           completion:(void (^)(YXDNetworkResult *result))completion
+                                       networkFailure:(void (^)(NSError *error))networkFailure
+                                        loadingStatus:(NSString *)loadingStatus
+                                               method:(NetworkManagerHttpMethod)method;
 
 /**
  *  根据相应接口获取数据
@@ -112,15 +112,15 @@ typedef void(^YXDNetworkManagerMultiFilesDownloadCompletionBlock)(NSArray<NSURL 
  *  @param timeoutInterval    超时时间
  *  @param method             网络请求方法
  */
-- (void)sendRequestWithParams:(NSDictionary *)params
-           uploadObjectsArray:(NSArray<YXDNetworkUploadObject *> *)uploadObjectsArray
-             interfaceAddress:(NSString *)interfaceAddress
-                   completion:(void (^)(YXDNetworkResult *result))completion
-               networkFailure:(void (^)(NSError *error))networkFailure
-                loadingStatus:(NSString *)loadingStatus
-               uploadProgress:(YXDNetworkManagerUploadProgressChangedBlock)uploadProgress
-              timeoutInterval:(NSTimeInterval)timeoutInterval
-                       method:(NetworkManagerHttpMethod)method;
+- (YXDNetworkRequestOperation *)sendRequestWithParams:(NSDictionary *)params
+                                   uploadObjectsArray:(NSArray<YXDNetworkUploadObject *> *)uploadObjectsArray
+                                     interfaceAddress:(NSString *)interfaceAddress
+                                           completion:(void (^)(YXDNetworkResult *result))completion
+                                       networkFailure:(void (^)(NSError *error))networkFailure
+                                        loadingStatus:(NSString *)loadingStatus
+                                       uploadProgress:(YXDNetworkManagerUploadProgressChangedBlock)uploadProgress
+                                      timeoutInterval:(NSTimeInterval)timeoutInterval
+                                               method:(NetworkManagerHttpMethod)method;
 
 #pragma mark - Upload & Download
 

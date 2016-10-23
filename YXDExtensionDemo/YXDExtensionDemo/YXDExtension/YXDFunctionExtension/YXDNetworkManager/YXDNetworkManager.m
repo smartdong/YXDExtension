@@ -32,56 +32,56 @@ NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
 
 #pragma mark - Request
 
-- (void)sendRequestWithParams:(NSDictionary *)params
-             interfaceAddress:(NSString *)interfaceAddress
-                   completion:(void (^)(YXDNetworkResult *result))completion
-                       method:(NetworkManagerHttpMethod)method {
-    [self sendRequestWithParams:params
-               interfaceAddress:interfaceAddress
-                     completion:completion
-                  loadingStatus:nil
-                         method:method];
+- (YXDNetworkRequestOperation *)sendRequestWithParams:(NSDictionary *)params
+                                     interfaceAddress:(NSString *)interfaceAddress
+                                           completion:(void (^)(YXDNetworkResult *result))completion
+                                               method:(NetworkManagerHttpMethod)method {
+    return [self sendRequestWithParams:params
+                      interfaceAddress:interfaceAddress
+                            completion:completion
+                         loadingStatus:nil
+                                method:method];
 }
 
-- (void)sendRequestWithParams:(NSDictionary *)params
-             interfaceAddress:(NSString *)interfaceAddress
-                   completion:(void (^)(YXDNetworkResult *result))completion
-                loadingStatus:(NSString *)loadingStatus
-                       method:(NetworkManagerHttpMethod)method {
-    [self sendRequestWithParams:params
-               interfaceAddress:interfaceAddress
-                     completion:completion
-                 networkFailure:nil
-                  loadingStatus:loadingStatus
-                         method:method];
+- (YXDNetworkRequestOperation *)sendRequestWithParams:(NSDictionary *)params
+                                     interfaceAddress:(NSString *)interfaceAddress
+                                           completion:(void (^)(YXDNetworkResult *result))completion
+                                        loadingStatus:(NSString *)loadingStatus
+                                               method:(NetworkManagerHttpMethod)method {
+    return [self sendRequestWithParams:params
+                      interfaceAddress:interfaceAddress
+                            completion:completion
+                        networkFailure:nil
+                         loadingStatus:loadingStatus
+                                method:method];
 }
 
-- (void)sendRequestWithParams:(NSDictionary *)params
-             interfaceAddress:(NSString *)interfaceAddress
-                   completion:(void (^)(YXDNetworkResult *result))completion
-               networkFailure:(void (^)(NSError *error))networkFailure
-                loadingStatus:(NSString *)loadingStatus
-                       method:(NetworkManagerHttpMethod)method {
-    [self sendRequestWithParams:params
-             uploadObjectsArray:nil
-               interfaceAddress:interfaceAddress
-                     completion:completion
-                 networkFailure:networkFailure
-                  loadingStatus:loadingStatus
-                 uploadProgress:nil
-                timeoutInterval:kYXDNetworkRequestTimeoutIntervalDefault
-                         method:method];
+- (YXDNetworkRequestOperation *)sendRequestWithParams:(NSDictionary *)params
+                                     interfaceAddress:(NSString *)interfaceAddress
+                                           completion:(void (^)(YXDNetworkResult *result))completion
+                                       networkFailure:(void (^)(NSError *error))networkFailure
+                                        loadingStatus:(NSString *)loadingStatus
+                                               method:(NetworkManagerHttpMethod)method {
+    return [self sendRequestWithParams:params
+                    uploadObjectsArray:nil
+                      interfaceAddress:interfaceAddress
+                            completion:completion
+                        networkFailure:networkFailure
+                         loadingStatus:loadingStatus
+                        uploadProgress:nil
+                       timeoutInterval:kYXDNetworkRequestTimeoutIntervalDefault
+                                method:method];
 }
 
-- (void)sendRequestWithParams:(NSDictionary *)params
-           uploadObjectsArray:(NSArray<YXDNetworkUploadObject *> *)uploadObjectsArray
-             interfaceAddress:(NSString *)interfaceAddress
-                   completion:(void (^)(YXDNetworkResult *result))completion
-               networkFailure:(void (^)(NSError *error))networkFailure
-                loadingStatus:(NSString *)loadingStatus
-               uploadProgress:(YXDNetworkManagerUploadProgressChangedBlock)uploadProgress
-              timeoutInterval:(NSTimeInterval)timeoutInterval
-                       method:(NetworkManagerHttpMethod)method {
+- (YXDNetworkRequestOperation *)sendRequestWithParams:(NSDictionary *)params
+                                   uploadObjectsArray:(NSArray<YXDNetworkUploadObject *> *)uploadObjectsArray
+                                     interfaceAddress:(NSString *)interfaceAddress
+                                           completion:(void (^)(YXDNetworkResult *result))completion
+                                       networkFailure:(void (^)(NSError *error))networkFailure
+                                        loadingStatus:(NSString *)loadingStatus
+                                       uploadProgress:(YXDNetworkManagerUploadProgressChangedBlock)uploadProgress
+                                      timeoutInterval:(NSTimeInterval)timeoutInterval
+                                               method:(NetworkManagerHttpMethod)method {
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
@@ -157,6 +157,8 @@ NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
         }
     };
     
+    YXDNetworkRequestOperation *requestOperation = nil;
+    
     if (uploadObjectsArray.count) {
         
         if (timeoutInterval > 0) {
@@ -195,21 +197,21 @@ NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
                                                                                    constructingBodyWithBlock:constructingBodyBlock
                                                                                                        error:nil];
         
-        AFHTTPRequestOperation *operation = [self.requestManager HTTPRequestOperationWithRequest:request
-                                                                                         success:successBlock
-                                                                                         failure:failureBlock];
+        requestOperation = (YXDNetworkRequestOperation *)[self.requestManager HTTPRequestOperationWithRequest:request
+                                                                                                      success:successBlock
+                                                                                                      failure:failureBlock];
         
         if (uploadProgress) {
-            [operation setUploadProgressBlock:^(NSUInteger __unused bytesWritten,
-                                                long long totalBytesWritten,
-                                                long long totalBytesExpectedToWrite) {
+            [requestOperation setUploadProgressBlock:^(NSUInteger __unused bytesWritten,
+                                                       long long totalBytesWritten,
+                                                       long long totalBytesExpectedToWrite) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     uploadProgress((CGFloat)(totalBytesWritten/(double)totalBytesExpectedToWrite));
                 });
             }];
         }
         
-        [operation start];
+        [requestOperation start];
         
     } else {
         
@@ -222,43 +224,43 @@ NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
         switch (method) {
             case GET:
             {
-                [self.requestManager GET:interfaceAddress
-                              parameters:sendParams
-                                 success:successBlock
-                                 failure:failureBlock];
+                requestOperation = (YXDNetworkRequestOperation *)[self.requestManager GET:interfaceAddress
+                                                                               parameters:sendParams
+                                                                                  success:successBlock
+                                                                                  failure:failureBlock];
             }
                 break;
             case POST:
             {
-                [self.requestManager POST:interfaceAddress
-                               parameters:sendParams
-                constructingBodyWithBlock:nil
-                                  success:successBlock
-                                  failure:failureBlock];
+                requestOperation = (YXDNetworkRequestOperation *)[self.requestManager POST:interfaceAddress
+                                                                                parameters:sendParams
+                                                                 constructingBodyWithBlock:nil
+                                                                                   success:successBlock
+                                                                                   failure:failureBlock];
             }
                 break;
             case PUT:
             {
-                [self.requestManager PUT:interfaceAddress
-                              parameters:sendParams
-                                 success:successBlock
-                                 failure:failureBlock];
+                requestOperation = (YXDNetworkRequestOperation *)[self.requestManager PUT:interfaceAddress
+                                                                               parameters:sendParams
+                                                                                  success:successBlock
+                                                                                  failure:failureBlock];
             }
                 break;
             case DELETE:
             {
-                [self.requestManager DELETE:interfaceAddress
-                                 parameters:sendParams
-                                    success:successBlock
-                                    failure:failureBlock];
+                requestOperation = (YXDNetworkRequestOperation *)[self.requestManager DELETE:interfaceAddress
+                                                                                  parameters:sendParams
+                                                                                     success:successBlock
+                                                                                     failure:failureBlock];
             }
                 break;
             case PATCH:
             {
-                [self.requestManager PATCH:interfaceAddress
-                                parameters:sendParams
-                                   success:successBlock
-                                   failure:failureBlock];
+                requestOperation = (YXDNetworkRequestOperation *)[self.requestManager PATCH:interfaceAddress
+                                                                                 parameters:sendParams
+                                                                                    success:successBlock
+                                                                                    failure:failureBlock];
             }
                 break;
                 
@@ -266,6 +268,8 @@ NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
                 break;
         }
     }
+    
+    return requestOperation;
 }
 
 #pragma mark - Upload & Download
