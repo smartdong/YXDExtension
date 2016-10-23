@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AFHTTPRequestOperation.h"
 #import <CoreGraphics/CGBase.h>
 
 #define NetworkManagerInstance  [YXDNetworkManager sharedInstance]
@@ -35,10 +36,13 @@ typedef void(^YXDNetworkManagerDownloadCompletionBlock)(NSURL *filePath, NSError
 typedef void(^YXDNetworkManagerMultiFilesDownloadCompletionBlock)(NSArray<NSURL *> *filePaths, NSError *error);
 
 @class AFHTTPRequestOperationManager;
-@class AFHTTPRequestOperation;
 @class AFURLSessionManager;
 @class YXDNetworkUploadObject;
 @class YXDNetworkResult;
+
+@interface YXDNetworkRequestOperation : AFHTTPRequestOperation
+
+@end
 
 @interface YXDNetworkManager : NSObject
 
@@ -186,9 +190,9 @@ typedef void(^YXDNetworkManagerMultiFilesDownloadCompletionBlock)(NSArray<NSURL 
 //将要发送HTTP请求时调用
 - (void)willSendHTTPRequest;
 //HTTP请求返回成功时调用
-- (void)handleSuccessWithHTTPRequestOperation:(AFHTTPRequestOperation *)operation result:(YXDNetworkResult *)result;
+- (void)handleSuccessWithHTTPRequestOperation:(YXDNetworkRequestOperation *)operation result:(YXDNetworkResult *)result;
 //HTTP请求返回失败时调用
-- (void)handleFailureWithHTTPRequestOperation:(AFHTTPRequestOperation *)operation result:(YXDNetworkResult *)result;
+- (void)handleFailureWithHTTPRequestOperation:(YXDNetworkRequestOperation *)operation result:(YXDNetworkResult *)result;
 
 #pragma mark - New
 

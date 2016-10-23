@@ -20,6 +20,10 @@ NSString *const kYXDNetworkLoadingStatusDefault = @"正在加载";
 NSTimeInterval const kYXDNetworkRequestTimeoutIntervalDefault = 15.;
 NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
 
+@implementation YXDNetworkRequestOperation
+
+@end
+
 @interface YXDNetworkManager ()
 
 @end
@@ -117,7 +121,7 @@ NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
             
             DDLogInfo(@"\nSuccess : %@ \n%@",result.message,[YXDNetworkManager responseInfoDescription:operation]);
             
-            [self handleSuccessWithHTTPRequestOperation:operation result:result];
+            [self handleSuccessWithHTTPRequestOperation:(YXDNetworkRequestOperation *)operation result:result];
             
         } else {
             if (loadingStatus) {
@@ -126,7 +130,7 @@ NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
             
             DDLogError(@"\nError : %@ \n%@",result.error.localizedDescription,[YXDNetworkManager responseInfoDescription:operation]);
             
-            [self handleFailureWithHTTPRequestOperation:operation result:result];
+            [self handleFailureWithHTTPRequestOperation:(YXDNetworkRequestOperation *)operation result:result];
         }
         
         if (completion) {
@@ -455,11 +459,11 @@ NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
     
 }
 
-- (void)handleSuccessWithHTTPRequestOperation:(AFHTTPRequestOperation *)operation result:(YXDNetworkResult *)result {
+- (void)handleSuccessWithHTTPRequestOperation:(YXDNetworkRequestOperation *)operation result:(YXDNetworkResult *)result {
     
 }
 
-- (void)handleFailureWithHTTPRequestOperation:(AFHTTPRequestOperation *)operation result:(YXDNetworkResult *)result {
+- (void)handleFailureWithHTTPRequestOperation:(YXDNetworkRequestOperation *)operation result:(YXDNetworkResult *)result {
     
 }
 
