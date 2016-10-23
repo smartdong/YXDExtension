@@ -274,11 +274,11 @@ NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
 
 #pragma mark - Upload & Download
 
-//- (void)uploadWithURL:(NSString *)URL
-//                 data:(NSData *)data
-//      currentProgress:(YXDNetworkManagerUploadProgressChangedBlock)currentProgress
-//           completion:(void (^)(YXDNetworkResult *result))completion {
-//
+//- (NSURLSessionUploadTask *)uploadWithURL:(NSString *)URL
+//                                     data:(NSData *)data
+//                          currentProgress:(YXDNetworkManagerUploadProgressChangedBlock)currentProgress
+//                               completion:(void (^)(YXDNetworkResult *result))completion {
+//    
 //    NSURLSessionUploadTask *ut = [self.tasksManager uploadTaskWithRequest:URL.URLRequest
 //                                                                 fromData:data
 //                                                                 progress:nil
@@ -303,34 +303,36 @@ NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
 //    }];
 //
 //    [ut resume];
+//    
+//    return ut;
 //}
 
-- (void)downloadWithURL:(NSString *)URL
-             completion:(YXDNetworkManagerDownloadCompletionBlock)completion {
-    [self downloadWithURL:URL
-                directory:nil
-               completion:completion];
+- (NSURLSessionDownloadTask *)downloadWithURL:(NSString *)URL
+                                   completion:(YXDNetworkManagerDownloadCompletionBlock)completion {
+    return [self downloadWithURL:URL
+                       directory:nil
+                      completion:completion];
 }
 
-- (void)downloadWithURL:(NSString *)URL
-              directory:(NSURL *)directory
-             completion:(YXDNetworkManagerDownloadCompletionBlock)completion {
-    [self downloadWithURL:URL
-                directory:directory
-            loadingStatus:nil
-               completion:completion];
+- (NSURLSessionDownloadTask *)downloadWithURL:(NSString *)URL
+                                    directory:(NSURL *)directory
+                                   completion:(YXDNetworkManagerDownloadCompletionBlock)completion {
+    return [self downloadWithURL:URL
+                       directory:directory
+                   loadingStatus:nil
+                      completion:completion];
 }
 
-- (void)downloadWithURL:(NSString *)URL
-              directory:(NSURL *)directory
-          loadingStatus:(NSString *)loadingStatus
-             completion:(YXDNetworkManagerDownloadCompletionBlock)completion {
+- (NSURLSessionDownloadTask *)downloadWithURL:(NSString *)URL
+                                    directory:(NSURL *)directory
+                                loadingStatus:(NSString *)loadingStatus
+                                   completion:(YXDNetworkManagerDownloadCompletionBlock)completion {
     
     if (!URL.length) {
         if (completion) {
             completion(nil,[NSError errorWithDomain:kYXDExtensionErrorDomain code:YXDExtensionErrorCodeInputError userInfo:@{NSLocalizedDescriptionKey : @"下载URL为空"}]);
         }
-        return;
+        return nil;
     }
     
     NSURLSessionDownloadTask *dt = [self.tasksManager downloadTaskWithRequest:URL.URLRequest
@@ -364,16 +366,18 @@ NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
     }
     
     [dt resume];
+    
+    return dt;
 }
 
-- (void)downloadWithURLArray:(NSArray<NSString *> *)URLArray
-                   directory:(NSURL *)directory
-                  completion:(YXDNetworkManagerMultiFilesDownloadCompletionBlock)completion {
+- (NSArray<NSURLSessionDownloadTask *> *)downloadWithURLArray:(NSArray<NSString *> *)URLArray
+                                                    directory:(NSURL *)directory
+                                                   completion:(YXDNetworkManagerMultiFilesDownloadCompletionBlock)completion {
     if (!URLArray.count) {
         if (completion) {
             completion(nil,[NSError errorWithDomain:kYXDExtensionErrorDomain code:YXDExtensionErrorCodeInputError userInfo:@{NSLocalizedDescriptionKey : @"下载URL为空"}]);
         }
-        return;
+        return nil;
     }
     
     //下载队列
@@ -402,7 +406,7 @@ NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
     
     if (!tasks.count) {
         completion(nil,[NSError errorWithDomain:kYXDExtensionErrorDomain code:YXDExtensionErrorCodeInputError userInfo:@{NSLocalizedDescriptionKey : @"没有有效的下载URL"}]);
-        return;
+        return nil;
     }
     
     //下载完成 从队列中移除
@@ -425,6 +429,8 @@ NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
     for (NSURLSessionDownloadTask *dt in tasks) {
         [dt resume];
     }
+    
+    return tasks;
 }
 
 //获取下载目录 若目录不存在则创建目录
