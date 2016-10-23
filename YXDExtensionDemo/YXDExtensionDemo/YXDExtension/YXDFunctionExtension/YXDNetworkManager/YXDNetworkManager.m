@@ -161,7 +161,7 @@ NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
     
     if (uploadObjectsArray.count) {
         
-        if (timeoutInterval > 0) {
+        if (timeoutInterval >= 0) {
             self.requestManager.requestSerializer.timeoutInterval = timeoutInterval;
         } else {
             self.requestManager.requestSerializer.timeoutInterval = kYXDNetworkUploadTimeoutIntervalDefault;
@@ -215,7 +215,7 @@ NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
         
     } else {
         
-        if (timeoutInterval > 0) {
+        if (timeoutInterval >= 0) {
             self.requestManager.requestSerializer.timeoutInterval = timeoutInterval;
         } else {
             self.requestManager.requestSerializer.timeoutInterval = kYXDNetworkRequestTimeoutIntervalDefault;
