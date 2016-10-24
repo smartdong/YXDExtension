@@ -7,7 +7,7 @@
 
 #import "UIImage+YXDExtension.h"
 
-@implementation UIGifImageData
+@implementation UIGIFImageData
 @end
 
 #if __has_include(<ImageIO/ImageIO.h>)
@@ -30,7 +30,7 @@
     return ((self.size.width < self.size.height) ? self.size.width : self.size.height) / 2;
 }
 
-+ (UIGifImageData *)gifImageDataByData:(NSData *)data {
++ (UIGIFImageData *)GIFImageDataByData:(NSData *)data {
 #if __has_include(<ImageIO/ImageIO.h>)
     NSMutableArray *frames = [[NSMutableArray alloc] init];
     CGImageSourceRef src = CGImageSourceCreateWithData((CFDataRef)data, NULL);
@@ -53,7 +53,7 @@
     }
     
     if (frames.count) {
-        UIGifImageData *imageData = [UIGifImageData new];
+        UIGIFImageData *imageData = [UIGIFImageData new];
         imageData.images = frames;
         imageData.duration = animationTime;
         return imageData;

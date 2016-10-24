@@ -15,7 +15,7 @@ typedef enum {
     UIImageRoundedCornerMaskTypeAll = UIImageRoundedCornerMaskTypeTopLeft | UIImageRoundedCornerMaskTypeTopRight | UIImageRoundedCornerMaskTypeBottomRight | UIImageRoundedCornerMaskTypeBottomLeft
 } UIImageRoundedCornerMaskType;
 
-@interface UIGifImageData : NSObject
+@interface UIGIFImageData : NSObject
 
 @property (nonatomic, strong) NSArray<UIImage *> *images;
 @property (nonatomic, assign) CGFloat duration;
@@ -29,7 +29,7 @@ typedef enum {
 - (CGFloat)radius;
 
 //将GIF图片转化为图片数组 但是调用此方法需要引入系统库 ImageIO
-+ (UIGifImageData *)gifImageDataByData:(NSData *)data;
++ (UIGIFImageData *)GIFImageDataByData:(NSData *)data;
 
 + (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size;
 

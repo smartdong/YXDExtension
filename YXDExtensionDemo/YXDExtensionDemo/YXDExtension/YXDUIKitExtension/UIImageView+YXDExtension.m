@@ -24,20 +24,20 @@
     [self sd_setImageWithURL:URLString.URL placeholderImage:[UIImage imageNamed:placeholderImageName]];
 }
 
-- (void)startAnimatingWithGifImageName:(NSString *)gifImageName {
-    [self startAnimatingWithGifImageName:gifImageName repeatCount:0];
+- (void)startAnimatingWithGIFImageName:(NSString *)GIFImageName {
+    [self startAnimatingWithGIFImageName:GIFImageName repeatCount:0];
 }
 
-- (void)startAnimatingWithGifImageName:(NSString *)gifImageName repeatCount:(NSUInteger)repeatCount {
-    [self startAnimatingWithGifImagePath:[[NSBundle mainBundle] pathForResource:gifImageName ofType:@".gif"] repeatCount:repeatCount];
+- (void)startAnimatingWithGIFImageName:(NSString *)GIFImageName repeatCount:(NSUInteger)repeatCount {
+    [self startAnimatingWithGIFImagePath:[[NSBundle mainBundle] pathForResource:GIFImageName ofType:@".gif"] repeatCount:repeatCount];
 }
 
-- (void)startAnimatingWithGifImagePath:(NSString *)gifImagePath {
-    [self startAnimatingWithGifImagePath:gifImagePath repeatCount:0];
+- (void)startAnimatingWithGIFImagePath:(NSString *)GIFImagePath {
+    [self startAnimatingWithGIFImagePath:GIFImagePath repeatCount:0];
 }
 
-- (void)startAnimatingWithGifImagePath:(NSString *)gifImagePath repeatCount:(NSUInteger)repeatCount {
-    UIGifImageData *imageData = [UIImage gifImageDataByData:[NSData dataWithContentsOfFile:gifImagePath]];
+- (void)startAnimatingWithGIFImagePath:(NSString *)GIFImagePath repeatCount:(NSUInteger)repeatCount {
+    UIGIFImageData *imageData = [UIImage GIFImageDataByData:[NSData dataWithContentsOfFile:GIFImagePath]];
     [self startAnimatingWithImages:imageData.images duration:imageData.duration repeatCount:repeatCount];
 }
 

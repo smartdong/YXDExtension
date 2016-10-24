@@ -31,7 +31,7 @@
     // Do any additional setup after loading the view, typically from a nib.
     
 //    [self jsonToObjectTest];
-//    [self playGifTest];
+//    [self playGIFTest];
 //    [self imageCornerTest];
 //    [self fmdbHelperTest];
 //    [self filterViewTest];
@@ -179,10 +179,10 @@
     }];
 }
 
-- (void)playGifTest {
+- (void)playGIFTest {
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(100, 200, 30, 60)];
     [self.view addSubview:imageView];
-    [imageView startAnimatingWithGifImageName:@"loading"];
+    [imageView startAnimatingWithGIFImageName:@"loading"];
 }
 
 - (void)imageCornerTest {
