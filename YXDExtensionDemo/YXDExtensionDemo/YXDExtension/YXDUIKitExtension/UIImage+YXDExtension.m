@@ -6,32 +6,26 @@
 //
 
 #import "UIImage+YXDExtension.h"
+#import <ImageIO/ImageIO.h>
 
-@implementation UIGIFImageData
+@implementation UIGIFImageObject
 @end
 
-#if __has_include(<ImageIO/ImageIO.h>)
-#import <ImageIO/ImageIO.h>
-#endif
-
 @implementation UIImage (YXDExtension)
-
-- (UIImage *)tintWithColor:(UIColor *)color {
-    UIImage *newImage = [self imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    UIGraphicsBeginImageContextWithOptions(newImage.size, NO, newImage.scale);
-    [color set];
-    [newImage drawInRect:CGRectMake(0, 0, newImage.size.width, newImage.size.height)];
-    newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
-}
 
 - (CGFloat)radius {
     return ((self.size.width < self.size.height) ? self.size.width : self.size.height) / 2;
 }
 
-+ (UIGIFImageData *)GIFImageDataByData:(NSData *)data {
-#if __has_include(<ImageIO/ImageIO.h>)
+- (UIImage *)scaleToSize:(CGSize)size {
+    UIGraphicsBeginImageContextWithOptions(size, YES, self.scale);
+    [self drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return scaledImage;
+}
+
++ (UIGIFImageObject *)GIFImageObjectByData:(NSData *)data {
     NSMutableArray *frames = [[NSMutableArray alloc] init];
     CGImageSourceRef src = CGImageSourceCreateWithData((CFDataRef)data, NULL);
     CGFloat animationTime = 0.f;
@@ -53,15 +47,23 @@
     }
     
     if (frames.count) {
-        UIGIFImageData *imageData = [UIGIFImageData new];
-        imageData.images = frames;
-        imageData.duration = animationTime;
-        return imageData;
+        UIGIFImageObject *object = [UIGIFImageObject new];
+        object.images = frames;
+        object.duration = animationTime;
+        return object;
     }
-#else
-    NSLog(@"need include <ImageIO/ImageIO.h>");
-#endif
+    
     return nil;
+}
+
+- (UIImage *)tintWithColor:(UIColor *)color {
+    UIImage *newImage = [self imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIGraphicsBeginImageContextWithOptions(newImage.size, NO, newImage.scale);
+    [color set];
+    [newImage drawInRect:CGRectMake(0, 0, newImage.size.width, newImage.size.height)];
+    newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 
 + (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size {
@@ -77,14 +79,6 @@
 
 + (UIImage *)roundedImageWithColor:(UIColor *)color size:(CGSize)size {
     return [[self imageWithColor:color size:size] roundedImage];
-}
-
-- (UIImage *)scaleToSize:(CGSize)size {
-    UIGraphicsBeginImageContextWithOptions(size, YES, self.scale);
-    [self drawInRect:CGRectMake(0, 0, size.width, size.height)];
-    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return scaledImage;
 }
 
 - (UIImage *)roundedImage {
