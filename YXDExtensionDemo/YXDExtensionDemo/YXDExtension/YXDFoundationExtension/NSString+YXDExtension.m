@@ -167,7 +167,7 @@ static NSString * YXDPercentEscapedQueryStringValueFromStringWithEncoding(NSStri
     return [UIImage imageWithCIImage:[qrFilter.outputImage imageByApplyingTransform:CGAffineTransformMakeScale(5.0f, 5.0f)]];
 }
 
--(id)objectFromJSONString {
+- (id)objectFromJSONString {
     return [NSJSONSerialization JSONObjectWithData:[self dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
 }
 
