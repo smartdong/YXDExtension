@@ -7,6 +7,7 @@
 
 #import "UIImage+YXDExtension.h"
 #import <ImageIO/ImageIO.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @implementation UIGIFImageObject
 @end
@@ -198,6 +199,20 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, float radius
     }
     
     CGContextClosePath(context);
+}
+
++ (UIImage *)thumbnailImageWithALAsset:(ALAsset *)asset {
+    if (!asset) {
+        return nil;
+    }
+    return [[UIImage alloc] initWithCGImage:asset.thumbnail];
+}
+
++ (UIImage *)defaultRepresentationImageWithALAsset:(ALAsset *)asset {
+    if (!asset) {
+        return nil;
+    }
+    return [[UIImage alloc] initWithCGImage:asset.defaultRepresentation.fullScreenImage];
 }
 
 @end

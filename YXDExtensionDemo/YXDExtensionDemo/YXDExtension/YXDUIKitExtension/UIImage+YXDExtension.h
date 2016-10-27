@@ -22,6 +22,8 @@ typedef enum {
 
 @end
 
+@class ALAsset;
+
 @interface UIImage (YXDExtension)
 
 - (CGFloat)radius;
@@ -48,5 +50,8 @@ typedef enum {
 + (UIImage *)imageWithContentsOfFile:(NSString *)path radius:(NSUInteger)radius;
 + (UIImage *)imageWithContentsOfFile:(NSString *)path maskType:(UIImageRoundedCornerMaskType)maskType;
 + (UIImage *)imageWithContentsOfFile:(NSString *)path radius:(NSUInteger)radius maskType:(UIImageRoundedCornerMaskType)maskType;
+
++ (UIImage *)thumbnailImageWithALAsset:(ALAsset *)asset;
++ (UIImage *)defaultRepresentationImageWithALAsset:(ALAsset *)asset;
 
 @end
