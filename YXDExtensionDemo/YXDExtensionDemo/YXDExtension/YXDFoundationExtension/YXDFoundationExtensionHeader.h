@@ -15,3 +15,4 @@
 #import "NSArray+YXDExtension.h"
 #import "NSDictionary+YXDExtension.h"
 #import "NSTimer+YXDExtension.h"
+#import "ALAsset+YXDExtension.h"
