@@ -17,4 +17,6 @@
 
 - (NSDictionary *)metadata;
 
+- (NSData *)fullResolutionImageData;
+
 @end
