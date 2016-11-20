@@ -184,7 +184,7 @@ NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
                     [formData appendPartWithFileData:data
                                                 name:uploadObject.paramName
                                             fileName:uploadObject.fileName?:@""
-                                            mimeType:uploadObject.fileType?:@"image/png"];
+                                            mimeType:uploadObject.fileType?:@"image/jpeg"];
                 } else {
                     DDLogInfo(@"上传数据格式错误");
                 }

@@ -14,7 +14,7 @@
  *  @param file         文件对象 仅支持 UIImage 或 NSData 类型
  *
  *  @param fileName     文件名称
- *  @param fileType     文件类型 默认 image/png 其他类型则必须 示例：image/jpeg 、text/plain 、application/zip
+ *  @param fileType     文件类型 默认 image/jpeg 其他类型则必须 示例：image/png 、text/plain 、application/zip
  *  @param imageQuality 图片压缩质量 默认 0.1 最高 1
  */
 @interface YXDNetworkUploadObject : NSObject
