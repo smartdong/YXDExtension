@@ -6,15 +6,20 @@
 //
 
 #import "NSArray+YXDExtension.h"
+#import "NSString+YXDExtension.h"
 
 @implementation NSArray (YXDExtension)
 
-- (NSData *)jsonData {
+- (NSData *)JSONData {
     return [NSJSONSerialization dataWithJSONObject:self options:0 error:nil];
 }
 
-- (NSString *)jsonString {
-    return [[NSString alloc] initWithData:[self jsonData] encoding:NSUTF8StringEncoding];
+- (NSString *)JSONString {
+    return [[NSString alloc] initWithData:[self JSONData] encoding:NSUTF8StringEncoding];
+}
+
++ (NSArray *)arrayWithJSONString:(NSString *)JSONString {
+    return [JSONString objectFromJSONString];
 }
 
 @end

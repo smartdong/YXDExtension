@@ -835,15 +835,15 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
 
 #pragma mark - JSON 互转
 
-- (NSString *)jsonString {
-    return self.propertyValuesUseMapPropertyKey.jsonString;
+- (NSString *)JSONString {
+    return self.propertyValuesUseMapPropertyKey.JSONString;
 }
 
-+ (instancetype)objectWithJSONString:(NSString *)jsonString {
-    return [self objectWithData:[jsonString objectFromJSONString]];
++ (instancetype)objectWithJSONString:(NSString *)JSONString {
+    return [self objectWithData:[JSONString objectFromJSONString]];
 }
 
-+ (NSString *)jsonStringFromObjectArray:(NSArray *)objectArray {
++ (NSString *)JSONStringFromObjectArray:(NSArray *)objectArray {
     NSMutableArray *arr = [NSMutableArray array];
     for (id obj in objectArray) {
         NSDictionary *pvs = [obj propertyValuesUseMapPropertyKey];
@@ -852,13 +852,13 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
         }
     }
     if (arr.count) {
-        return arr.jsonString;
+        return arr.JSONString;
     }
     return nil;
 }
 
-+ (NSArray *)objectArrayFromJSONString:(NSString *)jsonString {
-    NSArray *arr = [jsonString objectFromJSONString];
++ (NSArray *)objectArrayFromJSONString:(NSString *)JSONString {
+    NSArray *arr = [JSONString objectFromJSONString];
     if (!arr.count) {
         return nil;
     }

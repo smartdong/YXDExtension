@@ -9,8 +9,10 @@
 
 @interface NSDictionary (YXDExtension)
 
-- (NSData *)jsonData;
-- (NSString *)jsonString;
+- (NSData *)JSONData;
+- (NSString *)JSONString;
+
++ (NSDictionary *)dictionaryWithJSONString:(NSString *)JSONString;
 
 //将自己的 key 和 value 排序后拼接成字符串
 - (NSString *)sortedKeyValueString;

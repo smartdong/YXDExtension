@@ -9,7 +9,9 @@
 
 @interface NSArray (YXDExtension)
 
-- (NSData *)jsonData;
-- (NSString *)jsonString;
+- (NSData *)JSONData;
+- (NSString *)JSONString;
+
++ (NSArray *)arrayWithJSONString:(NSString *)JSONString;
 
 @end

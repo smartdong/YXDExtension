@@ -56,17 +56,17 @@
 
 #pragma mark - JSON 互转
 
-//将对象转化成 dictionary 然后再转化成 json
-- (NSString *)jsonString;
+//将对象转化成 dictionary 然后再转化成 JSONString
+- (NSString *)JSONString;
 
-//通过 jsonstring 转化成对象
-+ (instancetype)objectWithJSONString:(NSString *)jsonString;
+//通过 JSONString 转化成对象
++ (instancetype)objectWithJSONString:(NSString *)JSONString;
 
-//将对象数组转化为 jsonstring
-+ (NSString *)jsonStringFromObjectArray:(NSArray *)objectArray;
+//将对象数组转化为 JSONString
++ (NSString *)JSONStringFromObjectArray:(NSArray *)objectArray;
 
-//将 jsonstring 转化为对象数组
-+ (NSArray *)objectArrayFromJSONString:(NSString *)jsonString;
+//将 JSONString 转化为对象数组
++ (NSArray *)objectArrayFromJSONString:(NSString *)JSONString;
 
 #pragma mark - Description
 

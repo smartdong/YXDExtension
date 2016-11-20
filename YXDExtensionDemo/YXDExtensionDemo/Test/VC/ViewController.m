@@ -30,7 +30,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-//    [self jsonToObjectTest];
+//    [self JSONToObjectTest];
 //    [self playGIFTest];
 //    [self imageCornerTest];
 //    [self fmdbHelperTest];
@@ -143,7 +143,7 @@
     }
 }
 
-- (void)jsonToObjectTest {
+- (void)JSONToObjectTest {
     ClassA *clsA = [ClassA new];
     clsA.name = @"clsA";
     
@@ -171,8 +171,8 @@
                                                                 @"date" : @([[NSDate date] timeIntervalSince1970]),
                                                                 @"readonlyTest" : @(213),
                                                                 }];
-            TestClass *testClass2 = [TestClass objectWithJSONString:testClass1.jsonString];
-            NSString *arrJSON = [TestClass jsonStringFromObjectArray:@[testClass1,testClass2]];
+            TestClass *testClass2 = [TestClass objectWithJSONString:testClass1.JSONString];
+            NSString *arrJSON = [TestClass JSONStringFromObjectArray:@[testClass1,testClass2]];
             NSArray *arr = [TestClass objectArrayFromJSONString:arrJSON];
             arr = nil;
         }
