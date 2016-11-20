@@ -10,21 +10,6 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 
 @implementation UIGIFImageObject
-@end
-
-@implementation UIImage (YXDExtension)
-
-- (CGFloat)radius {
-    return ((self.size.width < self.size.height) ? self.size.width : self.size.height) / 2;
-}
-
-- (UIImage *)scaleToSize:(CGSize)size {
-    UIGraphicsBeginImageContextWithOptions(size, YES, self.scale);
-    [self drawInRect:CGRectMake(0, 0, size.width, size.height)];
-    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return scaledImage;
-}
 
 + (UIGIFImageObject *)GIFImageObjectByData:(NSData *)data {
     NSMutableArray *frames = [[NSMutableArray alloc] init];
@@ -55,6 +40,30 @@
     }
     
     return nil;
+}
+
++ (UIGIFImageObject *)GIFImageObjectByImageName:(NSString *)imageName {
+    return [self GIFImageObjectByImagePath:[[NSBundle mainBundle] pathForResource:imageName ofType:@".gif"]];
+}
+
++ (UIGIFImageObject *)GIFImageObjectByImagePath:(NSString *)imagePath {
+    return [self GIFImageObjectByData:[NSData dataWithContentsOfFile:imagePath]];
+}
+
+@end
+
+@implementation UIImage (YXDExtension)
+
+- (CGFloat)radius {
+    return ((self.size.width < self.size.height) ? self.size.width : self.size.height) / 2;
+}
+
+- (UIImage *)scaleToSize:(CGSize)size {
+    UIGraphicsBeginImageContextWithOptions(size, YES, self.scale);
+    [self drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return scaledImage;
 }
 
 - (UIImage *)tintWithColor:(UIColor *)color {

@@ -37,7 +37,7 @@
 }
 
 - (void)startAnimatingWithGIFImagePath:(NSString *)GIFImagePath repeatCount:(NSUInteger)repeatCount {
-    UIGIFImageObject *object = [UIImage GIFImageObjectByData:[NSData dataWithContentsOfFile:GIFImagePath]];
+    UIGIFImageObject *object = [UIGIFImageObject GIFImageObjectByImagePath:GIFImagePath];
     [self startAnimatingWithImages:object.images duration:object.duration repeatCount:repeatCount];
 }
 

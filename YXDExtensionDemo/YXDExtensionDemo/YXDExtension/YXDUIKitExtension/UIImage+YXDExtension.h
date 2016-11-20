@@ -20,6 +20,10 @@ typedef enum {
 @property (nonatomic, strong) NSArray<UIImage *> *images;
 @property (nonatomic, assign) CGFloat duration;
 
++ (UIGIFImageObject *)GIFImageObjectByData:(NSData *)data;
++ (UIGIFImageObject *)GIFImageObjectByImageName:(NSString *)imageName;
++ (UIGIFImageObject *)GIFImageObjectByImagePath:(NSString *)imagePath;
+
 @end
 
 @class ALAsset;
@@ -29,8 +33,6 @@ typedef enum {
 - (CGFloat)radius;
 
 - (UIImage *)scaleToSize:(CGSize)size;
-
-+ (UIGIFImageObject *)GIFImageObjectByData:(NSData *)data;
 
 - (UIImage *)tintWithColor:(UIColor *)color;
 + (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size;
