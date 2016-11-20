@@ -14,8 +14,16 @@
     return [[UIImage alloc] initWithCGImage:self.thumbnail];
 }
 
-- (UIImage *)defaultRepresentationImage {
+- (UIImage *)fullScreenImage {
     return [[UIImage alloc] initWithCGImage:self.defaultRepresentation.fullScreenImage];
+}
+
+- (UIImage *)fullResolutionImage {
+    return [[UIImage alloc] initWithCGImage:self.defaultRepresentation.fullResolutionImage];
+}
+
+- (NSDictionary *)metadata {
+    return self.defaultRepresentation.metadata;
 }
 
 @end

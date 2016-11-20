@@ -54,6 +54,7 @@ typedef enum {
 + (UIImage *)imageWithContentsOfFile:(NSString *)path radius:(NSUInteger)radius maskType:(UIImageRoundedCornerMaskType)maskType;
 
 + (UIImage *)thumbnailImageWithALAsset:(ALAsset *)asset;
-+ (UIImage *)defaultRepresentationImageWithALAsset:(ALAsset *)asset;
++ (UIImage *)fullScreenImageWithALAsset:(ALAsset *)asset;
++ (UIImage *)fullResolutionImageWithALAsset:(ALAsset *)asset;
 
 @end

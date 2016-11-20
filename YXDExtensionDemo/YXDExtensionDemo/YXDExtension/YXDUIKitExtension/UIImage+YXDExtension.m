@@ -217,11 +217,18 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, float radius
     return [[UIImage alloc] initWithCGImage:asset.thumbnail];
 }
 
-+ (UIImage *)defaultRepresentationImageWithALAsset:(ALAsset *)asset {
++ (UIImage *)fullScreenImageWithALAsset:(ALAsset *)asset {
     if (!asset) {
         return nil;
     }
     return [[UIImage alloc] initWithCGImage:asset.defaultRepresentation.fullScreenImage];
+}
+
++ (UIImage *)fullResolutionImageWithALAsset:(ALAsset *)asset {
+    if (!asset) {
+        return nil;
+    }
+    return [[UIImage alloc] initWithCGImage:asset.defaultRepresentation.fullResolutionImage];
 }
 
 @end

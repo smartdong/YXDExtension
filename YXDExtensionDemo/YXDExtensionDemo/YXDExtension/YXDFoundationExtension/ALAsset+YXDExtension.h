@@ -12,6 +12,9 @@
 @interface ALAsset (YXDExtension)
 
 - (UIImage *)thumbnailImage;
-- (UIImage *)defaultRepresentationImage;
+- (UIImage *)fullScreenImage;
+- (UIImage *)fullResolutionImage;
+
+- (NSDictionary *)metadata;
 
 @end
