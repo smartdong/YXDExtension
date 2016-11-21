@@ -9,4 +9,25 @@
 
 @implementation YXDNetworkUploadObject
 
+- (NSString *)fileName {
+    if (!_fileName) {
+        _fileName = @"";
+    }
+    return _fileName;
+}
+
+- (NSString *)fileType {
+    if (!_fileType) {
+        _fileType = @"image/jpeg";
+    }
+    return _fileType;
+}
+
+- (float)imageQuality {
+    if ((_imageQuality <= 0) || (_imageQuality > 1)) {
+        _imageQuality = 0.1;
+    }
+    return _imageQuality;
+}
+
 @end

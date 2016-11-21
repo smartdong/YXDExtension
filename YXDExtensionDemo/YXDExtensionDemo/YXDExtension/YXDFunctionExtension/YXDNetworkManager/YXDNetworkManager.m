@@ -176,15 +176,15 @@ NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
                     if ([uploadObject.file isKindOfClass:[NSData class]]) {
                         data = uploadObject.file;
                     } else if ([uploadObject.file isKindOfClass:[UIImage class]]) {
-                        data = UIImageJPEGRepresentation(uploadObject.file,(uploadObject.imageQuality>0)?uploadObject.imageQuality:0.1);
+                        data = UIImageJPEGRepresentation(uploadObject.file,uploadObject.imageQuality);
                     } else {
                         continue;
                     }
                     
                     [formData appendPartWithFileData:data
                                                 name:uploadObject.paramName
-                                            fileName:uploadObject.fileName?:@""
-                                            mimeType:uploadObject.fileType?:@"image/jpeg"];
+                                            fileName:uploadObject.fileName
+                                            mimeType:uploadObject.fileType];
                 } else {
                     DDLogInfo(@"上传数据格式错误");
                 }
