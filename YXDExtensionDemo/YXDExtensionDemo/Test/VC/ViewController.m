@@ -153,7 +153,7 @@
     ClassB *clsB2 = [ClassB new];
     clsB2.name = @"clsB2";
     
-    [YXDCommonFunction printTimeCost:^{
+    [YXDCommonFunction calculate:^{
         for (int i = 0; i < 10000; i++) {
             TestClass *testClass1 = [TestClass objectWithData:@{
                                                                 @"name" : @"test",
@@ -176,6 +176,8 @@
             NSArray *arr = [TestClass objectArrayFromJSONString:arrJSON];
             arr = nil;
         }
+    } done:^(double timeCost) {
+        NSLog(@"Time cost : %.4f",timeCost);
     }];
 }
 

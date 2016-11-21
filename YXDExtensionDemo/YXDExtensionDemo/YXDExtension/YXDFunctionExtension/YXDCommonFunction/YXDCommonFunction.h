@@ -10,10 +10,6 @@
 
 @interface YXDCommonFunction : NSObject
 
-#pragma mark - Print Time Cost
-
-+ (void)printTimeCost:(dispatch_block_t)doSth;
-
 #pragma mark - User Defaults
 
 + (void)setUserDefaultsValue:(id)value forKey:(NSString *)key;
@@ -27,6 +23,10 @@
 
 + (BOOL)isFirstOpen:(NSString *)key;
 + (BOOL)isFirstOpen:(NSString *)key forAccount:(NSString *)account;
+
+#pragma mark - Calculate Time Cost
+
++ (void)calculate:(dispatch_block_t)doSth done:(void(^)(double timeCost))done;
 
 #pragma mark - 加密
 

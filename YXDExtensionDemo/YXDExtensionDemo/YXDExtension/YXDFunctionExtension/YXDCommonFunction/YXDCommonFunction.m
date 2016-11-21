@@ -13,17 +13,6 @@
 
 @implementation YXDCommonFunction
 
-#pragma mark - Print Time Cost
-
-+ (void)printTimeCost:(dispatch_block_t)doSth {
-    CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
-    if (doSth) {
-        doSth();
-    }
-    CFAbsoluteTime end = CFAbsoluteTimeGetCurrent();
-    NSLog(@"Time Cost: %0.3f", end - start);
-}
-
 #pragma mark - User Defaults
 
 + (void)setUserDefaultsValue:(id)value forKey:(NSString *)key {
@@ -67,6 +56,20 @@
 + (BOOL)isFirstOpen:(NSString *)key forAccount:(NSString *)account {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     return ![ud boolForKey:YXDCommonFunctionUserDefaultsKey(key, account)];
+}
+
+#pragma mark - Calculate Time Cost
+
++ (void)calculate:(dispatch_block_t)doSth done:(void(^)(double timeCost))done {
+    CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
+    if (doSth) {
+        doSth();
+    }
+    CFAbsoluteTime end = CFAbsoluteTimeGetCurrent();
+    
+    if (done) {
+        done(end - start);
+    }
 }
 
 #pragma mark - 加密
