@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class UIImage;
+
 @interface YXDCommonFunction : NSObject
 
 #pragma mark - User Defaults
@@ -27,6 +29,10 @@
 #pragma mark - Calculate Time Cost
 
 + (void)calculate:(dispatch_block_t)doSth done:(void(^)(double timeCost))done;
+
+#pragma mark - Save Image
+
++ (void)saveImageToPhotosAlbum:(UIImage *)image metadata:(NSDictionary *)metadata completionBlock:(void(^)(NSURL *assetURL, NSError *error))completionBlock;
 
 #pragma mark - 加密
 
