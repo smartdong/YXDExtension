@@ -30,6 +30,17 @@
 
 + (void)calculate:(dispatch_block_t)doSth done:(void(^)(double timeCost))done;
 
+#pragma mark - MIMEType & UTI
+
++ (NSString *)UTIForExtention:(NSString *)extention;
++ (NSString *)MIMETypeForExtention:(NSString *)extention;
+
++ (NSString *)extentionForUTI:(NSString *)UTI;
++ (NSString *)extentionForMIMEType:(NSString *)MIMEType;
+
++ (NSString *)UTIForMIMEType:(NSString *)MIMEType;
++ (NSString *)MIMETypeForUTI:(NSString *)UTI;
+
 #pragma mark - Save Image
 
 + (void)saveImageToPhotosAlbum:(UIImage *)image metadata:(NSDictionary *)metadata completionBlock:(void(^)(NSURL *assetURL, NSError *error))completionBlock;

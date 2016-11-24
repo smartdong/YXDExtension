@@ -9,6 +9,7 @@
 #import "YXDCommonFunction.h"
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 #import "NSString+YXDExtension.h"
 
 #define YXDCommonFunctionUserDefaultsKey(key, account) (account?[NSString stringWithFormat:@"%@_%@",key,account]:key)
@@ -72,6 +73,44 @@
     if (done) {
         done(end - start);
     }
+}
+
+#pragma mark - MIMEType & UTI
+
++ (NSString *)UTIForExtention:(NSString *)extention {
+    if (!extention.length) {
+        return nil;
+    }
+    return (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)(extention), NULL);
+}
+
++ (NSString *)MIMETypeForExtention:(NSString *)extention {
+    return [self MIMETypeForUTI:[self UTIForExtention:extention]];
+}
+
++ (NSString *)extentionForUTI:(NSString *)UTI {
+    if (!UTI.length) {
+        return nil;
+    }
+    return (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)UTI, kUTTagClassFilenameExtension);
+}
+
++ (NSString *)extentionForMIMEType:(NSString *)MIMEType {
+    return [self extentionForUTI:[self UTIForMIMEType:MIMEType]];
+}
+
++ (NSString *)UTIForMIMEType:(NSString *)MIMEType {
+    if (!MIMEType.length) {
+        return nil;
+    }
+    return (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType,(__bridge CFStringRef)MIMEType, NULL);
+}
+
++ (NSString *)MIMETypeForUTI:(NSString *)UTI {
+    if (!UTI.length) {
+        return nil;
+    }
+    return (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef) UTI, kUTTagClassMIMEType);
 }
 
 #pragma mark - Save Image
