@@ -495,6 +495,8 @@ NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
 }
 
 - (instancetype)commonInit {
+    self.commonParams = [NSMutableDictionary dictionary];
+    self.commonHeaders = [NSMutableDictionary dictionary];
     self.requestManager = [AFHTTPRequestOperationManager new];
     self.requestManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"text/json",@"application/json",@"text/plain",@"text/javascript",nil];
     return self;
