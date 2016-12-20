@@ -234,7 +234,6 @@ NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
             {
                 requestOperation = (YXDNetworkRequestOperation *)[self.requestManager POST:interfaceAddress
                                                                                 parameters:sendParams
-                                                                 constructingBodyWithBlock:nil
                                                                                    success:successBlock
                                                                                    failure:failureBlock];
             }
