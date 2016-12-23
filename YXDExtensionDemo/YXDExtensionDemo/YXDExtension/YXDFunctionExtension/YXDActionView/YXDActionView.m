@@ -18,22 +18,6 @@
 
 @implementation YXDActionView
 
-- (id)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:[UIScreen mainScreen].bounds];
-    if (self) {
-        // Initialization code
-        self.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
-        UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancel)];
-        [self addGestureRecognizer:gesture];
-        gesture.delegate = self;
-        _wrapperView = [UIView new];
-        _wrapperView.frame = self.bounds;
-        _wrapperView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
-        self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    }
-    return self;
-}
-
 + (void)showView:(UIView *)view title:(NSString *)title comfirmTitle:(NSString *)comfirmTitle cancelTitle:(NSString *)cancelTitle completion:(void (^)(BOOL))completion {
     YXDActionView *actionView = [YXDActionView new];
     actionView.completion = completion;
@@ -93,6 +77,53 @@
         actionView->_wrapperView.frame = CGRectMake(actionView->_wrapperView.frame.origin.x, actionView.bounds.size.height - actionView->_wrapperView.bounds.size.height, actionView->_wrapperView.frame.size.width, actionView->_wrapperView.frame.size.height);
         actionView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.3];
     }                completion:nil];
+}
+
++ (void)showDatePickerWithMaxDate:(NSDate *)maxDate
+                          minDate:(NSDate *)minDate
+                     selectedDate:(NSDate *)selectedDate
+                   datePickerMode:(UIDatePickerMode)datePickerMode
+                   minuteInterval:(NSInteger)minuteInterval
+                            title:(NSString *)title
+                     comfirmTitle:(NSString *)comfirmTitle
+                      cancelTitle:(NSString *)cancelTitle
+                  backgroundColor:(UIColor *)backgroundColor
+                       completion:(void (^)(BOOL, NSDate *))completion {
+    UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 240)];
+    datePicker.date = selectedDate;
+    datePicker.maximumDate = maxDate;
+    datePicker.minimumDate = minDate;
+    datePicker.datePickerMode = datePickerMode;
+    datePicker.minuteInterval = minuteInterval;
+    datePicker.backgroundColor = backgroundColor?:[UIColor whiteColor];
+    
+    [self showView:datePicker
+             title:title
+      comfirmTitle:comfirmTitle
+       cancelTitle:cancelTitle
+        completion:^(BOOL done) {
+            if (completion) {
+                completion(done,datePicker.date);
+            }
+        }];
+}
+
+#pragma mark -
+
+- (id)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:[UIScreen mainScreen].bounds];
+    if (self) {
+        // Initialization code
+        self.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+        UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancel)];
+        [self addGestureRecognizer:gesture];
+        gesture.delegate = self;
+        _wrapperView = [UIView new];
+        _wrapperView.frame = self.bounds;
+        _wrapperView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+        self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    }
+    return self;
 }
 
 - (void)done {
