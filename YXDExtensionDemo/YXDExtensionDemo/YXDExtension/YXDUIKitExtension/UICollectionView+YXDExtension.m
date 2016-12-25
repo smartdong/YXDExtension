@@ -37,4 +37,8 @@
     return [self dequeueReusableCellWithReuseIdentifier:NSStringFromClass(cellClass) forIndexPath:indexPath];
 }
 
+- (UICollectionReusableView *)dequeueReusableSupplementaryViewClass:(Class)aClass isHeader:(BOOL)isHeader forIndexPath:(NSIndexPath *)indexPath {
+    return [self dequeueReusableSupplementaryViewOfKind:isHeader?UICollectionElementKindSectionHeader:UICollectionElementKindSectionFooter withReuseIdentifier:NSStringFromClass(aClass) forIndexPath:indexPath];
+}
+
 @end

@@ -19,5 +19,6 @@
 
 - (UICollectionViewCell *)dequeueReusableCellWithDefaultIdentifierForIndexPath:(NSIndexPath *)indexPath;
 - (UICollectionViewCell *)dequeueReusableCellWithCellClass:(Class)cellClass forIndexPath:(NSIndexPath *)indexPath;
+- (UICollectionReusableView *)dequeueReusableSupplementaryViewClass:(Class)aClass isHeader:(BOOL)isHeader forIndexPath:(NSIndexPath *)indexPath;
 
 @end
