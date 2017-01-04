@@ -9,6 +9,14 @@
 
 @implementation NSDate (YXDExtension)
 
+- (NSNumber *)secondsNumber {
+    return @(self.timeIntervalSince1970);
+}
+
+- (NSNumber *)milliSecondsNumber {
+    return @(self.timeIntervalSince1970 * 1000);
+}
+
 - (NSString *)dateString {
     NSDateFormatter *formatter = [NSDateFormatter new];
     [formatter setDateFormat:@"yyyy-MM-dd"];
@@ -45,7 +53,7 @@
     return [formatter dateFromString:dateTimeString];
 }
 
--(NSString *)constellation {
+- (NSString *)constellation {
     //计算星座
     NSString *retStr=@"";
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
@@ -181,56 +189,8 @@
     return retStr;
 }
 
-#pragma mark -
-
-static NSString * AZ_DefaultCalendarIdentifier = nil;
-static NSLock * AZ_DefaultCalendarIdentifierLock = nil;
-static dispatch_once_t AZ_DefaultCalendarIdentifierLock_onceToken;
-
-#pragma mark - private
-+ (NSCalendar *)AZ_currentCalendar {
-    NSString *key = @"AZ_currentCalendar_";
-    NSString *calendarIdentifier = [NSDate AZ_defaultCalendarIdentifier];
-    if (calendarIdentifier) {
-        key = [key stringByAppendingString:calendarIdentifier];
-    }
-    NSMutableDictionary *dictionary = [[NSThread currentThread] threadDictionary];
-    NSCalendar *currentCalendar = [dictionary objectForKey:key];
-    if (currentCalendar == nil) {
-        if (calendarIdentifier == nil) {
-            currentCalendar = [NSCalendar currentCalendar];
-        } else {
-            currentCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:calendarIdentifier];
-            NSAssert(currentCalendar != nil, @"NSDate-Escort failed to create a calendar since the provided calendarIdentifier is invalid.");
-        }
-        [dictionary setObject:currentCalendar forKey:key];
-    }
-    return currentCalendar;
-}
-- (NSInteger)numberOfDaysInWeek {
-    return [[NSDate AZ_currentCalendar] maximumRangeOfUnit:NSCalendarUnitWeekday].length;
-}
-#pragma mark - Setting default calendar
-+ (NSString *)AZ_defaultCalendarIdentifier {
-    dispatch_once(&AZ_DefaultCalendarIdentifierLock_onceToken, ^{
-        AZ_DefaultCalendarIdentifierLock = [[NSLock alloc] init];
-    });
-    NSString *string;
-    [AZ_DefaultCalendarIdentifierLock lock];
-    string = AZ_DefaultCalendarIdentifier;
-    [AZ_DefaultCalendarIdentifierLock unlock];
-    return string;
-}
-+ (void)AZ_setDefaultCalendarIdentifier:(NSString *)calendarIdentifier {
-    dispatch_once(&AZ_DefaultCalendarIdentifierLock_onceToken, ^{
-        AZ_DefaultCalendarIdentifierLock = [[NSLock alloc] init];
-    });
-    [AZ_DefaultCalendarIdentifierLock lock];
-    AZ_DefaultCalendarIdentifier = calendarIdentifier;
-    [AZ_DefaultCalendarIdentifierLock unlock];
-}
-
 #pragma mark - Relative dates from the current date
+
 + (NSDate *)dateTomorrow {
     return [NSDate dateWithDaysFromNow:1];
 }
@@ -264,6 +224,7 @@ static dispatch_once_t AZ_DefaultCalendarIdentifierLock_onceToken;
 }
 
 #pragma mark - Comparing dates
+
 - (BOOL)isEqualToDateIgnoringTime:(NSDate *) otherDate {
     NSCalendar *currentCalendar = [NSDate AZ_currentCalendar];
     NSCalendarUnit unitFlags = NSCalendarUnitEra | NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
@@ -368,7 +329,6 @@ static dispatch_once_t AZ_DefaultCalendarIdentifierLock_onceToken;
     return [self isLaterThanDate:[NSDate date]];
 }
 
-
 #pragma mark - Date roles
 // https://github.com/erica/NSDate-Extensions/issues/12
 - (BOOL)isTypicallyWorkday {
@@ -384,6 +344,7 @@ static dispatch_once_t AZ_DefaultCalendarIdentifierLock_onceToken;
 }
 
 #pragma mark - Adjusting dates
+
 - (NSDate *)dateByAddingYears:(NSInteger) dYears {
     NSDateComponents *components = [[NSDateComponents alloc] init];
     components.year = dYears;
@@ -457,20 +418,19 @@ static dispatch_once_t AZ_DefaultCalendarIdentifierLock_onceToken;
     return [calendar dateFromComponents:components];
 }
 
-- (NSDate *)dateAtStartOfWeek
-{
+- (NSDate *)dateAtStartOfWeek {
     NSDate *startOfWeek = nil;
     [[NSDate AZ_currentCalendar] rangeOfUnit:NSCalendarUnitWeekOfMonth startDate:&startOfWeek interval:NULL forDate:self];
     return startOfWeek;
 }
 
-- (NSDate *)dateAtEndOfWeek
-{
+- (NSDate *)dateAtEndOfWeek {
     NSCalendar *calendar = [NSDate AZ_currentCalendar];
     NSDateComponents *components = [calendar components:NSCalendarUnitWeekday | NSCalendarUnitEra | NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:self];
     components.day += [self numberOfDaysInWeek] - components.weekday;
     return [calendar dateFromComponents:components];
 }
+
 - (NSDate *)dateAtStartOfMonth {
     NSCalendar *calendar = [NSDate AZ_currentCalendar];
     NSDateComponents *components = [calendar components:NSCalendarUnitEra | NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:self];
@@ -511,8 +471,8 @@ static dispatch_once_t AZ_DefaultCalendarIdentifierLock_onceToken;
     return endOfYear;
 }
 
-
 #pragma mark - Retrieving intervals
+
 - (NSInteger)minutesAfterDate:(NSDate *) aDate {
     NSDateComponents *components = [[NSDate AZ_currentCalendar] components:NSCalendarUnitMinute fromDate:aDate toDate:self options:0];
     return [components minute];
@@ -567,6 +527,7 @@ static dispatch_once_t AZ_DefaultCalendarIdentifierLock_onceToken;
                                         components:NSCalendarUnitDay fromDate:self toDate:aDate options:0];
     return [dateComponents day];
 }
+
 #pragma mark - Decomposing dates
 // NSDate-Utilities API is broken?
 - (NSInteger)nearestHour {
@@ -642,10 +603,65 @@ static dispatch_once_t AZ_DefaultCalendarIdentifierLock_onceToken;
     NSDateComponents *components = [[NSDate AZ_currentCalendar] components:NSCalendarUnitYear fromDate:self];
     return [components year];
 }
+
 - (NSInteger)gregorianYear {
     NSCalendar *currentCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *components = [currentCalendar components:NSCalendarUnitEra | NSCalendarUnitYear fromDate:self];
     return [components year];
+}
+
+#pragma mark - Setting default calendar
+
++ (NSString *)AZ_defaultCalendarIdentifier {
+    dispatch_once(&AZ_DefaultCalendarIdentifierLock_onceToken, ^{
+        AZ_DefaultCalendarIdentifierLock = [[NSLock alloc] init];
+    });
+    NSString *string;
+    [AZ_DefaultCalendarIdentifierLock lock];
+    string = AZ_DefaultCalendarIdentifier;
+    [AZ_DefaultCalendarIdentifierLock unlock];
+    return string;
+}
+
++ (void)AZ_setDefaultCalendarIdentifier:(NSString *)calendarIdentifier {
+    dispatch_once(&AZ_DefaultCalendarIdentifierLock_onceToken, ^{
+        AZ_DefaultCalendarIdentifierLock = [[NSLock alloc] init];
+    });
+    [AZ_DefaultCalendarIdentifierLock lock];
+    AZ_DefaultCalendarIdentifier = calendarIdentifier;
+    [AZ_DefaultCalendarIdentifierLock unlock];
+}
+
+#pragma mark -
+
+static NSString * AZ_DefaultCalendarIdentifier = nil;
+static NSLock * AZ_DefaultCalendarIdentifierLock = nil;
+static dispatch_once_t AZ_DefaultCalendarIdentifierLock_onceToken;
+
+#pragma mark - private
+
++ (NSCalendar *)AZ_currentCalendar {
+    NSString *key = @"AZ_currentCalendar_";
+    NSString *calendarIdentifier = [NSDate AZ_defaultCalendarIdentifier];
+    if (calendarIdentifier) {
+        key = [key stringByAppendingString:calendarIdentifier];
+    }
+    NSMutableDictionary *dictionary = [[NSThread currentThread] threadDictionary];
+    NSCalendar *currentCalendar = [dictionary objectForKey:key];
+    if (currentCalendar == nil) {
+        if (calendarIdentifier == nil) {
+            currentCalendar = [NSCalendar currentCalendar];
+        } else {
+            currentCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:calendarIdentifier];
+            NSAssert(currentCalendar != nil, @"NSDate-Escort failed to create a calendar since the provided calendarIdentifier is invalid.");
+        }
+        [dictionary setObject:currentCalendar forKey:key];
+    }
+    return currentCalendar;
+}
+
+- (NSInteger)numberOfDaysInWeek {
+    return [[NSDate AZ_currentCalendar] maximumRangeOfUnit:NSCalendarUnitWeekday].length;
 }
 
 @end
