@@ -55,6 +55,8 @@
 
 + (NSString *)randomStringWithLength:(int)length;
 
+- (NSString *)filterHTMLLabels;
+
 - (BOOL)isChinese;
 - (NSString *)firstLetter;
 

@@ -203,6 +203,41 @@ static NSString * YXDPercentEscapedQueryStringValueFromStringWithEncoding(NSStri
     return randomString;
 }
 
+- (NSString *)filterHTMLLabels {
+    if (!self.length) {
+        return self;
+    }
+    
+    NSMutableArray<NSString *> *labelsArray = [NSMutableArray array];
+    
+    NSNumber *beginIndex = nil;
+    
+    for (NSInteger i = 0; i < self.length; i++) {
+        NSString *s = [self substringWithRange:NSMakeRange(i, 1)];
+        if ([s isEqualToString:@"<"]) {
+            if (!beginIndex) {
+                beginIndex = @(i);
+            }
+        } else if ([s isEqualToString:@">"]) {
+            if (beginIndex) {
+                NSString *label = [self substringWithRange:NSMakeRange(beginIndex.integerValue, i - beginIndex.integerValue + 1)];
+                if (![labelsArray containsObject:label]) {
+                    [labelsArray addObject:label];
+                }
+                beginIndex = nil;
+            }
+        }
+    }
+    
+    NSString *newSelf = self;
+    
+    for (NSString *label in labelsArray) {
+        newSelf = [newSelf stringByReplacingOccurrencesOfString:label withString:@""];
+    }
+    
+    return newSelf;
+}
+
 - (BOOL)isChinese {
     NSString *match=@"(^[\u4e00-\u9fa5]+$)";
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF matches %@", match];
