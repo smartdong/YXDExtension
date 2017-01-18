@@ -26,6 +26,8 @@
 + (BOOL)isFirstOpen:(NSString *)key;
 + (BOOL)isFirstOpen:(NSString *)key forAccount:(NSString *)account;
 
++ (void)setDisableWebViewCache;
+
 #pragma mark - Calculate Time Cost
 
 + (void)calculate:(dispatch_block_t)doSth done:(void(^)(double timeCost))done;
