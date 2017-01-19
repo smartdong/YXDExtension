@@ -16,4 +16,6 @@
 + (NSString *)systemVersion;
 + (NSString *)deviceModel;
 
++ (void)setOrientation:(UIInterfaceOrientation)orientation;
+
 @end
