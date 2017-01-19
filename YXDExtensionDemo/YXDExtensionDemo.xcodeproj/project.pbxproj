@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B1956A71E2F34EB00E15C48 /* UIWebView+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B1956A61E2F34EB00E15C48 /* UIWebView+YXDExtension.m */; };
 		0B26F3141D352C0A00F0A052 /* UITableViewCell+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B26F3131D352C0A00F0A052 /* UITableViewCell+YXDExtension.m */; };
 		0B2DFC531CB8C4B5005ABED3 /* loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0B2DFC521CB8C4B5005ABED3 /* loading.gif */; };
 		0B4E24F51B7764000008C4B0 /* UIScrollView+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B4E24F41B7764000008C4B0 /* UIScrollView+YXDExtension.m */; };
@@ -196,6 +197,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0B1956A51E2F34EB00E15C48 /* UIWebView+YXDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+YXDExtension.h"; sourceTree = "<group>"; };
+		0B1956A61E2F34EB00E15C48 /* UIWebView+YXDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+YXDExtension.m"; sourceTree = "<group>"; };
 		0B26F3121D352C0A00F0A052 /* UITableViewCell+YXDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+YXDExtension.h"; sourceTree = "<group>"; };
 		0B26F3131D352C0A00F0A052 /* UITableViewCell+YXDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+YXDExtension.m"; sourceTree = "<group>"; };
 		0B2DFC521CB8C4B5005ABED3 /* loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading.gif; sourceTree = "<group>"; };
@@ -1386,6 +1389,8 @@
 				0B26F3131D352C0A00F0A052 /* UITableViewCell+YXDExtension.m */,
 				0BA8958A1D4A3BFD00F5D71C /* UITextField+YXDExtension.h */,
 				0BA8958B1D4A3BFD00F5D71C /* UITextField+YXDExtension.m */,
+				0B1956A51E2F34EB00E15C48 /* UIWebView+YXDExtension.h */,
+				0B1956A61E2F34EB00E15C48 /* UIWebView+YXDExtension.m */,
 			);
 			path = YXDUIKitExtension;
 			sourceTree = "<group>";
@@ -1623,6 +1628,7 @@
 				B550484E1B81B63E00A78C8D /* AFURLSessionManager.m in Sources */,
 				B5618BB81D0D2EF700CA654F /* hmac.c in Sources */,
 				B53E03C21CC728B800BE4411 /* YXDLogUploadHelper.m in Sources */,
+				0B1956A71E2F34EB00E15C48 /* UIWebView+YXDExtension.m in Sources */,
 				0BF6BF171CB964D800CF56DC /* FMDatabase.m in Sources */,
 				B55048701B81B63E00A78C8D /* SDWebImageDownloader.m in Sources */,
 				B5DE71851B6F1DDC006F8FF1 /* NSDate+YXDExtension.m in Sources */,
