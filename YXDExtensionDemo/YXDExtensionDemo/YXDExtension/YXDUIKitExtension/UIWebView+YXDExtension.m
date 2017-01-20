@@ -10,10 +10,8 @@
 @implementation UIWebView (YXDExtension)
 
 - (void)clearLoad {
-    self.delegate = nil;
     [self stopLoading];
-    [self removeFromSuperview];
-    
+    [self loadHTMLString:@"" baseURL:nil];
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
 }
 
