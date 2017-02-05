@@ -115,6 +115,7 @@ return sharedInstance; \
 
 //从bundle中加载cell
 #define mLoadNib(name)                          [[[NSBundle mainBundle] loadNibNamed:name owner:self options:nil] lastObject]
+#define mLoadNibWithClass(clazz)                [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass(clazz) owner:self options:nil] lastObject]
 
 //注册nib
 #define mRegisterNib_TableView(view,name)       [view registerNib:[UINib nibWithNibName:name bundle:nil] forCellReuseIdentifier:name]
