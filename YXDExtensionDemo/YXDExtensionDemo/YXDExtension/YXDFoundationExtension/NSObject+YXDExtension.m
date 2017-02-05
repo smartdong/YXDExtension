@@ -889,6 +889,15 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil userInfo:userInfo];
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation"
+
++ (instancetype)new {
+    return [[self alloc] init];
+}
+
+#pragma clang diagnostic pop
+
 #pragma mark - 异常处理
 
 //防止意外崩溃 但是这样做就无法在其他类里面再对这种情况进行处理 考虑到极少需要处理这种情况 所以我觉得无所谓 :)
