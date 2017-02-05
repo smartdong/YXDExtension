@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0B1956A71E2F34EB00E15C48 /* UIWebView+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B1956A61E2F34EB00E15C48 /* UIWebView+YXDExtension.m */; };
+		0B1DA0C11E47978A00C26D04 /* UICollectionViewLeftAlignedLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B1DA0C01E47978A00C26D04 /* UICollectionViewLeftAlignedLayout.m */; };
 		0B26F3141D352C0A00F0A052 /* UITableViewCell+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B26F3131D352C0A00F0A052 /* UITableViewCell+YXDExtension.m */; };
 		0B2DFC531CB8C4B5005ABED3 /* loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0B2DFC521CB8C4B5005ABED3 /* loading.gif */; };
 		0B4E24F51B7764000008C4B0 /* UIScrollView+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B4E24F41B7764000008C4B0 /* UIScrollView+YXDExtension.m */; };
@@ -199,6 +200,8 @@
 /* Begin PBXFileReference section */
 		0B1956A51E2F34EB00E15C48 /* UIWebView+YXDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+YXDExtension.h"; sourceTree = "<group>"; };
 		0B1956A61E2F34EB00E15C48 /* UIWebView+YXDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+YXDExtension.m"; sourceTree = "<group>"; };
+		0B1DA0BF1E47978A00C26D04 /* UICollectionViewLeftAlignedLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICollectionViewLeftAlignedLayout.h; sourceTree = "<group>"; };
+		0B1DA0C01E47978A00C26D04 /* UICollectionViewLeftAlignedLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICollectionViewLeftAlignedLayout.m; sourceTree = "<group>"; };
 		0B26F3121D352C0A00F0A052 /* UITableViewCell+YXDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+YXDExtension.h"; sourceTree = "<group>"; };
 		0B26F3131D352C0A00F0A052 /* UITableViewCell+YXDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+YXDExtension.m"; sourceTree = "<group>"; };
 		0B2DFC521CB8C4B5005ABED3 /* loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading.gif; sourceTree = "<group>"; };
@@ -585,6 +588,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B1DA0BE1E47978A00C26D04 /* UICollectionViewLeftAlignedLayout */ = {
+			isa = PBXGroup;
+			children = (
+				0B1DA0BF1E47978A00C26D04 /* UICollectionViewLeftAlignedLayout.h */,
+				0B1DA0C01E47978A00C26D04 /* UICollectionViewLeftAlignedLayout.m */,
+			);
+			path = UICollectionViewLeftAlignedLayout;
+			sourceTree = "<group>";
+		};
 		0B2DFC511CB8C4B5005ABED3 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -816,6 +828,7 @@
 			isa = PBXGroup;
 			children = (
 				0BF6BF031CB95E2D00CF56DC /* Frameworks */,
+				0B1DA0BE1E47978A00C26D04 /* UICollectionViewLeftAlignedLayout */,
 				B51BB80D1CCDE212000D7B69 /* Aspects */,
 				0BF6BF0A1CB964D800CF56DC /* FMDB */,
 				0BF6BEF41CB95D4B00CF56DC /* YYCache */,
@@ -1631,6 +1644,7 @@
 				0B1956A71E2F34EB00E15C48 /* UIWebView+YXDExtension.m in Sources */,
 				0BF6BF171CB964D800CF56DC /* FMDatabase.m in Sources */,
 				B55048701B81B63E00A78C8D /* SDWebImageDownloader.m in Sources */,
+				0B1DA0C11E47978A00C26D04 /* UICollectionViewLeftAlignedLayout.m in Sources */,
 				B5DE71851B6F1DDC006F8FF1 /* NSDate+YXDExtension.m in Sources */,
 				B55047BB1B818C4100A78C8D /* UICollectionView+YXDExtension.m in Sources */,
 				B5DE719D1B6F3040006F8FF1 /* UIViewController+YXDExtension.m in Sources */,
