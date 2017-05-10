@@ -12,4 +12,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
+//- (void)popViewController;
+
 @end
