@@ -29,7 +29,7 @@
     
     [self collectionViewConfig];
     
-//    if (self.navigationController.viewControllers.firstObject != self) {
+//    if (self.showBackItem || (self.navigationController.viewControllers.firstObject != self)) {
 //        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"xxx"] style:UIBarButtonItemStylePlain target:self action:@selector(popViewController)];
 //    }
 }
@@ -83,8 +83,8 @@
     }
 }
 
-//- (void)popViewController {
-//    [self.navigationController popViewControllerAnimated:YES];
-//}
+- (void)popViewController {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 @end
