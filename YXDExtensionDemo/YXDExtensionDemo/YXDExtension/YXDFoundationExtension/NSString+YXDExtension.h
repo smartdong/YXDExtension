@@ -12,6 +12,8 @@
 
 @interface NSString (YXDExtension)
 
++ (BOOL)isEmpty:(NSString *)string;
+
 - (BOOL)isEmail;
 - (BOOL)isPhone;
 
