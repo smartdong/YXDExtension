@@ -479,18 +479,18 @@ NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
 #pragma mark - New
 
 + (instancetype)sharedInstance {
-    static YXDNetworkManager *networkManager = nil;
+    static id networkManager = nil;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        networkManager = [[YXDNetworkManager new] commonInit];
+        networkManager = [[self new] commonInit];
     });
     
     return networkManager;
 }
 
 + (instancetype)newManager {
-    return [[YXDNetworkManager new] commonInit];
+    return [[self new] commonInit];
 }
 
 - (instancetype)commonInit {
