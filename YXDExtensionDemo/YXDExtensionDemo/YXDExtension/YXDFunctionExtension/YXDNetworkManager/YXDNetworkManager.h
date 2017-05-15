@@ -188,11 +188,11 @@ typedef void(^YXDNetworkManagerMultiFilesDownloadCompletionBlock)(NSArray<NSURL 
 #pragma mark - Return Data Handle
 
 //将要发送HTTP请求时调用
-- (void)willSendHTTPRequestWithParams:(NSMutableDictionary *)params;
+- (void)willSendHTTPRequestWithParams:(NSMutableDictionary *)params NS_REQUIRES_SUPER;
 //HTTP请求返回成功时调用
-- (void)handleSuccessWithHTTPRequestOperation:(YXDNetworkRequestOperation *)operation result:(YXDNetworkResult *)result;
+- (void)handleSuccessWithHTTPRequestOperation:(YXDNetworkRequestOperation *)operation result:(YXDNetworkResult *)result NS_REQUIRES_SUPER;
 //HTTP请求返回失败时调用
-- (void)handleFailureWithHTTPRequestOperation:(YXDNetworkRequestOperation *)operation result:(YXDNetworkResult *)result;
+- (void)handleFailureWithHTTPRequestOperation:(YXDNetworkRequestOperation *)operation result:(YXDNetworkResult *)result NS_REQUIRES_SUPER;
 
 #pragma mark - New
 
