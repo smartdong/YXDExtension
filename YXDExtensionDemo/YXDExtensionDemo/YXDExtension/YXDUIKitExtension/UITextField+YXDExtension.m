@@ -41,6 +41,16 @@ static NSString *const kYXDExtensionStringAllLetterAndNumber    = @"ABCDEFGHIJKL
             filter = kYXDExtensionStringAllNumber;
         }
             break;
+        case UITextFieldInputCharacterTypePhone:
+        {
+            if (!self.text.length && (string.integerValue != 1)) {
+                return NO;
+            } else if ((self.text.length == 1) && ![@[@"3",@"4",@"5",@"7",@"8"] containsObject:string]) {
+                return NO;
+            }
+            filter = kYXDExtensionStringAllNumber;
+        }
+            break;
         case UITextFieldInputCharacterTypeNaturalNumber:
         {
             if (!self.text.length && [string isEqualToString:@"0"]) {
