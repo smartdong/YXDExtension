@@ -160,6 +160,10 @@ static force_inline void YXDSetPropertyValue(NSObject *object, SEL setter, YXDEn
         {
             NSMutableArray *val = nil;
             
+            if (![value isKindOfClass:[NSArray class]] && [value isKindOfClass:[NSString class]]) {
+                value = [value objectFromJSONString];
+            }
+            
             if (objectClass && [value isKindOfClass:[NSArray class]] && [value count]) {
                 val = [NSMutableArray array];
                 
@@ -180,6 +184,10 @@ static force_inline void YXDSetPropertyValue(NSObject *object, SEL setter, YXDEn
         case YXDEncodingTypeMutableDictionary:
         {
             NSDictionary *val = nil;
+            
+            if (![value isKindOfClass:[NSDictionary class]] && [value isKindOfClass:[NSString class]]) {
+                value = [value objectFromJSONString];
+            }
             
             if ([value isKindOfClass:[NSDictionary class]]) {
                 val = value;
