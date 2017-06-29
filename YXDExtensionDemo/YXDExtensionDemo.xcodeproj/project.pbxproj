@@ -34,6 +34,7 @@
 		0BF6BF1B1CB964D800CF56DC /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF6BF151CB964D800CF56DC /* FMResultSet.m */; };
 		0BF6BF1C1CB964D800CF56DC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0BF6BF161CB964D800CF56DC /* Info.plist */; };
 		0BF6BF201CB965FD00CF56DC /* YXDFMDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF6BF1F1CB965FD00CF56DC /* YXDFMDBHelper.m */; };
+		8803C9911F04F9020062BC86 /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8803C9901F04F9020062BC86 /* CustomIOSAlertView.m */; };
 		B506E6F11CBCE9B200B9945E /* test.db in Resources */ = {isa = PBXBuildFile; fileRef = B506E6F01CBCE9B200B9945E /* test.db */; };
 		B51BB8101CCDE212000D7B69 /* Aspects.m in Sources */ = {isa = PBXBuildFile; fileRef = B51BB80F1CCDE212000D7B69 /* Aspects.m */; };
 		B520A8FE1C130C2900CE6701 /* UIDevice+YXDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B520A8FD1C130C2900CE6701 /* UIDevice+YXDExtension.m */; };
@@ -253,6 +254,8 @@
 		0BF6BF161CB964D800CF56DC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0BF6BF1E1CB965FD00CF56DC /* YXDFMDBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDFMDBHelper.h; sourceTree = "<group>"; };
 		0BF6BF1F1CB965FD00CF56DC /* YXDFMDBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDFMDBHelper.m; sourceTree = "<group>"; };
+		8803C98F1F04F9020062BC86 /* CustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOSAlertView.h; sourceTree = "<group>"; };
+		8803C9901F04F9020062BC86 /* CustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertView.m; sourceTree = "<group>"; };
 		B506E6EF1CBCE4DD00B9945E /* YXDExtensionDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDExtensionDefine.h; sourceTree = "<group>"; };
 		B506E6F01CBCE9B200B9945E /* test.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.db; sourceTree = "<group>"; };
 		B51BB80E1CCDE212000D7B69 /* Aspects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aspects.h; sourceTree = "<group>"; };
@@ -752,6 +755,15 @@
 			path = YXDFMDBHelper;
 			sourceTree = "<group>";
 		};
+		8803C98E1F04F9020062BC86 /* CustomIOSAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				8803C98F1F04F9020062BC86 /* CustomIOSAlertView.h */,
+				8803C9901F04F9020062BC86 /* CustomIOSAlertView.m */,
+			);
+			path = CustomIOSAlertView;
+			sourceTree = "<group>";
+		};
 		B51BB80D1CCDE212000D7B69 /* Aspects */ = {
 			isa = PBXGroup;
 			children = (
@@ -841,6 +853,7 @@
 				B55048361B81B63E00A78C8D /* SVProgressHUD */,
 				B550483D1B81B63E00A78C8D /* TPKeyboardAvoiding */,
 				B5618B8E1D0D2EF700CA654F /* SSZipArchive */,
+				8803C98E1F04F9020062BC86 /* CustomIOSAlertView */,
 			);
 			path = Vendor;
 			sourceTree = "<group>";
@@ -1582,6 +1595,7 @@
 				B55048811B81B63E00A78C8D /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				B57214E31D1254C400DADAF4 /* GirlFriend.m in Sources */,
 				B550485C1B81B63E00A78C8D /* MJRefreshHeader.m in Sources */,
+				8803C9911F04F9020062BC86 /* CustomIOSAlertView.m in Sources */,
 				B5B8FFA51CB7848E00AE66B7 /* DDDispatchQueueLogFormatter.m in Sources */,
 				B5B8FFAA1CB7940500AE66B7 /* YXDLog.m in Sources */,
 				B5DE71C21B6F4A2F006F8FF1 /* YXDFileManager.m in Sources */,

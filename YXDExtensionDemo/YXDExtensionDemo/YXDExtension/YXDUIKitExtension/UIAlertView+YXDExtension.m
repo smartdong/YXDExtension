@@ -6,6 +6,7 @@
 //
 
 #import "UIAlertView+YXDExtension.h"
+#import "CustomIOSAlertView.h"
 
 static YXDExtensionAlertViewDismissBlock _dismissBlock;
 static YXDExtensionAlertViewCancelBlock _cancelBlock;
@@ -45,7 +46,18 @@ static YXDExtensionAlertViewCancelBlock _cancelBlock;
         if (_dismissBlock) {
             _dismissBlock(buttonIndex - 1); // cancel button is button 0
         }
-    }  
+    }
+}
+
++ (dispatch_block_t)alertCustomView:(UIView *)view {
+    CustomIOSAlertView *customAlertView = [CustomIOSAlertView new];
+    [customAlertView setButtonTitles:nil];
+    [customAlertView setContainerView:view];
+    [customAlertView setUseMotionEffects:TRUE];
+    [customAlertView show];
+    return ^{
+        [customAlertView close];
+    };
 }
 
 @end
