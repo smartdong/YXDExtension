@@ -164,7 +164,7 @@ static force_inline void YXDSetPropertyValue(NSObject *object, SEL setter, YXDEn
                 value = [value objectFromJSONString];
             }
             
-            if (objectClass && [value isKindOfClass:[NSArray class]] && [value count]) {
+            if (objectClass && [value isKindOfClass:[NSArray class]] && [(NSArray *)value count]) {
                 val = [NSMutableArray array];
                 
                 for (id obj in value) {
@@ -727,7 +727,7 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
             return data;
         }
     } else if ([clazz isSubclassOfClass:[NSArray class]]) {
-        if ([data isKindOfClass:[NSArray class]] && [data count]) {
+        if ([data isKindOfClass:[NSArray class]] && [(NSArray *)data count]) {
             NSMutableArray *arr = [NSMutableArray array];
             for (id obj in data) {
                 //因为无法确定obj的具体类型 所以只能支持基本类型
