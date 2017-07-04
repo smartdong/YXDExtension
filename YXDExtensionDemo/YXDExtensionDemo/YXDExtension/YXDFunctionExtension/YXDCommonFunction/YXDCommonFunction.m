@@ -11,6 +11,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "NSString+YXDExtension.h"
+#import "NSData+YXDExtension.h"
 
 #define YXDCommonFunctionUserDefaultsKey(key, account) (account?[NSString stringWithFormat:@"%@_%@",key,account]:key)
 
@@ -135,6 +136,12 @@
 
 + (NSString *)hmacsha1WithPlainText:(NSString *)plainText secretKey:(NSString *)secretKey {
     return [plainText hmacsha1WithSecretKey:secretKey];
+}
+
+#pragma mark - Others
+
++ (id)objectFromJSONDataForResource:(NSString *)name ofType:(NSString *)ext {
+    return [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:name ofType:ext]].objectFromJSONData;
 }
 
 @end

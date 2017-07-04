@@ -51,4 +51,8 @@
 
 + (NSString *)hmacsha1WithPlainText:(NSString *)plainText secretKey:(NSString *)secretKey;
 
+#pragma mark - Others
+
++ (id)objectFromJSONDataForResource:(NSString *)name ofType:(NSString *)ext;
+
 @end
