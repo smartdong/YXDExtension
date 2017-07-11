@@ -62,14 +62,6 @@
     return ![ud boolForKey:YXDCommonFunctionUserDefaultsKey(key, account)];
 }
 
-+ (void)setDisableWebViewCache {
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    [ud setInteger:0 forKey:@"WebKitCacheModelPreferenceKey"];
-    [ud setBool:NO forKey:@"WebKitDiskImageCacheEnabled"];
-    [ud setBool:NO forKey:@"WebKitOfflineWebApplicationCacheEnabled"];
-    [ud synchronize];
-}
-
 #pragma mark - Calculate Time Cost
 
 + (void)calculate:(dispatch_block_t)doSth done:(void(^)(double timeCost))done {
@@ -139,6 +131,14 @@
 }
 
 #pragma mark - Others
+
++ (void)setDisableWebViewCache {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud setInteger:0 forKey:@"WebKitCacheModelPreferenceKey"];
+    [ud setBool:NO forKey:@"WebKitDiskImageCacheEnabled"];
+    [ud setBool:NO forKey:@"WebKitOfflineWebApplicationCacheEnabled"];
+    [ud synchronize];
+}
 
 + (id)objectFromJSONDataForResource:(NSString *)name ofType:(NSString *)ext {
     return [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:name ofType:ext]].objectFromJSONData;
