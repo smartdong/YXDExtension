@@ -14,6 +14,10 @@ static NSString *const kYXDExtensionStringAllLetterAndNumber    = @"ABCDEFGHIJKL
 
 @implementation UITextField (YXDExtension)
 
+- (void)setPlaceholderColor:(UIColor *)placeholderColor {
+    [self setValue:placeholderColor forKeyPath:@"_placeholderLabel.textColor"];
+}
+
 - (BOOL)shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string maxLength:(NSInteger)maxLength type:(UITextFieldInputCharacterType)type {
     
     if ([string isEqualToString:@"\n"]) {

@@ -22,6 +22,8 @@ typedef NS_ENUM(NSInteger,UITextFieldInputCharacterType) {
 
 @interface UITextField (YXDExtension)
 
+- (void)setPlaceholderColor:(UIColor *)placeholderColor;
+
 /**
  *  根据输入类型和限制长度来判断是否允许输入
  *
