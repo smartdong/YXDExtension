@@ -231,4 +231,24 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, float radius
     return [[UIImage alloc] initWithCGImage:asset.defaultRepresentation.fullResolutionImage];
 }
 
+- (NSDictionary *)metaData {
+    return nil;
+}
+
+- (UIImage *)imageByAddMetaData:(NSDictionary *)metaData {
+    return [UIImage imageWithData:[self dataByAddMetaData:metaData]];
+}
+
+- (NSData *)dataByAddMetaData:(NSDictionary *)metaData {
+    return nil;
+}
+
+- (NSString *)UTI {
+    return nil;
+}
+
+- (NSString *)MIMEType {
+    return nil;
+}
+
 @end

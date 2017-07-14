@@ -57,4 +57,11 @@ typedef enum {
 + (UIImage *)fullScreenImageWithALAsset:(ALAsset *)asset;
 + (UIImage *)fullResolutionImageWithALAsset:(ALAsset *)asset;
 
+- (NSDictionary *)metaData;
+- (UIImage *)imageByAddMetaData:(NSDictionary *)metaData;
+- (NSData *)dataByAddMetaData:(NSDictionary *)metaData;
+
+- (NSString *)UTI;
+- (NSString *)MIMEType;
+
 @end
