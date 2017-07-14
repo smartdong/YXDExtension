@@ -13,6 +13,8 @@
 + (NSString *)appVersion;
 + (NSString *)buildVersion;
 
++ (UIImage *)appIcon;
+
 + (void)callPhone:(NSString *)phone;
 
 @end

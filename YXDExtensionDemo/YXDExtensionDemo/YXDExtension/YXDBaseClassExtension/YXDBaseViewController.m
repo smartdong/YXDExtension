@@ -29,7 +29,7 @@
     
     [self collectionViewConfig];
     
-//    if (self.navigationController.viewControllers.firstObject != self) {
+//    if (self.showBackItem || (self.navigationController.viewControllers.firstObject != self)) {
 //        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"xxx"] style:UIBarButtonItemStylePlain target:self action:@selector(popViewController)];
 //    }
 }
@@ -42,23 +42,21 @@
 #pragma mark - Actions
 
 - (void)tableViewConfig {
-    if (self.tableView) {
-        return;
-    }
-    
-    if ([self.view isKindOfClass:[UITableView class]]) {
-        self.tableView = (UITableView *)self.view;
-    } else {
-        for (UIView *view in self.view.subviews) {
-            if ([view isKindOfClass:[UITableView class]]) {
-                self.tableView = (UITableView *)view;
-                break;
+    if (!self.tableView) {
+        if ([self.view isKindOfClass:[UITableView class]]) {
+            self.tableView = (UITableView *)self.view;
+        } else {
+            for (UIView *view in self.view.subviews) {
+                if ([view isKindOfClass:[UITableView class]]) {
+                    self.tableView = (UITableView *)view;
+                    break;
+                }
             }
         }
+        
+        self.tableView.dataSource   = (id<UITableViewDataSource>)self;
+        self.tableView.delegate     = (id<UITableViewDelegate>)self;
     }
-    
-    self.tableView.dataSource   = (id<UITableViewDataSource>)self;
-    self.tableView.delegate     = (id<UITableViewDelegate>)self;
     
     [self.tableView hideFooterView];
     
@@ -68,27 +66,25 @@
 }
 
 - (void)collectionViewConfig {
-    if (self.collectionView) {
-        return;
-    }
-    
-    if ([self.view isKindOfClass:[UICollectionView class]]) {
-        self.collectionView = (UICollectionView *)self.view;
-    } else {
-        for (UIView *view in self.view.subviews) {
-            if ([view isKindOfClass:[UICollectionView class]]) {
-                self.collectionView = (UICollectionView *)view;
-                break;
+    if (!self.collectionView) {
+        if ([self.view isKindOfClass:[UICollectionView class]]) {
+            self.collectionView = (UICollectionView *)self.view;
+        } else {
+            for (UIView *view in self.view.subviews) {
+                if ([view isKindOfClass:[UICollectionView class]]) {
+                    self.collectionView = (UICollectionView *)view;
+                    break;
+                }
             }
         }
+        
+        self.collectionView.dataSource  = (id<UICollectionViewDataSource>)self;
+        self.collectionView.delegate    = (id<UICollectionViewDelegate>)self;
     }
-    
-    self.collectionView.dataSource  = (id<UICollectionViewDataSource>)self;
-    self.collectionView.delegate    = (id<UICollectionViewDelegate>)self;
 }
 
-//- (void)popViewController {
-//    [self.navigationController popViewControllerAnimated:YES];
-//}
+- (void)popViewController {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 @end

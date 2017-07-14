@@ -13,6 +13,10 @@
     return [NSJSONSerialization JSONObjectWithData:self options:0 error:nil];
 }
 
++ (id)objectFromJSONDataForResource:(NSString *)name ofType:(NSString *)ext {
+    return [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:name ofType:ext]].objectFromJSONData;
+}
+
 - (NSString *)hexString {
     const unsigned char *dataBuffer = (const unsigned char *)[self bytes];
     

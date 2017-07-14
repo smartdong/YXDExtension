@@ -14,6 +14,10 @@ static NSString *const kYXDExtensionStringAllLetterAndNumber    = @"ABCDEFGHIJKL
 
 @implementation UITextField (YXDExtension)
 
+- (void)setPlaceholderColor:(UIColor *)placeholderColor {
+    [self setValue:placeholderColor forKeyPath:@"_placeholderLabel.textColor"];
+}
+
 - (BOOL)shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string maxLength:(NSInteger)maxLength type:(UITextFieldInputCharacterType)type {
     
     if ([string isEqualToString:@"\n"]) {
@@ -38,6 +42,16 @@ static NSString *const kYXDExtensionStringAllLetterAndNumber    = @"ABCDEFGHIJKL
             break;
         case UITextFieldInputCharacterTypeNumber:
         {
+            filter = kYXDExtensionStringAllNumber;
+        }
+            break;
+        case UITextFieldInputCharacterTypePhone:
+        {
+            if (!self.text.length && (string.integerValue != 1)) {
+                return NO;
+            } else if ((self.text.length == 1) && ![@[@"3",@"4",@"5",@"7",@"8"] containsObject:string]) {
+                return NO;
+            }
             filter = kYXDExtensionStringAllNumber;
         }
             break;

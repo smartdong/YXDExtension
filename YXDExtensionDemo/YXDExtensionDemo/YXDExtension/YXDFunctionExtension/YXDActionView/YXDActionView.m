@@ -6,6 +6,7 @@
 //
 
 #import "YXDActionView.h"
+#import "UIColor+YXDExtension.h"
 
 @interface YXDActionView ()<UIGestureRecognizerDelegate> {
     UIView *_wrapperView;
@@ -18,26 +19,26 @@
 
 @implementation YXDActionView
 
-+ (void)showView:(UIView *)view title:(NSString *)title comfirmTitle:(NSString *)comfirmTitle cancelTitle:(NSString *)cancelTitle completion:(void (^)(BOOL))completion {
++ (void)showView:(UIView *)view barTintColor:(UIColor *)barTintColor titleColor:(UIColor *)titleColor title:(NSString *)title comfirmTitle:(NSString *)comfirmTitle cancelTitle:(NSString *)cancelTitle completion:(void (^)(BOOL))completion {
     YXDActionView *actionView = [YXDActionView new];
     actionView.completion = completion;
     
     view.frame = CGRectMake(view.frame.origin.x, actionView.bounds.size.height, view.frame.size.width, view.frame.size.height);
-    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 44)];
+    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 50)];
     toolbar.translucent = NO;
+    toolbar.barTintColor = barTintColor;
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0 , 0, 150, 21.0f)];
-    [titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
+    [titleLabel setFont:[UIFont systemFontOfSize:17]];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
-    [titleLabel setTextColor:[UIColor blackColor]];
+    [titleLabel setTextColor:titleColor];
     [titleLabel setText:title];
     [titleLabel setTextAlignment:NSTextAlignmentCenter];
     UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixedSpace.width = 10;
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:cancelTitle?:@"取消" style:UIBarButtonItemStylePlain target:actionView action:@selector(cancel)];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:comfirmTitle?:@"完成" style:UIBarButtonItemStyleDone target:actionView action:@selector(done)];
-    UIColor *itemTintColor = [UIColor colorWithRed:51/255. green:51/255. blue:51/255. alpha:1];
-    leftItem.tintColor = itemTintColor;
-    rightItem.tintColor = itemTintColor;
+    leftItem.tintColor = titleColor;
+    rightItem.tintColor = titleColor;
     UIBarButtonItem *flex1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:actionView action:nil];
     UIBarButtonItem *titleItem = [[UIBarButtonItem alloc] initWithCustomView:titleLabel];
     UIBarButtonItem *flex2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:actionView action:nil];
@@ -84,10 +85,12 @@
                      selectedDate:(NSDate *)selectedDate
                    datePickerMode:(UIDatePickerMode)datePickerMode
                    minuteInterval:(NSInteger)minuteInterval
+                     barTintColor:(UIColor *)barTintColor
+                       titleColor:(UIColor *)titleColor
+                  backgroundColor:(UIColor *)backgroundColor
                             title:(NSString *)title
                      comfirmTitle:(NSString *)comfirmTitle
                       cancelTitle:(NSString *)cancelTitle
-                  backgroundColor:(UIColor *)backgroundColor
                        completion:(void (^)(BOOL, NSDate *))completion {
     UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 240)];
     datePicker.date = selectedDate;
@@ -98,6 +101,8 @@
     datePicker.backgroundColor = backgroundColor?:[UIColor whiteColor];
     
     [self showView:datePicker
+      barTintColor:barTintColor
+        titleColor:titleColor
              title:title
       comfirmTitle:comfirmTitle
        cancelTitle:cancelTitle

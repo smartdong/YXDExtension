@@ -11,6 +11,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "NSString+YXDExtension.h"
+#import "NSData+YXDExtension.h"
 
 #define YXDCommonFunctionUserDefaultsKey(key, account) (account?[NSString stringWithFormat:@"%@_%@",key,account]:key)
 
@@ -59,14 +60,6 @@
 + (BOOL)isFirstOpen:(NSString *)key forAccount:(NSString *)account {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     return ![ud boolForKey:YXDCommonFunctionUserDefaultsKey(key, account)];
-}
-
-+ (void)setDisableWebViewCache {
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    [ud setInteger:0 forKey:@"WebKitCacheModelPreferenceKey"];
-    [ud setBool:NO forKey:@"WebKitDiskImageCacheEnabled"];
-    [ud setBool:NO forKey:@"WebKitOfflineWebApplicationCacheEnabled"];
-    [ud synchronize];
 }
 
 #pragma mark - Calculate Time Cost
@@ -154,6 +147,20 @@
 
 + (NSString *)hmacsha1WithPlainText:(NSString *)plainText secretKey:(NSString *)secretKey {
     return [plainText hmacsha1WithSecretKey:secretKey];
+}
+
+#pragma mark - Others
+
++ (void)setDisableWebViewCache {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud setInteger:0 forKey:@"WebKitCacheModelPreferenceKey"];
+    [ud setBool:NO forKey:@"WebKitDiskImageCacheEnabled"];
+    [ud setBool:NO forKey:@"WebKitOfflineWebApplicationCacheEnabled"];
+    [ud synchronize];
+}
+
++ (id)objectFromJSONDataForResource:(NSString *)name ofType:(NSString *)ext {
+    return [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:name ofType:ext]].objectFromJSONData;
 }
 
 @end

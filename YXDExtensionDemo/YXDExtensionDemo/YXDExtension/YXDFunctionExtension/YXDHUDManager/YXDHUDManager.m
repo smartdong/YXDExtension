@@ -14,6 +14,7 @@
 @end
 
 static CGFloat const kYXDHUDManagerShowDelay = 0.2f;
+static SVProgressHUDMaskType const YXDHUDManagerMaskTypeDefault = SVProgressHUDMaskTypeBlack;
 
 @implementation YXDHUDManager
 
@@ -23,7 +24,7 @@ static CGFloat const kYXDHUDManagerShowDelay = 0.2f;
 
 + (void)showWithDuration:(CGFloat)duration completion:(dispatch_block_t)completion {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kYXDHUDManagerShowDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self showWithMaskType:SVProgressHUDMaskTypeBlack];
+        [self showWithMaskType:YXDHUDManagerMaskTypeDefault];
         [self dissmissAfterDuration:duration completion:completion];
     });
 }
@@ -42,7 +43,7 @@ static CGFloat const kYXDHUDManagerShowDelay = 0.2f;
 
 + (void)showWithTitle:(NSString *)title duration:(CGFloat)duration completion:(dispatch_block_t)completion {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kYXDHUDManagerShowDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self showWithStatus:title maskType:SVProgressHUDMaskTypeBlack];
+        [self showWithStatus:title maskType:YXDHUDManagerMaskTypeDefault];
         [self dissmissAfterDuration:duration completion:completion];
     });
 }
@@ -61,7 +62,7 @@ static CGFloat const kYXDHUDManagerShowDelay = 0.2f;
 
 + (void)showSuccessWithTitle:(NSString *)title duration:(CGFloat)duration completion:(dispatch_block_t)completion {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kYXDHUDManagerShowDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self showSuccessWithStatus:title maskType:SVProgressHUDMaskTypeBlack];
+        [self showSuccessWithStatus:title maskType:YXDHUDManagerMaskTypeDefault];
         [self dissmissAfterDuration:duration completion:completion];
     });
 }
@@ -80,7 +81,7 @@ static CGFloat const kYXDHUDManagerShowDelay = 0.2f;
 
 + (void)showErrorWithTitle:(NSString *)title duration:(CGFloat)duration completion:(dispatch_block_t)completion {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kYXDHUDManagerShowDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self showErrorWithStatus:title maskType:SVProgressHUDMaskTypeBlack];
+        [self showErrorWithStatus:title maskType:YXDHUDManagerMaskTypeDefault];
         [self dissmissAfterDuration:duration completion:completion];
     });
 }

@@ -89,8 +89,6 @@ NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
         [YXDHUDManager showWithStatus:loadingStatus];
     }
     
-    [self willSendHTTPRequest];
-    
     NSMutableDictionary *sendParams = nil;
     
     if (params.count || self.commonParams.count) {
@@ -103,6 +101,8 @@ NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
             [self.requestManager.requestSerializer setValue:value forHTTPHeaderField:key];
         }
     }];
+    
+    [self willSendHTTPRequestWithParams:sendParams];
     
     void (^successBlock)(AFHTTPRequestOperation *operation, id responseObject) = ^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -277,7 +277,7 @@ NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
 //                                     data:(NSData *)data
 //                          currentProgress:(YXDNetworkManagerUploadProgressChangedBlock)currentProgress
 //                               completion:(void (^)(YXDNetworkResult *result))completion {
-//    
+//
 //    NSURLSessionUploadTask *ut = [self.tasksManager uploadTaskWithRequest:URL.URLRequest
 //                                                                 fromData:data
 //                                                                 progress:nil
@@ -302,7 +302,7 @@ NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
 //    }];
 //
 //    [ut resume];
-//    
+//
 //    return ut;
 //}
 
@@ -464,7 +464,7 @@ NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
 
 #pragma mark - Return Data Handle
 
-- (void)willSendHTTPRequest {
+- (void)willSendHTTPRequestWithParams:(NSMutableDictionary *)params {
     
 }
 
@@ -479,18 +479,18 @@ NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault = 600.; // Or 0. ?
 #pragma mark - New
 
 + (instancetype)sharedInstance {
-    static YXDNetworkManager *networkManager = nil;
+    static id networkManager = nil;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        networkManager = [[YXDNetworkManager new] commonInit];
+        networkManager = [[self new] commonInit];
     });
     
     return networkManager;
 }
 
 + (instancetype)newManager {
-    return [[YXDNetworkManager new] commonInit];
+    return [[self new] commonInit];
 }
 
 - (instancetype)commonInit {
