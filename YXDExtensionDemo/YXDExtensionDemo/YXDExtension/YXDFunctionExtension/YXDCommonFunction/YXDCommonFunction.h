@@ -43,6 +43,12 @@
 + (NSString *)UTIForMIMEType:(NSString *)MIMEType;
 + (NSString *)MIMETypeForUTI:(NSString *)UTI;
 
++ (NSString *)UTIForFileAtPath:(NSString *)path;
++ (NSString *)MIMETypeForFileAtPath:(NSString *)path;
+
++ (NSString *)UTIForObject:(id)object;
++ (NSString *)MIMETypeForObject:(id)object;
+
 #pragma mark - Save Image
 
 + (void)saveImageToPhotosAlbum:(UIImage *)image metadata:(NSDictionary *)metadata completionBlock:(void(^)(NSURL *assetURL, NSError *error))completionBlock;

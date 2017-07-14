@@ -121,6 +121,25 @@
     return (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef) UTI, kUTTagClassMIMEType);
 }
 
++ (NSString *)UTIForFileAtPath:(NSString *)path {
+    if (![[NSFileManager new] fileExistsAtPath:path]) {
+        return nil;
+    }
+    return (__bridge NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)[path pathExtension], NULL);
+}
+
++ (NSString *)MIMETypeForFileAtPath:(NSString *)path {
+    return [self MIMETypeForUTI:[self UTIForFileAtPath:path]];
+}
+
++ (NSString *)UTIForObject:(id)object {
+    return nil;
+}
+
++ (NSString *)MIMETypeForObject:(id)object {
+    return nil;
+}
+
 #pragma mark - Save Image
 
 + (void)saveImageToPhotosAlbum:(UIImage *)image metadata:(NSDictionary *)metadata completionBlock:(void(^)(NSURL *assetURL, NSError *error))completionBlock {
