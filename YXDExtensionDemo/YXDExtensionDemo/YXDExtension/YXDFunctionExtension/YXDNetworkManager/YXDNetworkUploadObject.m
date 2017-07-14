@@ -11,7 +11,7 @@
 
 - (NSString *)fileName {
     if (!_fileName) {
-        _fileName = @"";
+        _fileName = @"sth.obj";
     }
     return _fileName;
 }
@@ -24,8 +24,10 @@
 }
 
 - (float)imageQuality {
-    if ((_imageQuality <= 0) || (_imageQuality > 1)) {
+    if (_imageQuality < 0.1) {
         _imageQuality = 0.1;
+    } else if (_imageQuality > 1) {
+        _imageQuality = 1;
     }
     return _imageQuality;
 }
