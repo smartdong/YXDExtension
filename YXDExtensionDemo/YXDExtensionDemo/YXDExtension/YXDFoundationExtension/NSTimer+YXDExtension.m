@@ -47,6 +47,10 @@
     return [self repeatTimerForInterval:seconds action:action startImmdiately:YES];
 }
 
++ (void)startTimer:(dispatch_source_t)timer {
+    dispatch_resume(timer);
+}
+
 + (void)cancelTimer:(dispatch_source_t)timer {
     if (timer) {
         dispatch_source_cancel(timer);

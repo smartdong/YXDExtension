@@ -13,6 +13,7 @@
 + (dispatch_source_t)repeatTimerForInterval:(NSTimeInterval)seconds action:(void (^)(void))action startImmdiately:(BOOL)startImmediately;
 + (dispatch_source_t)repeatTimerForInterval:(NSTimeInterval)seconds action:(void (^)(void))action;
 
++ (void)startTimer:(dispatch_source_t)timer;
 + (void)cancelTimer:(dispatch_source_t)timer;
 
 @end
