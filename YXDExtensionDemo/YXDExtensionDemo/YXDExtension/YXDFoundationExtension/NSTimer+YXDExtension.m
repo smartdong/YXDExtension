@@ -31,15 +31,6 @@
     return timer;
 }
 
-+ (void)cancelTimer:(dispatch_source_t)timer {
-    if (timer) {
-        dispatch_source_cancel(timer);
-#if !OS_OBJECT_USE_OBJC
-        dispatch_release(timer);
-#endif
-    }
-}
-
 + (dispatch_source_t)repeatTimerForInterval:(NSTimeInterval)seconds action:(void (^)(void))action startImmdiately:(BOOL)startImmediately {
     dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue());
     uint64_t nsec = (uint64_t)(seconds * NSEC_PER_SEC);
@@ -54,6 +45,15 @@
 
 + (dispatch_source_t)repeatTimerForInterval:(NSTimeInterval)seconds action:(void (^)(void))action {
     return [self repeatTimerForInterval:seconds action:action startImmdiately:YES];
+}
+
++ (void)cancelTimer:(dispatch_source_t)timer {
+    if (timer) {
+        dispatch_source_cancel(timer);
+#if !OS_OBJECT_USE_OBJC
+        dispatch_release(timer);
+#endif
+    }
 }
 
 @end
