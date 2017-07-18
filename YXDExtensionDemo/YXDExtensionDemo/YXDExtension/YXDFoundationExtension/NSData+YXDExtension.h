@@ -9,6 +9,8 @@
 
 @interface NSData (YXDExtension)
 
+- (NSString *)stringValue;
+
 - (id)objectFromJSONData;
 + (id)objectFromJSONDataForResource:(nullable NSString *)name ofType:(nullable NSString *)ext;
 

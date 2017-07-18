@@ -9,6 +9,10 @@
 
 @implementation NSData (YXDExtension)
 
+- (NSString *)stringValue {
+    return [[NSString alloc] initWithData:self encoding:NSUTF8StringEncoding];
+}
+
 - (id)objectFromJSONData {
     return [NSJSONSerialization JSONObjectWithData:self options:0 error:nil];
 }
