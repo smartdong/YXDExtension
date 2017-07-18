@@ -75,6 +75,7 @@ static NSString *const kYXDLocalHybridManagerResourcerRootName      = @"HTML";
                                                        
                                                        [[YXDNetworkManager sharedInstance] downloadWithURL:[resourceDic objectForKey:@"url"]
                                                                                                  directory:resourceDownloadDirectory
+                                                                                          downloadProgress:nil
                                                                                                 completion:^(NSURL *filePath, NSError *error) {
                                                                                                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                                                                                                         if (filePath && !error) {

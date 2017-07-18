@@ -1,9 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bvJ-Y8-jZF">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bvJ-Y8-jZF">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -15,26 +18,26 @@
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zdP-pP-YRd">
-                                <rect key="frame" x="42" y="120" width="517" height="58"/>
-                                <color key="backgroundColor" red="0.20703125" green="1" blue="0.80504728618421051" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="40" y="110" width="240" height="58"/>
+                                <color key="backgroundColor" red="0.20703125" green="1" blue="0.80504728618421051" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="58" id="4B7-dQ-4nm"/>
+                                    <constraint firstAttribute="height" constant="58" id="jb7-dw-2cd"/>
                                 </constraints>
                                 <state key="normal" title="下拉刷新">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <segue destination="sAY-Ot-oaM" kind="show" id="Tz7-Hk-fBw"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="D9e-HT-6fg">
-                                <rect key="frame" x="42" y="199" width="517" height="30"/>
+                                <rect key="frame" x="40" y="188" width="240" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="81Z-CB-Rbv"/>
+                                    <constraint firstAttribute="height" constant="30" id="9pY-uB-cLI"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -42,15 +45,57 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="YRK-K5-DKQ"/>
                                 </connections>
                             </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lbK-ot-PuX">
+                                <rect key="frame" x="40" y="242" width="240" height="57"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZsI-3i-ytp">
+                                        <rect key="frame" x="0.0" y="0.0" width="80" height="57"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.1960784314" green="0.71764705880000002" blue="0.49019607840000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <state key="normal" title="单文件下载"/>
+                                        <connections>
+                                            <action selector="downloadFile:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="p5a-kj-cUY"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fcq-bV-xVH">
+                                        <rect key="frame" x="80" y="0.0" width="80" height="57"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <state key="normal" title="多文件下载"/>
+                                        <connections>
+                                            <action selector="downloadFiles:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="mrQ-ja-nHx"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ex4-Jh-Kw5">
+                                        <rect key="frame" x="160" y="0.0" width="80" height="57"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.1960784314" green="0.71764705880000002" blue="0.49019607840000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <state key="normal" title="单文件上传"/>
+                                        <connections>
+                                            <action selector="uploadFile:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="kYX-19-Uma"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="57" id="ZAJ-bN-xj0"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="D9e-HT-6fg" secondAttribute="trailing" constant="21" id="8Jl-sU-vYN"/>
-                            <constraint firstItem="D9e-HT-6fg" firstAttribute="top" secondItem="zdP-pP-YRd" secondAttribute="bottom" constant="21" id="O5x-Pf-i75"/>
-                            <constraint firstItem="D9e-HT-6fg" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="22" id="SYG-aL-F6e"/>
-                            <constraint firstItem="zdP-pP-YRd" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="42" id="bed-K5-VvO"/>
-                            <constraint firstItem="zdP-pP-YRd" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="56" id="ePA-SG-KpN"/>
-                            <constraint firstAttribute="trailing" secondItem="zdP-pP-YRd" secondAttribute="trailing" constant="41" id="qfd-bz-aDb"/>
+                            <constraint firstItem="zdP-pP-YRd" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="40" id="EyU-xb-MMW"/>
+                            <constraint firstItem="lbK-ot-PuX" firstAttribute="top" secondItem="D9e-HT-6fg" secondAttribute="bottom" constant="24" id="Jsc-z1-I2B"/>
+                            <constraint firstItem="D9e-HT-6fg" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="40" id="Lzs-4g-YxL"/>
+                            <constraint firstAttribute="trailing" secondItem="D9e-HT-6fg" secondAttribute="trailing" constant="40" id="RVn-qn-Ksu"/>
+                            <constraint firstItem="D9e-HT-6fg" firstAttribute="top" secondItem="zdP-pP-YRd" secondAttribute="bottom" constant="20" id="W5z-Nu-dRZ"/>
+                            <constraint firstAttribute="trailing" secondItem="lbK-ot-PuX" secondAttribute="trailing" constant="40" id="cw5-SS-DvU"/>
+                            <constraint firstAttribute="trailing" secondItem="zdP-pP-YRd" secondAttribute="trailing" constant="40" id="jLz-lL-aWd"/>
+                            <constraint firstItem="lbK-ot-PuX" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="40" id="mne-Ah-ISe"/>
+                            <constraint firstItem="zdP-pP-YRd" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="46" id="o99-3Q-kfp"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="MtF-S8-9Ww"/>
@@ -60,7 +105,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="966" y="616"/>
+            <point key="canvasLocation" x="965.625" y="615.84507042253517"/>
         </scene>
         <!--Refresh Test Table View Controller-->
         <scene sceneID="Sl0-u1-fbX">
@@ -71,15 +116,15 @@
                         <viewControllerLayoutGuide type="bottom" id="wcg-5y-BLQ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="nmi-qW-UgP">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Npn-HO-4Oq">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Npn-HO-4Oq" firstAttribute="leading" secondItem="nmi-qW-UgP" secondAttribute="leading" id="BL7-fv-bNT"/>
                             <constraint firstAttribute="trailing" secondItem="Npn-HO-4Oq" secondAttribute="trailing" id="ZlU-N7-le5"/>
