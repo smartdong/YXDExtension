@@ -25,9 +25,9 @@
 
 @end
 
-static NSString *const kYXDLocalHybridManagerVersionKey             = @"kYXDLocalHybridManagerVersionKey";
-static NSString *const kYXDLocalHybridManagerResourcerPathMapKey    = @"kYXDLocalHybridManagerResourcerPathMapKey";
-static NSString *const kYXDLocalHybridManagerResourcerRootName      = @"HTML";
+static NSString *const kYXDLocalHybridManagerVersionKey         = @"kYXDLocalHybridManagerVersionKey";
+static NSString *const kYXDLocalHybridManagerResourcePathMapKey = @"kYXDLocalHybridManagerResourcePathMapKey";
+static NSString *const kYXDLocalHybridManagerResourceRootName   = @"HTML";
 
 @implementation YXDLocalHybridManager
 
@@ -70,8 +70,8 @@ static NSString *const kYXDLocalHybridManagerResourcerRootName      = @"HTML";
                                                        // path  资源包里网页文件路径
                                                        // name  页面名称
                                                        
-                                                       NSString *resourcePath = [NSString stringWithFormat:@"%@/%@",kDocuments,kYXDLocalHybridManagerResourcerRootName];
-                                                       NSURL *resourceDownloadDirectory = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/Zips",resourcePath]];
+                                                       NSString *resourceRootPath = [NSString stringWithFormat:@"%@/%@",kDocuments,kYXDLocalHybridManagerResourceRootName];
+                                                       NSString *resourceDownloadDirectory = [NSString stringWithFormat:@"%@/Zips",kYXDLocalHybridManagerResourceRootName];
                                                        
                                                        [[YXDNetworkManager sharedInstance] downloadWithURL:[resourceDic objectForKey:@"url"]
                                                                                                  directory:resourceDownloadDirectory
@@ -79,9 +79,10 @@ static NSString *const kYXDLocalHybridManagerResourcerRootName      = @"HTML";
                                                                                                 completion:^(NSURL *filePath, NSError *error) {
                                                                                                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                                                                                                         if (filePath && !error) {
-                                                                                                            BOOL unzipSuccess = [YXDFileManager unzipFileAtPath:filePath.relativePath toDestination:resourcePath];
+                                                                                                            BOOL unzipSuccess = [YXDFileManager unzipFileAtPath:filePath.relativePath toDestination:resourceRootPath];
                                                                                                             if (unzipSuccess) {
-                                                                                                                [self setResourcePath:[NSString stringWithFormat:@"%@/%@",kYXDLocalHybridManagerResourcerRootName,[resourceDic objectForKey:@"path"]] forPage:[resourceDic objectForKey:@"name"]];
+                                                                                                                [self setResourcePath:[NSString stringWithFormat:@"%@/%@",kYXDLocalHybridManagerResourceRootName,[resourceDic objectForKey:@"path"]]
+                                                                                                                              forPage:[resourceDic objectForKey:@"name"]];
                                                                                                                 [self setResourceVersion:serverVersion];
                                                                                                             }
                                                                                                         }
@@ -101,7 +102,7 @@ static NSString *const kYXDLocalHybridManagerResourcerRootName      = @"HTML";
     if (!page.length) {
         return nil;
     }
-    NSDictionary *resourcePathMap = [YXDCommonFunction userDefaultsValueForKey:kYXDLocalHybridManagerResourcerPathMapKey];
+    NSDictionary *resourcePathMap = [YXDCommonFunction userDefaultsValueForKey:kYXDLocalHybridManagerResourcePathMapKey];
     NSString *resourcePath = [resourcePathMap objectForKey:page];
     NSString *realPath = resourcePath.length?[NSString stringWithFormat:@"%@/%@",kDocuments,resourcePath]:nil;
     
@@ -118,13 +119,13 @@ static NSString *const kYXDLocalHybridManagerResourcerRootName      = @"HTML";
     if (!page.length) {
         return;
     }
-    NSMutableDictionary *resourcePathMap = [([YXDCommonFunction userDefaultsValueForKey:kYXDLocalHybridManagerResourcerPathMapKey]?:@{}) mutableCopy];
+    NSMutableDictionary *resourcePathMap = [([YXDCommonFunction userDefaultsValueForKey:kYXDLocalHybridManagerResourcePathMapKey]?:@{}) mutableCopy];
     if (resourcePath.length) {
         [resourcePathMap setObject:resourcePath forKey:page];
     } else {
         [resourcePathMap removeObjectForKey:page];
     }
-    [YXDCommonFunction setUserDefaultsValue:resourcePathMap forKey:kYXDLocalHybridManagerResourcerPathMapKey];
+    [YXDCommonFunction setUserDefaultsValue:resourcePathMap forKey:kYXDLocalHybridManagerResourcePathMapKey];
 }
 
 #pragma mark - Config
