@@ -232,6 +232,7 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, float radius
 }
 
 - (NSDictionary *)metaData {
+    //TODO:完善方法
     return nil;
 }
 
@@ -240,14 +241,17 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, float radius
 }
 
 - (NSData *)dataByAddMetaData:(NSDictionary *)metaData {
+    //TODO:完善方法
     return nil;
 }
 
 - (NSString *)UTI {
+    //TODO:完善方法
     return nil;
 }
 
 - (NSString *)MIMEType {
+    //TODO:完善方法
     return nil;
 }
 

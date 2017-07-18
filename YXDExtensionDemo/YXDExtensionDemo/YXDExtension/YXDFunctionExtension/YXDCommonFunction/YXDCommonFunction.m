@@ -126,10 +126,12 @@
 }
 
 + (NSString *)UTIForObject:(id)object {
+    //TODO:完善方法
     return nil;
 }
 
 + (NSString *)MIMETypeForObject:(id)object {
+    //TODO:完善方法
     return nil;
 }
 
