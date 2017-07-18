@@ -17,4 +17,16 @@
 
 - (NSUInteger)count;
 
+- (NSInteger)integerValue;
+
+- (NSString *)description;
+
+- (int)intValue;
+
+- (float)floatValue;
+
+- (double)doubleValue;
+
+- (BOOL)boolValue;
+
 @end

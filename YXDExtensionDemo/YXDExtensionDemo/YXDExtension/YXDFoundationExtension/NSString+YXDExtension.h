@@ -50,6 +50,8 @@
 
 - (UIImage *)QRCodeImage;
 
+- (NSData *)dataValue;
+
 - (id)objectFromJSONString;
 
 - (NSString *)md5;
