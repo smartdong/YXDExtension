@@ -15,6 +15,8 @@
 #import "GirlFriend.h"
 #import "YXDFilterView.h"
 #import "YXDFMDBHelper.h"
+#import "YXDNetworkUploadObject.h"
+#import "YXDNetworkResult.h"
 
 @interface ViewController ()<YXDFilterViewDelegate,UITextFieldDelegate>
 
@@ -40,15 +42,14 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-//    [self downloadTest];
 //    [self HUDTest];
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     
-//    [SVProgressHUD dismiss];
-//    [[YXDNetworkManager sharedInstance] cancelAllTasks];
+//    [YXDHUDManager dismiss];
+    [[YXDNetworkManager sharedInstance] cancelAllRequestAndTasks];
 }
 
 - (void)HUDTest {
@@ -69,42 +70,106 @@
     }];
 }
 
-- (void)unzipWithZipFilePath:(NSString *)zipFilePath destinationPath:(NSString *)destinationPath {
-    [YXDFileManager unzipFileAtPath:zipFilePath toDestination:destinationPath];
-}
-
-- (void)downloadTest {
-//    http://porn.yangxudong.me/resource/imgs/giftest.gif
-//    http://porn.yangxudong.me/resource/data/resource.zip
-    
+- (IBAction)downloadFile:(UIButton *)sender {
     NSLog(@"开始下载");
-    
-    [[YXDNetworkManager sharedInstance] downloadWithURL:@"http://porn.yangxudong.me/resource/data/resource.zip"
-                                              directory:[kDocuments.URL URLByAppendingPathComponent:@"H5"]
-                                          loadingStatus:@"正在下载"
+    NSString *dir = @"GIFS";
+    [[YXDNetworkManager sharedInstance] downloadWithURL:@"http://test.yangxudong.me/files/gifs.zip"
+                                              directory:@"GIFS"
+                                       downloadProgress:^(CGFloat currentProgress) {
+                                           NSLog(@"progress : %lf",currentProgress);
+                                           [YXDHUDManager showProgress:currentProgress];
+                                       }
                                              completion:^(NSURL *filePath, NSError *error) {
                                                  NSLog(@"path : %@ \n error : %@",filePath.relativeString,error);
-                                                 [self unzipWithZipFilePath:filePath.relativePath destinationPath:[NSString stringWithFormat:@"%@/H5/Test",kDocuments]];
+                                                 BOOL unzipSuccess = [YXDFileManager unzipFileAtPath:filePath.relativePath toDestination:[NSString stringWithFormat:@"%@/%@/files",kDocuments,dir]];
+                                                 if (unzipSuccess) {
+                                                     NSLog(@"解压成功");
+                                                 } else {
+                                                     NSLog(@"解压失败");
+                                                 }
+                                                 [YXDHUDManager dismiss];
                                              }];
+}
+
+- (IBAction)downloadFiles:(UIButton *)sender {
+    NSLog(@"开始下载");
+    [[YXDNetworkManager sharedInstance] downloadWithURLArray:@[
+                                                               @"http://test.yangxudong.me/files/1.gif",
+                                                               @"http://test.yangxudong.me/files/2.gif",
+                                                               @"http://test.yangxudong.me/files/3.gif",
+                                                               @"http://test.yangxudong.me/files/video1.m4v",
+                                                               ]
+                                                   directory:@"Files"
+                                            downloadProgress:^(CGFloat currentProgress) {
+                                                NSLog(@"progress : %lf",currentProgress);
+                                                [YXDHUDManager showProgress:currentProgress];
+                                            }
+                                                  completion:^(NSDictionary<NSString *,NSURL *> *filePathsDictionary, NSArray<NSError *> *errors) {
+                                                      if (errors) {
+                                                          for (NSError *error in errors) {
+                                                              NSLog(@"error : %@",error.localizedDescription);
+                                                          }
+                                                      }
+                                                      
+                                                      if (filePathsDictionary.count) {
+                                                          NSLog(@"下载完成:");
+                                                          for (NSString *URL in filePathsDictionary.allKeys) {
+                                                              NSLog(@"URL : %@ , path : %@",URL,filePathsDictionary[URL].relativePath);
+                                                          }
+                                                      }
+                                                      
+                                                      kGCDMain(^{[YXDHUDManager dismiss];});
+                                                  }];
+}
+
+- (IBAction)uploadFile:(UIButton *)sender {
     
-//    [[YXDNetworkManager sharedInstance] downloadWithURLArray:@[
-//                                                               @"http://porn.yangxudong.me/resource/imgs/test.jpg",
-//                                                               @"http://porn.yangxudong.me/resource/imgs/giftest.gif",
-//                                                               @"http://porn.yangxudong.me/resource/data/resource.zip",
-//                                                               ]
-//                                                   directory:[kDocuments.URL URLByAppendingPathComponent:@"dls"]
-//                                                  completion:^(NSArray<NSURL *> *filePaths, NSError *error) {
-//                                                      if (error) {
-//                                                          NSLog(@"error : %@",error.localizedDescription);
-//                                                      }
-//                                                      
-//                                                      if (filePaths.count) {
-//                                                          NSLog(@"下载完成:");
-//                                                          for (NSURL *fp in filePaths) {
-//                                                              NSLog(@"path : %@",fp.relativePath);
-//                                                          }
-//                                                      }
-//                                                  }];
+    YXDNetworkUploadObject *upload = [[YXDNetworkUploadObject alloc] init];
+    upload.paramName = @"file";
+    upload.file = [UIImage imageNamed:@"imgNoInformation"];
+    upload.fileName = @"test.jpg";
+    upload.imageQuality = 1;
+
+    [[YXDNetworkManager sharedInstance] uploadWithURL:@"http://test.yangxudong.me/api/upload.php"
+                                               params:@{@"a":@"1",@"b":@"2",@"c":@"3"}
+                                         uploadObject:upload
+                                       uploadProgress:^(CGFloat currentProgress) {
+                                           NSLog(@"progress : %lf",currentProgress);
+                                           [YXDHUDManager showProgress:currentProgress];
+                                       }
+                                           completion:^(YXDNetworkResult *result) {
+                                               if (result.error) {
+                                                   NSLog(@"error : %@",result.error);
+                                               } else {
+                                                   NSLog(@"上传成功 : %@",result.data);
+                                                   
+                                                   [self uploadFile:nil];
+                                               }
+                                               
+                                               [YXDHUDManager dismiss];
+                                           }];
+    
+//    [[YXDNetworkManager sharedInstance] sendRequestWithParams:nil
+//                                             uploadObjectsArray:@[upload]
+//                                             interfaceAddress:@"http://test.yangxudong.me/api/upload.php"
+//                                                   completion:^(YXDNetworkResult *result) {
+//                                                       if (result.error) {
+//                                                           NSLog(@"error : %@",result.error);
+//                                                       } else {
+//                                                           NSLog(@"上传成功");
+//                                                       }
+//                                                       
+//                                                       [YXDHUDManager dismiss];
+//                                                   }
+//                                               networkFailure:^(NSError *error) {
+//                                                   NSLog(@"error : %@",error);
+//                                               }
+//                                                loadingStatus:nil
+//                                               uploadProgress:^(CGFloat currentProgress) {
+//                                                   
+//                                               }
+//                                              timeoutInterval:0
+//                                                       method:POST];
 }
 
 - (void)fmdbHelperTest {
