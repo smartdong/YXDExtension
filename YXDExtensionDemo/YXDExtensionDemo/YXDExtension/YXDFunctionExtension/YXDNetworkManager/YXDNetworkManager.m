@@ -26,6 +26,31 @@ NSTimeInterval const kYXDNetworkUploadTimeoutIntervalDefault    = 60 * 60; // Or
 
 typedef void (^YXDNetworkManagerTaskDidCompleteBlock)(NSURLSession *session, NSURLSessionTask *task, NSError *error);
 
+@implementation YXDNetworkSessionTask
+
+- (void)cancel {
+    id task = [self valueForKey:@"task"];
+    if ([task respondsToSelector:_cmd]) {
+        [task cancel];
+    }
+}
+
+- (void)suspend {
+    id task = [self valueForKey:@"task"];
+    if ([task respondsToSelector:_cmd]) {
+        [task suspend];
+    }
+}
+
+- (void)resume {
+    id task = [self valueForKey:@"task"];
+    if ([task respondsToSelector:_cmd]) {
+        [task resume];
+    }
+}
+
+@end
+
 @implementation YXDNetworkSessionDataTask
 
 @end
@@ -308,20 +333,33 @@ typedef void (^YXDNetworkManagerTaskDidCompleteBlock)(NSURLSession *session, NSU
         return nil;
     }
     
-    if (params.count) {
-        NSString *paramsString = params.sortedKeyValueString;
-        if ([URL containsString:@"?"]) {
-            URL = [URL stringByAppendingString:@"&"];
-        } else {
-            URL = [URL stringByAppendingString:@"?"];
+    NSMutableDictionary *sendParams = nil;
+    
+    if (params.count || self.commonParams.count) {
+        sendParams = [NSMutableDictionary dictionaryWithDictionary:params];
+        [sendParams addEntriesFromDictionary:self.commonParams];
+        
+        if (sendParams.count) {
+            NSString *paramsString = sendParams.sortedKeyValueString;
+            if ([URL containsString:@"?"]) {
+                URL = [URL stringByAppendingString:@"&"];
+            } else {
+                URL = [URL stringByAppendingString:@"?"];
+            }
+            URL = [URL stringByAppendingString:paramsString];
         }
-        URL = [URL stringByAppendingString:paramsString];
     }
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL.URL];
     [request setHTTPMethod:@"POST"];
     [request setCachePolicy:NSURLRequestReloadIgnoringCacheData];
     [request setTimeoutInterval:kYXDNetworkUploadTimeoutIntervalDefault];
+    
+    [self.commonHeaders enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL * _Nonnull stop) {
+        if ([key isKindOfClass:[NSString class]] && [value isKindOfClass:[NSString class]]) {
+            [request addValue:value forHTTPHeaderField:key];
+        }
+    }];
     
     NSURL *dataURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@",kCaches,@"file"]];
     [data writeToURL:dataURL atomically:YES];
@@ -528,7 +566,7 @@ typedef void (^YXDNetworkManagerTaskDidCompleteBlock)(NSURLSession *session, NSU
     for (YXDNetworkSessionDownloadTask *dt in downloadTasks.allValues) {
         [dt.task resume];
     }
-
+    
     return downloadTasks;
 }
 

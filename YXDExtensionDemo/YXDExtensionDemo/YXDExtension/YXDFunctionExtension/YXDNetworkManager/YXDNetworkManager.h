@@ -39,13 +39,21 @@ typedef void(^YXDNetworkManagerMultiFilesDownloadCompletionBlock)(NSDictionary<N
 @class YXDNetworkUploadObject;
 @class YXDNetworkResult;
 
-@interface YXDNetworkSessionDataTask : NSObject
+@interface YXDNetworkSessionTask : NSObject
+
+- (void)cancel;
+- (void)suspend;
+- (void)resume;
+
+@end
+
+@interface YXDNetworkSessionDataTask : YXDNetworkSessionTask
 
 @property (nonatomic, strong) NSURLSessionDataTask *task;
 
 @end
 
-@interface YXDNetworkSessionUploadTask : NSObject
+@interface YXDNetworkSessionUploadTask : YXDNetworkSessionTask
 
 @property (nonatomic, strong) NSURLSessionUploadTask *task;
 
@@ -53,7 +61,7 @@ typedef void(^YXDNetworkManagerMultiFilesDownloadCompletionBlock)(NSDictionary<N
 
 @end
 
-@interface YXDNetworkSessionDownloadTask : NSObject
+@interface YXDNetworkSessionDownloadTask : YXDNetworkSessionTask
 
 @property (nonatomic, strong) NSURLSessionDownloadTask *task;
 
