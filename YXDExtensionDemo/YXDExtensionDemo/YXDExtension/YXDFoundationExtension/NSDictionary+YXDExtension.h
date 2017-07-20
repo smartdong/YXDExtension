@@ -9,6 +9,8 @@
 
 @interface NSDictionary (YXDExtension)
 
+- (NSUInteger)length;
+
 - (NSData *)JSONData;
 - (NSString *)JSONString;
 
