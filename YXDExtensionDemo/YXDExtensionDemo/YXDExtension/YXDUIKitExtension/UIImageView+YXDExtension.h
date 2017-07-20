@@ -12,8 +12,8 @@
 - (void)setImageWithName:(NSString *)name;
 
 - (void)setImageWithURLString:(NSString *)URLString;
-
-- (void)setImageWithURLString:(NSString *)URLString placeholderImageName:(NSString *)placeholderImageName;
+- (void)setImageWithURLString:(NSString *)URLString placeholderImage:(UIImage *)placeholderImage;
+- (void)setImageWithURLString:(NSString *)URLString placeholderImage:(UIImage *)placeholderImage completed:(void(^)(UIImage *image, NSError *error, NSURL *imageURL))completedBlock;
 
 - (void)startAnimatingWithGIFImageName:(NSString *)GIFImageName;
 - (void)startAnimatingWithGIFImageName:(NSString *)GIFImageName repeatCount:(NSUInteger)repeatCount;

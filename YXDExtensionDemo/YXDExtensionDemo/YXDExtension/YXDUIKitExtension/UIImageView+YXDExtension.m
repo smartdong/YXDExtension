@@ -20,8 +20,16 @@
     [self sd_setImageWithURL:URLString.URL];
 }
 
-- (void)setImageWithURLString:(NSString *)URLString placeholderImageName:(NSString *)placeholderImageName {
-    [self sd_setImageWithURL:URLString.URL placeholderImage:[UIImage imageNamed:placeholderImageName]];
+- (void)setImageWithURLString:(NSString *)URLString placeholderImage:(UIImage *)placeholderImage {
+    [self sd_setImageWithURL:URLString.URL placeholderImage:placeholderImage];
+}
+
+- (void)setImageWithURLString:(NSString *)URLString placeholderImage:(UIImage *)placeholderImage completed:(void (^)(UIImage *, NSError *, NSURL *))completedBlock {
+    [self sd_setImageWithURL:URLString.URL placeholderImage:placeholderImage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        if (completedBlock) {
+            completedBlock(image,error,imageURL);
+        }
+    }];
 }
 
 - (void)startAnimatingWithGIFImageName:(NSString *)GIFImageName {
