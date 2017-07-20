@@ -6,6 +6,7 @@
 //
 
 #import "UITextField+YXDExtension.h"
+#import "YXDSwizzlingExtensionDefine.h"
 
 static NSString *const kYXDExtensionStringPoint                 = @".";
 static NSString *const kYXDExtensionStringAllNumber             = @"0123456789";
@@ -13,6 +14,26 @@ static NSString *const kYXDExtensionStringAllLetter             = @"ABCDEFGHIJKL
 static NSString *const kYXDExtensionStringAllLetterAndNumber    = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 @implementation UITextField (YXDExtension)
+
++ (void)load {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        swizzling_exchangeMethod([self class], @selector(resignFirstResponder), @selector(swizzling_resignFirstResponder));
+        swizzling_exchangeMethod([self class], @selector(becomeFirstResponder), @selector(swizzling_becomeFirstResponder));
+    });
+}
+
+- (BOOL)swizzling_resignFirstResponder {
+    BOOL result = [self swizzling_resignFirstResponder];
+    [self layoutIfNeeded];
+    return result;
+}
+
+- (BOOL)swizzling_becomeFirstResponder {
+    BOOL result = [self swizzling_becomeFirstResponder];
+    [self layoutIfNeeded];
+    return result;
+}
 
 - (void)setPlaceholderColor:(UIColor *)placeholderColor {
     [self setValue:placeholderColor forKeyPath:@"_placeholderLabel.textColor"];
