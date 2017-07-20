@@ -10,6 +10,10 @@
 
 @implementation NSArray (YXDExtension)
 
+- (NSUInteger)length {
+    return self.count;
+}
+
 - (NSData *)JSONData {
     return [NSJSONSerialization dataWithJSONObject:self options:0 error:nil];
 }
