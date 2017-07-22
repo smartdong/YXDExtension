@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bvJ-Y8-jZF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bvJ-Y8-jZF">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -48,30 +48,36 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lbK-ot-PuX">
                                 <rect key="frame" x="40" y="242" width="240" height="57"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZsI-3i-ytp">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZsI-3i-ytp">
                                         <rect key="frame" x="0.0" y="0.0" width="80" height="57"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.1960784314" green="0.71764705880000002" blue="0.49019607840000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="57" id="tcx-Kj-w7t"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <state key="normal" title="单文件下载"/>
                                         <connections>
                                             <action selector="downloadFile:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="p5a-kj-cUY"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fcq-bV-xVH">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fcq-bV-xVH">
                                         <rect key="frame" x="80" y="0.0" width="80" height="57"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="57" id="Dl3-p0-K1m"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <state key="normal" title="多文件下载"/>
                                         <connections>
                                             <action selector="downloadFiles:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="mrQ-ja-nHx"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ex4-Jh-Kw5">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ex4-Jh-Kw5">
                                         <rect key="frame" x="160" y="0.0" width="80" height="57"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.1960784314" green="0.71764705880000002" blue="0.49019607840000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="57" id="BwW-v7-74L"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <state key="normal" title="单文件上传"/>
                                         <connections>
@@ -81,7 +87,19 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="fcq-bV-xVH" firstAttribute="top" secondItem="lbK-ot-PuX" secondAttribute="top" id="3hc-pz-N70"/>
+                                    <constraint firstAttribute="bottom" secondItem="ex4-Jh-Kw5" secondAttribute="bottom" id="6H0-FC-IJG"/>
+                                    <constraint firstItem="ZsI-3i-ytp" firstAttribute="leading" secondItem="lbK-ot-PuX" secondAttribute="leading" id="Brm-AI-5h0"/>
+                                    <constraint firstItem="fcq-bV-xVH" firstAttribute="width" secondItem="ZsI-3i-ytp" secondAttribute="width" id="Jst-8T-ejm"/>
+                                    <constraint firstItem="ex4-Jh-Kw5" firstAttribute="leading" secondItem="fcq-bV-xVH" secondAttribute="trailing" id="QD5-0g-Ofd"/>
+                                    <constraint firstItem="ZsI-3i-ytp" firstAttribute="top" secondItem="lbK-ot-PuX" secondAttribute="top" id="RUy-e0-pEM"/>
+                                    <constraint firstItem="fcq-bV-xVH" firstAttribute="leading" secondItem="ZsI-3i-ytp" secondAttribute="trailing" id="UQ5-Xs-W4b"/>
                                     <constraint firstAttribute="height" constant="57" id="ZAJ-bN-xj0"/>
+                                    <constraint firstItem="ex4-Jh-Kw5" firstAttribute="width" secondItem="ZsI-3i-ytp" secondAttribute="width" id="b87-8q-EiI"/>
+                                    <constraint firstAttribute="trailing" secondItem="ex4-Jh-Kw5" secondAttribute="trailing" id="dd3-Oc-VDj"/>
+                                    <constraint firstAttribute="bottom" secondItem="ZsI-3i-ytp" secondAttribute="bottom" id="e81-cS-hTk"/>
+                                    <constraint firstAttribute="bottom" secondItem="fcq-bV-xVH" secondAttribute="bottom" id="nwo-0X-LRW"/>
+                                    <constraint firstItem="ex4-Jh-Kw5" firstAttribute="top" secondItem="lbK-ot-PuX" secondAttribute="top" id="q9U-eX-nqB"/>
                                 </constraints>
                             </view>
                         </subviews>
