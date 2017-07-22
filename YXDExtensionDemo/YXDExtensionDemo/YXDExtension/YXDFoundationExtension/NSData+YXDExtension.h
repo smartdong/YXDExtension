@@ -11,6 +11,8 @@
 
 - (NSString *)stringValue;
 
++ (instancetype)dataFromResource:(NSString *)name ofType:(NSString *)ext;
+
 - (id)objectFromJSONData;
 + (id)objectFromJSONDataForResource:(nullable NSString *)name ofType:(nullable NSString *)ext;
 

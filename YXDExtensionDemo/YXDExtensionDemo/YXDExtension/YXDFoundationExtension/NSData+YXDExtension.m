@@ -13,12 +13,16 @@
     return [[NSString alloc] initWithData:self encoding:NSUTF8StringEncoding];
 }
 
++ (instancetype)dataFromResource:(NSString *)name ofType:(NSString *)ext {
+    return [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:name ofType:ext]];
+}
+
 - (id)objectFromJSONData {
     return [NSJSONSerialization JSONObjectWithData:self options:0 error:nil];
 }
 
 + (id)objectFromJSONDataForResource:(NSString *)name ofType:(NSString *)ext {
-    return [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:name ofType:ext]].objectFromJSONData;
+    return [NSData dataFromResource:name ofType:ext].objectFromJSONData;
 }
 
 - (NSString *)hexString {
