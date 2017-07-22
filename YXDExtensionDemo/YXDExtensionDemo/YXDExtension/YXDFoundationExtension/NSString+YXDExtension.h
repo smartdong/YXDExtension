@@ -12,10 +12,18 @@
 
 @interface NSString (YXDExtension)
 
-+ (BOOL)isEmpty:(NSString *)string;
+- (id)objectFromJSONString;
 
++ (BOOL)isEmpty:(NSString *)string;
 - (BOOL)isEmail;
 - (BOOL)isPhone;
+- (BOOL)isChinese;
+
+- (NSNumber *)numberValue;
+- (NSString *)stringValue;
+- (NSData *)dataValue;
+
+- (NSUInteger)count;
 
 - (NSDate *)dateFromSeconds;
 - (NSDate *)dateFromMilliSeconds;
@@ -39,9 +47,6 @@
 - (NSURL *)URL;
 - (NSURLRequest *)URLRequest;
 
-- (NSNumber *)numberValue;
-- (NSString *)stringValue;
-
 - (NSString *)URLDecode;
 - (NSString *)URLEncode;
 
@@ -50,10 +55,6 @@
 
 - (UIImage *)QRCodeImage;
 
-- (NSData *)dataValue;
-
-- (id)objectFromJSONString;
-
 - (NSString *)md5;
 - (NSString *)hmacsha1WithSecretKey:(NSString *)secretKey;
 
@@ -61,7 +62,6 @@
 
 - (NSString *)filterHTMLLabels;
 
-- (BOOL)isChinese;
 - (NSString *)firstLetter;
 
 @end

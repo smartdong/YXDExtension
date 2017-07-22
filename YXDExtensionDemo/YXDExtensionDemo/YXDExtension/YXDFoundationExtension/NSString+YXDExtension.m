@@ -14,6 +14,10 @@
 
 @implementation NSString (YXDExtension)
 
+- (id)objectFromJSONString {
+    return [NSJSONSerialization JSONObjectWithData:[self dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+}
+
 + (BOOL)isEmpty:(NSString *)string {
     if (!string.length || ![[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]) {
         return YES;
@@ -31,6 +35,33 @@
     NSString *phoneRegex = @"^(0|86|17951)?(13|14|15|17|18)[0-9]{9}$";
     NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",phoneRegex];
     return [phoneTest evaluateWithObject:self];
+}
+
+- (BOOL)isChinese {
+    NSString *match=@"(^[\u4e00-\u9fa5]+$)";
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF matches %@", match];
+    return [predicate evaluateWithObject:self];
+}
+
+- (NSNumber *)numberValue {
+    static NSNumberFormatter *f = nil;
+    if (!f) {
+        f = [[NSNumberFormatter alloc] init];
+        [f setNumberStyle:NSNumberFormatterDecimalStyle];
+    }
+    return [f numberFromString:self];
+}
+
+- (NSString *)stringValue {
+    return self;
+}
+
+- (NSData *)dataValue {
+    return [self dataUsingEncoding:NSUTF8StringEncoding];
+}
+
+- (NSUInteger)count {
+    return 0;
 }
 
 - (NSDate *)dateFromSeconds {
@@ -121,19 +152,6 @@
     return [NSURLRequest requestWithURL:self.URL];
 }
 
-- (NSNumber *)numberValue {
-    static NSNumberFormatter *f = nil;
-    if (!f) {
-        f = [[NSNumberFormatter alloc] init];
-        [f setNumberStyle:NSNumberFormatterDecimalStyle];
-    }
-    return [f numberFromString:self];
-}
-
-- (NSString *)stringValue {
-    return self;
-}
-
 #pragma mark - urlEncode & urlDecode
 
 static NSString * const kAFCharactersToBeEscapedInQueryString = @":/?&=;+!@#$()',*";
@@ -172,14 +190,6 @@ static NSString * YXDPercentEscapedQueryStringValueFromStringWithEncoding(NSStri
     CIFilter *qrFilter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
     [qrFilter setValue:[self dataUsingEncoding:NSISOLatin1StringEncoding] forKey:@"inputMessage"];
     return [UIImage imageWithCIImage:[qrFilter.outputImage imageByApplyingTransform:CGAffineTransformMakeScale(5.0f, 5.0f)]];
-}
-
-- (NSData *)dataValue {
-    return [self dataUsingEncoding:NSUTF8StringEncoding];
-}
-
-- (id)objectFromJSONString {
-    return [NSJSONSerialization JSONObjectWithData:[self dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
 }
 
 - (NSString *)md5 {
@@ -247,12 +257,6 @@ static NSString * YXDPercentEscapedQueryStringValueFromStringWithEncoding(NSStri
     }
     
     return newSelf;
-}
-
-- (BOOL)isChinese {
-    NSString *match=@"(^[\u4e00-\u9fa5]+$)";
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF matches %@", match];
-    return [predicate evaluateWithObject:self];
 }
 
 #define HANZI_START 19968
