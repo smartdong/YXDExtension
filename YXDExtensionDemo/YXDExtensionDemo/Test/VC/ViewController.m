@@ -142,8 +142,6 @@
                                                    NSLog(@"error : %@",result.error);
                                                } else {
                                                    NSLog(@"上传成功 : %@",result.data);
-                                                   
-                                                   [self uploadFile:nil];
                                                }
                                                
                                                [YXDHUDManager dismiss];
