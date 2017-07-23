@@ -15,3 +15,5 @@ typedef NS_ENUM(NSInteger, YXDExtensionErrorCode) {
     YXDExtensionErrorCodeInputError   = 100     ,   //输入错误
     YXDExtensionErrorCodeCancelled    = -999    ,   //用户取消
 };
+
+static NSString *const kYXDExtensionErrorUnknown = @"未知错误";
