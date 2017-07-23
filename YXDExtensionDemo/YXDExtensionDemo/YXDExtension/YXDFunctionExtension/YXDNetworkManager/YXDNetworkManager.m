@@ -130,14 +130,11 @@ typedef void (^YXDNetworkManagerTaskDidCompleteBlock)(NSURLSession *session, NSU
         [YXDHUDManager showWithStatus:loadingStatus];
     }
     
-    NSMutableDictionary *sendParams = nil;
+    NSMutableDictionary *sendParams = [self sendParamsWithParams:params];
     
-    if (params.count || self.commonParams.count) {
-        sendParams = [NSMutableDictionary dictionaryWithDictionary:params];
-        [sendParams addEntriesFromDictionary:self.commonParams];
-    }
-    
+    WeakSelfDeclare
     [self.commonHeaders enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL * _Nonnull stop) {
+        StrongSelfDeclare
         if ([key isKindOfClass:[NSString class]] && [value isKindOfClass:[NSString class]]) {
             [self.requestManager.requestSerializer setValue:value forHTTPHeaderField:key];
         }
@@ -148,6 +145,7 @@ typedef void (^YXDNetworkManagerTaskDidCompleteBlock)(NSURLSession *session, NSU
     YXDNetworkSessionDataTask *requestTask = [[YXDNetworkSessionDataTask alloc] init];
     
     void (^successBlock)(NSURLSessionDataTask *task, id responseObject) = ^(NSURLSessionDataTask *task, id responseObject) {
+        StrongSelfDeclare
         
         if (!self.requestManager.operationQueue.operationCount) {
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -182,6 +180,7 @@ typedef void (^YXDNetworkManagerTaskDidCompleteBlock)(NSURLSession *session, NSU
     };
     
     void (^failureBlock)(NSURLSessionTask *task, NSError *error) = ^(NSURLSessionTask *task, NSError *error) {
+        StrongSelfDeclare
         
         if (!self.requestManager.operationQueue.operationCount) {
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -312,8 +311,7 @@ typedef void (^YXDNetworkManagerTaskDidCompleteBlock)(NSURLSession *session, NSU
                                     completion:(void (^)(YXDNetworkResult *))completion {
     if (!URL.length) {
         if (completion) {
-            completion([YXDNetworkResult resultWithDictionary:@{kNetworkReturnCodeKey:@(YXDExtensionErrorCodeInputError),
-                                                                kNetworkReturnMessageKey:@"URL为空"}]);
+            completion([YXDNetworkResult resultWithCode:YXDExtensionErrorCodeInputError message:@"URL为空"]);
         }
         return nil;
     }
@@ -327,47 +325,26 @@ typedef void (^YXDNetworkManagerTaskDidCompleteBlock)(NSURLSession *session, NSU
         }
     } else {
         if (completion) {
-            completion([YXDNetworkResult resultWithDictionary:@{kNetworkReturnCodeKey:@(YXDExtensionErrorCodeInputError),
-                                                                kNetworkReturnMessageKey:@"上传数据格式错误"}]);
+            completion([YXDNetworkResult resultWithCode:YXDExtensionErrorCodeInputError message:@"上传数据格式错误"]);
         }
         return nil;
     }
     
-    NSMutableDictionary *sendParams = nil;
+    NSMutableDictionary *sendParams = [self sendParamsWithParams:params];
     
-    if (params.count || self.commonParams.count) {
-        sendParams = [NSMutableDictionary dictionaryWithDictionary:params];
-        [sendParams addEntriesFromDictionary:self.commonParams];
-        
-        if (sendParams.count) {
-            NSString *paramsString = sendParams.sortedKeyValueString;
-            if ([URL containsString:@"?"]) {
-                URL = [URL stringByAppendingString:@"&"];
-            } else {
-                URL = [URL stringByAppendingString:@"?"];
-            }
-            URL = [URL stringByAppendingString:paramsString];
-        }
-    }
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL.URL];
+    NSMutableURLRequest *request = [self mutableURLRequestWithURL:URL params:params];
     [request setHTTPMethod:@"POST"];
-    [request setCachePolicy:NSURLRequestReloadIgnoringCacheData];
-    [request setTimeoutInterval:kYXDNetworkUploadTimeoutIntervalDefault];
-    
-    [self.commonHeaders enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL * _Nonnull stop) {
-        if ([key isKindOfClass:[NSString class]] && [value isKindOfClass:[NSString class]]) {
-            [request addValue:value forHTTPHeaderField:key];
-        }
-    }];
     
     NSURL *dataURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@",kCaches,@"file"]];
     [data writeToURL:dataURL atomically:YES];
     
     YXDNetworkSessionUploadTask *ut = [[YXDNetworkSessionUploadTask alloc] init];
+    WeakDeclare(ut)
+    WeakSelfDeclare
     ut.task = [self.tasksManager uploadTaskWithRequest:request
                                               fromFile:dataURL
                                               progress:^(NSProgress * _Nonnull progress) {
+                                                  StrongDeclare(ut)
                                                   ut.progress = progress.fractionCompleted;
                                                   if (uploadProgress) {
                                                       dispatch_async(dispatch_get_main_queue(), ^{
@@ -376,6 +353,10 @@ typedef void (^YXDNetworkManagerTaskDidCompleteBlock)(NSURLSession *session, NSU
                                                   }
                                               }
                                      completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+                                         StrongDeclare(ut)
+                                         StrongSelfDeclare
+                                         
+                                         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
                                          
                                          [YXDFileManager removeItemAtPath:dataURL.relativePath];
                                          
@@ -388,9 +369,13 @@ typedef void (^YXDNetworkManagerTaskDidCompleteBlock)(NSURLSession *session, NSU
                                          }
                                          
                                          if (error || !responseDictionary) {
+                                             YXDNetworkResult *result = [YXDNetworkResult resultWithCode:error.code?:YXDExtensionErrorCodeServerError
+                                                                                                 message:error.localizedDescription?:(responseDictionary?kYXDExtensionErrorUnknown:@"返回数据为空")];
+                                             DDLogError(@"\nError : %@ \n%@",result.error.localizedDescription,[YXDNetworkManager responseInfoDescription:ut.task params:sendParams responseObject:responseDictionary]);
+                                             [self handleFailureWithTask:ut result:result];
+                                             
                                              if (completion) {
-                                                 completion([YXDNetworkResult resultWithDictionary:@{kNetworkReturnCodeKey:@(YXDExtensionErrorCodeServerError),
-                                                                                                     kNetworkReturnMessageKey:error.localizedDescription?:@"返回数据为空"}]);
+                                                 completion(result);
                                              }
                                              return;
                                          }
@@ -401,11 +386,26 @@ typedef void (^YXDNetworkManagerTaskDidCompleteBlock)(NSURLSession *session, NSU
                                              result.allHeaderFields = ((NSHTTPURLResponse *)response).allHeaderFields;
                                          }
                                          
+                                         if (result.error) {
+                                             DDLogError(@"\nError : %@ \n%@",result.error.localizedDescription,[YXDNetworkManager responseInfoDescription:ut.task params:sendParams responseObject:responseDictionary]);
+                                             
+                                             [self handleFailureWithTask:ut result:result];
+                                         } else {
+                                             DDLogInfo(@"\nSuccess : %@ \n%@",result.message,[YXDNetworkManager responseInfoDescription:ut.task params:sendParams responseObject:responseDictionary]);
+                                             
+                                             [self handleSuccessWithTask:ut result:result];
+                                         }
+                                         
                                          if (completion) {
                                              completion(result);
                                          }
                                      }];
     [ut.task resume];
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    [self willSendRequestTaskWithParams:sendParams];
+    
     return ut;
 }
 
@@ -432,8 +432,11 @@ typedef void (^YXDNetworkManagerTaskDidCompleteBlock)(NSURLSession *session, NSU
     }
     
     YXDNetworkSessionDownloadTask *dt = [[YXDNetworkSessionDownloadTask alloc] init];
+    WeakDeclare(dt)
+    WeakSelfDeclare
     dt.task = [self.tasksManager downloadTaskWithRequest:URL.URLRequest
                                                 progress:^(NSProgress * _Nonnull progress) {
+                                                    StrongDeclare(dt)
                                                     dt.progress = progress.fractionCompleted;
                                                     if (downloadProgress) {
                                                         dispatch_async(dispatch_get_main_queue(), ^{
@@ -445,11 +448,37 @@ typedef void (^YXDNetworkManagerTaskDidCompleteBlock)(NSURLSession *session, NSU
                                                  return [YXDNetworkManager downloadDestinationWithDirectory:directory response:response];
                                              }
                                        completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+                                           StrongDeclare(dt)
+                                           StrongSelfDeclare
+                                           
+                                           [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+                                           
+                                           if (error) {
+                                               YXDNetworkResult *result = [YXDNetworkResult resultWithCode:error.code
+                                                                                                   message:error.localizedDescription?:((error.code == YXDExtensionErrorCodeCancelled)?@"用户取消下载":kYXDExtensionErrorUnknown)];
+                                               
+                                               DDLogError(@"\nError : %@ \n%@",result.error.localizedDescription,[YXDNetworkManager responseInfoDescription:dt.task params:nil responseObject:nil]);
+                                               
+                                               [self handleFailureWithTask:dt result:result];
+                                           } else {
+                                               YXDNetworkResult *result = [YXDNetworkResult resultWithCode:YXDExtensionErrorCodeSuccess
+                                                                                                   message:@"下载成功"];
+                                               
+                                               DDLogInfo(@"\nSuccess : %@ \n%@",result.message,[YXDNetworkManager responseInfoDescription:dt.task params:nil responseObject:nil]);
+                                               
+                                               [self handleSuccessWithTask:dt result:result];
+                                           }
+                                           
                                            if (completion) {
                                                completion(filePath,error);
                                            }
                                        }];
     [dt.task resume];
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    [self willSendRequestTaskWithParams:nil];
+    
     return dt;
 }
 
@@ -466,6 +495,8 @@ typedef void (^YXDNetworkManagerTaskDidCompleteBlock)(NSURLSession *session, NSU
         return nil;
     }
     
+    WeakSelfDeclare
+    
     //下载队列
     NSMutableDictionary<NSString *, YXDNetworkSessionDownloadTask *> *downloadTasks = [NSMutableDictionary dictionary];
     //文件地址
@@ -478,14 +509,35 @@ typedef void (^YXDNetworkManagerTaskDidCompleteBlock)(NSURLSession *session, NSU
         }
         
         YXDNetworkSessionDownloadTask *dt = [[YXDNetworkSessionDownloadTask alloc] init];
+        WeakDeclare(dt)
         dt.task = [self.tasksManager downloadTaskWithRequest:URL.URLRequest
                                                     progress:^(NSProgress * _Nonnull progress) {
+                                                        StrongDeclare(dt)
                                                         dt.progress = progress.fractionCompleted;
                                                     }
                                                  destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
                                                      return [YXDNetworkManager downloadDestinationWithDirectory:directory response:response];
                                                  }
                                            completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+                                               StrongDeclare(dt)
+                                               StrongSelfDeclare
+                                               
+                                               if (error) {
+                                                   YXDNetworkResult *result = [YXDNetworkResult resultWithCode:error.code
+                                                                                                       message:error.localizedDescription?:((error.code == YXDExtensionErrorCodeCancelled)?@"用户取消下载":kYXDExtensionErrorUnknown)];
+                                                   
+                                                   DDLogError(@"\nError : %@ \n%@",result.error.localizedDescription,[YXDNetworkManager responseInfoDescription:dt.task params:nil responseObject:nil]);
+                                                   
+                                                   [self handleFailureWithTask:dt result:result];
+                                               } else {
+                                                   YXDNetworkResult *result = [YXDNetworkResult resultWithCode:YXDExtensionErrorCodeSuccess
+                                                                                                       message:@"下载成功"];
+                                                   
+                                                   DDLogInfo(@"\nSuccess : %@ \n%@",result.message,[YXDNetworkManager responseInfoDescription:dt.task params:nil responseObject:nil]);
+                                                   
+                                                   [self handleSuccessWithTask:dt result:result];
+                                               }
+                                               
                                                if (!error && filePath) {
                                                    [filePathsDictionary setObject:filePath forKey:URL];
                                                }
@@ -519,7 +571,6 @@ typedef void (^YXDNetworkManagerTaskDidCompleteBlock)(NSURLSession *session, NSU
     }
     
     //下载完成 从队列中移除
-    __weak typeof(self) weakSelf = self;
     NSString *tasksDesc = [NSString stringWithFormat:@"%@",downloadTasks.allKeys];
     
     NSMutableArray *errors = [NSMutableArray array];
@@ -543,7 +594,9 @@ typedef void (^YXDNetworkManagerTaskDidCompleteBlock)(NSURLSession *session, NSU
                                                       code:YXDExtensionErrorCodeCancelled
                                                   userInfo:@{NSLocalizedDescriptionKey:@"用户下载取消"}]];
             } else {
-                [errors addObject:error];
+                [errors addObject:[NSError errorWithDomain:kYXDExtensionErrorDomain
+                                                      code:error.code
+                                                  userInfo:@{NSLocalizedDescriptionKey:error.localizedDescription?:kYXDExtensionErrorUnknown}]];
             }
         }
         
@@ -552,11 +605,13 @@ typedef void (^YXDNetworkManagerTaskDidCompleteBlock)(NSURLSession *session, NSU
         //如果当前没有下载任务 则表示下载全部完成
         if (!downloadTasks.count) {
             
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+            
             [NSTimer cancelTimer:timer];
             
             [weakSelf.taskDidCompleteBlocksMap removeObjectForKey:tasksDesc];
             
-            completion(filePathsDictionary.count?filePathsDictionary:nil,errors?:nil);
+            completion(filePathsDictionary.count?filePathsDictionary:nil,errors.count?errors:nil);
         }
     };
     
@@ -566,6 +621,10 @@ typedef void (^YXDNetworkManagerTaskDidCompleteBlock)(NSURLSession *session, NSU
     for (YXDNetworkSessionDownloadTask *dt in downloadTasks.allValues) {
         [dt.task resume];
     }
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    [self willSendRequestTaskWithParams:nil];
     
     return downloadTasks;
 }
@@ -606,11 +665,11 @@ typedef void (^YXDNetworkManagerTaskDidCompleteBlock)(NSURLSession *session, NSU
     
 }
 
-- (void)handleSuccessWithTask:(YXDNetworkSessionDataTask *)task result:(YXDNetworkResult *)result {
+- (void)handleSuccessWithTask:(YXDNetworkSessionTask *)task result:(YXDNetworkResult *)result {
     
 }
 
-- (void)handleFailureWithTask:(YXDNetworkSessionDataTask *)task result:(YXDNetworkResult *)result {
+- (void)handleFailureWithTask:(YXDNetworkSessionTask *)task result:(YXDNetworkResult *)result {
     
 }
 
@@ -648,6 +707,8 @@ typedef void (^YXDNetworkManagerTaskDidCompleteBlock)(NSURLSession *session, NSU
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:[[NSBundle mainBundle] bundleIdentifier]];
     configuration.allowsCellularAccess = YES;
+    configuration.sessionSendsLaunchEvents = YES;
+    configuration.discretionary = YES;
     _tasksManager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
     _tasksManager.responseSerializer = [AFHTTPResponseSerializer serializer];
     ((AFHTTPResponseSerializer *)_tasksManager.responseSerializer).acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"text/json",@"application/json",@"text/plain",@"text/javascript",nil];
@@ -700,6 +761,41 @@ typedef void (^YXDNetworkManagerTaskDidCompleteBlock)(NSURLSession *session, NSU
              @(((NSHTTPURLResponse *)task.response).statusCode),
              responseObject,
              ((NSHTTPURLResponse *)task.response).allHeaderFields];
+}
+
+- (NSMutableURLRequest *)mutableURLRequestWithURL:(NSString *)URL params:(NSDictionary *)params {
+    NSMutableDictionary *sendParams = [self sendParamsWithParams:params];
+    
+    if (sendParams) {
+        NSString *paramsString = sendParams.sortedKeyValueString;
+        if ([URL containsString:@"?"]) {
+            URL = [URL stringByAppendingString:@"&"];
+        } else {
+            URL = [URL stringByAppendingString:@"?"];
+        }
+        URL = [URL stringByAppendingString:paramsString];
+    }
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL.URL];
+    [request setCachePolicy:NSURLRequestReloadIgnoringCacheData];
+    [request setTimeoutInterval:kYXDNetworkUploadTimeoutIntervalDefault];
+    
+    [self.commonHeaders enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL * _Nonnull stop) {
+        if ([key isKindOfClass:[NSString class]] && [value isKindOfClass:[NSString class]]) {
+            [request setValue:value forHTTPHeaderField:key];
+        }
+    }];
+    
+    return request;
+}
+
+- (NSMutableDictionary *)sendParamsWithParams:(NSDictionary *)params {
+    NSMutableDictionary *sendParams = nil;
+    if (params.count || self.commonParams.count) {
+        sendParams = [NSMutableDictionary dictionaryWithDictionary:params];
+        [sendParams addEntriesFromDictionary:self.commonParams];
+    }
+    return sendParams;
 }
 
 @end

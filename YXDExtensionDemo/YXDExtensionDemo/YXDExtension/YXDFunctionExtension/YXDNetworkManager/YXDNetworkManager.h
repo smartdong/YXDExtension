@@ -224,9 +224,9 @@ typedef void(^YXDNetworkManagerMultiFilesDownloadCompletionBlock)(NSDictionary<N
 //将要发送请求时调用
 - (void)willSendRequestTaskWithParams:(NSMutableDictionary *)params NS_REQUIRES_SUPER;
 //请求返回成功时调用
-- (void)handleSuccessWithTask:(YXDNetworkSessionDataTask *)task result:(YXDNetworkResult *)result NS_REQUIRES_SUPER;
+- (void)handleSuccessWithTask:(YXDNetworkSessionTask *)task result:(YXDNetworkResult *)result NS_REQUIRES_SUPER;
 //请求返回失败时调用
-- (void)handleFailureWithTask:(YXDNetworkSessionDataTask *)task result:(YXDNetworkResult *)result NS_REQUIRES_SUPER;
+- (void)handleFailureWithTask:(YXDNetworkSessionTask *)task result:(YXDNetworkResult *)result NS_REQUIRES_SUPER;
 
 #pragma mark - New
 
