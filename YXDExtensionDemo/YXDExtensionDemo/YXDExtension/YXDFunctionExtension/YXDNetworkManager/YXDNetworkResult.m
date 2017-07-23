@@ -30,6 +30,15 @@
 
 @implementation YXDNetworkResult
 
++ (instancetype)resultWithError:(NSError *)error {
+    return [YXDNetworkResult resultWithCode:error?error.code:YXDExtensionErrorCodeUndefine message:error.localizedDescription];
+}
+
++ (instancetype)resultWithCode:(NSInteger)code message:(NSString *)message {
+    return [YXDNetworkResult resultWithDictionary:@{kNetworkReturnCodeKey:@(code),
+                                                    kNetworkReturnMessageKey:message?:((code==YXDExtensionErrorCodeSuccess)?@"成功":kYXDExtensionErrorUnknown)}];
+}
+
 + (instancetype)resultWithDictionary:(NSDictionary *)dictionary {
     
     YXDNetworkResult *result = [YXDNetworkResult new];
@@ -57,7 +66,7 @@
     }
     
     if ([code integerValue] != YXDExtensionErrorCodeSuccess) {
-
+        
         result.code     = [code integerValue];
         result.message  = [dictionary objectForKey:kNetworkReturnMessageKey] ? : @"服务器错误";
         result.error    = [NSError errorWithDomain:kYXDExtensionErrorDomain code:result.code userInfo:@{NSLocalizedDescriptionKey : result.message}];

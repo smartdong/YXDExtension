@@ -29,6 +29,10 @@ static NSString *kNetworkReturnOffsetKey    = @"offset";
 //服务器返回的 header
 @property (nonatomic, strong) NSDictionary *allHeaderFields;
 
++ (instancetype)resultWithError:(NSError *)error;
+
++ (instancetype)resultWithCode:(NSInteger)code message:(NSString *)message;
+
 + (instancetype)resultWithDictionary:(NSDictionary *)dictionary;
 
 #pragma mark - Data || List
