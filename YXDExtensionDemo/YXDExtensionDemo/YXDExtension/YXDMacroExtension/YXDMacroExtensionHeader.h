@@ -100,11 +100,15 @@ return sharedInstance; \
 //触摸点在视图中的位置
 #define TouchPointInView(view) [((UITouch *)[[[event allTouches] allObjects] firstObject]) locationInView:view]
 
-//weak self
+//Weak Strong Declare
 #define WeakSelfDeclare     typeof(self) __weak weakSelf = self;
 #define StrongSelfDeclare   typeof(weakSelf) __strong self = weakSelf;
 
+#define WeakDeclare(obj)    typeof(obj) __weak weakObj = obj;
+#define StrongDeclare(obj)  typeof(weakObj) __strong obj = weakObj;
+
 //Assert Define
+#define YXDAssert(msg)              NSAssert(0, msg);
 #define YXDOverrideAssert           NSAssert(0, @"Subclass should override this method !");
 #define YXDTypeAssert(obj, type)    NSAssert([obj isKindOfClass:[type class]], @"Type check error, expect %@, actually is %@", [type class], [obj class]);
 
