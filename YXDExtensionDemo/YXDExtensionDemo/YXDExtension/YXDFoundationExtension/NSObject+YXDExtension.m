@@ -54,7 +54,7 @@ typedef NS_ENUM(NSInteger, YXDEncodingType) {
     YXDEncodingTypeBlock,
 };
 
-typedef NS_OPTIONS(NSInteger, YXDPropertyType) {
+typedef NS_OPTIONS(NSUInteger, YXDPropertyType) {
     
     YXDPropertyTypeUnknown      = 0,
     
@@ -64,11 +64,11 @@ typedef NS_OPTIONS(NSInteger, YXDPropertyType) {
     YXDPropertyTypeRetain       = 2 << 2,
     YXDPropertyTypeWeak         = 3 << 2,
     
-    YXDPropertyTypeCustomGetter = 1 << 3,
-    YXDPropertyTypeCustomSetter = 2 << 3,
-    YXDPropertyTypeDynamic      = 3 << 3,
+    YXDPropertyTypeCustomGetter = 1 << 4,
+    YXDPropertyTypeCustomSetter = 2 << 4,
+    YXDPropertyTypeDynamic      = 3 << 4,
     
-    YXDPropertyTypeReadonly     = 1 << 4,
+    YXDPropertyTypeReadonly     = 1 << 6,
 };
 
 YXDEncodingType YXDGetEncodingType(const char *typeEncoding) {
@@ -81,7 +81,7 @@ YXDEncodingType YXDGetEncodingType(const char *typeEncoding) {
     if (len == 0) {
         return YXDEncodingTypeUnknown;
     }
-
+    
     switch (*type) {
         case 'v': return YXDEncodingTypeVoid;
         case 'B': return YXDEncodingTypeBool;
@@ -129,7 +129,7 @@ YXDEncodingType YXDGetEncodingType(const char *typeEncoding) {
 
 //根据对象的属性和类型赋值
 static force_inline void YXDSetPropertyValue(NSObject *object, SEL setter, YXDEncodingType encodingType, id value, Class objectClass) {
-
+    
     if (!object || !setter || (encodingType == YXDEncodingTypeUnknown) || !value || [value isKindOfClass:[NSNull class]]) {
         return;
     }
@@ -192,7 +192,7 @@ static force_inline void YXDSetPropertyValue(NSObject *object, SEL setter, YXDEn
             if ([value isKindOfClass:[NSDictionary class]]) {
                 val = value;
             }
-
+            
             if (val) {
                 if (encodingType == YXDEncodingTypeDictionary) {
                     ((void (*)(id, SEL, id))(void *) objc_msgSend)((id)object, setter, val);
@@ -324,7 +324,7 @@ static force_inline NSDictionary* YXDGetPropertyMapDictionary(NSObject *object) 
     if (!property) return nil;
     self = [self init];
     _property = property;
-
+    
     const char *name = property_getName(property);
     if (name) {
         _name = [NSString stringWithUTF8String:name];
@@ -348,7 +348,7 @@ static force_inline NSDictionary* YXDGetPropertyMapDictionary(NSObject *object) 
                             name[len - 3] = '\0';
                             memcpy(name, attrs[i].value + 2, len - 3);
                             _objectClass = objc_getClass(name);
-
+                            
                             if ([_objectClass isSubclassOfClass:[NSMutableString class]]) {
                                 _encodingType = YXDEncodingTypeMutableString;
                             } else if ([_objectClass isSubclassOfClass:[NSString class]]) {
@@ -514,7 +514,7 @@ static force_inline NSDictionary* YXDGetPropertyMapDictionary(NSObject *object) 
     });
     dispatch_semaphore_wait(lock, DISPATCH_TIME_FOREVER);
     YXDClassInfo *info = CFDictionaryGetValue(classCache, (__bridge const void *)(cls));
-
+    
     dispatch_semaphore_signal(lock);
     if (!info) {
         info = [[YXDClassInfo alloc] initWithClass:cls];
@@ -565,7 +565,7 @@ static force_inline NSDictionary* YXDGetPropertyValue(NSObject *object, BOOL nee
     if (!classInfo.propertyInfos.count) {
         return nil;
     }
-
+    
     NSMutableDictionary *propertyValues = [NSMutableDictionary dictionary];
     
     [classInfo.propertyInfos enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, YXDPropertyInfo * _Nonnull obj, BOOL * _Nonnull stop) {
@@ -754,14 +754,14 @@ static const void *YXDExtensionNSObjectUserDataKey = &YXDExtensionNSObjectUserDa
     if (!data || [data isKindOfClass:[NSNull class]] || !classInfo.propertyInfos.count) {
         return self;
     }
-
+    
     BOOL useMapPropertyKey = [data isKindOfClass:[NSDictionary class]];
     [classInfo.propertyInfos enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, YXDPropertyInfo * _Nonnull obj, BOOL * _Nonnull stop) {
-        if (!(obj.propertyType & YXDPropertyTypeReadonly)) {
+        if ((obj.propertyType & YXDPropertyTypeReadonly) != YXDPropertyTypeReadonly) {
             YXDSetPropertyValue(self, obj.setter, obj.encodingType, [data valueForKey:(useMapPropertyKey && obj.mapKey)?obj.mapKey:key], obj.objectClass);
         }
     }];
-
+    
     return self;
 }
 
