@@ -49,6 +49,26 @@
     return self.frame.size.height;
 }
 
+- (void)setOrigin:(CGPoint)origin {
+    CGRect frame = self.frame;
+    frame.origin = origin;
+    self.frame = frame;
+}
+
+- (CGPoint)origin {
+    return self.frame.origin;
+}
+
+- (void)setSize:(CGSize)size {
+    CGRect frame = self.frame;
+    frame.size = size;
+    self.frame = frame;
+}
+
+- (CGSize)size {
+    return self.frame.size;
+}
+
 - (void)setBorderColor:(UIColor *)color width:(CGFloat)width {
     self.layer.borderColor = color.CGColor;
     self.layer.borderWidth = width;
