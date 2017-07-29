@@ -74,7 +74,7 @@
     [actionView addSubview:actionView->_wrapperView];
     [windowSubview addSubview:actionView];
     
-    [UIView animateWithDuration:.25 delay:0 options:(UIViewAnimationOptions) (7 << 16) animations:^{
+    [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         actionView->_wrapperView.frame = CGRectMake(actionView->_wrapperView.frame.origin.x, actionView.bounds.size.height - actionView->_wrapperView.bounds.size.height, actionView->_wrapperView.frame.size.width, actionView->_wrapperView.frame.size.height);
         actionView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.3];
     }                completion:nil];
@@ -146,7 +146,7 @@
 }
 
 - (void)dismiss {
-    [UIView animateWithDuration:.25 delay:0 options:(UIViewAnimationOptions) (7 << 16) animations:^{
+    [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         _wrapperView.frame = CGRectMake(_wrapperView.frame.origin.x, self.bounds.size.height, _wrapperView.frame.size.width, _wrapperView.frame.size.height);
         self.backgroundColor = [UIColor colorWithWhite:0 alpha:0.0];
     }                completion:^(BOOL finished) {
