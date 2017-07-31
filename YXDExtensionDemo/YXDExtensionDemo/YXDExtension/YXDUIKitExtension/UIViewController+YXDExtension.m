@@ -5,11 +5,11 @@
 //  Copyright (c) 2015年 YangXudong. All rights reserved.
 //
 
-#define ActionSheetTag              250
-
 #import "UIViewController+YXDExtension.h"
 #import <objc/runtime.h>
 #import "UINavigationItem+YXDExtension.h"
+#import "UIView+YXDExtension.h"
+#import "NSObject+YXDExtension.h"
 
 @interface UIViewController()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -17,9 +17,128 @@
 
 @end
 
-static const void *YXDExtensionImagePickerBlockKey = &YXDExtensionImagePickerBlockKey;
+static const void *YXDExtensionImagePickerBlockKey                  = &YXDExtensionImagePickerBlockKey;
+
+static const NSInteger kYXDExtensionActionSheetTag                  = 250;
+static const NSInteger kYXDExtensionBgViewTag                       = 1008611;
+static const NSInteger kYXDExtensionPresentViewTag                  = 1001011;
+
+static const CGFloat kYXDExtensionPresentViewAnimationDuration      = 0.25;
+
+static const NSString *kYXDExtensionPresentViewOriginPositionKey    = @"kYXDExtensionPresentViewOriginPositionKey";
+static const NSString *kYXDExtensionPresentViewNormalPositionKey    = @"kYXDExtensionPresentViewNormalPositionKey";
 
 @implementation UIViewController (YXDExtension)
+
+- (void)presentView:(UIView *)view position:(YXDViewShowPosition)position {
+    [self presentView:view position:position offset:UIOffsetZero animated:YES];
+}
+
+- (void)presentView:(UIView *)view position:(YXDViewShowPosition)position offset:(UIOffset)offset animated:(BOOL)animated {
+    if (!view) {
+        return;
+    }
+    
+    UIView *bgview = [self.view viewWithTag:kYXDExtensionBgViewTag];
+    if (!bgview) {
+        bgview = [[UIView alloc] initWithFrame:self.view.bounds];
+        bgview.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
+        bgview.alpha = 0;
+        bgview.tag = kYXDExtensionBgViewTag;
+        [self.view addSubview:bgview];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissView)];
+        [bgview addGestureRecognizer:tap];
+    }
+    
+    BOOL top    = ((position & YXDViewShowPositionTop)      == YXDViewShowPositionTop);
+    BOOL bottom = ((position & YXDViewShowPositionBottom)   == YXDViewShowPositionBottom);
+    BOOL left   = ((position & YXDViewShowPositionLeft)     == YXDViewShowPositionLeft);
+    BOOL right  = ((position & YXDViewShowPositionRight)    == YXDViewShowPositionRight);
+    
+    NSInteger originX = 0;
+    NSInteger originY = 0;
+    NSInteger normalX = 0;
+    NSInteger normalY = 0;
+    
+    if (left) {
+        originX = -view.width;
+        normalX = 0;
+    } else if (right) {
+        originX = self.view.width;
+        normalX = self.view.width - view.width;
+    } else {
+        originX = (self.view.width - view.width)/2.;
+        normalX = originX;
+    }
+    
+    if (top) {
+        if (left || right) {
+            originY = 0;
+            normalY = originY;
+        } else {
+            originY = -view.height;
+            normalY = 0;
+        }
+    } else if (bottom) {
+        if (left || right) {
+            originY = self.view.height - view.height;
+            normalY = originY;
+        } else {
+            originY = self.view.height;
+            normalY = self.view.height - view.height;
+        }
+    } else {
+        if (left || right) {
+            originY = (self.view.height - view.height)/2.;
+            normalY = originY;
+        } else {
+            originY = self.view.height;
+            normalY = (self.view.height - view.height)/2.;
+        }
+    }
+    
+    CGPoint originPosition = CGPointMake(originX + offset.horizontal, originY + offset.vertical);
+    CGPoint normalPosition = CGPointMake(normalX + offset.horizontal, normalY + offset.vertical);
+    
+    view.userData = @{kYXDExtensionPresentViewOriginPositionKey:NSStringFromCGPoint(originPosition),kYXDExtensionPresentViewNormalPositionKey:NSStringFromCGPoint(normalPosition)};
+    view.origin = originPosition;
+    view.tag = kYXDExtensionPresentViewTag;
+    [self.view addSubview:view];
+    
+    bgview.alpha = 0;
+    bgview.hidden = NO;
+    [UIView animateWithDuration:animated?kYXDExtensionPresentViewAnimationDuration:0 animations:^{
+        bgview.alpha = 1;
+        view.origin = normalPosition;
+    }];
+}
+
+- (void)dismissView {
+    [self dismissViewAnimated:YES completion:nil];
+}
+
+- (void)dismissViewAnimated:(BOOL)animated completion:(void (^)(void))completion {
+    UIView *view = [self.view viewWithTag:kYXDExtensionPresentViewTag];
+    
+    if (!view) {
+        return;
+    }
+    
+    UIView *bgview = [self.view viewWithTag:kYXDExtensionBgViewTag];
+    
+    [UIView animateWithDuration:animated?kYXDExtensionPresentViewAnimationDuration:0 animations:^{
+        bgview.alpha = 0;
+        view.origin = CGPointFromString([((NSDictionary *)view.userData) objectForKey:kYXDExtensionPresentViewOriginPositionKey]);
+    } completion:^(BOOL finished) {
+        bgview.hidden = YES;
+        [view removeFromSuperview];
+        
+        if (completion) {
+            completion();
+        }
+    }];
+}
 
 - (void)pushViewControllerHidesBottomBar:(UIViewController *)viewController {
     viewController.hidesBottomBarWhenPushed = YES;
@@ -44,11 +163,6 @@ static const void *YXDExtensionImagePickerBlockKey = &YXDExtensionImagePickerBlo
 
 #pragma mark -
 
-/**
- *  使用相机或相册获取图片
- *
- *  @param block 参数为获取的图片/图片名称/图片路径
- */
 - (void)imageByCameraAndPhotosAlbum:(YXDExtensionImagePickerBlock)imageBlock {
     self.imageBlock = imageBlock;
     
@@ -69,7 +183,7 @@ static const void *YXDExtensionImagePickerBlockKey = &YXDExtensionImagePickerBlo
                                 otherButtonTitles:@"从相册选择", nil];
     }
     
-    as.tag = ActionSheetTag;
+    as.tag = kYXDExtensionActionSheetTag;
     
     if (self.tabBarController) {
         [as showFromTabBar:self.tabBarController.tabBar];
@@ -81,7 +195,7 @@ static const void *YXDExtensionImagePickerBlockKey = &YXDExtensionImagePickerBlo
 #pragma mark - Action Sheet Delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (actionSheet.tag == ActionSheetTag) {
+    if (actionSheet.tag == kYXDExtensionActionSheetTag) {
         NSUInteger sourceType = 0;
         
         // 判断是否支持相机
@@ -132,7 +246,7 @@ static const void *YXDExtensionImagePickerBlockKey = &YXDExtensionImagePickerBlo
     [picker dismissViewControllerAnimated:YES completion:nil];
     
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
-
+    
     if (self.imageBlock) {
         self.imageBlock(image);
     }
@@ -144,11 +258,11 @@ static const void *YXDExtensionImagePickerBlockKey = &YXDExtensionImagePickerBlo
 
 #pragma mark - 存取block
 
--(void)setImageBlock:(YXDExtensionImagePickerBlock)imageBlock {
+- (void)setImageBlock:(YXDExtensionImagePickerBlock)imageBlock {
     objc_setAssociatedObject(self, YXDExtensionImagePickerBlockKey, imageBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
--(YXDExtensionImagePickerBlock)imageBlock {
+- (YXDExtensionImagePickerBlock)imageBlock {
     return objc_getAssociatedObject(self, YXDExtensionImagePickerBlockKey);
 }
 
