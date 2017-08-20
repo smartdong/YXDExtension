@@ -7,7 +7,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSUInteger, YXDViewShowPosition) {
+typedef NS_OPTIONS(NSUInteger, YXDViewShowPosition) {
     YXDViewShowPositionCenter   = 0,
     
     YXDViewShowPositionTop      = 1 << 1,
