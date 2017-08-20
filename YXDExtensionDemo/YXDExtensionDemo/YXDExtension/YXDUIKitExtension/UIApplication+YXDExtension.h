@@ -9,6 +9,8 @@
 
 @interface UIApplication (YXDExtension)
 
++ (NSDictionary<NSString *, id> *)infoDictionary;
+
 + (NSString *)bundleIdentifier;
 + (NSString *)appVersion;
 + (NSString *)buildVersion;

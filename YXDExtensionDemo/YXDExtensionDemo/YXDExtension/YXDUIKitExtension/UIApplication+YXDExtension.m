@@ -9,6 +9,10 @@
 
 @implementation UIApplication (YXDExtension)
 
++ (NSDictionary<NSString *, id> *)infoDictionary {
+    return [NSBundle mainBundle].infoDictionary;
+}
+
 + (NSString *)bundleIdentifier {
     return [[NSBundle mainBundle] bundleIdentifier];
 }
@@ -22,7 +26,7 @@
 }
 
 + (UIImage *)appIcon {
-    return [UIImage imageNamed:[[[NSBundle mainBundle].infoDictionary valueForKeyPath:@"CFBundleIcons.CFBundlePrimaryIcon.CFBundleIconFiles"] lastObject]];
+    return [UIImage imageNamed:[[[UIApplication infoDictionary] valueForKeyPath:@"CFBundleIcons.CFBundlePrimaryIcon.CFBundleIconFiles"] lastObject]];
 }
 
 + (void)callPhone:(NSString *)phone {
