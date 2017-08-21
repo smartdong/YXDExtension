@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSUInteger, ZWQRCodeResultType) {
-    ZWQRCodeResultTypeSuccess = 0,  // 1.成功获取图片中的二维码信息
-    ZWQRCodeResultTypeNoInfo = 1,   // 2.识别的图片没有二维码信息
-    ZWQRCodeResultTypeError = 2     // 3.其他错误
+    ZWQRCodeResultTypeSuccess = 0, // 1.成功获取图片中的二维码信息
+    ZWQRCodeResultTypeNoInfo = 1,  // 2.识别的图片没有二维码信息
+    ZWQRCodeResultTypeError = 2   // 3.其他错误
 };
 
 @class ZWQRCodeController;

@@ -211,6 +211,7 @@
 		8855A2881F4B192600073C2F /* ZWQRCodeConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 8855A2611F4B192600073C2F /* ZWQRCodeConst.m */; };
 		8855A2891F4B192600073C2F /* ZWQRCodeController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8855A2621F4B192600073C2F /* ZWQRCodeController.bundle */; };
 		8855A28A1F4B192600073C2F /* ZWQRCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8855A2641F4B192600073C2F /* ZWQRCodeController.m */; };
+		8855A28D1F4B1AB100073C2F /* ZWQRCodeReaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8855A28C1F4B1AB100073C2F /* ZWQRCodeReaderView.m */; };
 		B506E6F11CBCE9B200B9945E /* test.db in Resources */ = {isa = PBXBuildFile; fileRef = B506E6F01CBCE9B200B9945E /* test.db */; };
 		B5493FB31CC8730100EBD09D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5493FB11CC8730100EBD09D /* LaunchScreen.xib */; };
 		B5493FB41CC8730100EBD09D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5493FB21CC8730100EBD09D /* Main.storyboard */; };
@@ -634,6 +635,8 @@
 		8855A2621F4B192600073C2F /* ZWQRCodeController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZWQRCodeController.bundle; sourceTree = "<group>"; };
 		8855A2631F4B192600073C2F /* ZWQRCodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZWQRCodeController.h; sourceTree = "<group>"; };
 		8855A2641F4B192600073C2F /* ZWQRCodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZWQRCodeController.m; sourceTree = "<group>"; };
+		8855A28B1F4B1AB100073C2F /* ZWQRCodeReaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZWQRCodeReaderView.h; sourceTree = "<group>"; };
+		8855A28C1F4B1AB100073C2F /* ZWQRCodeReaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZWQRCodeReaderView.m; sourceTree = "<group>"; };
 		B506E6EF1CBCE4DD00B9945E /* YXDExtensionDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDExtensionDefine.h; sourceTree = "<group>"; };
 		B506E6F01CBCE9B200B9945E /* test.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.db; sourceTree = "<group>"; };
 		B5493FB11CC8730100EBD09D /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
@@ -1526,6 +1529,8 @@
 				8855A2621F4B192600073C2F /* ZWQRCodeController.bundle */,
 				8855A2631F4B192600073C2F /* ZWQRCodeController.h */,
 				8855A2641F4B192600073C2F /* ZWQRCodeController.m */,
+				8855A28B1F4B1AB100073C2F /* ZWQRCodeReaderView.h */,
+				8855A28C1F4B1AB100073C2F /* ZWQRCodeReaderView.m */,
 			);
 			path = ZWQRCode;
 			sourceTree = "<group>";
@@ -1888,6 +1893,7 @@
 				0B4DB4851F1915B000B007AC /* UIImageView+WebCache.m in Sources */,
 				0B4DB3491F19156900B007AC /* UIWebView+YXDExtension.m in Sources */,
 				0B4DB4671F1915B000B007AC /* MJRefreshFooter.m in Sources */,
+				8855A28D1F4B1AB100073C2F /* ZWQRCodeReaderView.m in Sources */,
 				0B4DB4CD1F191AB600B007AC /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				0B4DB3471F19156900B007AC /* UIView+YXDExtension.m in Sources */,
 				0B4DB4861F1915B000B007AC /* UIView+WebCacheOperation.m in Sources */,

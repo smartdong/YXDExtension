@@ -8,17 +8,13 @@
 
 #import "ZWQRCodeController.h"
 #import "ZWQRCodeReaderView.h"
-//#import "ZWQRCodeAlert.h"
+#import "ZWQRCodeAlert.h"
 #import "NSBundle+ZWQRCode.h"
 
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 
-@interface ZWQRCodeController ()<AVCaptureMetadataOutputObjectsDelegate,
-                                UINavigationControllerDelegate,
-                                UIImagePickerControllerDelegate,
-                                UIAlertViewDelegate,
-                                ZWQRCodeReaderViewDelegate>
+@interface ZWQRCodeController ()<AVCaptureMetadataOutputObjectsDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIAlertViewDelegate,ZWQRCodeReaderViewDelegate>
 /** 1.读取二维码界面 */
 @property(nonatomic, strong)ZWQRCodeReaderView *readview;
 /** 2.图片探测器 */
@@ -47,8 +43,6 @@
     
     [self.view addSubview:self.readview];
 }
-
-
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self authorizationStatus];
@@ -78,7 +72,7 @@
 }
 - (void)alumbEvent{
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) { //判断设备是否支持相册
-//        [ZWQRCodeAlert showWithTitle:@"未开启访问相册权限，请在设置中开始"];
+        [ZWQRCodeAlert showWithTitle:@"未开启访问相册权限，请在设置中开始"];
     }else {
         UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
         imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
@@ -87,7 +81,6 @@
         imagePickerController.delegate = self;
         [self presentViewController:imagePickerController animated:YES completion:^{
             [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleDefault];
-            
         }];
     }
 }
@@ -105,7 +98,7 @@
         //如果之前还没决定，就设置定时器监控授权权限，如果授权了，立即开始扫描二维码
         [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(observeAuthrizationStatusChange:) userInfo:nil repeats:YES];
     }else{//未授权
-//        [ZWQRCodeAlert showWithTitle:@"请在设置中开启摄像头权限"];
+        [ZWQRCodeAlert showWithTitle:@"请在设置中开启摄像头权限"];
         [self.readview stopScan];
     }
 }
@@ -148,7 +141,7 @@
                 [self dismissViewControllerAnimated:YES completion:^{}];
             }
         }else {
-//            [ZWQRCodeAlert showWithTitle:@"没有识别到二维码信息"];
+            [ZWQRCodeAlert showWithTitle:@"没有识别到二维码信息"];
 //            if ([self.delegate respondsToSelector:@selector(qrcodeController:rea derScanResult:type:)]) {
 //                [self.delegate qrcodeController:self readerScanResult:nil type:ZWQRCodeResultTypeNoInfo];
 //                //[self dismissViewControllerAnimated:YES completion:^{}];
