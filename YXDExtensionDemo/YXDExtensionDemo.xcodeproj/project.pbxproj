@@ -212,6 +212,7 @@
 		8855A2891F4B192600073C2F /* ZWQRCodeController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8855A2621F4B192600073C2F /* ZWQRCodeController.bundle */; };
 		8855A28A1F4B192600073C2F /* ZWQRCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8855A2641F4B192600073C2F /* ZWQRCodeController.m */; };
 		8855A28D1F4B1AB100073C2F /* ZWQRCodeReaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8855A28C1F4B1AB100073C2F /* ZWQRCodeReaderView.m */; };
+		8860E54E1F65242E00DCDB35 /* YXDDevicePushTokenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8860E54D1F65242E00DCDB35 /* YXDDevicePushTokenManager.m */; };
 		B506E6F11CBCE9B200B9945E /* test.db in Resources */ = {isa = PBXBuildFile; fileRef = B506E6F01CBCE9B200B9945E /* test.db */; };
 		B5493FB31CC8730100EBD09D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5493FB11CC8730100EBD09D /* LaunchScreen.xib */; };
 		B5493FB41CC8730100EBD09D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5493FB21CC8730100EBD09D /* Main.storyboard */; };
@@ -637,6 +638,8 @@
 		8855A2641F4B192600073C2F /* ZWQRCodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZWQRCodeController.m; sourceTree = "<group>"; };
 		8855A28B1F4B1AB100073C2F /* ZWQRCodeReaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZWQRCodeReaderView.h; sourceTree = "<group>"; };
 		8855A28C1F4B1AB100073C2F /* ZWQRCodeReaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZWQRCodeReaderView.m; sourceTree = "<group>"; };
+		8860E54C1F65242E00DCDB35 /* YXDDevicePushTokenManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDDevicePushTokenManager.h; sourceTree = "<group>"; };
+		8860E54D1F65242E00DCDB35 /* YXDDevicePushTokenManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXDDevicePushTokenManager.m; sourceTree = "<group>"; };
 		B506E6EF1CBCE4DD00B9945E /* YXDExtensionDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXDExtensionDefine.h; sourceTree = "<group>"; };
 		B506E6F01CBCE9B200B9945E /* test.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.db; sourceTree = "<group>"; };
 		B5493FB11CC8730100EBD09D /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
@@ -741,6 +744,7 @@
 				0B4DB2A11F19156900B007AC /* YXDCache */,
 				0B4DB2A41F19156900B007AC /* YXDCommonFunction */,
 				0B4DB2A71F19156900B007AC /* YXDCustomIndexView */,
+				8860E54B1F65241900DCDB35 /* YXDDevicePushTokenManager */,
 				0B4DB2AA1F19156900B007AC /* YXDFileManager */,
 				0B4DB2AD1F19156900B007AC /* YXDFilterView */,
 				0B4DB2B31F19156900B007AC /* YXDFMDBHelper */,
@@ -1535,6 +1539,15 @@
 			path = ZWQRCode;
 			sourceTree = "<group>";
 		};
+		8860E54B1F65241900DCDB35 /* YXDDevicePushTokenManager */ = {
+			isa = PBXGroup;
+			children = (
+				8860E54C1F65242E00DCDB35 /* YXDDevicePushTokenManager.h */,
+				8860E54D1F65242E00DCDB35 /* YXDDevicePushTokenManager.m */,
+			);
+			path = YXDDevicePushTokenManager;
+			sourceTree = "<group>";
+		};
 		B5493FB81CC8735400EBD09D /* Class */ = {
 			isa = PBXGroup;
 			children = (
@@ -1812,6 +1825,7 @@
 				0B4DB4D01F191AB600B007AC /* UIProgressView+AFNetworking.m in Sources */,
 				0B4DB4CE1F191AB600B007AC /* UIButton+AFNetworking.m in Sources */,
 				8855A2661F4B192600073C2F /* DZNWebView.m in Sources */,
+				8860E54E1F65242E00DCDB35 /* YXDDevicePushTokenManager.m in Sources */,
 				0B4DB31E1F19156900B007AC /* YXDCommonFunction.m in Sources */,
 				8855A2871F4B192600073C2F /* ZWQRCodeAlert.m in Sources */,
 				B5493FC21CC8737500EBD09D /* ClassA.m in Sources */,
