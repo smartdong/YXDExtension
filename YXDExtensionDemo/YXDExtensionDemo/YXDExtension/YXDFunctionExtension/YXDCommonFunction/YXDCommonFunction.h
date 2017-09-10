@@ -55,6 +55,12 @@
 
 + (NSString *)hmacsha1WithPlainText:(NSString *)plainText secretKey:(NSString *)secretKey;
 
+
+#pragma mark - Cache Clear
+
++ (float)cacheSize;
++ (void)clearCache;
+
 #pragma mark - Others
 
 + (void)setDisableWebViewCache;

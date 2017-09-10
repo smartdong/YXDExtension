@@ -12,6 +12,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "NSString+YXDExtension.h"
 #import "NSData+YXDExtension.h"
+#import "SDImageCache.h"
 
 #define YXDCommonFunctionUserDefaultsKey(key, account) (account?[NSString stringWithFormat:@"%@_%@",key,account]:key)
 
@@ -149,6 +150,40 @@
 
 + (NSString *)hmacsha1WithPlainText:(NSString *)plainText secretKey:(NSString *)secretKey {
     return [plainText hmacsha1WithSecretKey:secretKey];
+}
+
+#pragma mark - Cache Clear
+
++ (float)cacheSize {
+    CGFloat folderSize = 0.0;
+    
+    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask,YES) firstObject];
+    NSArray *files = [[NSFileManager defaultManager] subpathsAtPath:cachePath];
+    
+    for (NSString *path in files) {
+        NSString *filePath = [cachePath stringByAppendingPathComponent:path];
+        folderSize += [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil].fileSize;
+    }
+
+    folderSize += [[SDImageCache sharedImageCache] getSize];
+    
+    return (float)(folderSize / 1024.0 / 1024.0);
+}
+
++ (void)clearCache {
+    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if ([fileManager fileExistsAtPath:cachePath]) {
+        NSArray *childerFiles = [fileManager subpathsAtPath:cachePath];
+        for (NSString *fileName in childerFiles) {
+            NSString *fileAbsolutePath = [cachePath stringByAppendingPathComponent:fileName];
+            [fileManager removeItemAtPath:fileAbsolutePath error:nil];
+        }
+    }
+    
+    [[SDImageCache sharedImageCache] clearMemory];
+    [[SDImageCache sharedImageCache] cleanDisk];
 }
 
 #pragma mark - Others
