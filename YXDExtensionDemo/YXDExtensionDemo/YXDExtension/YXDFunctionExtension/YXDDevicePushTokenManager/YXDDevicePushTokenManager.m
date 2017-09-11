@@ -31,6 +31,10 @@ static NSString *const kYXDUploadedDeviceTokenStorageKey    = @"kYXDUploadedDevi
     [YXDCommonFunction setUserDefaultsValue:deviceToken.deviceTokenString forKey:kYXDCurrentDeviceTokenStorageKey];
 }
 
++ (void)clearUploadedDeviceToken {
+    [YXDDevicePushTokenManager saveUploadedDeviceToken:nil];
+}
+
 + (NSString *)currentDeviceToken {
     return [YXDCommonFunction userDefaultsValueForKey:kYXDCurrentDeviceTokenStorageKey];
 }
