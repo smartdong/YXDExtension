@@ -53,7 +53,7 @@ static NSString *const kYXDUploadedDeviceTokenStorageKey    = @"kYXDUploadedDevi
     
     BOOL uploaded = [currentDeviceToken isEqualToString:uploadedDeviceToken];
     
-    if (!uploaded && updateBlock) {
+    if (currentDeviceToken && !uploaded && updateBlock) {
         updateBlock(currentDeviceToken, ^{[YXDDevicePushTokenManager saveUploadedDeviceToken:currentDeviceToken];});
     }
 }
