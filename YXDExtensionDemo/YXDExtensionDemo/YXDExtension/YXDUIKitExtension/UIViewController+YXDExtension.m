@@ -163,7 +163,7 @@ static const NSString *kYXDExtensionPresentViewNormalPositionKey    = @"kYXDExte
 
 #pragma mark -
 
-- (void)imageByCameraAndPhotosAlbum:(YXDExtensionImagePickerBlock)imageBlock {
+- (void)imageByCameraAndPhotosAlbum:(YXDExtensionImagePickerBlock)imageBlock allowsEditing:(BOOL)allowsEditing {
     self.imageBlock = imageBlock;
     
     UIActionSheet *as = nil;
@@ -184,6 +184,7 @@ static const NSString *kYXDExtensionPresentViewNormalPositionKey    = @"kYXDExte
     }
     
     as.tag = kYXDExtensionActionSheetTag;
+    as.userData = @(allowsEditing);
     
     if (self.tabBarController) {
         [as showFromTabBar:self.tabBarController.tabBar];
@@ -232,7 +233,7 @@ static const NSString *kYXDExtensionPresentViewNormalPositionKey    = @"kYXDExte
         
         imagePickerController.delegate = self;
         
-        imagePickerController.allowsEditing = YES;
+        imagePickerController.allowsEditing = ((NSNumber *)actionSheet.userData).boolValue;
         
         imagePickerController.sourceType = sourceType;
         
@@ -245,7 +246,7 @@ static const NSString *kYXDExtensionPresentViewNormalPositionKey    = @"kYXDExte
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [picker dismissViewControllerAnimated:YES completion:nil];
     
-    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    UIImage *image = [info objectForKey:picker.allowsEditing?UIImagePickerControllerEditedImage:UIImagePickerControllerOriginalImage];
     
     if (self.imageBlock) {
         self.imageBlock(image);

@@ -35,6 +35,6 @@ typedef void(^YXDExtensionImagePickerBlock)(UIImage *image);
 - (void)setRightBarItemWithTitle:(NSString *)title target:(id)target action:(SEL)action;
 - (void)setRightBarItemWithImageName:(NSString *)imageName target:(id)target action:(SEL)action;
 
-- (void)imageByCameraAndPhotosAlbum:(YXDExtensionImagePickerBlock)imageBlock;
+- (void)imageByCameraAndPhotosAlbum:(YXDExtensionImagePickerBlock)imageBlock allowsEditing:(BOOL)allowsEditing;
 
 @end
