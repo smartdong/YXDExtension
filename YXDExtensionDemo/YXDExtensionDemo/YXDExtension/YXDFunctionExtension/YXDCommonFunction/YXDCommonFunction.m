@@ -186,6 +186,12 @@
     [[SDImageCache sharedImageCache] cleanDisk];
 }
 
+#pragma mark - Version Compare
+
++ (BOOL)earlierThanVersion:(NSString *)version {
+    return [((NSString *)[[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]) compare:version options:NSNumericSearch] == NSOrderedAscending;
+}
+
 #pragma mark - Others
 
 + (void)setDisableWebViewCache {

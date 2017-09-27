@@ -55,11 +55,14 @@
 
 + (NSString *)hmacsha1WithPlainText:(NSString *)plainText secretKey:(NSString *)secretKey;
 
-
 #pragma mark - Cache Clear
 
 + (float)cacheSize;
 + (void)clearCache;
+
+#pragma mark - Version Compare
+
++ (BOOL)earlierThanVersion:(NSString *)version;
 
 #pragma mark - Others
 
