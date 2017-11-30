@@ -17,15 +17,27 @@ typedef NS_OPTIONS(NSUInteger, YXDViewShowPosition) {
     YXDViewShowPositionRight    = 2 << 3,
 };
 
+typedef NS_ENUM(NSInteger, YXDViewControllerPresentType) {
+    YXDViewControllerPresentTypeNone,
+    YXDViewControllerPresentTypePresent,
+    YXDViewControllerPresentTypePopover,
+};
+
 typedef void(^YXDExtensionImagePickerBlock)(UIImage *image);
 
 @interface UIViewController (YXDExtension)
 
+- (UINavigationController *)parentNavigationController;
+
 - (void)presentView:(UIView *)view position:(YXDViewShowPosition)position;
 - (void)presentView:(UIView *)view position:(YXDViewShowPosition)position offset:(UIOffset)offset animated:(BOOL)animated;
-
 - (void)dismissView;
 - (void)dismissViewAnimated:(BOOL)animated completion:(void (^)(void))completion;
+
+- (void)presentInViewController:(UIViewController *)viewController type:(YXDViewControllerPresentType)type;
+- (void)presentInViewController:(UIViewController *)viewController type:(YXDViewControllerPresentType)type offset:(UIOffset)offset resize:(BOOL)resize needBlackBackground:(BOOL)needBlackBackground;
+- (void)dismissInViewController;
+- (void)dismissInViewControllerWithCompletion:(void (^)(void))completion;
 
 - (void)pushViewControllerHidesBottomBar:(UIViewController *)viewController;
 

@@ -15,13 +15,23 @@
 
 @property (nonatomic, copy) YXDExtensionImagePickerBlock imageBlock;
 
+@property (nonatomic, strong) NSNumber *presentType;
+@property (nonatomic, strong) NSNumber *needBlackBackground;
+@property (nonatomic, strong) NSNumber *originPopGestureRecognizerEnabled;
+
 @end
 
 static const void *YXDExtensionImagePickerBlockKey                  = &YXDExtensionImagePickerBlockKey;
+static const void *YXDExtensionPresentTypeKey                       = &YXDExtensionPresentTypeKey;
+static const void *YXDExtensionNeedBlackBackgroundKey               = &YXDExtensionNeedBlackBackgroundKey;
+static const void *YXDExtensionOriginPopGestureRecognizerEnabledKey = &YXDExtensionOriginPopGestureRecognizerEnabledKey;
 
 static const NSInteger kYXDExtensionActionSheetTag                  = 250;
 static const NSInteger kYXDExtensionBgViewTag                       = 1008611;
 static const NSInteger kYXDExtensionPresentViewTag                  = 1001011;
+static const NSInteger kYXDExtensionPresentViewControllerViewTag    = 1795111;
+
+static const CGFloat kYXDExtensionPresentViewControllerViewBgAlpha  = 0.5;
 
 static const CGFloat kYXDExtensionPresentViewAnimationDuration      = 0.25;
 
@@ -29,6 +39,15 @@ static const NSString *kYXDExtensionPresentViewOriginPositionKey    = @"kYXDExte
 static const NSString *kYXDExtensionPresentViewNormalPositionKey    = @"kYXDExtensionPresentViewNormalPositionKey";
 
 @implementation UIViewController (YXDExtension)
+
+- (UINavigationController *)parentNavigationController {
+    if ([self.parentViewController isKindOfClass:[UINavigationController class]]) {
+        return (UINavigationController *)self.parentViewController;
+    } else if ([self.parentViewController.navigationController isKindOfClass:[UINavigationController class]]) {
+        return self.parentViewController.navigationController;
+    }
+    return nil;
+}
 
 - (void)presentView:(UIView *)view position:(YXDViewShowPosition)position {
     [self presentView:view position:position offset:UIOffsetZero animated:YES];
@@ -138,6 +157,134 @@ static const NSString *kYXDExtensionPresentViewNormalPositionKey    = @"kYXDExte
             completion();
         }
     }];
+}
+
+- (void)presentInViewController:(UIViewController *)viewController type:(YXDViewControllerPresentType)type {
+    [self presentInViewController:viewController type:type offset:UIOffsetZero resize:YES needBlackBackground:NO];
+}
+
+- (void)presentInViewController:(UIViewController *)viewController type:(YXDViewControllerPresentType)type offset:(UIOffset)offset resize:(BOOL)resize needBlackBackground:(BOOL)needBlackBackground {
+    if (!viewController) {
+        return;
+    }
+    
+    self.presentType = @(type);
+    self.needBlackBackground = @(needBlackBackground);
+    
+    if (needBlackBackground) {
+        UIView *bg = [[UIView alloc] initWithFrame:viewController.view.bounds];
+        bg.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:kYXDExtensionPresentViewControllerViewBgAlpha];
+        bg.alpha = 0;
+        bg.tag = kYXDExtensionPresentViewControllerViewTag;
+        [viewController.view addSubview:bg];
+        [UIView animateWithDuration:kYXDExtensionPresentViewAnimationDuration animations:^{
+            bg.alpha = 1;
+        }];
+    }
+    
+    self.view.alpha = 0;
+    
+    CGRect frame = self.view.frame;
+    frame.origin.x += offset.horizontal;
+    frame.origin.y += offset.vertical;
+    if (resize) {
+        frame.size.width = viewController.view.width;
+        frame.size.height = viewController.view.height;
+    }
+    self.view.frame = frame;
+    
+    [viewController addChildViewController:self];
+    [viewController.view addSubview:self.view];
+    
+    self.originPopGestureRecognizerEnabled = @([self parentNavigationController].interactivePopGestureRecognizer.enabled);
+    [self parentNavigationController].interactivePopGestureRecognizer.enabled = NO;
+    
+    switch ((YXDViewControllerPresentType)self.presentType.integerValue) {
+        case YXDViewControllerPresentTypePresent:
+        {
+            CGRect originFrame = frame;
+            frame.origin.y = viewController.view.size.height;
+            self.view.frame = frame;
+            self.view.alpha = 1;
+            
+            [UIView animateWithDuration:kYXDExtensionPresentViewAnimationDuration animations:^{
+                self.view.frame = originFrame;
+            }];
+        }
+            break;
+        case YXDViewControllerPresentTypePopover:
+        {
+            self.view.transform = CGAffineTransformMakeScale(0.01, 0.01);
+            self.view.alpha = 1;
+            
+            [UIView animateWithDuration:kYXDExtensionPresentViewAnimationDuration animations:^{
+                self.view.transform = CGAffineTransformIdentity;
+            }];
+        }
+            break;
+        case YXDViewControllerPresentTypeNone:
+        default:
+        {
+            self.view.alpha = 1;
+        }
+            break;
+    }
+}
+
+- (void)dismissInViewController {
+    [self dismissInViewControllerWithCompletion:nil];
+}
+
+- (void)dismissInViewControllerWithCompletion:(void (^)(void))completion {
+    if (self.needBlackBackground.boolValue) {
+        UIView *bg = [self.parentViewController.view viewWithTag:kYXDExtensionPresentViewControllerViewTag];
+        [UIView animateWithDuration:kYXDExtensionPresentViewAnimationDuration animations:^{
+            bg.alpha = 0;
+        } completion:^(BOOL finished) {
+            [bg removeFromSuperview];
+        }];
+    }
+    
+    dispatch_block_t animationCompletion = ^{
+        [self parentNavigationController].interactivePopGestureRecognizer.enabled = self.originPopGestureRecognizerEnabled.boolValue;
+        
+        [self.view removeFromSuperview];
+        [self removeFromParentViewController];
+        
+        if (completion) {
+            completion();
+        }
+    };
+    
+    switch ((YXDViewControllerPresentType)self.presentType.integerValue) {
+        case YXDViewControllerPresentTypePresent:
+        {
+            CGRect originFrame = self.view.frame;
+            originFrame.origin.y = self.parentViewController.view.frame.size.height;
+            
+            [UIView animateWithDuration:kYXDExtensionPresentViewAnimationDuration animations:^{
+                self.view.frame = originFrame;
+            } completion:^(BOOL finished) {
+                animationCompletion();
+            }];
+        }
+            break;
+        case YXDViewControllerPresentTypePopover:
+        {
+            [UIView animateWithDuration:kYXDExtensionPresentViewAnimationDuration animations:^{
+                self.view.transform = CGAffineTransformMakeScale(0.01, 0.01);
+            } completion:^(BOOL finished) {
+                animationCompletion();
+            }];
+        }
+            break;
+        case YXDViewControllerPresentTypeNone:
+        default:
+        {
+            animationCompletion();
+        }
+            break;
+    }
 }
 
 - (void)pushViewControllerHidesBottomBar:(UIViewController *)viewController {
@@ -265,6 +412,30 @@ static const NSString *kYXDExtensionPresentViewNormalPositionKey    = @"kYXDExte
 
 - (YXDExtensionImagePickerBlock)imageBlock {
     return objc_getAssociatedObject(self, YXDExtensionImagePickerBlockKey);
+}
+
+- (void)setPresentType:(NSNumber *)presentType {
+    objc_setAssociatedObject(self, YXDExtensionPresentTypeKey, presentType, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSNumber *)presentType {
+    return objc_getAssociatedObject(self, YXDExtensionPresentTypeKey);
+}
+
+- (void)setNeedBlackBackground:(NSNumber *)needBlackBackground {
+    objc_setAssociatedObject(self, YXDExtensionNeedBlackBackgroundKey, needBlackBackground, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSNumber *)needBlackBackground {
+    return objc_getAssociatedObject(self, YXDExtensionNeedBlackBackgroundKey);
+}
+
+- (void)setOriginPopGestureRecognizerEnabled:(NSNumber *)originPopGestureRecognizerEnabled {
+    objc_setAssociatedObject(self, YXDExtensionOriginPopGestureRecognizerEnabledKey, originPopGestureRecognizerEnabled, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSNumber *)originPopGestureRecognizerEnabled {
+    return objc_getAssociatedObject(self, YXDExtensionOriginPopGestureRecognizerEnabledKey);
 }
 
 @end
