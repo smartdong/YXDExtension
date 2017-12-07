@@ -12,9 +12,9 @@
 
 需要添加如下`Frameworks`:（如不需要相关功能，则直接删除对应目录也可）
 * `libz.tbd`（`Zip`文件操作 对应目录如下）
- * `YXDExtension/Vendor/SSZipArchive`
+    * `YXDExtension/Vendor/SSZipArchive`
 * `libsqlite3.tbd`（`sqlite`操作 对应目录如下）
- * `YXDExtension/Vendor/FMDB`
- * `YXDExtension/Vendor/YYCache`
- * `YXDExtension/YXDFunctionExtension/YXDFMDBHelper`
- * `YXDExtension/YXDFunctionExtension/YXDCache`
+    * `YXDExtension/Vendor/FMDB`
+    * `YXDExtension/Vendor/YYCache`
+    * `YXDExtension/YXDFunctionExtension/YXDFMDBHelper`
+    * `YXDExtension/YXDFunctionExtension/YXDCache`
