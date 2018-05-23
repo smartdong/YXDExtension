@@ -94,7 +94,11 @@
 }
 
 - (void)popViewController {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.navigationController.viewControllers.firstObject == self) {
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 @end
