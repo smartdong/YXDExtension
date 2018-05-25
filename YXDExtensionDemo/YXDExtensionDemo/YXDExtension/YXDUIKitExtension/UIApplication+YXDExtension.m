@@ -6,6 +6,7 @@
 //
 
 #import "UIApplication+YXDExtension.h"
+#import "UIImage+YXDExtension.h"
 
 @implementation UIApplication (YXDExtension)
 
@@ -26,7 +27,7 @@
 }
 
 + (UIImage *)appIcon {
-    return [UIImage imageNamed:[[[UIApplication infoDictionary] valueForKeyPath:@"CFBundleIcons.CFBundlePrimaryIcon.CFBundleIconFiles"] lastObject]];
+    return [UIImage appIcon];
 }
 
 + (void)callPhone:(NSString *)phone {
