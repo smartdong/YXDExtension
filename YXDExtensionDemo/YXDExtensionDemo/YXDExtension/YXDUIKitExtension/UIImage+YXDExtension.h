@@ -57,6 +57,12 @@ typedef enum {
 + (UIImage *)fullScreenImageWithALAsset:(ALAsset *)asset;
 + (UIImage *)fullResolutionImageWithALAsset:(ALAsset *)asset;
 
++ (UIImage *)appIcon;
+
+- (void)saveToPhotosAlbum;
+- (void)saveToPhotosAlbumWithBlock:(void(^)(NSURL *assetURL, NSError *error))completionBlock;
+- (void)saveToPhotosAlbumWithMetadata:(NSDictionary *)metadata completionBlock:(void(^)(NSURL *assetURL, NSError *error))completionBlock;
+
 - (NSDictionary *)metaData;
 - (UIImage *)imageByAddMetaData:(NSDictionary *)metaData;
 - (NSData *)dataByAddMetaData:(NSDictionary *)metaData;

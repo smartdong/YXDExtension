@@ -7,11 +7,10 @@
 //
 
 #import "YXDCommonFunction.h"
-#import <UIKit/UIKit.h>
-#import <AssetsLibrary/AssetsLibrary.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "NSString+YXDExtension.h"
 #import "NSData+YXDExtension.h"
+#import "UIImage+YXDExtension.h"
 #import "SDImageCache.h"
 
 #define YXDCommonFunctionUserDefaultsKey(key, account) (account?[NSString stringWithFormat:@"%@_%@",key,account]:key)
@@ -139,11 +138,7 @@
 #pragma mark - Save Image
 
 + (void)saveImageToPhotosAlbum:(UIImage *)image metadata:(NSDictionary *)metadata completionBlock:(void(^)(NSURL *assetURL, NSError *error))completionBlock {
-    [[ALAssetsLibrary new] writeImageToSavedPhotosAlbum:image.CGImage metadata:metadata completionBlock:^(NSURL *assetURL, NSError *error) {
-        if (completionBlock) {
-            completionBlock(assetURL,error);
-        }
-    }];
+    [image saveToPhotosAlbumWithMetadata:metadata completionBlock:completionBlock];
 }
 
 #pragma mark - 加密

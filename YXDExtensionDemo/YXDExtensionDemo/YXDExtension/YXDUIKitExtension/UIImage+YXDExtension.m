@@ -231,6 +231,26 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, float radius
     return [[UIImage alloc] initWithCGImage:asset.defaultRepresentation.fullResolutionImage];
 }
 
++ (UIImage *)appIcon {
+    return [UIImage imageNamed:[[[[NSBundle mainBundle] infoDictionary] valueForKeyPath:@"CFBundleIcons.CFBundlePrimaryIcon.CFBundleIconFiles"] lastObject]];
+}
+
+- (void)saveToPhotosAlbum {
+    [self saveToPhotosAlbumWithBlock:nil];
+}
+
+- (void)saveToPhotosAlbumWithBlock:(void(^)(NSURL *assetURL, NSError *error))completionBlock {
+    [self saveToPhotosAlbumWithMetadata:nil completionBlock:completionBlock];
+}
+
+- (void)saveToPhotosAlbumWithMetadata:(NSDictionary *)metadata completionBlock:(void(^)(NSURL *assetURL, NSError *error))completionBlock {
+    [[ALAssetsLibrary new] writeImageToSavedPhotosAlbum:self.CGImage metadata:metadata completionBlock:^(NSURL *assetURL, NSError *error) {
+        if (completionBlock) {
+            completionBlock(assetURL, error);
+        }
+    }];
+}
+
 - (NSDictionary *)metaData {
     //TODO:完善方法
     return nil;
