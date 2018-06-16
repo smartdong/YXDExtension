@@ -17,6 +17,15 @@
      cancelTitle:(NSString *)cancelTitle
       completion:(void(^)(BOOL done))completion;
 
++ (void)showPickerWithArray:(NSArray<NSString *> *)array
+               barTintColor:(UIColor *)barTintColor
+                 titleColor:(UIColor *)titleColor
+            backgroundColor:(UIColor *)backgroundColor
+                      title:(NSString *)title
+               comfirmTitle:(NSString *)comfirmTitle
+                cancelTitle:(NSString *)cancelTitle
+                 completion:(void(^)(BOOL done, NSInteger index, NSString *data))completion;
+
 + (void)showDatePickerWithMaxDate:(NSDate *)maxDate
                           minDate:(NSDate *)minDate
                      selectedDate:(NSDate *)selectedDate
