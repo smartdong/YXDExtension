@@ -22,6 +22,16 @@
 
 @implementation YXDActionView
 
++ (void)showView:(UIView *)view title:(NSString *)title completion:(void (^)(BOOL))completion {
+    [YXDActionView showView:view
+               barTintColor:nil
+                 titleColor:nil
+                      title:title
+               comfirmTitle:nil
+                cancelTitle:nil
+                 completion:completion];
+}
+
 + (void)showView:(UIView *)view
     barTintColor:(UIColor *)barTintColor
       titleColor:(UIColor *)titleColor
@@ -36,6 +46,17 @@
                      comfirmTitle:comfirmTitle
                       cancelTitle:cancelTitle
                        completion:completion];
+}
+
++ (void)showPickerWithArray:(NSArray<NSString *> *)array title:(NSString *)title completion:(void (^)(BOOL, NSInteger, NSString *))completion {
+    [YXDActionView showPickerWithArray:array
+                          barTintColor:nil
+                            titleColor:nil
+                       backgroundColor:nil
+                                 title:title
+                          comfirmTitle:nil
+                           cancelTitle:nil
+                            completion:completion];
 }
 
 + (void)showPickerWithArray:(NSArray<NSString *> *)array
@@ -67,6 +88,27 @@
                       completion(done, index, array[index]);
                   }
               }];
+}
+
++ (void)showDatePickerWithMaxDate:(NSDate *)maxDate
+                          minDate:(NSDate *)minDate
+                     selectedDate:(NSDate *)selectedDate
+                   datePickerMode:(UIDatePickerMode)datePickerMode
+                   minuteInterval:(NSInteger)minuteInterval
+                            title:(NSString *)title
+                       completion:(void (^)(BOOL, NSDate *))completion {
+    [YXDActionView showDatePickerWithMaxDate:maxDate
+                                     minDate:minDate
+                                selectedDate:selectedDate
+                              datePickerMode:datePickerMode
+                              minuteInterval:minuteInterval
+                                barTintColor:nil
+                                  titleColor:nil
+                             backgroundColor:nil
+                                       title:title
+                                comfirmTitle:nil
+                                 cancelTitle:nil
+                                  completion:completion];
 }
 
 + (void)showDatePickerWithMaxDate:(NSDate *)maxDate
@@ -118,7 +160,30 @@
 
 #pragma mark - Private
 
-- (void)showView:(UIView *)view barTintColor:(UIColor *)barTintColor titleColor:(UIColor *)titleColor title:(NSString *)title comfirmTitle:(NSString *)comfirmTitle cancelTitle:(NSString *)cancelTitle completion:(void (^)(BOOL))completion {
+- (void)showView:(UIView *)view
+    barTintColor:(UIColor *)barTintColor
+      titleColor:(UIColor *)titleColor
+           title:(NSString *)title
+    comfirmTitle:(NSString *)comfirmTitle
+     cancelTitle:(NSString *)cancelTitle
+      completion:(void (^)(BOOL))completion {
+    
+    if (!barTintColor) {
+        barTintColor = [UIColor colorWithHexString:@"333333"];
+    }
+    
+    if (!titleColor) {
+        titleColor = [UIColor whiteColor];
+    }
+    
+    if (!comfirmTitle) {
+        comfirmTitle = @"确定";
+    }
+    
+    if (!cancelTitle) {
+        cancelTitle = @"取消";
+    }
+    
     self.completion = completion;
     
     view.frame = CGRectMake(view.frame.origin.x, self.bounds.size.height, view.frame.size.width, view.frame.size.height);
