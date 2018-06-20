@@ -35,10 +35,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self tableViewConfig];
-    
-    [self collectionViewConfig];
-    
 //    if (self.showBackItem || (self.navigationController.viewControllers.firstObject != self)) {
 //        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"xxx"] style:UIBarButtonItemStylePlain target:self action:@selector(popViewController)];
 //    }
