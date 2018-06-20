@@ -792,8 +792,10 @@ typedef void (^YXDNetworkManagerTaskDidCompleteBlock)(NSURLSession *session, NSU
 - (NSMutableDictionary *)sendParamsWithParams:(NSDictionary *)params {
     NSMutableDictionary *sendParams = nil;
     if (params.count || self.commonParams.count) {
-        sendParams = [NSMutableDictionary dictionaryWithDictionary:params];
-        [sendParams addEntriesFromDictionary:self.commonParams];
+        sendParams = [NSMutableDictionary dictionaryWithDictionary:self.commonParams];
+        for (id key in params.allKeys) {
+            [sendParams setObject:params[key] forKey:key];
+        }
     }
     return sendParams;
 }
