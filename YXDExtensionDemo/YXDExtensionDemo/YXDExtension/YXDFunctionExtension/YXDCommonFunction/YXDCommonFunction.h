@@ -62,7 +62,9 @@
 
 #pragma mark - Version Compare
 
-+ (BOOL)earlierThanVersion:(NSString *)version;
++ (BOOL)earlierThanAppVersion:(NSString *)version;
+
++ (BOOL)earlierThanSystemVersion:(NSString *)version;
 
 #pragma mark - Others
 

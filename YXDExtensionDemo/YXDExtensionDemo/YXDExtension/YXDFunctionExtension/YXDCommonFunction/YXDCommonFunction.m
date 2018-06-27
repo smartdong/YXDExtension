@@ -183,8 +183,16 @@
 
 #pragma mark - Version Compare
 
-+ (BOOL)earlierThanVersion:(NSString *)version {
-    return [((NSString *)[[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]) compare:version options:NSNumericSearch] == NSOrderedAscending;
++ (BOOL)version1:(NSString *)version1 earlierThanVersion2:(NSString *)version2 {
+    return [version1 compare:version2 options:NSNumericSearch] == NSOrderedAscending;
+}
+
++ (BOOL)earlierThanAppVersion:(NSString *)version {
+    return [YXDCommonFunction version1:[UIApplication appVersion] earlierThanVersion2:version];
+}
+
++ (BOOL)earlierThanSystemVersion:(NSString *)version {
+    return [YXDCommonFunction version1:[UIDevice systemVersion] earlierThanVersion2:version];
 }
 
 #pragma mark - Others
