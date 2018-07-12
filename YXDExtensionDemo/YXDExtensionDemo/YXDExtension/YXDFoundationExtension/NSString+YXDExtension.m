@@ -32,7 +32,7 @@
 }
 
 - (BOOL)isPhone {
-    NSString *phoneRegex = @"^(0|86|17951)?(13|14|15|17|18)[0-9]{9}$";
+    NSString *phoneRegex = @"^(0|86|17951)?1[0-9]{10}$";
     NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",phoneRegex];
     return [phoneTest evaluateWithObject:self];
 }
