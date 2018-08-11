@@ -31,10 +31,11 @@
 #define mScreenHeight       ([UIScreen mainScreen].bounds.size.height)
 
 //设备尺寸判断
-#define iPhone4Size         (CGSizeEqualToSize(CGSizeMake(640, 960), [UIScreen mainScreen].bounds.size))
-#define iPhone5Size         (CGSizeEqualToSize(CGSizeMake(640, 1136), [UIScreen mainScreen].bounds.size))
-#define iPhone6Size         (CGSizeEqualToSize(CGSizeMake(750, 1334), [UIScreen mainScreen].bounds.size))
-#define iPhone6PlusSize     (CGSizeEqualToSize(CGSizeMake(1242, 2208), [UIScreen mainScreen].bounds.size))
+#define iPhone4Size         (CGSizeEqualToSize(CGSizeMake(320, 480), [UIScreen mainScreen].bounds.size))
+#define iPhone5Size         (CGSizeEqualToSize(CGSizeMake(320, 568), [UIScreen mainScreen].bounds.size))
+#define iPhone6Size         (CGSizeEqualToSize(CGSizeMake(375, 667), [UIScreen mainScreen].bounds.size))
+#define iPhone6PlusSize     (CGSizeEqualToSize(CGSizeMake(621, 1104), [UIScreen mainScreen].bounds.size))
+#define iPhoneXSize         (CGSizeEqualToSize(CGSizeMake(375, 812), [UIScreen mainScreen].bounds.size))
 
 //加载图片
 #define mImageByName(name)        [UIImage imageNamed:name]
