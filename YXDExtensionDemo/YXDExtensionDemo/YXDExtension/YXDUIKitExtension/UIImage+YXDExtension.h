@@ -53,6 +53,13 @@ typedef enum {
 + (UIImage *)imageWithContentsOfFile:(NSString *)path maskType:(UIImageRoundedCornerMaskType)maskType;
 + (UIImage *)imageWithContentsOfFile:(NSString *)path radius:(NSUInteger)radius maskType:(UIImageRoundedCornerMaskType)maskType;
 
+- (UIImage *)fixOrientation;
+- (UIImage*)rotate:(UIImageOrientation)orient;
+- (UIImage *)flipVertical;
+- (UIImage *)flipHorizontal;
+- (UIImage *)imageRotatedByDegrees:(CGFloat)degrees;
+- (UIImage *)imageRotatedByRadians:(CGFloat)radians;
+
 + (UIImage *)thumbnailImageWithALAsset:(ALAsset *)asset;
 + (UIImage *)fullScreenImageWithALAsset:(ALAsset *)asset;
 + (UIImage *)fullResolutionImageWithALAsset:(ALAsset *)asset;
