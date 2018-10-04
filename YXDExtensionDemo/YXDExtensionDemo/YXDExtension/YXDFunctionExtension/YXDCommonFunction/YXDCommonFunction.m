@@ -11,6 +11,8 @@
 #import "NSString+YXDExtension.h"
 #import "NSData+YXDExtension.h"
 #import "UIImage+YXDExtension.h"
+#import "UIApplication+YXDExtension.h"
+#import "UIDevice+YXDExtension.h"
 #import "SDImageCache.h"
 
 #define YXDCommonFunctionUserDefaultsKey(key, account) (account?[NSString stringWithFormat:@"%@_%@",key,account]:key)
