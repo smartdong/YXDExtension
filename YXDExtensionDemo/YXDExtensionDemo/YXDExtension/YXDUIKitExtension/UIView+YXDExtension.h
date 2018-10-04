@@ -17,7 +17,11 @@
 @property(nonatomic, assign) CGPoint origin;
 @property(nonatomic, assign) CGSize size;
 
+@property(nonatomic, readonly) UIImage *image;
+
 - (void)setBorderColor:(UIColor *)color width:(CGFloat)width;
 - (void)setCornerWidth:(CGFloat)width;
+
+- (UIImage *)image;
 
 @end
