@@ -81,7 +81,6 @@
 		0B4DB4561F1915B000B007AC /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B4DB3891F1915AF00B007AC /* FMDatabasePool.m */; };
 		0B4DB4571F1915B000B007AC /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B4DB38B1F1915AF00B007AC /* FMDatabaseQueue.m */; };
 		0B4DB4581F1915B000B007AC /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B4DB38E1F1915AF00B007AC /* FMResultSet.m */; };
-		0B4DB4591F1915B000B007AC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B4DB38F1F1915AF00B007AC /* Info.plist */; };
 		0B4DB45A1F1915B000B007AC /* CLIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B4DB3931F1915AF00B007AC /* CLIColor.m */; };
 		0B4DB45B1F1915B000B007AC /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B4DB3961F1915AF00B007AC /* DDAbstractDatabaseLogger.m */; };
 		0B4DB45C1F1915B000B007AC /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B4DB3981F1915AF00B007AC /* DDASLLogCapture.m */; };
@@ -385,7 +384,6 @@
 		0B4DB38C1F1915AF00B007AC /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
 		0B4DB38D1F1915AF00B007AC /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		0B4DB38E1F1915AF00B007AC /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
-		0B4DB38F1F1915AF00B007AC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B4DB3921F1915AF00B007AC /* CLIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLIColor.h; sourceTree = "<group>"; };
 		0B4DB3931F1915AF00B007AC /* CLIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLIColor.m; sourceTree = "<group>"; };
 		0B4DB3941F1915AF00B007AC /* CocoaLumberjack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaLumberjack.h; sourceTree = "<group>"; };
@@ -1042,7 +1040,6 @@
 				0B4DB38C1F1915AF00B007AC /* FMDB.h */,
 				0B4DB38D1F1915AF00B007AC /* FMResultSet.h */,
 				0B4DB38E1F1915AF00B007AC /* FMResultSet.m */,
-				0B4DB38F1F1915AF00B007AC /* Info.plist */,
 			);
 			path = FMDB;
 			sourceTree = "<group>";
@@ -1738,7 +1735,6 @@
 				8855A2681F4B192600073C2F /* DZNWebViewController.strings in Resources */,
 				8855A26C1F4B192600073C2F /* dzn_icn_activity_dolphin@2x~ipad.png in Resources */,
 				0B6725501B6E9FC9009272B4 /* Images.xcassets in Resources */,
-				0B4DB4591F1915B000B007AC /* Info.plist in Resources */,
 				8855A26D1F4B192600073C2F /* dzn_icn_activity_link@2x.png in Resources */,
 				0B2DFC531CB8C4B5005ABED3 /* loading.gif in Resources */,
 				8855A27E1F4B192600073C2F /* dzn_icn_toolbar_reload@3x.png in Resources */,
