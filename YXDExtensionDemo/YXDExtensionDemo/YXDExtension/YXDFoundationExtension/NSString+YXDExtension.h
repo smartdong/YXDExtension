@@ -45,7 +45,10 @@
                                        priceStringColor:(UIColor *)priceStringColor;
 
 - (NSURL *)URL;
+- (NSURL *)encodedURL;
+
 - (NSURLRequest *)URLRequest;
+- (NSURLRequest *)encodedURLRequest;
 
 - (NSString *)URLDecode;
 - (NSString *)URLEncode;

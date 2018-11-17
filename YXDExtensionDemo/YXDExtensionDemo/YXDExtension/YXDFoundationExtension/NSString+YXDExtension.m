@@ -144,12 +144,19 @@
 }
 
 - (NSURL *)URL {
-    NSString *encodedString = [[self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"];
-    return [NSURL URLWithString:encodedString];
+    return [NSURL URLWithString:self];
+}
+
+- (NSURL *)encodedURL {
+    return [NSURL URLWithString:[[self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"]];
 }
 
 - (NSURLRequest *)URLRequest {
     return [NSURLRequest requestWithURL:self.URL];
+}
+
+- (NSURLRequest *)encodedURLRequest {
+    return [NSURLRequest requestWithURL:self.encodedURL];
 }
 
 #pragma mark - urlEncode & urlDecode
